@@ -6,7 +6,7 @@ export default ({
   debounceInterval = 200,
   NoResponsiveComponent = NoResponsive,
   withBreakpoints = { width: 700, height: 400 },
-  gifSrc = 'https://media.giphy.com/media/w0vFxYaCcvvJm/giphy.gif',
+  gifSrc = 'https://media.giphy.com/media/10tIjpzIu8fe0/giphy.gif',
   gifAlt = 'Sorry, too small',
   text,
   componentName = 'TooSmallBro',
