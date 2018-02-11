@@ -39,8 +39,7 @@
         "lodash": "^4.17.5",
         "nodemon": "^1.9.1",
         "react": "^15.0.0",
-        "react-dom": "^15.0.0",
-        "semantic-release": "^12.4.1"
+        "react-dom": "^15.0.0"
     },
     "peerDependencies": {
         "react": "~0.14.8 || ^15.0.0",

@@ -1,18 +1,15 @@
-# Project Title
+<h1 align="center"> react-too-small</h1>
+<p align="center">Cool component for non responsive app</p>
 
-Sorry bro, your screen is too small, that's why you are seeing this screen.
+<p align="center"><a href="https://react-too-small.netlify.com/">
+<img src="https://api.travis-ci.org/digilifecz123/react-too-small.svg" alt="Build Status" /></a>
+<a href="https://www.npmjs.com/package/react-motion-menu">
+<img src="https://img.shields.io/npm/v/react-too-small.svg" alt="npm version" /></a> 
+</p>
 
-## Getting Started
+<p align="center"><img src ="https://media.giphy.com/media/3o7WINcHQNYNQ8C9s4/giphy.gif?raw=true" /></p>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-
-### Examples
-
-Default settings: https://stackblitz.com/edit/react-too-small-default
-
-[![Code Climate](https://media.giphy.com/media/3o7WINcHQNYNQ8C9s4/giphy.gif)](https://stackblitz.com/edit/react-too-small-default)
-
+<p align="center"><a href='https://stackblitz.com/edit/react-too-small-default'>See demo</a></p>
 
 
 ## Installation
@@ -64,79 +61,35 @@ const ComposedComponent = toSmallBro()(App);
 render(<ComposedComponent />, document.getElementById('root'));
 ````
 
-### Configuration
+## Code examples
+Setting v1: https://stackblitz.com/edit/react-too-small-default
 
-### Other examples
+Setting v2: https://stackblitz.com/edit/react-too-small-v2
 
-Settings 2: https://stackblitz.com/edit/react-too-small-v2
 
 [![Code Climate](https://media.giphy.com/media/xThtan8PVMww4pu2EE/giphy.gif)](https://stackblitz.com/edit/react-too-small-v2)
 
-## How to use
-
-````js
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import Hello from './Hello';
-import toSmallBro from 'react-too-small';
 
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: 'React'
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <Hello name={this.state.name} />
-        <p>
-          Start editing to see some magic happen :)
-        </p>
-      </div>
-    );
-  }
-}
-
-
-const text = {
-      header: 'Sorry bro,',
-      headerSmall: 'your screen is way to small',
-      italic: '*but dont worry, we are working on responsive design',
-      button: 'F*ck it, just show me the web',
-     };
-
-const gifSrc = 'https://media.giphy.com/media/w0vFxYaCcvvJm/giphy.gif';
-
-const ComposedComponent = toSmallBro({text, gifSrc })(App);
-
-render(<ComposedComponent />, document.getElementById('root'));
-````
-
-Supported props
----------------
+## Configuration
+feel free to change the config
 
 ````js
 const config = {
   text: {
-      header: 'Sorry bro,',
-      headerSmall: 'your screen is way to small',
-      italic: '*but dont worry, we are working on responsive design',
-      button: 'F*ck it, just show me the web',
+      header: 'We are sorry,',
+      headerSmall: 'but we are not responsive yet ...',
+      italic: '*currently in progress',
+      button: 'Continue',
     },
     gifSrc: 'https://media.giphy.com/media/w0vFxYaCcvvJm/giphy.gif',
-    debounceInterval: 300,
+    debounceInterval: 200,
     NoResponsiveComponent: <CustomComponent />,
-    withBreakpoints: { width: 300, height: 200 },
+    withBreakpoints: { width: 700, height: 400 },
     componentName: 'TooSmallBro',
 };
 
 const ComposedComponent = toSmallBro(config)(App);
-
-render(<ComposedComponent />, document.getElementById('root'));
 ````
 
 
