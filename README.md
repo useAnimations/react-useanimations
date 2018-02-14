@@ -1,5 +1,5 @@
 <h1 align="center"> react-too-small</h1>
-<p align="center">Cool component for non responsive app</p>
+<p align="center">Sorry bro, your screen is too small</p>
 
 <p align="center"><a href="https://react-too-small.netlify.com/">
 <img src="https://api.travis-ci.org/digilifecz123/react-too-small.svg" alt="Build Status" /></a>
