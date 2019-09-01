@@ -1,7 +1,7 @@
 {
   "name": "react-useanimations",
-  "version": "1.0.7",
-  "description": "Official React component for Font useAnimations",
+  "version": "1.0.8",
+  "description": "Official React component for useAnimations",
   "repository": {
     "type": "git",
     "url": "https://github.com/digilifecz123/react-useAnimations.git"
