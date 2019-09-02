@@ -7,7 +7,7 @@ export const CLICK_PLAY = 'CLICK_PLAY';
 export const HOVER_PLAY_AND_STOP = 'HOVER_PLAY_AND_STOP';
 export const CLICK_PLAY_AND_SEGMENTS = 'CLICK_PLAY_AND_SEGMENTS';
 
-export default ({ options, animationKey, ariaLabel, effect, ...other }) => {
+export default ({ options, animationKey, ariaLabel, effect, loop, autoplay, ...other }) => {
     let animation;
     const element = useRef(null);
 
@@ -16,6 +16,8 @@ export default ({ options, animationKey, ariaLabel, effect, ...other }) => {
             container: element.current,
             renderer: 'svg',
             animationData: getAnimationData(animationKey),
+            loop,
+            autoplay,
             ...options,
         };
 
@@ -50,8 +52,8 @@ export default ({ options, animationKey, ariaLabel, effect, ...other }) => {
 
     if (effect === HOVER_PLAY_AND_STOP) {
         actions = {
-            onMouseEnter: () => animation.play,
-            onMouseLeave: () => animation.stop,
+            onMouseEnter: () => animation.play(),
+            onMouseLeave: () => animation.stop(),
         };
     }
 
@@ -67,10 +69,16 @@ export default ({ options, animationKey, ariaLabel, effect, ...other }) => {
         };
     }
 
+    const defaultStyles = {
+        overflow: 'hidden',
+        outline: 'none',
+    }
+
     return (
         <div
             ref={element}
             aria-label={ariaLabel}
+            style={defaultStyles}
             tabIndex="0"
             {...actions}
             {...other}
