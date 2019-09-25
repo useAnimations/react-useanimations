@@ -11,10 +11,7 @@ const CLICK_PLAY_AND_SEGMENTS = 'CLICK_PLAY_AND_SEGMENTS';
 const getEvents = ({ animation, effect }) => {
   if (effect === CLICK_PLAY_AND_SEGMENTS) {
     return {
-      onClick: () => {
-        animation.stop()
-        animation.play()
-      },
+      onClick: () => animation.playSegments([0,60], true),
     };
   }
 
@@ -46,7 +43,7 @@ const getEvents = ({ animation, effect }) => {
 
 
       },
-      onMouseLeave: () => {
+      onMouseLeave: () => {     
 
         animation.setDirection(-1);
         animation.play();
@@ -80,6 +77,7 @@ export default ({
   ...other
 }) => {
   const element = useRef(null);
+
   const [animation, setAnimation] = useState(null);
   const [events, setEvents] = useState();
 
