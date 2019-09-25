@@ -1,6 +1,6 @@
 {
   "name": "react-useanimations",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Official React component for useAnimations",
   "repository": {
     "type": "git",
@@ -19,13 +19,15 @@
     "react"
   ],
   "scripts": {
-    "prepublish": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
+    "prepublish": "babel src -d es2015 --ignore __tests__ --watch --out-dir ./dist",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.4",
-    "babel-core": "^6.26.3",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
     "babel-polyfill": "^6.7.4",
