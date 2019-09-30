@@ -1,52 +1,54 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import lottie from 'lottie-web';
 import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
 
-export default ({
-  options,
-  animationKey,
-  ariaLabel,
-  effect,
-  loop,
-  autoplay,
-  ...other
-}) => {
-  const element = useRef(null);
+export default class InputStory extends React.Component {
+  element = React.createRef();
 
-  const [animation, setAnimation] = useState(null);
-
-  useEffect(() => {
+  componentDidMount() {
+    console.log(111)
+    const { animationKey, loop, autoplay, options } = this.props;
     const animEffect = getEffect(animationKey);
-
     const defaultOptions = {
-      container: element.current,
+      container: this.element.current,
       renderer: 'svg',
       animationData: getAnimationData(animationKey),
       loop: loop || animEffect === LOOP_PLAY,
       autoplay: autoplay || animEffect === LOOP_PLAY,
       ...options,
     };
+    this.setAnimation(lottie.loadAnimation(defaultOptions));
+  }
 
-    setAnimation(lottie.loadAnimation(defaultOptions));
+  componentWillUnmount() {
+    const { animation } = this.state;
 
-    return () => {
-      animation.destroy();
-      setAnimation(null);
+    animation.destroy();
+    this.setAnimation(null);
+  }
+
+  setAnimation = animation => this.setState({ animation });
+
+  render() {
+    const { animationKey, ariaLabel, className } = this.props;
+    const { animation } = this.state;
+
+    const defaultStyles = {
+      overflow: 'hidden',
+      outline: 'none',
     };
-  }, []);
 
-  const defaultStyles = {
-    overflow: 'hidden',
-    outline: 'none',
-  };
-
-  return (
-    <div
-      ref={element}
-      aria-label={ariaLabel}
-      style={defaultStyles}
-      {...getEvents({ animation, animEffect: getEffect(animationKey) })}
-      {...other}
-    />
-  );
-};
+    return (
+      <div
+        ref={this.element.current}
+        aria-label={ariaLabel}
+        style={defaultStyles}
+        {...getEvents({
+          animation,
+          animEffect: getEffect(animationKey),
+        })}
+        {...className}
+      />
+    );
+  }
+}

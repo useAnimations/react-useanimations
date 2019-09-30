@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "es6": true
@@ -20,6 +21,7 @@
     "arrow-parens": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
+    "rest-spread-spacing": "off",
     "object-curly-newline": "off"
   }
 }
