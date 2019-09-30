@@ -6,7 +6,6 @@ export default class InputStory extends React.Component {
   element = React.createRef();
 
   componentDidMount() {
-    console.log(111)
     const { animationKey, loop, autoplay, options } = this.props;
     const animEffect = getEffect(animationKey);
     const defaultOptions = {
