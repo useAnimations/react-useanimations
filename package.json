@@ -37,7 +37,6 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.1.1",
     "lottie-web": "^5.5.7",
     "nodemon": "^1.19.1",
     "react": "^16.9.0",
