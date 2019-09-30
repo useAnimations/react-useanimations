@@ -3,6 +3,10 @@ import lottie from 'lottie-web';
 import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
 
 export default class InputStory extends React.Component {
+  state = {
+    animation: null,
+  };
+
   element = React.createRef();
 
   componentDidMount() {
@@ -39,14 +43,14 @@ export default class InputStory extends React.Component {
 
     return (
       <div
-        ref={this.element.current}
+        ref={this.element}
         aria-label={ariaLabel}
         style={defaultStyles}
+        className={className}
         {...getEvents({
           animation,
           animEffect: getEffect(animationKey),
         })}
-        {...className}
       />
     );
   }
