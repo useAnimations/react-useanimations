@@ -6,55 +6,67 @@ import {
   CLICK_PLAY_AND_SEGMENTS,
 } from './constants';
 
+const getClickAndPlaySegmentsEvents = animation => ({
+  onClick: () => animation.playSegments([0, 60], true),
+});
+
+const getClickPlayEvents = animation => ({
+  onClick: () => {
+    animation.stop();
+    animation.play();
+  },
+});
+
+const getHoverPlayAndStop = animation => ({
+  onMouseEnter: () => animation.play(),
+  onMouseLeave: () => animation.stop(),
+});
+
+const getHoverPlayBackwardsEvents = animation => ({
+  onMouseEnter: () => {
+    animation.setDirection(1);
+    animation.play();
+  },
+  onMouseLeave: () => {
+    animation.setDirection(-1);
+    animation.play();
+  },
+});
+
+const getClickAndPlayBackwardsEvents = animation => {
+  let directionMenu = 1;
+
+  return {
+    onClick: () => {
+      animation.setDirection(directionMenu);
+      animation.play();
+      directionMenu = -directionMenu;
+    },
+  };
+};
+
 const getEvents = ({ animation, animEffect }) => {
   if (animEffect === CLICK_PLAY_AND_SEGMENTS) {
-    return {
-      onClick: () => animation.playSegments([0, 60], true),
-    };
+    return getClickAndPlaySegmentsEvents(animation);
   }
 
   if (animEffect === CLICK_PLAY) {
-    return {
-      onClick: () => {
-        animation.stop();
-        animation.play();
-      },
-    };
+    return getClickPlayEvents(animation);
   }
 
   if (animEffect === HOVER_PLAY_AND_STOP) {
-    return {
-      onMouseEnter: () => animation.play(),
-      onMouseLeave: () => animation.stop(),
-    };
+    return getHoverPlayAndStop(animation);
   }
 
   if (animEffect === HOVER_PLAY_AND_BACKWARDS) {
-    return {
-      onMouseEnter: () => {
-        animation.setDirection(1);
-        animation.play();
-      },
-      onMouseLeave: () => {
-        animation.setDirection(-1);
-        animation.play();
-      },
-    };
+    return getHoverPlayBackwardsEvents(animation);
   }
 
   if (animEffect === CLICK_PLAY_AND_BACKWARDS) {
-    let directionMenu = 1;
-
-    return {
-      onClick: () => {
-        animation.setDirection(directionMenu);
-        animation.play();
-        directionMenu = -directionMenu;
-      },
-    };
+    return getClickAndPlayBackwardsEvents(animation);
   }
 
-  return null;
+  return getClickPlayEvents(animation);
 };
 
 export default getEvents;

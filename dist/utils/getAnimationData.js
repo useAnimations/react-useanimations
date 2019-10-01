@@ -53,6 +53,8 @@ var _loading2 = _interopRequireDefault(require("../../animations/loading2.json")
 
 var _lock = _interopRequireDefault(require("../../animations/lock.json"));
 
+var _mail = _interopRequireDefault(require("../../animations/mail.json"));
+
 var _maximizeMinimize = _interopRequireDefault(require("../../animations/maximizeMinimize.json"));
 
 var _maximizeMinimize2 = _interopRequireDefault(require("../../animations/maximizeMinimize2.json"));
@@ -148,7 +150,7 @@ var keys = {
   loading: _loading["default"],
   loading2: _loading2["default"],
   lock: _lock["default"],
-  mail: _lock["default"],
+  mail: _mail["default"],
   maximizeMinimize: _maximizeMinimize["default"],
   maximizeMinimize2: _maximizeMinimize2["default"],
   menu: _menu["default"],
