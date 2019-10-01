@@ -2,12 +2,7 @@ import React from 'react';
 import lottie from 'lottie-web';
 import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
 
-const defaultStyles = {
-  overflow: 'hidden',
-  outline: 'none',
-};
-
-export default class InputStory extends React.Component {
+export default class UseAnimations extends React.Component {
   state = {
     animation: null,
   };
@@ -40,8 +35,15 @@ export default class InputStory extends React.Component {
   setAnimation = animation => this.setState({ animation });
 
   render() {
-    const { animationKey, ...other } = this.props;
+    const { animationKey, size, ...other } = this.props;
     const { animation } = this.state;
+
+    const defaultStyles = {
+      overflow: 'hidden',
+      outline: 'none',
+      width: size,
+    };
+
     const animationProps = {
       ref: this.element,
       ...other,
@@ -55,3 +57,7 @@ export default class InputStory extends React.Component {
     return <div {...animationProps} />;
   }
 }
+
+UseAnimations.defaultProps = {
+  size: 32,
+};

@@ -41,28 +41,23 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var defaultStyles = {
-  overflow: 'hidden',
-  outline: 'none'
-};
-
-var InputStory =
+var UseAnimations =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(InputStory, _React$Component);
+  _inherits(UseAnimations, _React$Component);
 
-  function InputStory() {
+  function UseAnimations() {
     var _getPrototypeOf2;
 
     var _this;
 
-    _classCallCheck(this, InputStory);
+    _classCallCheck(this, UseAnimations);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(InputStory)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(UseAnimations)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       animation: null
@@ -79,7 +74,7 @@ function (_React$Component) {
     return _this;
   }
 
-  _createClass(InputStory, [{
+  _createClass(UseAnimations, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this$props = this.props,
@@ -111,9 +106,15 @@ function (_React$Component) {
     value: function render() {
       var _this$props2 = this.props,
           animationKey = _this$props2.animationKey,
-          other = _objectWithoutProperties(_this$props2, ["animationKey"]);
+          size = _this$props2.size,
+          other = _objectWithoutProperties(_this$props2, ["animationKey", "size"]);
 
       var animation = this.state.animation;
+      var defaultStyles = {
+        overflow: 'hidden',
+        outline: 'none',
+        width: size
+      };
 
       var animationProps = _objectSpread({
         ref: this.element
@@ -128,7 +129,10 @@ function (_React$Component) {
     }
   }]);
 
-  return InputStory;
+  return UseAnimations;
 }(_react["default"].Component);
 
-exports["default"] = InputStory;
+exports["default"] = UseAnimations;
+UseAnimations.defaultProps = {
+  size: 32
+};
