@@ -59,5 +59,5 @@ export default class UseAnimations extends React.Component {
 }
 
 UseAnimations.defaultProps = {
-  size: 32,
+  size: 24,
 };

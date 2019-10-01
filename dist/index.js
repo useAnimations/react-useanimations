@@ -134,5 +134,5 @@ function (_React$Component) {
 
 exports["default"] = UseAnimations;
 UseAnimations.defaultProps = {
-  size: 32
+  size: 24
 };
