@@ -2,6 +2,11 @@ import React from 'react';
 import lottie from 'lottie-web';
 import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
 
+const defaultStyles = {
+  overflow: 'hidden',
+  outline: 'none',
+};
+
 export default class InputStory extends React.Component {
   state = {
     animation: null,
@@ -12,6 +17,7 @@ export default class InputStory extends React.Component {
   componentDidMount() {
     const { animationKey, loop, autoplay, options } = this.props;
     const animEffect = getEffect(animationKey);
+
     const defaultOptions = {
       container: this.element.current,
       renderer: 'svg',
@@ -20,6 +26,7 @@ export default class InputStory extends React.Component {
       autoplay: autoplay || animEffect === LOOP_PLAY,
       ...options,
     };
+
     this.setAnimation(lottie.loadAnimation(defaultOptions));
   }
 
@@ -33,25 +40,18 @@ export default class InputStory extends React.Component {
   setAnimation = animation => this.setState({ animation });
 
   render() {
-    const { animationKey, ariaLabel, className } = this.props;
+    const { animationKey, ...other } = this.props;
     const { animation } = this.state;
-
-    const defaultStyles = {
-      overflow: 'hidden',
-      outline: 'none',
+    const animationProps = {
+      ref: this.element,
+      ...other,
+      style: defaultStyles,
+      ...getEvents({
+        animation,
+        animEffect: getEffect(animationKey),
+      }),
     };
 
-    return (
-      <div
-        ref={this.element}
-        aria-label={ariaLabel}
-        style={defaultStyles}
-        className={className}
-        {...getEvents({
-          animation,
-          animEffect: getEffect(animationKey),
-        })}
-      />
-    );
+    return <div {...animationProps} />;
   }
 }
