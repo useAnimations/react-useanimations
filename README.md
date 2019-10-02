@@ -32,7 +32,7 @@ npm install react-useanimations
 
 ```javascript
 import React from 'react';
-import UseAnimations from 'react-useAnimations';
+import UseAnimations from 'react-useanimations';
 
 const App = () => {
   return <UseAnimations animationKey="alert" />;
