@@ -4,6 +4,7 @@ import {
   HOVER_PLAY_AND_BACKWARDS,
   LOOP_PLAY,
   CLICK_PLAY_AND_SEGMENTS,
+  CLICK_PLAY,
 } from './constants';
 
 const animations = {
@@ -18,7 +19,7 @@ const animations = {
   bookmark: CLICK_PLAY_AND_BACKWARDS,
   checkbox: CLICK_PLAY_AND_BACKWARDS,
   codepen: HOVER_PLAY_AND_STOP,
-  download: CLICK_PLAY_AND_SEGMENTS,
+  download: CLICK_PLAY,
   facebook: HOVER_PLAY_AND_STOP,
   github: HOVER_PLAY_AND_STOP,
   heart: CLICK_PLAY_AND_BACKWARDS,
