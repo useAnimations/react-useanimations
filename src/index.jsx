@@ -35,13 +35,14 @@ export default class UseAnimations extends React.Component {
   setAnimation = animation => this.setState({ animation });
 
   render() {
-    const { animationKey, size, ...other } = this.props;
+    const { animationKey, size, style, ...other } = this.props;
     const { animation } = this.state;
 
     const defaultStyles = {
       overflow: 'hidden',
       outline: 'none',
       width: size,
+      ...style,
     };
 
     const animationProps = {

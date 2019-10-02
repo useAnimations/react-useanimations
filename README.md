@@ -34,9 +34,7 @@ npm install react-useanimations
 import React from 'react';
 import UseAnimations from 'react-useanimations';
 
-const App = () => {
-  return <UseAnimations animationKey="alert" />;
-};
+const App = () => <UseAnimations animationKey="github" />;
 
 export default App;
 ```
@@ -44,5 +42,5 @@ export default App;
 Icons can be configured with inline props:
 
 ```javascript
-<UseAnimations animationKey="alert" size={48} />
+<UseAnimations animationKey="alert" size={56} style={{ padding: 100 }} />
 ```

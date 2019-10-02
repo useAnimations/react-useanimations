@@ -107,14 +107,16 @@ function (_React$Component) {
       var _this$props2 = this.props,
           animationKey = _this$props2.animationKey,
           size = _this$props2.size,
-          other = _objectWithoutProperties(_this$props2, ["animationKey", "size"]);
+          style = _this$props2.style,
+          other = _objectWithoutProperties(_this$props2, ["animationKey", "size", "style"]);
 
       var animation = this.state.animation;
-      var defaultStyles = {
+
+      var defaultStyles = _objectSpread({
         overflow: 'hidden',
         outline: 'none',
         width: size
-      };
+      }, style);
 
       var animationProps = _objectSpread({
         ref: this.element
