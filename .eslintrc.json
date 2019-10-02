@@ -23,6 +23,7 @@
     "react/jsx-props-no-spreading": "off",
     "rest-spread-spacing": "off",
     "react/state-in-constructor": "off",
+    "no-useless-rename": 0,
     "object-curly-newline": "off"
   }
 }
