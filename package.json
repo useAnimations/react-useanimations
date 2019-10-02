@@ -4,14 +4,14 @@
   "description": "Official React component for useanimations",
   "repository": {
     "type": "git",
-    "url": "https://github.com/digilifecz123/react-useanimations.git"
+    "url": "https://github.com/useAnimations/react-useanimations.git"
   },
   "author": "Tuan Phung",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/digilifecz123/react-useanimations/issues"
+    "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
-  "homepage": "https://github.com/digilifecz123/react-useanimations",
+  "homepage": "https://github.com/useAnimations/react-useanimations",
   "keywords": [
     "react-component",
     "small",
