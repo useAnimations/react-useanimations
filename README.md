@@ -10,9 +10,7 @@ React-useanimations is a collection of free animated open source icons for React
 
 [https://react.useanimations.com](https://react.useanimations.com/) and play with examples.
 
-<p align="center">
-  <a href="https://bit.dev/feathericons/react-feather"><img src="https://i.imagesup.co/images2/371e9a2b398a5d7cef54a956d959e4534b290a55.gif"></a>
-</p>
+![](useanimations-preview.gif)
 
 ### Installation
 
