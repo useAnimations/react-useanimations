@@ -19,7 +19,7 @@ var animations = {
   bookmark: _constants.CLICK_PLAY_AND_BACKWARDS,
   checkbox: _constants.CLICK_PLAY_AND_BACKWARDS,
   codepen: _constants.HOVER_PLAY_AND_STOP,
-  download: _constants.CLICK_PLAY_AND_SEGMENTS,
+  download: _constants.CLICK_PLAY,
   facebook: _constants.HOVER_PLAY_AND_STOP,
   github: _constants.HOVER_PLAY_AND_STOP,
   heart: _constants.CLICK_PLAY_AND_BACKWARDS,
