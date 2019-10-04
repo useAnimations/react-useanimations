@@ -1,6 +1,6 @@
 {
   "name": "react-useanimations",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Official React component for useanimations icons",
   "repository": {
     "type": "git",
@@ -26,8 +26,7 @@
     "lintfix": "eslint ./src --fix"
   },
   "dependencies": {
-    "lottie-web": "^5.5.7",
-    "react-highlight.js": "^1.0.7"
+    "lottie-web": "^5.5.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
