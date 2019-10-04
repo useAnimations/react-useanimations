@@ -26,6 +26,10 @@
     "lintfix": "eslint ./src --fix"
   },
   "dependencies": {
+    "lottie-web": "^5.5.7",
+    "react-highlight.js": "^1.0.7"
+  },
+  "devDependencies": {
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
@@ -39,9 +43,9 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
-    "lottie-web": "^5.5.7",
-    "nodemon": "^1.19.1",
-    "react": "^16.9.0",
-    "react-highlight.js": "^1.0.7"
+    "nodemon": "^1.19.1"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
   }
 }
