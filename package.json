@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "lottie-web": "^5.5.7",
-    "react-highlight.js": "^1.0.7"
+    "react-highlight.js": "^1.0.7",
+    "styled-components": "4.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",

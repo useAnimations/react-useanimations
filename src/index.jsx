@@ -1,6 +1,13 @@
 import React from 'react';
 import lottie from 'lottie-web';
+import styled from 'styled-components';
 import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
+
+const ColoredIcon = styled.div`
+  path {
+    stroke: ${({ strokeColor }) => strokeColor};
+  }
+`;
 
 export default class UseAnimations extends React.Component {
   state = {
@@ -35,7 +42,7 @@ export default class UseAnimations extends React.Component {
   setAnimation = animation => this.setState({ animation });
 
   render() {
-    const { animationKey, size, style, ...other } = this.props;
+    const { animationKey, size, style, strokeColor, ...other } = this.props;
     const { animation } = this.state;
 
     const defaultStyles = {
@@ -55,7 +62,7 @@ export default class UseAnimations extends React.Component {
       }),
     };
 
-    return <div {...animationProps} />;
+    return <ColoredIcon {...animationProps} strokeColor={strokeColor} />;
   }
 }
 
