@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _lottieWeb = _interopRequireDefault(require("lottie-web"));
 
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
 var _utils = require("./utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -40,6 +42,26 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  path {\n    stroke: ", ";\n    fill: ", ";\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var ColoredIcon = _styledComponents["default"].div(_templateObject(), function (_ref) {
+  var strokeColor = _ref.strokeColor;
+  return strokeColor || 'currentColor;';
+}, function (_ref2) {
+  var fillColor = _ref2.fillColor;
+  return fillColor || 'currentColor;';
+});
 
 var UseAnimations =
 /*#__PURE__*/
@@ -127,7 +149,7 @@ function (_React$Component) {
         animEffect: (0, _utils.getEffect)(animationKey)
       }));
 
-      return _react["default"].createElement("div", animationProps);
+      return _react["default"].createElement(ColoredIcon, animationProps);
     }
   }]);
 
