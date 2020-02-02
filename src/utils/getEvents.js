@@ -1,72 +1,95 @@
-import {
-  CLICK_PLAY_AND_BACKWARDS,
-  HOVER_PLAY_AND_STOP,
-  HOVER_PLAY_AND_BACKWARDS,
-  CLICK_PLAY,
-  CLICK_PLAY_AND_SEGMENTS,
-} from './constants';
+"use strict";
 
-const getClickAndPlaySegmentsEvents = animation => ({
-  onClick: () => animation.playSegments([0, 60], true),
+Object.defineProperty(exports,"__esModule",{
+  value: true
 });
+exports["default"]=void 0;
 
-const getClickPlayEvents = animation => ({
-  onClick: () => {
-    animation.stop();
-    animation.play();
-  },
-});
+var _constants=require("./constants");
 
-const getHoverPlayAndStop = animation => ({
-  onMouseEnter: () => animation.play(),
-  onMouseLeave: () => animation.stop(),
-});
-
-const getHoverPlayBackwardsEvents = animation => ({
-  onMouseEnter: () => {
-    animation.setDirection(1);
-    animation.play();
-  },
-  onMouseLeave: () => {
-    animation.setDirection(-1);
-    animation.play();
-  },
-});
-
-const getClickAndPlayBackwardsEvents = animation => {
-  let directionMenu = 1;
-
+var getClickAndPlaySegmentsEvents=function getClickAndPlaySegmentsEvents(animation) {
   return {
-    onClick: () => {
-      animation.setDirection(directionMenu);
-      animation.play();
-      directionMenu = -directionMenu;
-    },
+    onClick: function onClick() {
+      return animation.playSegments([0,60],true);
+    }
   };
 };
 
-const getEvents = ({ animation, animEffect }) => {
-  if (animEffect === CLICK_PLAY_AND_SEGMENTS) {
+var getClickPlayEvents=function getClickPlayEvents(animation) {
+  return {
+    onClick: function onClick() {
+      animation.stop();
+      animation.play();
+    }
+  };
+};
+
+var getHoverPlayAndStop=function getHoverPlayAndStop(animation) {
+  return {
+    onMouseEnter: function onMouseEnter() {
+      return animation.play();
+    },
+    onMouseLeave: function onMouseLeave() {
+      return animation.stop();
+    }
+  };
+};
+
+var getHoverPlayBackwardsEvents=function getHoverPlayBackwardsEvents(animation) {
+  return {
+    onMouseEnter: function onMouseEnter() {
+      animation.setDirection(1);
+      animation.play();
+    },
+    onMouseLeave: function onMouseLeave() {
+      animation.setDirection(-1);
+      animation.play();
+    }
+  };
+};
+
+var getClickAndPlayBackwardsEvents=function getClickAndPlayBackwardsEvents(animation) {
+  return {
+    onClick: function onClick() {
+      console.log(animation);
+      if(animation.currentFrame==0) {
+        animation.play();
+        animation.setDirection(1);
+      }
+      else {
+        animation.setDirection(animation.playDirection*-1);
+        animation.play();
+      }
+    }
+  };
+};
+
+var getEvents=function getEvents(_ref) {
+  var animation=_ref.animation,
+    animEffect=_ref.animEffect;
+
+  if(animEffect===_constants.CLICK_PLAY_AND_SEGMENTS) {
     return getClickAndPlaySegmentsEvents(animation);
   }
 
-  if (animEffect === CLICK_PLAY) {
+  if(animEffect===_constants.CLICK_PLAY) {
     return getClickPlayEvents(animation);
   }
 
-  if (animEffect === HOVER_PLAY_AND_STOP) {
+  if(animEffect===_constants.HOVER_PLAY_AND_STOP) {
     return getHoverPlayAndStop(animation);
   }
 
-  if (animEffect === HOVER_PLAY_AND_BACKWARDS) {
+  if(animEffect===_constants.HOVER_PLAY_AND_BACKWARDS) {
     return getHoverPlayBackwardsEvents(animation);
   }
 
-  if (animEffect === CLICK_PLAY_AND_BACKWARDS) {
+  if(animEffect===_constants.CLICK_PLAY_AND_BACKWARDS) {
     return getClickAndPlayBackwardsEvents(animation);
   }
 
   return getClickPlayEvents(animation);
 };
 
-export default getEvents;
+var _default=getEvents;
+exports["default"]=_default;
