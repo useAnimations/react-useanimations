@@ -120,7 +120,7 @@ function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       var animation = this.state.animation;
-      animation.destroy();
+      animation && animation.destroy();
       this.setAnimation(null);
     }
   }, {
