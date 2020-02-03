@@ -51,7 +51,6 @@ var getHoverPlayBackwardsEvents=function getHoverPlayBackwardsEvents(animation) 
 var getClickAndPlayBackwardsEvents=function getClickAndPlayBackwardsEvents(animation) {
   return {
     onClick: function onClick() {
-      console.log(animation);
       if(animation.currentFrame==0) {
         animation.play();
         animation.setDirection(1);
