@@ -35,8 +35,10 @@ export default class UseAnimations extends React.Component {
 
   componentWillUnmount() {
     const { animation } = this.state;
+    if (animation) {
+      animation.destroy();
+    }
 
-    animation && animation.destroy();
     this.setAnimation(null);
   }
 
