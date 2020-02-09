@@ -39,7 +39,7 @@ var _github = _interopRequireDefault(require("../../animations/github.json"));
 
 var _heart = _interopRequireDefault(require("../../animations/heart.json"));
 
-var _checkbox = _interopRequireDefault(require("../../animations/checkbox.json"));
+var _checkBox = _interopRequireDefault(require("../../animations/checkBox.json"));
 
 var _infinity = _interopRequireDefault(require("../../animations/infinity.json"));
 
@@ -143,7 +143,7 @@ var keys = {
   facebook: _facebook["default"],
   github: _github["default"],
   heart: _heart["default"],
-  checkbox: _checkbox["default"],
+  checkbox: _checkBox["default"],
   infinity: _infinity["default"],
   instagram: _instagram["default"],
   linkedin: _linkedin["default"],
