@@ -15,7 +15,7 @@ import edit from '../../animations/edit.json';
 import facebook from '../../animations/facebook.json';
 import github from '../../animations/github.json';
 import heart from '../../animations/heart.json';
-import checkbox from '../../animations/checkbox.json';
+import checkbox from '../../animations/checkBox.json';
 import infinity from '../../animations/infinity.json';
 import instagram from '../../animations/instagram.json';
 import linkedin from '../../animations/linkedin.json';
