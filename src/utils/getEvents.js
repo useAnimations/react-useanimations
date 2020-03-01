@@ -33,15 +33,18 @@ const getHoverPlayBackwardsEvents = animation => ({
   },
 });
 
-const getClickAndPlayBackwardsEvents = animation => {
-  let directionMenu = 1;
-
+var getClickAndPlayBackwardsEvents=animation=>{
   return {
-    onClick: () => {
-      animation.setDirection(directionMenu);
-      animation.play();
-      directionMenu = -directionMenu;
-    },
+    onClick: function onClick() {
+      if(animation.currentFrame==0) {
+        animation.play();
+        animation.setDirection(1);
+      }
+      else {
+        animation.setDirection(animation.playDirection*-1);
+        animation.play();
+      }
+    }
   };
 };
 
