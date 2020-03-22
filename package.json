@@ -23,7 +23,7 @@
   "scripts": {
     "build": "babel src -d es2015 --ignore __tests__ --watch --out-dir ./dist",
     "lint": "eslint ./src",
-    "lintfix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix"
   },
   "dependencies": {
     "lottie-web": "^5.5.7",
