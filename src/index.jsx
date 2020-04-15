@@ -46,7 +46,7 @@ export default class UseAnimations extends React.Component {
   setAnimation = animation => this.setState({ animation });
 
   render() {
-    const { animationKey, size, style, ...other } = this.props;
+    const { animationKey, size, style, onClick, ...other } = this.props;
     const { animation } = this.state;
 
     const defaultStyles = {
@@ -56,14 +56,22 @@ export default class UseAnimations extends React.Component {
       ...style,
     };
 
+    const eventProps = getEvents({
+      animation,
+      animEffect: getEffect(animationKey),
+    });
+
+    const handleClick = (e) => {
+      if (eventProps.onClick) eventProps.onClick(e);
+      if (onClick) onClick(e);
+    };
+
     const animationProps = {
       ref: this.element,
       ...other,
       style: defaultStyles,
-      ...getEvents({
-        animation,
-        animEffect: getEffect(animationKey),
-      }),
+      ...eventProps,
+      onClick: handleClick,
     };
 
     return <ColoredIcon {...animationProps} />;
