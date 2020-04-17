@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/useAnimations/react-useanimations.git"
   },
+  "main": "dist/index",
   "author": "Tuan Phung",
   "license": "MIT",
   "bugs": {
@@ -21,29 +22,39 @@
     "useanimations"
   ],
   "scripts": {
-    "build": "babel src -d es2015 --ignore __tests__ --watch --out-dir ./dist",
+    "build": "babel src -d es2015 --ignore __tests__ --extensions '.ts,.tsx' --out-dir ./dist",
+    "build:watch": "yarn build --watch",
+    "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "check-types": "tsc --noEmit",
+    "check-types:watch": "yarn type-check -- --watch"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
     "lottie-web": "^5.5.7",
-    "react": "^16.9.0",
-    "styled-components": "^4.4.0"
+    "react": "^16.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime": "^7.6.2",
+    "@types/react": "^16.9.34",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.5.0",
-    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "typescript": "^3.8.3"
   }
 }

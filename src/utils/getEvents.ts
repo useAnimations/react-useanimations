@@ -1,3 +1,5 @@
+import { AnimationItem, AnimationDirection } from 'lottie-web';
+
 import {
   CLICK_PLAY_AND_BACKWARDS,
   HOVER_PLAY_AND_STOP,
@@ -6,23 +8,23 @@ import {
   CLICK_PLAY_AND_SEGMENTS,
 } from './constants';
 
-const getClickAndPlaySegmentsEvents = animation => ({
+const getClickAndPlaySegmentsEvents = (animation: AnimationItem) => ({
   onClick: () => animation.playSegments([0, 60], true),
 });
 
-const getClickPlayEvents = animation => ({
+const getClickPlayEvents = (animation: AnimationItem) => ({
   onClick: () => {
     animation.stop();
     animation.play();
   },
 });
 
-const getHoverPlayAndStop = animation => ({
+const getHoverPlayAndStop = (animation: AnimationItem) => ({
   onMouseEnter: () => animation.play(),
   onMouseLeave: () => animation.stop(),
 });
 
-const getHoverPlayBackwardsEvents = animation => ({
+const getHoverPlayBackwardsEvents = (animation: AnimationItem) => ({
   onMouseEnter: () => {
     animation.setDirection(1);
     animation.play();
@@ -33,19 +35,19 @@ const getHoverPlayBackwardsEvents = animation => ({
   },
 });
 
-const getClickAndPlayBackwardsEvents = animation => {
-  let directionMenu = 1;
+const getClickAndPlayBackwardsEvents = (animation: AnimationItem) => {
+  let directionMenu: AnimationDirection = 1;
 
   return {
     onClick: () => {
       animation.setDirection(directionMenu);
       animation.play();
-      directionMenu = -directionMenu;
+      directionMenu = -directionMenu as AnimationDirection;
     },
   };
 };
 
-const getEvents = ({ animation, animEffect }) => {
+const getEvents = ({ animation, animEffect }: { animation: AnimationItem, animEffect: string }) => {
   if (animEffect === CLICK_PLAY_AND_SEGMENTS) {
     return getClickAndPlaySegmentsEvents(animation);
   }

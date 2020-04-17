@@ -68,6 +68,7 @@ const keys = {
   arrowDown,
   arrowUp,
   bookmark,
+  checkbox,
   calendar,
   codepen,
   copy,
@@ -76,7 +77,6 @@ const keys = {
   facebook,
   github,
   heart,
-  checkbox,
   infinity,
   instagram,
   linkedin,
@@ -118,8 +118,10 @@ const keys = {
   visibility,
   visibility2,
   volume,
-};
+} as const;
 
-const getAnimationData = animationKey => keys[animationKey] || '';
+export type AnimationKey = keyof typeof keys;
+
+const getAnimationData = (animationKey: AnimationKey) => keys[animationKey] || '';
 
 export default getAnimationData;

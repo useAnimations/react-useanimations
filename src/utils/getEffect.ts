@@ -7,7 +7,9 @@ import {
   CLICK_PLAY,
 } from './constants';
 
-const animations = {
+import { AnimationKey } from './getAnimationData';
+
+const animations: { [key: string]: any } = {
   activity: LOOP_PLAY,
   airplay: LOOP_PLAY,
   alertCircle: LOOP_PLAY,
@@ -61,6 +63,6 @@ const animations = {
   volume: CLICK_PLAY_AND_BACKWARDS,
 };
 
-const getEffect = animationKey => animations[animationKey] || '';
+const getEffect = (animationKey: AnimationKey): string => animations[animationKey] || '';
 
 export default getEffect;
