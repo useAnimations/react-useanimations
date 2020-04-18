@@ -28,6 +28,7 @@ type Props = {
   loop?: AnimationConfig['loop'];
   autoplay?: AnimationConfig['autoplay'];
   style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const UseAnimations: React.FC<Props> = ({
@@ -37,6 +38,7 @@ const UseAnimations: React.FC<Props> = ({
   autoplay,
   style,
   options,
+  onClick,
   ...other
 }) => {
   const [animation, setAnimation] = useState<AnimationItem>();
@@ -64,21 +66,21 @@ const UseAnimations: React.FC<Props> = ({
     ...style,
   };
 
-  let animationProps = {
+  const eventProps = animation ? getEvents({
+    animation,
+    animEffect: getEffect(animationKey),
+  }) : undefined;
+
+  const animationProps = {
     ref,
     ...other,
     style: defaultStyles,
+    ...eventProps,
+    onClick: (e: React.MouseEvent<HTMLDivElement>) => {
+      if (onClick) onClick(e);
+      if (eventProps && 'onClick' in eventProps) eventProps.onClick();
+    },
   };
-
-  if (animation) {
-    animationProps = {
-      ...animationProps,
-      ...getEvents({
-        animation,
-        animEffect: getEffect(animationKey),
-      }),
-    };
-  }
 
   return <ColoredIcon {...animationProps} />;
 };
