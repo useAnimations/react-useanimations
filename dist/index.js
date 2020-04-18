@@ -92,6 +92,10 @@ var UseAnimations = function UseAnimations(_ref3) {
     }, options);
 
     setAnimation(_lottieWeb["default"].loadAnimation(defaultOptions));
+    return function () {
+      animation === null || animation === void 0 ? void 0 : animation.destroy();
+      setAnimation(undefined);
+    };
   }, []);
 
   var defaultStyles = _objectSpread({
