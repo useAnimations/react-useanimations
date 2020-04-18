@@ -33,7 +33,9 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
-    "lottie-web": "^5.5.7",
+    "lottie-web": "^5.5.7"
+  },
+  "peerDependencies": {
     "react": "^16.9.0"
   },
   "devDependencies": {
