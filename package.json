@@ -25,8 +25,8 @@
     "build": "babel src -d es2015 --ignore __tests__ --extensions '.ts,.tsx' --out-dir ./dist",
     "build:watch": "yarn build --watch",
     "build:types": "tsc --emitDeclarationOnly",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./src --fix",
     "check-types": "tsc --noEmit",
     "check-types:watch": "yarn type-check -- --watch"
   },
@@ -53,7 +53,8 @@
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
     "nodemon": "^1.19.1",
     "typescript": "^3.8.3"
   }

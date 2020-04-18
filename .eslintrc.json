@@ -13,8 +13,8 @@
   "rules": {
     "arrow-parens": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/prop-types":"off",
     "rest-spread-spacing": "off",
-    "react/state-in-constructor": "off",
     "object-curly-newline": "off"
   }
 }
