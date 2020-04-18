@@ -22,7 +22,8 @@
     "useanimations"
   ],
   "scripts": {
-    "build": "babel src -d es2015 --ignore __tests__ --extensions '.ts,.tsx' --out-dir ./dist",
+    "prebuild": "rimraf dist",
+    "build": "babel src -d es2015 --ignore '__tests__','**/*.d.ts' --extensions '.ts,.tsx' --out-dir ./dist",
     "build:watch": "yarn build --watch",
     "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
@@ -58,6 +59,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "nodemon": "^1.19.1",
+    "rimraf": "^3.0.2",
     "typescript": "^3.8.3"
   }
 }
