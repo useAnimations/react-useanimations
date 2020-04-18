@@ -24,6 +24,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "babel src -d es2015 --ignore '__tests__','**/*.d.ts' --extensions '.ts,.tsx' --out-dir ./dist",
+    "postbuild": "yarn build:types",
     "build:watch": "yarn build --watch",
     "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
