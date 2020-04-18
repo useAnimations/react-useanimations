@@ -28,8 +28,7 @@ type Props = {
   loop?: AnimationConfig['loop'];
   autoplay?: AnimationConfig['autoplay'];
   style?: React.CSSProperties;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-};
+} & React.HTMLProps<HTMLDivElement>;
 
 const UseAnimations: React.FC<Props> = ({
   animationKey,
