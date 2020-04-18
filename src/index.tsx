@@ -56,6 +56,11 @@ const UseAnimations: React.FC<Props> = ({
     };
 
     setAnimation(lottie.loadAnimation(defaultOptions));
+
+    return () => {
+      animation?.destroy();
+      setAnimation(undefined);
+    }
   }, []);
 
   const defaultStyles = {
