@@ -57,6 +57,8 @@ import video2 from '../../animations/video2.json';
 import visibility from '../../animations/visibility.json';
 import visibility2 from '../../animations/visibility2.json';
 import volume from '../../animations/volume.json';
+import youtube from '../../animations/youtube.json';
+import youtubePlay from '../../animations/youtubePlay.json';
 
 const keys = {
   activity,
@@ -118,8 +120,10 @@ const keys = {
   visibility,
   visibility2,
   volume,
+  youtube,
+  youtubePlay,
 };
 
-const getAnimationData = animationKey => keys[animationKey] || '';
+const getAnimationData = (animationKey) => keys[animationKey] || '';
 
 export default getAnimationData;
