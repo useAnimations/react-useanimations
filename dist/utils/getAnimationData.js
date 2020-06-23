@@ -123,6 +123,10 @@ var _visibility2 = _interopRequireDefault(require("../../animations/visibility2.
 
 var _volume = _interopRequireDefault(require("../../animations/volume.json"));
 
+var _youtube = _interopRequireDefault(require("../../animations/youtube.json"));
+
+var _youtubePlay = _interopRequireDefault(require("../../animations/youtubePlay.json"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var keys = {
@@ -184,7 +188,9 @@ var keys = {
   video2: _video2["default"],
   visibility: _visibility["default"],
   visibility2: _visibility2["default"],
-  volume: _volume["default"]
+  volume: _volume["default"],
+  youtube: _youtube["default"],
+  youtubePlay: _youtubePlay["default"]
 };
 
 var getAnimationData = function getAnimationData(animationKey) {

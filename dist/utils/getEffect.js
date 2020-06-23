@@ -58,7 +58,9 @@ var animations = {
   video2: _constants.CLICK_PLAY_AND_BACKWARDS,
   visibility: _constants.CLICK_PLAY_AND_BACKWARDS,
   visibility2: _constants.CLICK_PLAY_AND_BACKWARDS,
-  volume: _constants.CLICK_PLAY_AND_BACKWARDS
+  volume: _constants.CLICK_PLAY_AND_BACKWARDS,
+  youtube: _constants.HOVER_PLAY_AND_STOP,
+  youtubePlay: _constants.HOVER_PLAY_AND_STOP
 };
 
 var getEffect = function getEffect(animationKey) {

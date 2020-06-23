@@ -59,8 +59,10 @@ const animations = {
   visibility: CLICK_PLAY_AND_BACKWARDS,
   visibility2: CLICK_PLAY_AND_BACKWARDS,
   volume: CLICK_PLAY_AND_BACKWARDS,
+  youtube: HOVER_PLAY_AND_STOP,
+  youtubePlay: HOVER_PLAY_AND_STOP,
 };
 
-const getEffect = animationKey => animations[animationKey] || '';
+const getEffect = (animationKey) => animations[animationKey] || '';
 
 export default getEffect;
