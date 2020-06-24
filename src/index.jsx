@@ -1,5 +1,5 @@
 import React from 'react';
-import lottie from 'lottie-web';
+import lottieLight from 'lottie-web/build/player/lottie_light';
 import styled from 'styled-components';
 import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
 
@@ -30,7 +30,7 @@ export default class UseAnimations extends React.Component {
       ...options,
     };
 
-    this.setAnimation(lottie.loadAnimation(defaultOptions));
+    this.setAnimation(lottieLight.loadAnimation(defaultOptions));
   }
 
   componentWillUnmount() {
@@ -43,7 +43,7 @@ export default class UseAnimations extends React.Component {
     this.setAnimation(null);
   }
 
-  setAnimation = animation => this.setState({ animation });
+  setAnimation = (animation) => this.setState({ animation });
 
   render() {
     const { animationKey, size, style, ...other } = this.props;

@@ -7,7 +7,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _lottieWeb = _interopRequireDefault(require("lottie-web"));
+var _lottie_light = _interopRequireDefault(require("lottie-web/build/player/lottie_light"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
@@ -116,7 +116,7 @@ var UseAnimations = /*#__PURE__*/function (_React$Component) {
         autoplay: autoplay || animEffect === _utils.LOOP_PLAY
       }, options);
 
-      this.setAnimation(_lottieWeb["default"].loadAnimation(defaultOptions));
+      this.setAnimation(_lottie_light["default"].loadAnimation(defaultOptions));
     }
   }, {
     key: "componentWillUnmount",
