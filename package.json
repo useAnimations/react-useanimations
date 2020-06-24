@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "lottie-web": "^5.5.7",
-    "react": "^16.9.0",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
@@ -45,5 +44,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "nodemon": "^1.19.1"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
   }
 }
