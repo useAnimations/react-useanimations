@@ -21,13 +21,12 @@
     "useanimations"
   ],
   "scripts": {
-    "build": "babel src -d es2015 --ignore __tests__ --watch --out-dir ./dist",
+    "build": "babel src -d es2015 --ignore __tests__ --watch --out-dir ./dist --copy-files",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix"
   },
   "dependencies": {
-    "lottie-web": "^5.5.7",
-    "styled-components": "^4.4.0"
+    "lottie-web": "^5.5.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",

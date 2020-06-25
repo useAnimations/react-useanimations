@@ -9,8 +9,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _lottie_light = _interopRequireDefault(require("lottie-web/build/player/lottie_light"));
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
 var _utils = require("./utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -47,26 +45,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  path {\n    stroke: ", ";\n    fill: ", ";\n  }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var ColoredIcon = _styledComponents["default"].div(_templateObject(), function (_ref) {
-  var strokeColor = _ref.strokeColor;
-  return strokeColor || 'currentColor;';
-}, function (_ref2) {
-  var fillColor = _ref2.fillColor;
-  return fillColor || 'currentColor;';
-});
-
 var UseAnimations = /*#__PURE__*/function (_React$Component) {
   _inherits(UseAnimations, _React$Component);
 
@@ -95,6 +73,10 @@ var UseAnimations = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "getRandomId", function (key) {
+      return "".concat(key, "_").concat(Math.floor(Math.random() * 8 + 5));
+    });
+
     return _this;
   }
 
@@ -102,18 +84,32 @@ var UseAnimations = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this$props = this.props,
+          animation = _this$props.animation,
           animationKey = _this$props.animationKey,
           loop = _this$props.loop,
           autoplay = _this$props.autoplay,
+          fillColor = _this$props.fillColor,
+          strokeColor = _this$props.strokeColor,
           options = _this$props.options;
       var animEffect = (0, _utils.getEffect)(animationKey);
+      var animationId = this.getRandomId(animationKey);
+
+      if (fillColor || strokeColor) {
+        var css = "#".concat(animationId, " path { fill: ").concat(fillColor || 'inherit', "; stroke: ").concat(strokeColor || 'inherit', "; }");
+        var style = document.createElement('style');
+        style.appendChild(document.createTextNode(css));
+        document.head.appendChild(style);
+      }
 
       var defaultOptions = _objectSpread({
         container: this.element.current,
         renderer: 'svg',
-        animationData: (0, _utils.getAnimationData)(animationKey),
+        animationData: animation,
         loop: loop || animEffect === _utils.LOOP_PLAY,
-        autoplay: autoplay || animEffect === _utils.LOOP_PLAY
+        autoplay: autoplay || animEffect === _utils.LOOP_PLAY,
+        rendererSettings: {
+          id: animationId
+        }
       }, options);
 
       this.setAnimation(_lottie_light["default"].loadAnimation(defaultOptions));
@@ -135,8 +131,8 @@ var UseAnimations = /*#__PURE__*/function (_React$Component) {
       var _this$props2 = this.props,
           animationKey = _this$props2.animationKey,
           size = _this$props2.size,
-          style = _this$props2.style,
-          other = _objectWithoutProperties(_this$props2, ["animationKey", "size", "style"]);
+          wrapperStyle = _this$props2.wrapperStyle,
+          other = _objectWithoutProperties(_this$props2, ["animationKey", "size", "wrapperStyle"]);
 
       var animation = this.state.animation;
 
@@ -144,7 +140,7 @@ var UseAnimations = /*#__PURE__*/function (_React$Component) {
         overflow: 'hidden',
         outline: 'none',
         width: size
-      }, style);
+      }, wrapperStyle);
 
       var animationProps = _objectSpread(_objectSpread({
         ref: this.element
@@ -155,7 +151,7 @@ var UseAnimations = /*#__PURE__*/function (_React$Component) {
         animEffect: (0, _utils.getEffect)(animationKey)
       }));
 
-      return /*#__PURE__*/_react["default"].createElement(ColoredIcon, animationProps);
+      return /*#__PURE__*/_react["default"].createElement("div", animationProps);
     }
   }]);
 

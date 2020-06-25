@@ -3,12 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "getAnimationData", {
-  enumerable: true,
-  get: function get() {
-    return _getAnimationData["default"];
-  }
-});
 Object.defineProperty(exports, "getEffect", {
   enumerable: true,
   get: function get() {
@@ -57,8 +51,6 @@ Object.defineProperty(exports, "CLICK_PLAY_AND_SEGMENTS", {
     return _constants.CLICK_PLAY_AND_SEGMENTS;
   }
 });
-
-var _getAnimationData = _interopRequireDefault(require("./getAnimationData"));
 
 var _getEffect = _interopRequireDefault(require("./getEffect"));
 
