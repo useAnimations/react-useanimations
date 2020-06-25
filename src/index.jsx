@@ -1,7 +1,7 @@
 import React from 'react';
 import lottieLight from 'lottie-web/build/player/lottie_light';
 import styled from 'styled-components';
-import { getEffect, getAnimationData, getEvents, LOOP_PLAY } from './utils';
+import { getEffect, getEvents, LOOP_PLAY } from './utils';
 
 const ColoredIcon = styled.div`
   path {
@@ -18,13 +18,13 @@ export default class UseAnimations extends React.Component {
   element = React.createRef();
 
   componentDidMount() {
-    const { animationKey, loop, autoplay, options } = this.props;
+    const { animation, animationKey, loop, autoplay, options } = this.props;
     const animEffect = getEffect(animationKey);
 
     const defaultOptions = {
       container: this.element.current,
       renderer: 'svg',
-      animationData: getAnimationData(animationKey),
+      animationData: animation,
       loop: loop || animEffect === LOOP_PLAY,
       autoplay: autoplay || animEffect === LOOP_PLAY,
       ...options,
