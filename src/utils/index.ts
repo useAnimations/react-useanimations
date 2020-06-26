@@ -7,4 +7,5 @@ export {
   CLICK_PLAY,
   LOOP_PLAY,
   CLICK_PLAY_AND_SEGMENTS,
+  ANIMATION_KEYS,
 } from './constants';
