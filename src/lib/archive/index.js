@@ -1,3 +1,3 @@
 import archive from './archive.json';
 
-export default archive;
+export default { animationData: archive, animationKey: 'archive' };

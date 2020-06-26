@@ -1,3 +1,3 @@
 import notification from './notification.json';
 
-export default notification;
+export default { animationData: notification, animationKey: 'notification' };

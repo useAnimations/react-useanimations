@@ -1,3 +1,3 @@
 import visibility from './visibility.json';
 
-export default visibility;
+export default { animationData: visibility, animationKey: 'visibility' };

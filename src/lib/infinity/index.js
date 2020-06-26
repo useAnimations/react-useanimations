@@ -1,3 +1,3 @@
 import infinity from './infinity.json';
 
-export default infinity;
+export default { animationData: infinity, animationKey: 'infinity' };

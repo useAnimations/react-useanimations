@@ -1,3 +1,3 @@
 import loading from './loading.json';
 
-export default loading;
+export default { animationData: loading, animationKey: 'loading' };

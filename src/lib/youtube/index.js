@@ -1,3 +1,3 @@
 import youtube from './youtube.json';
 
-export default youtube;
+export default { animationData: youtube, animationKey: 'youtube' };

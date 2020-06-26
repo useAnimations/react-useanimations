@@ -1,3 +1,3 @@
 import twitter from './twitter.json';
 
-export default twitter;
+export default { animationData: twitter, animationKey: 'twitter' };

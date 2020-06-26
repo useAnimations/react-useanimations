@@ -1,3 +1,3 @@
 import lock from './lock.json';
 
-export default lock;
+export default { animationData: lock, animationKey: 'lock' };

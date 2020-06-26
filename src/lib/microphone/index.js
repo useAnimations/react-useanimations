@@ -1,3 +1,3 @@
 import microphone from './microphone.json';
 
-export default microphone;
+export default { animationData: microphone, animationKey: 'microphone' };

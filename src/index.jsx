@@ -10,7 +10,14 @@ export default class UseAnimations extends React.Component {
   element = React.createRef();
 
   componentDidMount() {
-    const { animation, animationKey, loop, autoplay, fillColor, strokeColor, options } = this.props;
+    const {
+      animation: { animationData, animationKey },
+      loop,
+      autoplay,
+      fillColor,
+      strokeColor,
+      options,
+    } = this.props;
     const animEffect = getEffect(animationKey);
     const animationId = this.getRandomId(animationKey);
 
@@ -26,7 +33,7 @@ export default class UseAnimations extends React.Component {
     const defaultOptions = {
       container: this.element.current,
       renderer: 'svg',
-      animationData: animation,
+      animationData,
       loop: loop || animEffect === LOOP_PLAY,
       autoplay: autoplay || animEffect === LOOP_PLAY,
       rendererSettings: {
@@ -53,7 +60,12 @@ export default class UseAnimations extends React.Component {
   getRandomId = (key) => `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
 
   render() {
-    const { animationKey, size, wrapperStyle, ...other } = this.props;
+    const {
+      animation: { animationKey },
+      size,
+      wrapperStyle,
+      ...other
+    } = this.props;
     const { animation } = this.state;
 
     const defaultStyles = {

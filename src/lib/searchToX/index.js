@@ -1,3 +1,3 @@
 import searchToX from './searchToX.json';
 
-export default searchToX;
+export default { animationData: searchToX, animationKey: 'searchToX' };

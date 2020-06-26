@@ -1,3 +1,3 @@
 import alertTriangle from './alertTriangle.json';
 
-export default alertTriangle;
+export default { animationData: alertTriangle, animationKey: 'alertTriangle' };

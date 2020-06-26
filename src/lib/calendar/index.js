@@ -1,3 +1,3 @@
 import calendar from './calendar.json';
 
-export default calendar;
+export default { animationData: calendar, animationKey: 'calendar' };

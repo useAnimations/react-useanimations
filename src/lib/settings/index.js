@@ -1,3 +1,3 @@
 import settings from './settings.json';
 
-export default settings;
+export default { animationData: settings, animationKey: 'settings' };

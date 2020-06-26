@@ -1,3 +1,3 @@
 import github from './github.json';
 
-export default github;
+export default { animationData: github, animationKey: 'github' };

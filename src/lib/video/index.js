@@ -1,3 +1,3 @@
 import video from './video.json';
 
-export default video;
+export default { animationData: video, animationKey: 'video' };

@@ -1,3 +1,3 @@
 import plusToX from './plusToX.json';
 
-export default plusToX;
+export default { animationData: plusToX, animationKey: 'plusToX' };

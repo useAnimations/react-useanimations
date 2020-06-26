@@ -1,3 +1,3 @@
 import skipBack from './skipBack.json';
 
-export default skipBack;
+export default { animationData: skipBack, animationKey: 'skipBack' };

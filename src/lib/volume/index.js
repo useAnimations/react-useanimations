@@ -1,3 +1,3 @@
 import volume from './volume.json';
 
-export default volume;
+export default { animationData: volume, animationKey: 'volume' };

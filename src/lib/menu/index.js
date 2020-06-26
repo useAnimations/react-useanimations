@@ -1,3 +1,3 @@
 import menu from './menu.json';
 
-export default menu;
+export default { animationData: menu, animationKey: 'menu' };

@@ -1,3 +1,3 @@
 import userX from './userX.json';
 
-export default userX;
+export default { animationData: userX, animationKey: 'userX' };

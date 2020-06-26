@@ -1,3 +1,3 @@
 import facebook from './facebook.json';
 
-export default facebook;
+export default { animationData: facebook, animationKey: 'facebook' };

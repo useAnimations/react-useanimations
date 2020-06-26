@@ -1,3 +1,3 @@
 import arrowDown from './arrowDown.json';
 
-export default arrowDown;
+export default { animationData: arrowDown, animationKey: 'arrowDown' };

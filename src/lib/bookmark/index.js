@@ -1,3 +1,3 @@
 import bookmark from './bookmark.json';
 
-export default bookmark;
+export default { animationData: bookmark, animationKey: 'bookmark' };

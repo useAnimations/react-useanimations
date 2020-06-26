@@ -1,3 +1,3 @@
 import youtubePlay from './youtubePlay.json';
 
-export default youtubePlay;
+export default { animationData: youtubePlay, animationKey: 'youtubePlay' };

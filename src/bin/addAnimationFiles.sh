@@ -8,7 +8,7 @@ for file in *; do
     touch "index.js"
     echo "import ${file%.*} from './$file';" >> "index.js"
     echo "" >> "index.js"
-    echo "export default ${file%.*};" >> "index.js"
+    echo "export default { animationData: ${file%.*}, animationKey: '${file%.*}' };" >> "index.js"
     mv "index.js" "${file%.*}"
   fi
 done

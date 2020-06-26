@@ -1,3 +1,3 @@
 import arrowUp from './arrowUp.json';
 
-export default arrowUp;
+export default { animationData: arrowUp, animationKey: 'arrowUp' };

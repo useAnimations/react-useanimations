@@ -1,3 +1,3 @@
 import codepen from './codepen.json';
 
-export default codepen;
+export default { animationData: codepen, animationKey: 'codepen' };

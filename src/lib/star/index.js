@@ -1,3 +1,3 @@
 import star from './star.json';
 
-export default star;
+export default { animationData: star, animationKey: 'star' };

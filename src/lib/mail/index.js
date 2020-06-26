@@ -1,3 +1,3 @@
 import mail from './mail.json';
 
-export default mail;
+export default { animationData: mail, animationKey: 'mail' };

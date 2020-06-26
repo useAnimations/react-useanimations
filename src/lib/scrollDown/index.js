@@ -1,3 +1,3 @@
 import scrollDown from './scrollDown.json';
 
-export default scrollDown;
+export default { animationData: scrollDown, animationKey: 'scrollDown' };

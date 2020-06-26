@@ -1,3 +1,3 @@
 import instagram from './instagram.json';
 
-export default instagram;
+export default { animationData: instagram, animationKey: 'instagram' };

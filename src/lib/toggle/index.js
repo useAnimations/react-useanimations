@@ -1,3 +1,3 @@
 import toggle from './toggle.json';
 
-export default toggle;
+export default { animationData: toggle, animationKey: 'toggle' };

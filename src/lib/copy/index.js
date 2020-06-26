@@ -1,3 +1,3 @@
 import copy from './copy.json';
 
-export default copy;
+export default { animationData: copy, animationKey: 'copy' };

@@ -1,3 +1,3 @@
 import pocket from './pocket.json';
 
-export default pocket;
+export default { animationData: pocket, animationKey: 'pocket' };

@@ -1,3 +1,3 @@
 import download from './download.json';
 
-export default download;
+export default { animationData: download, animationKey: 'download' };

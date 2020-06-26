@@ -1,3 +1,3 @@
 import skipForward from './skipForward.json';
 
-export default skipForward;
+export default { animationData: skipForward, animationKey: 'skipForward' };

@@ -1,3 +1,3 @@
 import alertOctagon from './alertOctagon.json';
 
-export default alertOctagon;
+export default { animationData: alertOctagon, animationKey: 'alertOctagon' };

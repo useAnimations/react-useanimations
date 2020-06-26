@@ -1,3 +1,3 @@
 import airplay from './airplay.json';
 
-export default airplay;
+export default { animationData: airplay, animationKey: 'airplay' };

@@ -1,3 +1,3 @@
 import edit from './edit.json';
 
-export default edit;
+export default { animationData: edit, animationKey: 'edit' };

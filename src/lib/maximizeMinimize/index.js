@@ -1,3 +1,3 @@
 import maximizeMinimize from './maximizeMinimize.json';
 
-export default maximizeMinimize;
+export default { animationData: maximizeMinimize, animationKey: 'maximizeMinimize' };

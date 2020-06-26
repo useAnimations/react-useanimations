@@ -1,3 +1,3 @@
 import activity from './activity.json';
 
-export default activity;
+export default { animationData: activity, animationKey: 'activity' };

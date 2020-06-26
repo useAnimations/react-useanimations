@@ -1,3 +1,3 @@
 import heart from './heart.json';
 
-export default heart;
+export default { animationData: heart, animationKey: 'heart' };
