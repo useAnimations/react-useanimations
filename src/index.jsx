@@ -50,7 +50,7 @@ export default class UseAnimations extends React.Component {
 
   setAnimation = (animation) => this.setState({ animation });
 
-  getRandomId = (key) => `${key}_${Math.floor(Math.random() * 8 + 5)}`;
+  getRandomId = (key) => `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
 
   render() {
     const { animationKey, size, wrapperStyle, ...other } = this.props;
