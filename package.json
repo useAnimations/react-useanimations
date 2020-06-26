@@ -12,6 +12,7 @@
     "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
   "homepage": "https://github.com/useAnimations/react-useanimations",
+  "main": "dist/index.js",
   "keywords": [
     "microanimations",
     "small",
