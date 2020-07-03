@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import star from './star.json';
 
-export default { animationData: star, animationKey: ANIMATION_KEYS.star };
+export default { animationData: star, animationKey: 'star' } as Animation;

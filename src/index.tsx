@@ -2,15 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import lottieLight from 'lottie-web/build/player/lottie_light';
 import type { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lottie-web';
 
-import { getEffect, getEvents, LOOP_PLAY, ANIMATION_KEYS } from './utils';
+import { getEffect, getEvents } from './utils';
+import type { Animation, AnimationEffect } from './utils';
 
 type Props = {
-  animation: {
-    animationData: any;
-    animationKey: typeof ANIMATION_KEYS;
-  };
-  fillColor: string;
-  strokeColor: string;
+  animation: Animation;
+  fillColor?: string;
+  strokeColor?: string;
   options?: Partial<AnimationConfig>;
   size?: number;
   loop?: AnimationConfig['loop'];
@@ -32,11 +30,11 @@ const UseAnimations: React.FC<Props> = ({
 }) => {
   const [animation, setAnimation] = useState<AnimationItem>();
   const ref = useRef<HTMLDivElement>(null);
-  const getRandomId = (key: typeof ANIMATION_KEYS) =>
+  const getRandomId = (key: Animation['animationKey']) =>
     `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
 
   useEffect(() => {
-    const animEffect = getEffect(animationKey);
+    const animEffect: AnimationEffect = getEffect(animationKey);
     const animationId = getRandomId(animationKey);
 
     if (fillColor || strokeColor) {
@@ -52,8 +50,8 @@ const UseAnimations: React.FC<Props> = ({
       container: ref.current as Element,
       renderer: 'svg',
       animationData,
-      loop: loop || animEffect === LOOP_PLAY,
-      autoplay: autoplay || animEffect === LOOP_PLAY,
+      loop: loop || animEffect === 'LOOP_PLAY',
+      autoplay: autoplay || animEffect === 'LOOP_PLAY',
       rendererSettings: {
         // LOADS DOM ELEMENTS WHEN NEEDED. MIGHT SPEED UP INITIALIZATION FOR LARGE NUMBER OF ELEMENTS.
         progressiveLoad: true,

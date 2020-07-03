@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import loading from './loading.json';
 
-export default { animationData: loading, animationKey: ANIMATION_KEYS.loading };
+export default { animationData: loading, animationKey: 'loading' } as Animation;

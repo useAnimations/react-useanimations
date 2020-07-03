@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import lock from './lock.json';
 
-export default { animationData: lock, animationKey: ANIMATION_KEYS.lock };
+export default { animationData: lock, animationKey: 'lock' } as Animation;

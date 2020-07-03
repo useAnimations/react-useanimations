@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import github from './github.json';
 
-export default { animationData: github, animationKey: ANIMATION_KEYS.github };
+export default { animationData: github, animationKey: 'github' } as Animation;

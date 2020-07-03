@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import infinity from './infinity.json';
 
-export default { animationData: infinity, animationKey: ANIMATION_KEYS.infinity };
+export default { animationData: infinity, animationKey: 'infinity' } as Animation;

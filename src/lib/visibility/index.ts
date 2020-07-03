@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import visibility from './visibility.json';
 
-export default { animationData: visibility, animationKey: ANIMATION_KEYS.visibility };
+export default { animationData: visibility, animationKey: 'visibility' } as Animation;

@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import twitter from './twitter.json';
 
-export default { animationData: twitter, animationKey: ANIMATION_KEYS.twitter };
+export default { animationData: twitter, animationKey: 'twitter' } as Animation;

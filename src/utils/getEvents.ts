@@ -1,28 +1,22 @@
-import {
-  CLICK_PLAY_AND_BACKWARDS,
-  HOVER_PLAY_AND_STOP,
-  HOVER_PLAY_AND_BACKWARDS,
-  CLICK_PLAY,
-  CLICK_PLAY_AND_SEGMENTS,
-} from './constants';
+import type { AnimationEffect } from './constants';
 
-const getClickAndPlaySegmentsEvents = animation => ({
+const getClickAndPlaySegmentsEvents = (animation: any) => ({
   onClick: () => animation.playSegments([0, 60], true),
 });
 
-const getClickPlayEvents = animation => ({
+const getClickPlayEvents = (animation: any) => ({
   onClick: () => {
     animation.stop();
     animation.play();
   },
 });
 
-const getHoverPlayAndStop = animation => ({
+const getHoverPlayAndStop = (animation: any) => ({
   onMouseEnter: () => animation.play(),
   onMouseLeave: () => animation.stop(),
 });
 
-const getHoverPlayBackwardsEvents = animation => ({
+const getHoverPlayBackwardsEvents = (animation: any) => ({
   onMouseEnter: () => {
     animation.setDirection(1);
     animation.play();
@@ -33,7 +27,7 @@ const getHoverPlayBackwardsEvents = animation => ({
   },
 });
 
-const getClickAndPlayBackwardsEvents = animation => {
+const getClickAndPlayBackwardsEvents = (animation: any) => {
   let directionMenu = 1;
 
   return {
@@ -45,24 +39,24 @@ const getClickAndPlayBackwardsEvents = animation => {
   };
 };
 
-const getEvents = ({ animation, animEffect }) => {
-  if (animEffect === CLICK_PLAY_AND_SEGMENTS) {
+const getEvents = ({ animation, animEffect }: { animation: any; animEffect: AnimationEffect }) => {
+  if (animEffect === 'CLICK_PLAY_AND_SEGMENTS') {
     return getClickAndPlaySegmentsEvents(animation);
   }
 
-  if (animEffect === CLICK_PLAY) {
+  if (animEffect === 'CLICK_PLAY') {
     return getClickPlayEvents(animation);
   }
 
-  if (animEffect === HOVER_PLAY_AND_STOP) {
+  if (animEffect === 'HOVER_PLAY_AND_STOP') {
     return getHoverPlayAndStop(animation);
   }
 
-  if (animEffect === HOVER_PLAY_AND_BACKWARDS) {
+  if (animEffect === 'HOVER_PLAY_AND_BACKWARDS') {
     return getHoverPlayBackwardsEvents(animation);
   }
 
-  if (animEffect === CLICK_PLAY_AND_BACKWARDS) {
+  if (animEffect === 'CLICK_PLAY_AND_BACKWARDS') {
     return getClickAndPlayBackwardsEvents(animation);
   }
 

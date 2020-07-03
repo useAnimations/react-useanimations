@@ -1,11 +1,3 @@
 export { default as getEffect } from './getEffect';
 export { default as getEvents } from './getEvents';
-export {
-  CLICK_PLAY_AND_BACKWARDS,
-  HOVER_PLAY_AND_STOP,
-  HOVER_PLAY_AND_BACKWARDS,
-  CLICK_PLAY,
-  LOOP_PLAY,
-  CLICK_PLAY_AND_SEGMENTS,
-  ANIMATION_KEYS,
-} from './constants';
+export type { Animation, AnimationKey, AnimationEffect } from './constants';

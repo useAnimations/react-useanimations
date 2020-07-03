@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import arrowUp from './arrowUp.json';
 
-export default { animationData: arrowUp, animationKey: ANIMATION_KEYS.arrowUp };
+export default { animationData: arrowUp, animationKey: 'arrowUp' } as Animation;

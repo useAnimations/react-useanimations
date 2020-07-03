@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import codepen from './codepen.json';
 
-export default { animationData: codepen, animationKey: ANIMATION_KEYS.codepen };
+export default { animationData: codepen, animationKey: 'codepen' } as Animation;

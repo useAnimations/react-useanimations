@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import activity from './activity.json';
 
-export default { animationData: activity, animationKey: ANIMATION_KEYS.activity };
+export default { animationData: activity, animationKey: 'activity' } as Animation;

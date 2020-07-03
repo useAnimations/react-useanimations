@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import archive from './archive.json';
 
-export default { animationData: archive, animationKey: ANIMATION_KEYS.archive };
+export default { animationData: archive, animationKey: 'archive' } as Animation;

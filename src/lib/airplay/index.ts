@@ -1,4 +1,4 @@
-import { ANIMATION_KEYS } from '../../utils/constants';
+import type { Animation } from '../../utils/constants';
 import airplay from './airplay.json';
 
-export default { animationData: airplay, animationKey: ANIMATION_KEYS.airplay };
+export default { animationData: airplay, animationKey: 'airplay' } as Animation;
