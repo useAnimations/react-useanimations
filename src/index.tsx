@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import lottieLight from 'lottie-web/build/player/lottie_light';
-import type {
-  AnimationItem,
-  AnimationConfigWithData,
-  AnimationConfig,
-} from 'lottie-web';
+import type { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lottie-web';
 
 import { getEffect, getEvents, LOOP_PLAY, ANIMATION_KEYS } from './utils';
 
@@ -36,7 +32,8 @@ const UseAnimations: React.FC<Props> = ({
 }) => {
   const [animation, setAnimation] = useState<AnimationItem>();
   const ref = useRef<HTMLDivElement>(null);
-  const getRandomId = (key) => `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
+  const getRandomId = (key: typeof ANIMATION_KEYS) =>
+    `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
 
   useEffect(() => {
     const animEffect = getEffect(animationKey);
@@ -58,6 +55,10 @@ const UseAnimations: React.FC<Props> = ({
       loop: loop || animEffect === LOOP_PLAY,
       autoplay: autoplay || animEffect === LOOP_PLAY,
       rendererSettings: {
+        // LOADS DOM ELEMENTS WHEN NEEDED. MIGHT SPEED UP INITIALIZATION FOR LARGE NUMBER OF ELEMENTS.
+        progressiveLoad: true,
+        // lottie-web missing id type
+        // @ts-ignore-next-line
         id: animationId,
       },
       ...options,
@@ -78,10 +79,12 @@ const UseAnimations: React.FC<Props> = ({
     ...wrapperStyle,
   };
 
-  const eventProps = animation ? getEvents({
-    animation,
-    animEffect: getEffect(animationKey),
-  }) : undefined;
+  const eventProps = animation
+    ? getEvents({
+        animation,
+        animEffect: getEffect(animationKey),
+      })
+    : undefined;
 
   const animationProps = {
     ref,
