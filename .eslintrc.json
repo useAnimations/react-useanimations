@@ -17,6 +17,15 @@
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "rest-spread-spacing": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**",
+          "./src/**/*.stories.tsx" 
+        ]
+      }
+    ]
   }
 }
