@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import lottieLight from 'lottie-web/build/player/lottie_light';
+// UNFORTUNATELY WHEN LIGHT VERSION IS USED, SOME ANIMATIONS ARE NOT WORKING AS EXPECTED
+// import lottie from 'lottie-web/build/player/lottie_light';
+import lottie from 'lottie-web';
 import type { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lottie-web';
 
 import { getEffect, getEvents } from './utils';
@@ -7,8 +9,8 @@ import type { Animation, AnimationEffect } from './utils';
 
 type Props = {
   animation: Animation;
-  fillColor?: string;
   strokeColor?: string;
+  pathCss?: string;
   options?: Partial<AnimationConfig>;
   size?: number;
   loop?: AnimationConfig['loop'];
@@ -19,8 +21,8 @@ type Props = {
 const UseAnimations: React.FC<Props> = ({
   animation: { animationData, animationKey },
   size = 24,
-  fillColor,
   strokeColor,
+  pathCss,
   loop,
   autoplay,
   wrapperStyle,
@@ -37,10 +39,8 @@ const UseAnimations: React.FC<Props> = ({
     const animEffect: AnimationEffect = getEffect(animationKey);
     const animationId = getRandomId(animationKey);
 
-    if (fillColor || strokeColor) {
-      const css = `#${animationId} path { fill: ${fillColor || 'inherit'}; stroke: ${
-        strokeColor || 'inherit'
-      }; }`;
+    if (strokeColor || pathCss) {
+      const css = `#${animationId} path { stroke: ${strokeColor || 'inherit'}; ${pathCss}}`;
       const style = document.createElement('style');
       style.appendChild(document.createTextNode(css));
       document.head.appendChild(style);
@@ -62,7 +62,7 @@ const UseAnimations: React.FC<Props> = ({
       ...options,
     };
 
-    setAnimation(lottieLight.loadAnimation(defaultOptions));
+    setAnimation(lottie.loadAnimation(defaultOptions));
 
     return () => {
       animation?.destroy();
