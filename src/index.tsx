@@ -9,6 +9,7 @@ import type { Animation, AnimationEffect } from './utils';
 
 type Props = {
   animation: Animation;
+  reverse?: boolean;
   strokeColor?: string;
   pathCss?: string;
   options?: Partial<AnimationConfig>;
@@ -20,6 +21,7 @@ type Props = {
 
 const UseAnimations: React.FC<Props> = ({
   animation: { animationData, animationKey },
+  reverse = false,
   size = 24,
   strokeColor,
   pathCss,
@@ -80,6 +82,7 @@ const UseAnimations: React.FC<Props> = ({
   const eventProps = animation
     ? getEvents({
         animation,
+        reverse,
         animEffect: getEffect(animationKey),
       })
     : undefined;

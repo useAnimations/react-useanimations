@@ -1,5 +1,6 @@
 import React from 'react';
 import activity from '../lib/activity';
+import radioButton from '../lib/radioButton';
 import UseAnimation from '..';
 
 export default {
@@ -40,6 +41,15 @@ export const Size = () => (
     <div style={{ padding: '20px' }}>
       <span>activity</span>
       <UseAnimation size={60} wrapperStyle={{ marginTop: '5px' }} animation={activity} />
+    </div>
+  </div>
+);
+
+export const ControlledState = () => (
+  <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ padding: '20px' }}>
+      <span>radioButton</span>
+      <UseAnimation reverse size={40} wrapperStyle={{ marginTop: '5px' }} animation={radioButton} />
     </div>
   </div>
 );

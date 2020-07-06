@@ -27,19 +27,34 @@ const getHoverPlayBackwardsEvents = (animation: any) => ({
   },
 });
 
-const getClickAndPlayBackwardsEvents = (animation: any) => {
+const getClickAndPlayBackwardsEvents = (animation: any, reverse: boolean) => {
   let directionMenu = 1;
+
+  // EG CHECKBOX WHICH NEED TO BE CHECKED AS INITIAL STATE, LET'S PLAY THE ANIMATION ASAP AUTOMATICALLY
+  if (reverse) {
+    animation.setDirection(directionMenu);
+    animation.play();
+    directionMenu *= -1;
+  }
 
   return {
     onClick: () => {
       animation.setDirection(directionMenu);
       animation.play();
-      directionMenu = -directionMenu;
+      directionMenu *= -1;
     },
   };
 };
 
-const getEvents = ({ animation, animEffect }: { animation: any; animEffect: AnimationEffect }) => {
+const getEvents = ({
+  animation,
+  reverse,
+  animEffect,
+}: {
+  animation: any;
+  reverse: boolean;
+  animEffect: AnimationEffect;
+}) => {
   if (animEffect === 'CLICK_PLAY_AND_SEGMENTS') {
     return getClickAndPlaySegmentsEvents(animation);
   }
@@ -57,7 +72,7 @@ const getEvents = ({ animation, animEffect }: { animation: any; animEffect: Anim
   }
 
   if (animEffect === 'CLICK_PLAY_AND_BACKWARDS') {
-    return getClickAndPlayBackwardsEvents(animation);
+    return getClickAndPlayBackwardsEvents(animation, reverse);
   }
 
   return getClickPlayEvents(animation);
