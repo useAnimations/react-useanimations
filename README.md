@@ -27,7 +27,9 @@ npm install -S react-useanimations
 ```
 
 ### Usage
+If you still need to use v1, please refer to this README instead - [react-useanimations@v1](https://github.com/useAnimations/react-useanimations/blob/master/README_v1.md)
 
+Basic usage
 ```javascript
 import React from 'react';
 import UseAnimations from 'react-useanimations';
