@@ -7,6 +7,9 @@ import type { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lo
 import { getEffect, getEvents } from './utils';
 import type { Animation, AnimationEffect } from './utils';
 
+const getRandomId = (key: Animation['animationKey']) =>
+  `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
+
 type Props = {
   animation: Animation;
   reverse?: boolean;
@@ -34,8 +37,6 @@ const UseAnimations: React.FC<Props> = ({
 }) => {
   const [animation, setAnimation] = useState<AnimationItem>();
   const ref = useRef<HTMLDivElement>(null);
-  const getRandomId = (key: Animation['animationKey']) =>
-    `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
 
   useEffect(() => {
     const animEffect: AnimationEffect = getEffect(animationKey);
