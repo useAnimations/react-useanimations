@@ -43,7 +43,7 @@ const UseAnimations: React.FC<Props> = ({
     const animationId = getRandomId(animationKey);
 
     if (strokeColor || pathCss) {
-      const css = `#${animationId} path { stroke: ${strokeColor || 'inherit'}; ${pathCss}}`;
+      const css = `#${animationId} path { stroke: ${strokeColor || 'inherit'}; ${pathCss || ''}}`;
       const style = document.createElement('style');
       style.appendChild(document.createTextNode(css));
       document.head.appendChild(style);
