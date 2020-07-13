@@ -59,7 +59,7 @@ import visibility from '../lib/visibility';
 import visibility2 from '../lib/visibility2';
 import volume from '../lib/volume';
 import youtube from '../lib/youtube';
-import youtubePlay from '../lib/youtubePlay';
+import youtube2 from '../lib/youtube2';
 import UseAnimation from '..';
 
 export default {
@@ -309,8 +309,8 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={youtube} />
     </div>
     <div style={{ padding: '20px' }}>
-      <span>youtubePlay</span>
-      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={youtubePlay} />
+      <span>youtube2</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={youtube2} />
     </div>
   </div>
 );

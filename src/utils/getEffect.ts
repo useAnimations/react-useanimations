@@ -65,7 +65,7 @@ const animations: Animations = {
   visibility2: 'CLICK_PLAY_AND_BACKWARDS',
   volume: 'CLICK_PLAY_AND_BACKWARDS',
   youtube: 'HOVER_PLAY_AND_STOP',
-  youtubePlay: 'HOVER_PLAY_AND_STOP',
+  youtube2: 'HOVER_PLAY_AND_STOP',
 };
 
 const getEffect = (animationKey: AnimationKey) => animations[animationKey] || '';
