@@ -72,4 +72,4 @@ export type AnimationKey =
   | 'visibility2'
   | 'volume'
   | 'youtube'
-  | 'youtubePlay';
+  | 'youtube2';
