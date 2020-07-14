@@ -43,10 +43,27 @@ const UseAnimations: React.FC<Props> = ({
     const animationId = getRandomId(animationKey);
 
     if (strokeColor || pathCss) {
-      const css = `#${animationId} path { stroke: ${strokeColor || 'inherit'}; ${pathCss || ''}}`;
-      const style = document.createElement('style');
-      style.appendChild(document.createTextNode(css));
-      document.head.appendChild(style);
+      try {
+        const css = `#${animationId} path { stroke: ${strokeColor || 'inherit'}; ${pathCss || ''}}`;
+        let sheetEl: any = document.getElementById('useAnimationsSheet');
+
+        // STYLESHEET HASN'T BEEN CREATED YET
+        if (!sheetEl) {
+          sheetEl = document.createElement('style');
+          sheetEl.setAttribute('id', 'useAnimationsSheet');
+          sheetEl.appendChild(document.createTextNode(''));
+          document.head.appendChild(sheetEl);
+        }
+
+        const sheet = sheetEl ? sheetEl.sheet || sheetEl.styleSheet : null;
+        sheet.insertRule(css);
+      } catch (err) {
+        // eslint-disable-next-line
+        console.warn(
+          `There's been a problem with deleting a CSSRule, please report that issue in https://github.com/useAnimations/react-useanimations`,
+          err
+        );
+      }
     }
 
     const defaultOptions: AnimationConfigWithData = {
@@ -70,6 +87,27 @@ const UseAnimations: React.FC<Props> = ({
     return () => {
       animation?.destroy();
       setAnimation(undefined);
+      // DELETE CSS RULE
+      try {
+        const sheetEl: any = document.getElementById('useAnimationsSheet');
+        const sheet = sheetEl ? sheetEl.sheet || sheetEl.styleSheet : null;
+
+        if (sheet) {
+          const animationRuleIndex = Array.from(sheet.cssRules).findIndex(
+            (rule: any) => rule.selectorText === `#${animationId} path`
+          );
+
+          if (animationRuleIndex !== -1) {
+            sheet.deleteRule(animationRuleIndex);
+          }
+        }
+      } catch (err) {
+        // eslint-disable-next-line
+        console.warn(
+          `There's been a problem with deleting a CSSRule, please report that issue in https://github.com/useAnimations/react-useanimations`,
+          err
+        );
+      }
     };
   }, []);
 
