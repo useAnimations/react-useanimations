@@ -6,7 +6,11 @@ import alertOctagon from '../lib/alertOctagon';
 import alertTriangle from '../lib/alertTriangle';
 import archive from '../lib/archive';
 import arrowDown from '../lib/arrowDown';
+import arrowDownCircle from '../lib/arrowDownCircle';
+import arrowLeftCircle from '../lib/arrowLeftCircle';
+import arrowRightCircle from '../lib/arrowRightCircle';
 import arrowUp from '../lib/arrowUp';
+import arrowUpCircle from '../lib/arrowUpCircle';
 import bookmark from '../lib/bookmark';
 import calendar from '../lib/calendar';
 import checkBox from '../lib/checkBox';
@@ -14,14 +18,17 @@ import codepen from '../lib/codepen';
 import copy from '../lib/copy';
 import download from '../lib/download';
 import edit from '../lib/edit';
+import explore from '../lib/explore';
 import facebook from '../lib/facebook';
 import github from '../lib/github';
 import heart from '../lib/heart';
 import infinity from '../lib/infinity';
+import info from '../lib/info';
 import instagram from '../lib/instagram';
 import linkedin from '../lib/linkedin';
 import loading from '../lib/loading';
 import loading2 from '../lib/loading2';
+import loading3 from '../lib/loading3';
 import lock from '../lib/lock';
 import mail from '../lib/mail';
 import maximizeMinimize from '../lib/maximizeMinimize';
@@ -43,9 +50,11 @@ import scrollDown from '../lib/scrollDown';
 import searchToX from '../lib/searchToX';
 import settings from '../lib/settings';
 import settings2 from '../lib/settings2';
+import share from '../lib/share';
 import skipBack from '../lib/skipBack';
 import skipForward from '../lib/skipForward';
 import star from '../lib/star';
+import thumbUp from '../lib/thumbUp';
 import toggle from '../lib/toggle';
 import trash from '../lib/trash';
 import trash2 from '../lib/trash2';
@@ -97,8 +106,24 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowDown} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>arrowDownCircle</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowDownCircle} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>arrowLeftCircle</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowLeftCircle} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>arrowRightCircle</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowRightCircle} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>arrowUp</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowUp} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>arrowUpCircle</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowUpCircle} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>bookmark</span>
@@ -129,6 +154,10 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={edit} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>explore</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={explore} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>facebook</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={facebook} />
     </div>
@@ -145,6 +174,10 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={infinity} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>info</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={info} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>instagram</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={instagram} />
     </div>
@@ -159,6 +192,10 @@ export const All = () => (
     <div style={{ padding: '20px' }}>
       <span>loading2</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={loading2} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>loading3</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={loading3} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>lock</span>
@@ -245,6 +282,10 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={settings2} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>share</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={share} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>skipBack</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={skipBack} />
     </div>
@@ -255,6 +296,10 @@ export const All = () => (
     <div style={{ padding: '20px' }}>
       <span>star</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={star} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>thumbUp</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={thumbUp} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>toggle</span>
