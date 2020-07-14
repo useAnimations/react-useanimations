@@ -8,7 +8,7 @@ React-useanimations is a collection of free animated open source icons for React
 
 #### Collection
 
-[https://react.useanimations.com](https://react.useanimations.com/) and play with examples.
+[https://react.useanimations.com](https://react.useanimations.com/) and play with examples or visit our [Storybook](https://useanimations.github.io/react-useanimations/)
 
 ![](useanimations-preview.gif)
 
