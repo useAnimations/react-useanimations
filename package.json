@@ -12,6 +12,7 @@
     "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
   "homepage": "https://github.com/useAnimations/react-useanimations",
+  "main": "./index",
   "keywords": [
     "microanimations",
     "small",
@@ -21,29 +22,55 @@
     "useanimations"
   ],
   "scripts": {
-    "build": "babel src -d es2015 --ignore __tests__ --watch --out-dir ./dist",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "prebuild": "rimraf dist",
+    "build": "babel src -d es2015 --ignore '__tests__','**/*.d.ts' --extensions '.ts,.tsx' --out-dir ./dist --copy-files",
+    "postbuild": "npm run build:types",
+    "build:watch": "npm run build --watch",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./src --fix",
+    "check-types": "tsc --noEmit",
+    "check-types:watch": "npm run type-check -- --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook --output-dir docs"
   },
   "dependencies": {
-    "lottie-web": "^5.5.7",
-    "react": "^16.9.0",
-    "styled-components": "^4.4.0"
+    "lottie-web": "^5.5.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime": "^7.6.2",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@types/react": "^16.9.34",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
     "eslint": "^6.5.0",
-    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-typescript": "^7.2.1",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
-    "nodemon": "^1.19.1"
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "storybook": "^5.3.19",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
   }
 }
