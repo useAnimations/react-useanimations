@@ -1,5 +1,6 @@
 import React from 'react';
 import activity from '../lib/activity';
+import youtube from '../lib/youtube';
 import UseAnimation from '..';
 
 export default {
@@ -12,10 +13,19 @@ export const Stroke = () => (
     <div style={{ padding: '20px' }}>
       <span>activity</span>
       <UseAnimation
-        strokeColor="red"
+        strokeColor="green"
         size={40}
         wrapperStyle={{ marginTop: '5px' }}
         animation={activity}
+      />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>activity</span>
+      <UseAnimation
+        strokeColor="red"
+        size={40}
+        wrapperStyle={{ marginTop: '5px' }}
+        animation={youtube}
       />
     </div>
   </div>
