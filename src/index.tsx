@@ -8,7 +8,7 @@ import { getEffect, getEvents } from './utils';
 import type { Animation, AnimationEffect } from './utils';
 
 const getRandomId = (key: Animation['animationKey']) =>
-  `${key}_i${Math.floor(Math.random() * 100 + 1)}`;
+  `${key}_i${Math.floor(Math.random() * 10000 + 1)}`;
 
 type Props = {
   animation: Animation;
