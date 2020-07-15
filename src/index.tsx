@@ -114,7 +114,8 @@ const UseAnimations: React.FC<Props> = ({
   const defaultStyles = {
     overflow: 'hidden',
     outline: 'none',
-    width: size,
+    width: `${size}px`,
+    height: `${size}px`,
     ...wrapperStyle,
   };
 
