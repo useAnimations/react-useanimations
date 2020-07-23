@@ -61,7 +61,7 @@ These props are available:
 |  options | `{}` | provide any other custom options which will override the default ones |
 
 <br />
-Controlled Checkbox example  
+Controlled checkbox example  
 
 ```javascript
 export const RadioButton = () => {
@@ -84,3 +84,25 @@ export const RadioButton = () => {
   );
 };
 ```
+
+Animation wrapped in element (use render prop).
+```javascript
+export const WrapperElement = () => {
+  return (
+    <UseAnimation
+      animation={heart}
+      size={60}
+      onClick={() => {
+        // eslint-disable-next-line
+        console.log('additional onClick cb is working');
+      }}
+      render={(eventProps, animationProps) => (
+        <button style={{ padding: '20px' }} type="button" {...eventProps}>
+          <div {...animationProps} />
+        </button>
+      )}
+    />
+  );
+};
+```
+ Note that `eventProps` consists of `onClick`, `mouseOver` and other DOM events which you probably want to assign to your wrapping element (e.g. Button) and `animationProps` consist of an actual animation which you should spread inside a simple `<div>`   

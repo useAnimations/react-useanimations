@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ReactElement } from 'react';
 // UNFORTUNATELY WHEN LIGHT VERSION IS USED, SOME ANIMATIONS ARE NOT WORKING AS EXPECTED
 // import lottie from 'lottie-web/build/player/lottie_light';
 import lottie from 'lottie-web';
@@ -20,6 +20,7 @@ type Props = {
   loop?: AnimationConfig['loop'];
   autoplay?: AnimationConfig['autoplay'];
   wrapperStyle?: React.CSSProperties;
+  render?: (eventProps: any, animationProps: any) => ReactElement;
 } & React.HTMLProps<HTMLDivElement>;
 
 const UseAnimations: React.FC<Props> = ({
@@ -33,6 +34,7 @@ const UseAnimations: React.FC<Props> = ({
   wrapperStyle,
   options,
   onClick,
+  render,
   ...other
 }) => {
   const [animation, setAnimation] = useState<AnimationItem>();
@@ -119,7 +121,7 @@ const UseAnimations: React.FC<Props> = ({
     ...wrapperStyle,
   };
 
-  const eventProps = animation
+  const events = animation
     ? getEvents({
         animation,
         reverse,
@@ -127,18 +129,21 @@ const UseAnimations: React.FC<Props> = ({
       })
     : undefined;
 
+  const eventProps = {
+    ...events,
+    onClick: (e: React.MouseEvent<HTMLDivElement>) => {
+      if (onClick) onClick(e);
+      if (events && 'onClick' in events) events.onClick();
+    },
+  };
+
   const animationProps = {
     ref,
     ...other,
     style: defaultStyles,
-    ...eventProps,
-    onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-      if (onClick) onClick(e);
-      if (eventProps && 'onClick' in eventProps) eventProps.onClick();
-    },
   };
 
-  return <div {...animationProps} />;
+  return render ? render(eventProps, animationProps) : <div {...eventProps} {...animationProps} />;
 };
 
 export default UseAnimations;
