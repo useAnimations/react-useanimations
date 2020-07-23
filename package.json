@@ -1,6 +1,6 @@
 {
   "name": "react-useanimations",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "description": "Official React component for useanimations icons",
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime": "^7.6.2",
     "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-info": "^5.3.19",
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
