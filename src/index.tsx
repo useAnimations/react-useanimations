@@ -119,7 +119,7 @@ const UseAnimations: React.FC<Props> = ({
     if (animation) {
       animation.setSpeed(speed)
     }
-  }, [animation, speed])
+  }, [animation, speed]);
 
   const defaultStyles = {
     overflow: 'hidden',
