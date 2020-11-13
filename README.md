@@ -59,6 +59,7 @@ These props are available:
 |  autoplay | `false`* | false except in animations like loading etc. |
 |  loop | `false`* | false except in animations like loading etc. |
 |  options | `{}` | provide any other custom options which will override the default ones |
+|  speed | `1` | a number to determine the speed of lottie(1 is normal speed) |
 
 <br />
 Controlled checkbox example  

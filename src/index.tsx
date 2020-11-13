@@ -19,6 +19,7 @@ type Props = {
   size?: number;
   loop?: AnimationConfig['loop'];
   autoplay?: AnimationConfig['autoplay'];
+  speed?: number;
   wrapperStyle?: React.CSSProperties;
   render?: (eventProps: any, animationProps: any) => ReactElement;
 } & React.HTMLProps<HTMLDivElement>;
@@ -27,6 +28,7 @@ const UseAnimations: React.FC<Props> = ({
   animation: { animationData, animationKey },
   reverse = false,
   size = 24,
+  speed = 1,
   strokeColor,
   pathCss,
   loop,
@@ -112,6 +114,12 @@ const UseAnimations: React.FC<Props> = ({
       }
     };
   }, []);
+
+  useEffect(()=> {
+    if (animation) {
+      animation.setSpeed(speed)
+    }
+  }, [animation, speed]);
 
   const defaultStyles = {
     overflow: 'hidden',
