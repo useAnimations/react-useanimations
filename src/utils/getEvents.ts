@@ -1,4 +1,4 @@
-import type { AnimationEffect } from './constants';
+import { AnimationEffect } from './constants';
 
 const getClickAndPlaySegmentsEvents = (animation: any) => ({
   onClick: () => animation.playSegments([0, 60], true),

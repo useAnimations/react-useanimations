@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef, ReactElement } from 'react';
 // UNFORTUNATELY WHEN LIGHT VERSION IS USED, SOME ANIMATIONS ARE NOT WORKING AS EXPECTED
 // import lottie from 'lottie-web/build/player/lottie_light';
 import lottie from 'lottie-web';
-import type { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lottie-web';
+import { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lottie-web';
 
 import { getEffect, getEvents } from './utils';
-import type { Animation, AnimationEffect } from './utils';
+import { Animation, AnimationEffect } from './utils';
 
 const getRandomId = (key: Animation['animationKey']) =>
   `${key}_i${Math.floor(Math.random() * 10000 + 1)}`;
