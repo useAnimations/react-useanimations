@@ -13,7 +13,7 @@ for file in *; do
     mkdir "${file%.*}"
     mv "$file" "${file%.*}"
     touch "index.ts"
-    echo "import type { Animation } from '../../utils/constants';" >> "index.ts"
+    echo "import { Animation } from '../../utils/constants';" >> "index.ts"
     echo "import ${file%.*} from './$file';" >> "index.ts"
     echo "" >> "index.ts"
     echo "export default { animationData: ${file%.*}, animationKey: '${file%.*}' } as Animation;" >> "index.ts"

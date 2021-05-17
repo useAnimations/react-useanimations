@@ -1,4 +1,4 @@
-import type { AnimationKey, AnimationEffect } from '.';
+import { AnimationKey, AnimationEffect } from '.';
 
 type Animations = {
   [Key in AnimationKey]: AnimationEffect;
