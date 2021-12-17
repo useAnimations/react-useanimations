@@ -52,7 +52,8 @@ These props are available:
 | :------------- | :----------: | -----------: |
 | animation   | / | animation file |
 |  size | `24`   | animation size    |
-|  strokeColor | `'inherit'`   | animation color |
+|  strokeColor | `'inherit'`   | animation stroke color |
+|  fillColor   | `''`          | animation fill color
 |  wrapperStyle | `{}` | wrapper div styles |
 |  pathCss | `''` | css string for the animation path element |
 |  reverse | `false` | assing to `true` when eg. checkbox should be checked initally |
