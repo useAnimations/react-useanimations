@@ -11,17 +11,24 @@ import arrowLeftCircle from '../lib/arrowLeftCircle';
 import arrowRightCircle from '../lib/arrowRightCircle';
 import arrowUp from '../lib/arrowUp';
 import arrowUpCircle from '../lib/arrowUpCircle';
+import behance from '../lib/behance';
 import bookmark from '../lib/bookmark';
 import calendar from '../lib/calendar';
 import checkBox from '../lib/checkBox';
+import checkmark from '../lib/checkmark';
 import codepen from '../lib/codepen';
 import copy from '../lib/copy';
 import download from '../lib/download';
+import dribbble from '../lib/dribbble';
 import edit from '../lib/edit';
+import error from '../lib/error';
 import explore from '../lib/explore';
 import facebook from '../lib/facebook';
+import folder from '../lib/folder';
 import github from '../lib/github';
 import heart from '../lib/heart';
+import help from '../lib/help';
+import home from '../lib/home';
 import infinity from '../lib/infinity';
 import info from '../lib/info';
 import instagram from '../lib/instagram';
@@ -69,6 +76,8 @@ import visibility2 from '../lib/visibility2';
 import volume from '../lib/volume';
 import youtube from '../lib/youtube';
 import youtube2 from '../lib/youtube2';
+import zoomIn from '../lib/zoomIn';
+import zoomOut from '../lib/zoomOut';
 import UseAnimation from '..';
 
 export default {
@@ -126,6 +135,10 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={arrowUpCircle} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>behance</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={behance} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>bookmark</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={bookmark} />
     </div>
@@ -136,6 +149,10 @@ export const All = () => (
     <div style={{ padding: '20px' }}>
       <span>checkBox</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={checkBox} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>checkmark</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={checkmark} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>codepen</span>
@@ -150,8 +167,16 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={download} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>dribbble</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={dribbble} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>edit</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={edit} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>error</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={error} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>explore</span>
@@ -162,12 +187,24 @@ export const All = () => (
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={facebook} />
     </div>
     <div style={{ padding: '20px' }}>
+      <span>folder</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={folder} />
+    </div>
+    <div style={{ padding: '20px' }}>
       <span>github</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={github} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>heart</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={heart} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>help</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={help} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>home</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={home} />
     </div>
     <div style={{ padding: '20px' }}>
       <span>infinity</span>
@@ -356,6 +393,14 @@ export const All = () => (
     <div style={{ padding: '20px' }}>
       <span>youtube2</span>
       <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={youtube2} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>zoomIn</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={zoomIn} />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>zoomOut</span>
+      <UseAnimation size={40} wrapperStyle={{ marginTop: '5px' }} animation={zoomOut} />
     </div>
   </div>
 );
