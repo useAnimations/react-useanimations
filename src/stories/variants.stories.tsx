@@ -2,6 +2,7 @@ import React from 'react';
 import { withInfo } from '@storybook/addon-info';
 import activity from '../lib/activity';
 import youtube from '../lib/youtube';
+import star from '../lib/star';
 import heart from '../lib/heart';
 import UseAnimation from '..';
 
@@ -57,6 +58,62 @@ Stroke.story = {
               size={40}
               wrapperStyle={{ marginTop: '5px' }}
               animation={youtube}
+            />
+          </div>
+        </div>
+      );
+      ~~~
+    `,
+    },
+  },
+};
+
+export const Fill = () => (
+  <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ padding: '20px' }}>
+      <span>star</span>
+      <UseAnimation
+        fillColor="green"
+        size={40}
+        wrapperStyle={{ marginTop: '5px' }}
+        animation={star}
+      />
+    </div>
+    <div style={{ padding: '20px' }}>
+      <span>heart</span>
+      <UseAnimation
+        fillColor="red"
+        size={40}
+        wrapperStyle={{ marginTop: '5px' }}
+        animation={heart}
+      />
+    </div>
+  </div>
+);
+
+Fill.story = {
+  parameters: {
+    info: {
+      text: `
+      ~~~js
+      export const Fill = () => (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <div style={{ padding: '20px' }}>
+            <span>star</span>
+            <UseAnimation
+              fillColor="green"
+              size={40}
+              wrapperStyle={{ marginTop: '5px' }}
+              animation={star}
+            />
+          </div>
+          <div style={{ padding: '20px' }}>
+            <span>heart</span>
+            <UseAnimation
+              fillColor="red"
+              size={40}
+              wrapperStyle={{ marginTop: '5px' }}
+              animation={heart}
             />
           </div>
         </div>

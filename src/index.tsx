@@ -14,6 +14,7 @@ type Props = {
   animation: Animation;
   reverse?: boolean;
   strokeColor?: string;
+  fillColor?: string;
   pathCss?: string;
   options?: Partial<AnimationConfig>;
   size?: number;
@@ -30,6 +31,7 @@ const UseAnimations: React.FC<Props> = ({
   size = 24,
   speed = 1,
   strokeColor,
+  fillColor,
   pathCss,
   loop,
   autoplay,
@@ -40,35 +42,21 @@ const UseAnimations: React.FC<Props> = ({
   ...other
 }) => {
   const [animation, setAnimation] = useState<AnimationItem>();
+  const [animationId] = useState<string>(getRandomId(animationKey));
+  const [events, setEvents] = useState<any>({});
   const ref = useRef<HTMLDivElement>(null);
 
+  const defaultStyles = {
+    overflow: 'hidden',
+    outline: 'none',
+    width: `${size}px`,
+    height: `${size}px`,
+    ...wrapperStyle,
+  };
+
+  // INVOKE THE LOTTIE ANIMATION
   useEffect(() => {
     const animEffect: AnimationEffect = getEffect(animationKey);
-    const animationId = getRandomId(animationKey);
-
-    if (strokeColor || pathCss) {
-      try {
-        const css = `#${animationId} path { stroke: ${strokeColor || 'inherit'}; ${pathCss || ''}}`;
-        let sheetEl: any = document.getElementById('useAnimationsSheet');
-
-        // STYLESHEET HASN'T BEEN CREATED YET
-        if (!sheetEl) {
-          sheetEl = document.createElement('style');
-          sheetEl.setAttribute('id', 'useAnimationsSheet');
-          sheetEl.appendChild(document.createTextNode(''));
-          document.head.appendChild(sheetEl);
-        }
-
-        const sheet = sheetEl ? sheetEl.sheet || sheetEl.styleSheet : null;
-        sheet.insertRule(css);
-      } catch (err) {
-        // eslint-disable-next-line
-        console.warn(
-          `There's been a problem with deleting a CSSRule, please report that issue in https://github.com/useAnimations/react-useanimations`,
-          err
-        );
-      }
-    }
 
     const defaultOptions: AnimationConfigWithData = {
       container: ref.current as Element,
@@ -91,6 +79,38 @@ const UseAnimations: React.FC<Props> = ({
     return () => {
       animation?.destroy();
       setAnimation(undefined);
+    };
+  }, []);
+
+  // HANDLE STYLING FOR ANIMATION
+  useEffect(() => {
+    if (strokeColor || fillColor || pathCss) {
+      try {
+        const css = `#${animationId} path { ${strokeColor ? `stroke: ${strokeColor};` : ''}  ${
+          fillColor ? `fill: ${fillColor};` : ''
+        } ${pathCss || ''}}`;
+        let sheetEl: any = document.getElementById('useAnimationsSheet');
+
+        // STYLESHEET HASN'T BEEN CREATED YET
+        if (!sheetEl) {
+          sheetEl = document.createElement('style');
+          sheetEl.setAttribute('id', 'useAnimationsSheet');
+          sheetEl.appendChild(document.createTextNode(''));
+          document.head.appendChild(sheetEl);
+        }
+
+        const sheet = sheetEl ? sheetEl.sheet || sheetEl.styleSheet : null;
+        sheet.insertRule(css);
+      } catch (err) {
+        // eslint-disable-next-line
+        console.warn(
+          `There's been a problem with deleting a CSSRule, please report that issue in https://github.com/useAnimations/react-useanimations`,
+          err
+        );
+      }
+    }
+
+    return () => {
       // DELETE CSS RULE
       try {
         const sheetEl: any = document.getElementById('useAnimationsSheet');
@@ -113,29 +133,28 @@ const UseAnimations: React.FC<Props> = ({
         );
       }
     };
-  }, []);
+  }, [strokeColor, fillColor, pathCss]);
 
-  useEffect(()=> {
+  // SET NAVIGATION EVENTS
+  useEffect(() => {
+    // eslint-disable-next-line
+    const events = animation
+      ? getEvents({
+          animation,
+          reverse,
+          animEffect: getEffect(animationKey),
+        })
+      : undefined;
+
+    if (events) setEvents(events);
+  }, [animation, reverse]);
+
+  // SET ANIMATION SPEED
+  useEffect(() => {
     if (animation) {
-      animation.setSpeed(speed)
+      animation.setSpeed(speed);
     }
   }, [animation, speed]);
-
-  const defaultStyles = {
-    overflow: 'hidden',
-    outline: 'none',
-    width: `${size}px`,
-    height: `${size}px`,
-    ...wrapperStyle,
-  };
-
-  const events = animation
-    ? getEvents({
-        animation,
-        reverse,
-        animEffect: getEffect(animationKey),
-      })
-    : undefined;
 
   const eventProps = {
     ...events,
