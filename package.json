@@ -1,12 +1,12 @@
 {
   "name": "react-useanimations",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Official React component for useanimations icons",
   "repository": {
     "type": "git",
     "url": "https://github.com/useAnimations/react-useanimations.git"
   },
-  "author": "Tuan Phung",
+  "author": "Tuan Phung, Marek Feikus",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/useAnimations/react-useanimations/issues"
