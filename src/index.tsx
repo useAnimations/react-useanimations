@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect, useRef, ReactElement } from 'react';
 // UNFORTUNATELY WHEN LIGHT VERSION IS USED, SOME ANIMATIONS ARE NOT WORKING AS EXPECTED
 // import lottie from 'lottie-web/build/player/lottie_light';
