@@ -1,6 +1,6 @@
 {
   "name": "react-useanimations",
-  "version": "2.0.8",
+  "version": "2.10.0",
   "description": "Official React component for useanimations icons",
   "repository": {
     "type": "git",
@@ -32,7 +32,10 @@
     "check-types": "tsc --noEmit",
     "check-types:watch": "npm run type-check -- --watch",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook --output-dir docs"
+    "build-storybook": "build-storybook --output-dir docs",
+    "prepub": "copy package.json dist",
+    "pub": "npm publish ./dist",
+    "postpub": "cd dist & del package.json"
   },
   "dependencies": {
     "lottie-web": "^5.5.7"
@@ -72,6 +75,7 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": ">=16",
+    "react-dom": ">=16"
   }
 }
