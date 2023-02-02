@@ -71,7 +71,7 @@
     "nodemon": "^1.19.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "storybook": "^5.3.19",
+    "storybook": "^6.5.16",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
