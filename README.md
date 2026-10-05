@@ -4,7 +4,9 @@
 
 #### What is react-useanimations?
 
-React-useanimations is a collection of free animated open source icons for React.js.
+React-useanimations is the official React component for [useAnimations](https://useanimations.com) — a free library of 90+ animated Lottie icons.
+
+📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation) — React props and all import names, plus plain HTML/JS, Vue, iOS and Android guides.
 
 #### Collection
 
@@ -56,7 +58,7 @@ These props are available:
 |  fillColor   | `''`          | animation fill color
 |  wrapperStyle | `{}` | wrapper div styles |
 |  pathCss | `''` | css string for the animation path element |
-|  reverse | `false` | assing to `true` when eg. checkbox should be checked initally |
+|  reverse | `false` | assign to `true` when e.g. a checkbox should be checked initially |
 |  autoplay | `false`* | false except in animations like loading etc. |
 |  loop | `false`* | false except in animations like loading etc. |
 |  options | `{}` | provide any other custom options which will override the default ones |
@@ -66,6 +68,10 @@ These props are available:
 Controlled checkbox example  
 
 ```javascript
+import React, { useState } from 'react';
+import UseAnimations from 'react-useanimations';
+import radioButton from 'react-useanimations/lib/radioButton';
+
 export const RadioButton = () => {
   // JUST EXAMPLE - THIS PART OF THE STATE WILL PROBABLY COME FROM A PARENT FORM COMPONENT
   const [checked, setChecked] = useState(true);
@@ -73,7 +79,7 @@ export const RadioButton = () => {
   return (
     <div style={{ padding: '20px' }}>
       <span>radioButton</span>
-      <UseAnimation
+      <UseAnimations
         reverse={checked}
         onClick={() => {
           setChecked(!checked);
@@ -89,9 +95,11 @@ export const RadioButton = () => {
 
 Animation wrapped in element (use render prop).
 ```javascript
+import heart from 'react-useanimations/lib/heart';
+
 export const WrapperElement = () => {
   return (
-    <UseAnimation
+    <UseAnimations
       animation={heart}
       size={60}
       onClick={() => {
@@ -107,4 +115,14 @@ export const WrapperElement = () => {
   );
 };
 ```
- Note that `eventProps` consists of `onClick`, `mouseOver` and other DOM events which you probably want to assign to your wrapping element (e.g. Button) and `animationProps` consist of an actual animation which you should spread inside a simple `<div>`   
+ Note that `eventProps` consists of `onClick`, `mouseOver` and other DOM events which you probably want to assign to your wrapping element (e.g. Button) and `animationProps` consist of an actual animation which you should spread inside a simple `<div>`
+
+### Available animations
+
+`activity`, `airplay`, `alertCircle`, `alertOctagon`, `alertTriangle`, `archive`, `arrowDown`, `arrowDownCircle`, `arrowLeftCircle`, `arrowRightCircle`, `arrowUp`, `arrowUpCircle`, `behance`, `bookmark`, `calendar`, `checkBox`, `checkmark`, `codepen`, `copy`, `download`, `dribbble`, `edit`, `error`, `explore`, `facebook`, `folder`, `github`, `heart`, `help`, `home`, `infinity`, `info`, `instagram`, `linkedin`, `loading`, `loading2`, `loading3`, `lock`, `mail`, `maximizeMinimize`, `maximizeMinimize2`, `menu`, `menu2`, `menu3`, `menu4`, `microphone`, `microphone2`, `notification`, `notification2`, `playPause`, `playPauseCircle`, `plusToX`, `pocket`, `radioButton`, `scrollDown`, `searchToX`, `settings`, `settings2`, `share`, `skipBack`, `skipForward`, `star`, `thumbUp`, `toggle`, `trash`, `trash2`, `twitter`, `userMinus`, `userPlus`, `userX`, `video`, `video2`, `visibility`, `visibility2`, `volume`, `youtube`, `youtube2`, `zoomIn`, `zoomOut`
+
+Import each one from `react-useanimations/lib/<name>`.
+
+### License
+
+The animations are free for personal and commercial use under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/). Attribution with a link to [useanimations.com](https://useanimations.com) is required; redistributing or reselling the files themselves (e.g. in icon packs, templates or UI kits) is not allowed. See [LICENSE](LICENSE) and [Licencing & Terms](https://useanimations.com/licencing-and-terms).
