@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import dribbble from './dribbble.json';
+import type { Animation } from '../../types';
+import animationData from './dribbble.json';
 
-export default { animationData: dribbble, animationKey: 'dribbble' } as Animation;
+const dribbble: Animation = { animationData, animationKey: 'dribbble' };
+
+export default dribbble;

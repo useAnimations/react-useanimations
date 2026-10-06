@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import skipForward from './skipForward.json';
+import type { Animation } from '../../types';
+import animationData from './skipForward.json';
 
-export default { animationData: skipForward, animationKey: 'skipForward' } as Animation;
+const skipForward: Animation = { animationData, animationKey: 'skipForward' };
+
+export default skipForward;

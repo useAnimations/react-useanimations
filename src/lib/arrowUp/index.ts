@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import arrowUp from './arrowUp.json';
+import type { Animation } from '../../types';
+import animationData from './arrowUp.json';
 
-export default { animationData: arrowUp, animationKey: 'arrowUp' } as Animation;
+const arrowUp: Animation = { animationData, animationKey: 'arrowUp' };
+
+export default arrowUp;

@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import airplay from './airplay.json';
+import type { Animation } from '../../types';
+import animationData from './airplay.json';
 
-export default { animationData: airplay, animationKey: 'airplay' } as Animation;
+const airplay: Animation = { animationData, animationKey: 'airplay' };
+
+export default airplay;

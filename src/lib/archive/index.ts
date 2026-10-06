@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import archive from './archive.json';
+import type { Animation } from '../../types';
+import animationData from './archive.json';
 
-export default { animationData: archive, animationKey: 'archive' } as Animation;
+const archive: Animation = { animationData, animationKey: 'archive' };
+
+export default archive;

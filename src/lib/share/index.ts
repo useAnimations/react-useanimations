@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import share from './share.json';
+import type { Animation } from '../../types';
+import animationData from './share.json';
 
-export default { animationData: share, animationKey: 'share' } as Animation;
+const share: Animation = { animationData, animationKey: 'share' };
+
+export default share;

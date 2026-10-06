@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import explore from './explore.json';
+import type { Animation } from '../../types';
+import animationData from './explore.json';
 
-export default { animationData: explore, animationKey: 'explore' } as Animation;
+const explore: Animation = { animationData, animationKey: 'explore' };
+
+export default explore;

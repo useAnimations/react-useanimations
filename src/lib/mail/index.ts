@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import mail from './mail.json';
+import type { Animation } from '../../types';
+import animationData from './mail.json';
 
-export default { animationData: mail, animationKey: 'mail' } as Animation;
+const mail: Animation = { animationData, animationKey: 'mail' };
+
+export default mail;

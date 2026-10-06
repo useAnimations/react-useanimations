@@ -4,39 +4,26 @@
 
 #### What is react-useanimations?
 
-React-useanimations is the official React component for [useAnimations](https://useanimations.com) — a free library of 90+ animated Lottie icons.
+React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 85+ animated Lottie icons.
 
-📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation) — React props and all import names, plus plain HTML/JS, Vue, iOS and Android guides.
-
-#### Collection
-
-[https://react.useanimations.com](https://react.useanimations.com/) and play with examples or visit our [Storybook](https://useanimations.github.io/react-useanimations/)
+📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation): React props and all import names, plus plain HTML/JS, Vue, iOS and Android guides.
 
 ![](useanimations-preview.gif)
 
 ### Installation
 
-Using Yarn:
-
 ```
-yarn add react-useanimations
+npm install react-useanimations
 ```
 
-or using NPM:
-
-```
-npm install -S react-useanimations
-```
+Requires React 16.8+ (tested with React 18 and 19). Works with StrictMode, Next.js (App Router) and other SSR frameworks.
 
 ### Usage
-If you still need to use v1, please refer to this README instead - [react-useanimations@v1](https://github.com/useAnimations/react-useanimations/blob/master/README_v1.md)
 
-Basic usage
 ```javascript
-import React from 'react';
 import UseAnimations from 'react-useanimations';
 // EVERY ANIMATION NEEDS TO BE IMPORTED FIRST -> YOUR BUNDLE WILL INCLUDE ONLY WHAT IT NEEDS
-import github from 'react-useanimations/lib/github'
+import github from 'react-useanimations/lib/github';
 
 const App = () => <UseAnimations animation={github} />;
 
@@ -46,82 +33,122 @@ export default App;
 Icons can be configured with inline props:
 
 ```javascript
-<UseAnimations animation={github} size={56} wrapperStyle={{ padding: 100 }} />
+<UseAnimations
+  animation={github}
+  size={56}
+  strokeColor="currentColor"
+  wrapperStyle={{ padding: 100 }}
+/>
 ```
 
 These props are available:
-| Prop           | Default      | Definition   |
-| :------------- | :----------: | -----------: |
-| animation   | / | animation file |
-|  size | `24`   | animation size    |
-|  strokeColor | `'inherit'`   | animation stroke color |
-|  fillColor   | `''`          | animation fill color
-|  wrapperStyle | `{}` | wrapper div styles |
-|  pathCss | `''` | css string for the animation path element |
-|  reverse | `false` | assign to `true` when e.g. a checkbox should be checked initially |
-|  autoplay | `false`* | false except in animations like loading etc. |
-|  loop | `false`* | false except in animations like loading etc. |
-|  options | `{}` | provide any other custom options which will override the default ones |
-|  speed | `1` | a number to determine the speed of lottie(1 is normal speed) |
 
-<br />
-Controlled checkbox example  
+| Prop         |  Default  |                                                                                                                   Definition |
+| :----------- | :-------: | ---------------------------------------------------------------------------------------------------------------------------: |
+| animation    |     /     |                                                                     animation imported from `react-useanimations/lib/<name>` |
+| size         |   `24`    |                                                                                                         animation size in px |
+| strokeColor  |     /     |                                                                              stroke color of the icon, e.g. `'currentColor'` |
+| fillColor    |     /     |                                                                                                       fill color of the icon |
+| pathCss      |     /     |                                                                                  extra CSS declarations for the icon's paths |
+| wrapperStyle |   `{}`    |                                                                                                           wrapper div styles |
+| interaction  | per icon* |                                                    `'loop'`, `'click-toggle'`, `'click-replay'`, `'hover'` or `'hover-loop'` |
+| reverse      |  `false`  |                            for `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox); can be controlled |
+| autoplay     | per icon* |                                                                                        `true` for looping icons like loaders |
+| loop         | per icon* |                                                                                        `true` for looping icons like loaders |
+| speed        |    `1`    |                                                                                           playback speed (1 is normal speed) |
+| options      |   `{}`    | any other [lottie-web options](https://github.com/airbnb/lottie-web#other-loading-options); applied when the animation loads |
+| render       |     /     |                                                                                  render prop for a custom wrapper, see below |
+
+\* Each icon has a default interaction matching [useanimations.com](https://useanimations.com):
+
+- `loop`: plays continuously (loaders, alerts).
+- `click-toggle`: toggles between two states on click (menu, checkbox, play/pause).
+- `click-replay`: replays from the start on every click.
+- `hover`: plays forward on mouse enter and backward on mouse leave.
+- `hover-loop`: loops while hovered (social icons).
+
+Any other prop (`className`, `aria-label`, `onClick`, `onMouseEnter`, …) is passed to the wrapper div. Your event handlers run before the animation's; call `event.preventDefault()` to skip the animation.
+
+#### Controlled toggle
 
 ```javascript
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UseAnimations from 'react-useanimations';
-import radioButton from 'react-useanimations/lib/radioButton';
+import menu from 'react-useanimations/lib/menu';
 
-export const RadioButton = () => {
-  // JUST EXAMPLE - THIS PART OF THE STATE WILL PROBABLY COME FROM A PARENT FORM COMPONENT
-  const [checked, setChecked] = useState(true);
+export const MenuButton = () => {
+  const [open, setOpen] = useState(false);
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <span>radioButton</span>
-      <UseAnimations
-        reverse={checked}
-        onClick={() => {
-          setChecked(!checked);
-        }}
-        size={40}
-        wrapperStyle={{ marginTop: '5px' }}
-        animation={radioButton}
-      />
-    </div>
-  );
-};
-```
-
-Animation wrapped in element (use render prop).
-```javascript
-import heart from 'react-useanimations/lib/heart';
-
-export const WrapperElement = () => {
   return (
     <UseAnimations
-      animation={heart}
-      size={60}
-      onClick={() => {
-        // eslint-disable-next-line
-        console.log('additional onClick cb is working');
-      }}
-      render={(eventProps, animationProps) => (
-        <button style={{ padding: '20px' }} type="button" {...eventProps}>
-          <div {...animationProps} />
-        </button>
-      )}
+      animation={menu}
+      size={40}
+      reverse={open} // also animates when `open` changes elsewhere, e.g. the menu closes on Escape
+      onClick={() => setOpen(!open)}
     />
   );
 };
 ```
- Note that `eventProps` consists of `onClick`, `mouseOver` and other DOM events which you probably want to assign to your wrapping element (e.g. Button) and `animationProps` consist of an actual animation which you should spread inside a simple `<div>`
+
+#### Changing the interaction
+
+```javascript
+<UseAnimations animation={download} interaction="hover" />
+```
+
+#### Wrapping the animation in another element
+
+```javascript
+import heart from 'react-useanimations/lib/heart';
+
+export const LikeButton = () => (
+  <UseAnimations
+    animation={heart}
+    size={60}
+    onClick={() => console.log('liked')}
+    render={(eventProps, animationProps) => (
+      <button type="button" aria-label="Like" {...eventProps}>
+        <div {...animationProps} />
+      </button>
+    )}
+  />
+);
+```
+
+`eventProps` holds the `onClick`, `onMouseEnter` and `onMouseLeave` handlers for your interactive element (e.g. a button) and `animationProps` holds the animation itself, which you spread inside a plain `<div>`.
+
+#### Next.js and other SSR frameworks
+
+The component is marked `'use client'` and loads lottie-web only in the browser, so it can be rendered from server components without `dynamic(..., { ssr: false })`.
 
 ### Available animations
 
-`activity`, `airplay`, `alertCircle`, `alertOctagon`, `alertTriangle`, `archive`, `arrowDown`, `arrowDownCircle`, `arrowLeftCircle`, `arrowRightCircle`, `arrowUp`, `arrowUpCircle`, `behance`, `bookmark`, `calendar`, `checkBox`, `checkmark`, `codepen`, `copy`, `download`, `dribbble`, `edit`, `error`, `explore`, `facebook`, `folder`, `github`, `heart`, `help`, `home`, `infinity`, `info`, `instagram`, `linkedin`, `loading`, `loading2`, `loading3`, `lock`, `mail`, `maximizeMinimize`, `maximizeMinimize2`, `menu`, `menu2`, `menu3`, `menu4`, `microphone`, `microphone2`, `notification`, `notification2`, `playPause`, `playPauseCircle`, `plusToX`, `pocket`, `radioButton`, `scrollDown`, `searchToX`, `settings`, `settings2`, `share`, `skipBack`, `skipForward`, `star`, `thumbUp`, `toggle`, `trash`, `trash2`, `twitter`, `userMinus`, `userPlus`, `userX`, `video`, `video2`, `visibility`, `visibility2`, `volume`, `youtube`, `youtube2`, `zoomIn`, `zoomOut`
+<!-- icons:start -->
+
+`activity`, `airplay`, `alertCircle`, `alertOctagon`, `alertTriangle`, `archive`, `arrowDown`, `arrowDownCircle`, `arrowLeftCircle`, `arrowRightCircle`, `arrowUp`, `arrowUpCircle`, `behance`, `bookmark`, `calendar`, `checkBox`, `checkmark`, `chevronLeft`, `chevronRight`, `codepen`, `copy`, `download`, `dribbble`, `edit`, `error`, `explore`, `facebook`, `filter`, `folder`, `github`, `heart`, `help`, `home`, `infinity`, `info`, `instagram`, `linkedin`, `loading`, `loading2`, `loading3`, `loading4`, `lock`, `mail`, `maximizeMinimize`, `maximizeMinimize2`, `menu`, `menu2`, `menu3`, `menu4`, `microphone`, `microphone2`, `notification`, `notification2`, `notification3`, `notification4`, `playPause`, `playPauseCircle`, `plusToX`, `pocket`, `radioButton`, `refresh`, `scrollDown`, `searchToX`, `settings`, `settings2`, `share`, `skipBack`, `skipForward`, `star`, `thumbUp`, `toggle`, `trash`, `trash2`, `twitter`, `userMinus`, `userPlus`, `userX`, `video`, `video2`, `visibility`, `visibility2`, `visibility3`, `volume`, `youtube`, `youtube2`, `zoomIn`, `zoomOut`
+<!-- icons:end -->
 
 Import each one from `react-useanimations/lib/<name>`.
+
+### Upgrading from v2
+
+- Icon interactions now match useanimations.com (e.g. `zoomIn` plays on hover instead of looping, social icons loop while hovered). Pass `interaction` to keep a different behavior.
+- `reverse` is now fully controlled: changing it from `true` to `false` animates back.
+- `onMouseEnter` / `onMouseLeave` no longer replace the hover animation, and `style` is merged into the wrapper styles.
+- `loop={false}` and `autoplay={false}` now override the defaults of looping icons.
+- `options` is typed as lottie-web's `AnimationConfigWithData<'svg'>`.
+- The `react-useanimations/utils/*` paths were removed; import the types (`Animation`, `AnimationKey`, `Interaction`, `UseAnimationsProps`) from `react-useanimations`.
+
+### Development
+
+```
+npm install
+npm test            # vitest
+npm run lint
+npm run check-types
+npm run build       # builds dist/ (CJS + ESM + types)
+npm run sync-icons  # syncs src/lib with https://useanimations.com/icons.json
+```
 
 ### License
 

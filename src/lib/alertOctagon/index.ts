@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import alertOctagon from './alertOctagon.json';
+import type { Animation } from '../../types';
+import animationData from './alertOctagon.json';
 
-export default { animationData: alertOctagon, animationKey: 'alertOctagon' } as Animation;
+const alertOctagon: Animation = { animationData, animationKey: 'alertOctagon' };
+
+export default alertOctagon;

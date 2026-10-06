@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import calendar from './calendar.json';
+import type { Animation } from '../../types';
+import animationData from './calendar.json';
 
-export default { animationData: calendar, animationKey: 'calendar' } as Animation;
+const calendar: Animation = { animationData, animationKey: 'calendar' };
+
+export default calendar;
