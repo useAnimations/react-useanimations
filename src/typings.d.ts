@@ -1,6 +1,5 @@
+// The Lottie files are large; typing them as `unknown` keeps type-checking fast.
 declare module '*.json' {
-  const value: any;
+  const value: unknown;
   export default value;
 }
-
-declare module '@storybook/addon-info';

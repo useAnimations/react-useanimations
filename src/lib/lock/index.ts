@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import lock from './lock.json';
+import type { Animation } from '../../types';
+import animationData from './lock.json';
 
-export default { animationData: lock, animationKey: 'lock' } as Animation;
+const lock: Animation = { animationData, animationKey: 'lock' };
+
+export default lock;

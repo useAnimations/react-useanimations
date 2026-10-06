@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import instagram from './instagram.json';
+import type { Animation } from '../../types';
+import animationData from './instagram.json';
 
-export default { animationData: instagram, animationKey: 'instagram' } as Animation;
+const instagram: Animation = { animationData, animationKey: 'instagram' };
+
+export default instagram;

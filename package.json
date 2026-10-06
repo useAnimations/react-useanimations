@@ -1,81 +1,66 @@
 {
   "name": "react-useanimations",
-  "version": "2.10.0",
-  "description": "Official React component for useanimations icons",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Official React component for useAnimations animated Lottie icons",
   "repository": {
     "type": "git",
-    "url": "https://github.com/useAnimations/react-useanimations.git"
+    "url": "git+https://github.com/useAnimations/react-useanimations.git"
   },
   "author": "Tuan Phung, Marek Feikus",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
-  "homepage": "https://github.com/useAnimations/react-useanimations",
-  "main": "./index",
+  "homepage": "https://useanimations.com/documentation#react",
   "keywords": [
-    "microanimations",
-    "small",
-    "svg",
+    "react",
+    "lottie",
+    "animated-icons",
     "icons",
-    "design",
+    "microanimations",
+    "svg",
     "useanimations"
   ],
+  "sideEffects": false,
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "babel src -d es2015 --ignore '__tests__','**/*.d.ts' --extensions '.ts,.tsx' --out-dir ./dist --copy-files",
-    "postbuild": "npm run build:types",
-    "build:watch": "npm run build --watch",
-    "build:types": "tsc --emitDeclarationOnly",
-    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx ./src",
-    "lint:fix": "npx eslint --ext .js,.jsx,.ts,.tsx ./src --fix",
+    "build": "tsup && node scripts/prepare-dist.mjs",
+    "sync-icons": "node scripts/sync-icons.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
     "check-types": "tsc --noEmit",
-    "check-types:watch": "npm run type-check -- --watch",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook --output-dir docs",
-    "prepub": "copy package.json dist",
-    "pub": "npm publish ./dist",
-    "postpub": "cd dist & del package.json"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "release": "npm run lint && npm run check-types && npm test && npm run build && npm publish ./dist"
   },
   "dependencies": {
-    "lottie-web": "^5.5.7"
+    "lottie-web": "^5.13.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "@babel/preset-typescript": "^7.9.0",
-    "@babel/runtime": "^7.6.2",
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-info": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addons": "^5.3.19",
-    "@storybook/react": "^5.3.19",
-    "@types/react": "^16.9.34",
-    "@typescript-eslint/eslint-plugin": "^2.28.0",
-    "@typescript-eslint/parser": "^2.28.0",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.1.0",
-    "babel-preset-react-app": "^9.1.2",
-    "eslint": "^6.5.0",
-    "eslint-config-airbnb-typescript": "^7.2.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
-    "nodemon": "^1.19.1",
-    "prettier": "^2.0.5",
-    "rimraf": "^3.0.2",
-    "storybook": "^5.3.19",
-    "typescript": "^3.8.3"
+    "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^20.19.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "jsdom": "^26.1.0",
+    "prettier": "^3.9.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^4.1.11"
   },
   "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16"
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

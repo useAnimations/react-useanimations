@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import maximizeMinimize2 from './maximizeMinimize2.json';
+import type { Animation } from '../../types';
+import animationData from './maximizeMinimize2.json';
 
-export default { animationData: maximizeMinimize2, animationKey: 'maximizeMinimize2' } as Animation;
+const maximizeMinimize2: Animation = { animationData, animationKey: 'maximizeMinimize2' };
+
+export default maximizeMinimize2;

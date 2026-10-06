@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import microphone from './microphone.json';
+import type { Animation } from '../../types';
+import animationData from './microphone.json';
 
-export default { animationData: microphone, animationKey: 'microphone' } as Animation;
+const microphone: Animation = { animationData, animationKey: 'microphone' };
+
+export default microphone;

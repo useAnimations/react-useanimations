@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import searchToX from './searchToX.json';
+import type { Animation } from '../../types';
+import animationData from './searchToX.json';
 
-export default { animationData: searchToX, animationKey: 'searchToX' } as Animation;
+const searchToX: Animation = { animationData, animationKey: 'searchToX' };
+
+export default searchToX;

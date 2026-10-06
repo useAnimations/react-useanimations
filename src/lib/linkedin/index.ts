@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import linkedin from './linkedin.json';
+import type { Animation } from '../../types';
+import animationData from './linkedin.json';
 
-export default { animationData: linkedin, animationKey: 'linkedin' } as Animation;
+const linkedin: Animation = { animationData, animationKey: 'linkedin' };
+
+export default linkedin;

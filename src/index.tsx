@@ -1,176 +1,189 @@
-/* eslint-disable react/require-default-props */
-import React, { useState, useEffect, useRef, ReactElement } from 'react';
-// UNFORTUNATELY WHEN LIGHT VERSION IS USED, SOME ANIMATIONS ARE NOT WORKING AS EXPECTED
-// import lottie from 'lottie-web/build/player/lottie_light';
-import lottie from 'lottie-web';
-import type { AnimationItem, AnimationConfigWithData, AnimationConfig } from 'lottie-web';
+import React, { useEffect, useRef, useState } from 'react';
+import type { AnimationConfigWithData, AnimationItem } from 'lottie-web';
 
-import { getEffect, getEvents } from './utils';
-import type { Animation, AnimationEffect } from './utils';
+import { fullPlayerIcons } from './icons';
+import { getInteraction, hoverEnd, hoverStart, playToggle, replay } from './interactions';
+import loadLottie from './lottie';
+import type { Animation, Interaction } from './types';
 
-const getRandomId = (key: Animation['animationKey']) =>
-  `${key}_i${Math.floor(Math.random() * 10000 + 1)}`;
+type MouseHandler = (event: React.MouseEvent<HTMLElement>) => void;
 
-type Props = {
+export type EventProps = {
+  onClick: MouseHandler;
+  onMouseEnter: MouseHandler;
+  onMouseLeave: MouseHandler;
+};
+
+export type AnimationProps = React.HTMLAttributes<HTMLDivElement> & {
+  ref: React.Ref<HTMLDivElement>;
+  style: React.CSSProperties;
+};
+
+type OwnProps = {
+  /** Animation imported from `react-useanimations/lib/<name>`. */
   animation: Animation;
+  /** Overrides the icon's default interaction, e.g. `'hover'` for an icon that normally plays on click. */
+  interaction?: Interaction;
+  /** For `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox). Can be controlled. */
   reverse?: boolean;
   strokeColor?: string;
   fillColor?: string;
+  /** Extra CSS declarations applied to every path of the icon. */
   pathCss?: string;
-  options?: Partial<AnimationConfig>;
+  /** Extra lottie-web options, applied when the animation loads. */
+  options?: Partial<AnimationConfigWithData<'svg'>>;
   size?: number;
-  loop?: AnimationConfig['loop'];
-  autoplay?: AnimationConfig['autoplay'];
+  loop?: boolean | number;
+  autoplay?: boolean;
   speed?: number;
   wrapperStyle?: React.CSSProperties;
-  render?: (eventProps: any, animationProps: any) => ReactElement;
-} & React.HTMLProps<HTMLDivElement>;
+  /** Renders a custom wrapper: spread `eventProps` on the interactive element, `animationProps` on a div. */
+  render?: (eventProps: EventProps, animationProps: AnimationProps) => React.ReactElement;
+};
 
-const UseAnimations: React.FC<Props> = ({
-  animation: { animationData, animationKey },
-  reverse = false,
-  size = 24,
-  speed = 1,
-  strokeColor,
-  fillColor,
-  pathCss,
-  loop,
-  autoplay,
-  wrapperStyle,
-  options,
-  onClick,
-  render,
-  ...other
-}) => {
-  const [animation, setAnimation] = useState<AnimationItem>();
-  const [animationId] = useState<string>(getRandomId(animationKey));
-  const [events, setEvents] = useState<any>({});
-  const ref = useRef<HTMLDivElement>(null);
+export type UseAnimationsProps = OwnProps &
+  Omit<React.HTMLAttributes<HTMLDivElement>, keyof OwnProps>;
 
-  const defaultStyles = {
-    overflow: 'hidden',
-    outline: 'none',
-    width: `${size}px`,
-    height: `${size}px`,
-    ...wrapperStyle,
-  };
+export type { Animation, Interaction };
+export type { AnimationKey } from './icons';
 
-  // INVOKE THE LOTTIE ANIMATION
+let idCounter = 0;
+
+const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
+  const {
+    animation: { animationData, animationKey },
+    interaction: interactionProp,
+    reverse = false,
+    size = 24,
+    speed = 1,
+    strokeColor,
+    fillColor,
+    pathCss,
+    loop,
+    autoplay,
+    wrapperStyle,
+    options,
+    render,
+    style,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+    ...other
+  } = props;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [player, setPlayer] = useState<AnimationItem | null>(null);
+  // Unique per component instance; used as the <svg> id that the color CSS targets.
+  const [id] = useState(() => `useanimations-${(idCounter += 1)}`);
+  // Whether a click-toggle animation currently sits at its end state.
+  const atEnd = useRef(false);
+  // Latest values read when the animation (re)loads, without reloading when they change.
+  const latest = useRef({ options, speed });
+
+  const interaction = interactionProp ?? getInteraction(animationKey);
+  const shouldLoop = loop ?? (interaction === 'loop' || interaction === 'hover-loop');
+  const shouldAutoplay = autoplay ?? interaction === 'loop';
+
   useEffect(() => {
-    const animEffect: AnimationEffect = getEffect(animationKey);
+    latest.current = { options, speed };
+  });
 
-    const defaultOptions: AnimationConfigWithData = {
-      container: ref.current as Element,
-      renderer: 'svg',
-      animationData,
-      loop: loop || animEffect === 'LOOP_PLAY',
-      autoplay: autoplay || animEffect === 'LOOP_PLAY',
-      rendererSettings: {
-        // LOADS DOM ELEMENTS WHEN NEEDED. MIGHT SPEED UP INITIALIZATION FOR LARGE NUMBER OF ELEMENTS.
-        progressiveLoad: true,
-        // lottie-web missing id type
-        // @ts-ignore-next-line
-        id: animationId,
-      },
-      ...options,
-    };
+  // LOAD THE ANIMATION; the cleanup destroys exactly the instance this effect created
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return undefined;
 
-    setAnimation(lottie.loadAnimation(defaultOptions));
+    let cancelled = false;
+    let instance: AnimationItem | undefined;
+
+    loadLottie(fullPlayerIcons.has(animationKey)).then((lottie) => {
+      if (cancelled) return;
+      const { options: custom, speed: initialSpeed } = latest.current;
+      instance = lottie.loadAnimation({
+        container,
+        renderer: 'svg',
+        animationData,
+        loop: shouldLoop,
+        autoplay: shouldAutoplay,
+        ...custom,
+        // lottie-web supports `id` (set on the <svg>) but its types don't declare it.
+        rendererSettings: {
+          progressiveLoad: true,
+          ...custom?.rendererSettings,
+          id,
+        } as AnimationConfigWithData<'svg'>['rendererSettings'],
+      });
+      instance.setSpeed(initialSpeed);
+      atEnd.current = false;
+      setPlayer(instance);
+    });
 
     return () => {
-      animation?.destroy();
-      setAnimation(undefined);
+      cancelled = true;
+      instance?.destroy();
+      setPlayer(null);
     };
-  }, []);
+  }, [animationData, animationKey, shouldLoop, shouldAutoplay, id]);
 
-  // HANDLE STYLING FOR ANIMATION
   useEffect(() => {
-    if (strokeColor || fillColor || pathCss) {
-      try {
-        const css = `#${animationId} path { ${strokeColor ? `stroke: ${strokeColor};` : ''}  ${
-          fillColor ? `fill: ${fillColor};` : ''
-        } ${pathCss || ''}}`;
-        let sheetEl: any = document.getElementById('useAnimationsSheet');
+    player?.setSpeed(speed);
+  }, [player, speed]);
 
-        // STYLESHEET HASN'T BEEN CREATED YET
-        if (!sheetEl) {
-          sheetEl = document.createElement('style');
-          sheetEl.setAttribute('id', 'useAnimationsSheet');
-          sheetEl.appendChild(document.createTextNode(''));
-          document.head.appendChild(sheetEl);
-        }
+  // CONTROLLED TOGGLE STATE (e.g. a checkbox checked from the outside)
+  useEffect(() => {
+    if (!player || interaction !== 'click-toggle' || reverse === atEnd.current) return;
+    atEnd.current = reverse;
+    playToggle(player, reverse);
+  }, [player, interaction, reverse]);
 
-        const sheet = sheetEl ? sheetEl.sheet || sheetEl.styleSheet : null;
-        sheet.insertRule(css);
-      } catch (err) {
-        // eslint-disable-next-line
-        console.warn(
-          `There's been a problem with deleting a CSSRule, please report that issue in https://github.com/useAnimations/react-useanimations`,
-          err
-        );
+  // COLORS
+  useEffect(() => {
+    if (!strokeColor && !fillColor && !pathCss) return undefined;
+    const sheet = document.createElement('style');
+    sheet.textContent = `#${id} path { ${strokeColor ? `stroke: ${strokeColor};` : ''} ${
+      fillColor ? `fill: ${fillColor};` : ''
+    } ${pathCss ?? ''} }`;
+    document.head.appendChild(sheet);
+    return () => sheet.remove();
+  }, [id, strokeColor, fillColor, pathCss]);
+
+  const eventProps: EventProps = {
+    onClick: (event) => {
+      onClick?.(event as React.MouseEvent<HTMLDivElement>);
+      if (!player || event.defaultPrevented) return;
+      if (interaction === 'click-toggle') {
+        atEnd.current = !atEnd.current;
+        playToggle(player, atEnd.current);
+      } else if (interaction === 'click-replay') {
+        replay(player);
       }
-    }
-
-    return () => {
-      // DELETE CSS RULE
-      try {
-        const sheetEl: any = document.getElementById('useAnimationsSheet');
-        const sheet = sheetEl ? sheetEl.sheet || sheetEl.styleSheet : null;
-
-        if (sheet) {
-          const animationRuleIndex = Array.from(sheet.cssRules).findIndex(
-            (rule: any) => rule.selectorText === `#${animationId} path`
-          );
-
-          if (animationRuleIndex !== -1) {
-            sheet.deleteRule(animationRuleIndex);
-          }
-        }
-      } catch (err) {
-        // eslint-disable-next-line
-        console.warn(
-          `There's been a problem with deleting a CSSRule, please report that issue in https://github.com/useAnimations/react-useanimations`,
-          err
-        );
-      }
-    };
-  }, [strokeColor, fillColor, pathCss]);
-
-  // SET NAVIGATION EVENTS
-  useEffect(() => {
-    // eslint-disable-next-line
-    const events = animation
-      ? getEvents({
-          animation,
-          reverse,
-          animEffect: getEffect(animationKey),
-        })
-      : undefined;
-
-    if (events) setEvents(events);
-  }, [animation, reverse]);
-
-  // SET ANIMATION SPEED
-  useEffect(() => {
-    if (animation) {
-      animation.setSpeed(speed);
-    }
-  }, [animation, speed]);
-
-  const eventProps = {
-    ...events,
-    onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-      if (onClick) onClick(e);
-      if (events && 'onClick' in events) events.onClick();
+    },
+    onMouseEnter: (event) => {
+      onMouseEnter?.(event as React.MouseEvent<HTMLDivElement>);
+      if (!player || event.defaultPrevented) return;
+      if (interaction === 'hover' || interaction === 'hover-loop') hoverStart(player, interaction);
+    },
+    onMouseLeave: (event) => {
+      onMouseLeave?.(event as React.MouseEvent<HTMLDivElement>);
+      if (!player || event.defaultPrevented) return;
+      if (interaction === 'hover' || interaction === 'hover-loop') hoverEnd(player, interaction);
     },
   };
 
-  const animationProps = {
-    ref,
+  const animationProps: AnimationProps = {
     ...other,
-    style: defaultStyles,
+    ref: containerRef,
+    style: {
+      overflow: 'hidden',
+      outline: 'none',
+      width: `${size}px`,
+      height: `${size}px`,
+      ...wrapperStyle,
+      ...style,
+    },
   };
 
+  // The render prop only receives the ref to attach it; neither branch reads it during render.
+  // eslint-disable-next-line react-hooks/refs
   return render ? render(eventProps, animationProps) : <div {...eventProps} {...animationProps} />;
 };
 

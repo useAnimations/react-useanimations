@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import behance from './behance.json';
+import type { Animation } from '../../types';
+import animationData from './behance.json';
 
-export default { animationData: behance, animationKey: 'behance' } as Animation;
+const behance: Animation = { animationData, animationKey: 'behance' };
+
+export default behance;

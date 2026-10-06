@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import facebook from './facebook.json';
+import type { Animation } from '../../types';
+import animationData from './facebook.json';
 
-export default { animationData: facebook, animationKey: 'facebook' } as Animation;
+const facebook: Animation = { animationData, animationKey: 'facebook' };
+
+export default facebook;

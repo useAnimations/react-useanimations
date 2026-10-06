@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import visibility from './visibility.json';
+import type { Animation } from '../../types';
+import animationData from './visibility.json';
 
-export default { animationData: visibility, animationKey: 'visibility' } as Animation;
+const visibility: Animation = { animationData, animationKey: 'visibility' };
+
+export default visibility;
