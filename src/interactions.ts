@@ -16,12 +16,21 @@ export const replay = (animation: AnimationItem) => {
   animation.playSegments([0, animation.totalFrames], true);
 };
 
+export const isHover = (interaction: Interaction) =>
+  interaction === 'hover' || interaction === 'hover-loop' || interaction === 'hover-replay';
+
 export const hoverStart = (animation: AnimationItem, interaction: Interaction) => {
+  if (interaction === 'hover-replay') {
+    // Let a running replay finish instead of restarting it on every re-enter.
+    if (animation.isPaused) replay(animation);
+    return;
+  }
   if (interaction === 'hover') animation.setDirection(1);
   animation.play();
 };
 
 export const hoverEnd = (animation: AnimationItem, interaction: Interaction) => {
+  if (interaction === 'hover-replay') return;
   if (interaction === 'hover') {
     animation.setDirection(-1);
     animation.play();

@@ -41,7 +41,8 @@ for (const key of readdirSync('dist/lib')) {
   ]) {
     writeFileSync(
       `dist/lib/${key}/${file}`,
-      `import type { Animation } from '../../${index}';\n\ndeclare const ${key}: Animation;\n\nexport default ${key};\n`
+      // A fixed local name keeps keys like `delete` (reserved words) valid.
+      `import type { Animation } from '../../${index}';\n\ndeclare const animation: Animation;\n\nexport default animation;\n`
     );
   }
 }

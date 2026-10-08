@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import UseAnimations from '../src';
 import activity from '../src/lib/activity';
+import bluetooth from '../src/lib/bluetooth';
 import checkBox from '../src/lib/checkBox';
 import download from '../src/lib/download';
 import error from '../src/lib/error';
@@ -126,6 +127,19 @@ describe('interactions', () => {
     fireEvent.mouseEnter(container.firstChild as Element);
     fireEvent.mouseLeave(container.firstChild as Element);
     expect(animation.calls).toEqual(['play:1', 'stop']);
+  });
+
+  it('replays hover-replay icons on enter without restarting a running replay', async () => {
+    const { container } = render(<UseAnimations animation={bluetooth} />);
+    const [animation] = await loaded();
+    expect(animation.config).toMatchObject({ loop: false, autoplay: false });
+    fireEvent.mouseEnter(container.firstChild as Element);
+    fireEvent.mouseLeave(container.firstChild as Element);
+    fireEvent.mouseEnter(container.firstChild as Element);
+    expect(animation.calls).toEqual(['segments:0-60:true']);
+    animation.isPaused = true; // the replay finished
+    fireEvent.mouseEnter(container.firstChild as Element);
+    expect(animation.calls).toEqual(['segments:0-60:true', 'segments:0-60:true']);
   });
 
   it('lets the interaction prop override the default', async () => {
