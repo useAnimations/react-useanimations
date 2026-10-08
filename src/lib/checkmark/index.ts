@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import checkmark from './checkmark.json';
+import type { Animation } from '../../types';
+import animationData from './checkmark.json';
 
-export default { animationData: checkmark, animationKey: 'checkmark' } as Animation;
+const checkmark: Animation = { animationData, animationKey: 'checkmark' };
+
+export default checkmark;

@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import arrowRightCircle from './arrowRightCircle.json';
+import type { Animation } from '../../types';
+import animationData from './arrowRightCircle.json';
 
-export default { animationData: arrowRightCircle, animationKey: 'arrowRightCircle' } as Animation;
+const arrowRightCircle: Animation = { animationData, animationKey: 'arrowRightCircle' };
+
+export default arrowRightCircle;

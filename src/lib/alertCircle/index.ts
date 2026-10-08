@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import alertCircle from './alertCircle.json';
+import type { Animation } from '../../types';
+import animationData from './alertCircle.json';
 
-export default { animationData: alertCircle, animationKey: 'alertCircle' } as Animation;
+const alertCircle: Animation = { animationData, animationKey: 'alertCircle' };
+
+export default alertCircle;

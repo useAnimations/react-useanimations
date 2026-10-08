@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import alertTriangle from './alertTriangle.json';
+import type { Animation } from '../../types';
+import animationData from './alertTriangle.json';
 
-export default { animationData: alertTriangle, animationKey: 'alertTriangle' } as Animation;
+const alertTriangle: Animation = { animationData, animationKey: 'alertTriangle' };
+
+export default alertTriangle;

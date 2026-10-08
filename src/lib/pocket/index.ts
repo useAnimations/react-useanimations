@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import pocket from './pocket.json';
+import type { Animation } from '../../types';
+import animationData from './pocket.json';
 
-export default { animationData: pocket, animationKey: 'pocket' } as Animation;
+const pocket: Animation = { animationData, animationKey: 'pocket' };
+
+export default pocket;

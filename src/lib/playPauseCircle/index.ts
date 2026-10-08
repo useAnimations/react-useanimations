@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import playPauseCircle from './playPauseCircle.json';
+import type { Animation } from '../../types';
+import animationData from './playPauseCircle.json';
 
-export default { animationData: playPauseCircle, animationKey: 'playPauseCircle' } as Animation;
+const playPauseCircle: Animation = { animationData, animationKey: 'playPauseCircle' };
+
+export default playPauseCircle;

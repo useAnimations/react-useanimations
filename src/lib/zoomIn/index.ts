@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import zoomIn from './zoomIn.json';
+import type { Animation } from '../../types';
+import animationData from './zoomIn.json';
 
-export default { animationData: zoomIn, animationKey: 'zoomIn' } as Animation;
+const zoomIn: Animation = { animationData, animationKey: 'zoomIn' };
+
+export default zoomIn;
