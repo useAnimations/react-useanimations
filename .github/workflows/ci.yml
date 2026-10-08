@@ -90,6 +90,6 @@ jobs:
             echo 'Expected exactly one verified npm package.' >&2
             exit 1
           fi
-          npm publish "${packages[0]}" --access public --tag "$NPM_TAG" --registry https://registry.npmjs.org/
+          npm publish "./${packages[0]}" --access public --tag "$NPM_TAG" --registry https://registry.npmjs.org/
         env:
           NPM_TAG: ${{ needs.release_info.outputs.tag }}
