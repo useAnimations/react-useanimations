@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import toggle from './toggle.json';
+import type { Animation } from '../../types';
+import animationData from './toggle.json';
 
-export default { animationData: toggle, animationKey: 'toggle' } as Animation;
+const toggle: Animation = { animationData, animationKey: 'toggle' };
+
+export default toggle;

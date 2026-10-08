@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import radioButton from './radioButton.json';
+import type { Animation } from '../../types';
+import animationData from './radioButton.json';
 
-export default { animationData: radioButton, animationKey: 'radioButton' } as Animation;
+const radioButton: Animation = { animationData, animationKey: 'radioButton' };
+
+export default radioButton;

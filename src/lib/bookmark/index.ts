@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import bookmark from './bookmark.json';
+import type { Animation } from '../../types';
+import animationData from './bookmark.json';
 
-export default { animationData: bookmark, animationKey: 'bookmark' } as Animation;
+const bookmark: Animation = { animationData, animationKey: 'bookmark' };
+
+export default bookmark;

@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import checkBox from './checkBox.json';
+import type { Animation } from '../../types';
+import animationData from './checkBox.json';
 
-export default { animationData: checkBox, animationKey: 'checkBox' } as Animation;
+const checkBox: Animation = { animationData, animationKey: 'checkBox' };
+
+export default checkBox;

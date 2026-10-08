@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import folder from './folder.json';
+import type { Animation } from '../../types';
+import animationData from './folder.json';
 
-export default { animationData: folder, animationKey: 'folder' } as Animation;
+const folder: Animation = { animationData, animationKey: 'folder' };
+
+export default folder;

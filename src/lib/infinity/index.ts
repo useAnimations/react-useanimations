@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import infinity from './infinity.json';
+import type { Animation } from '../../types';
+import animationData from './infinity.json';
 
-export default { animationData: infinity, animationKey: 'infinity' } as Animation;
+const infinity: Animation = { animationData, animationKey: 'infinity' };
+
+export default infinity;

@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import github from './github.json';
+import type { Animation } from '../../types';
+import animationData from './github.json';
 
-export default { animationData: github, animationKey: 'github' } as Animation;
+const github: Animation = { animationData, animationKey: 'github' };
+
+export default github;

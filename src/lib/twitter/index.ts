@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import twitter from './twitter.json';
+import type { Animation } from '../../types';
+import animationData from './twitter.json';
 
-export default { animationData: twitter, animationKey: 'twitter' } as Animation;
+const twitter: Animation = { animationData, animationKey: 'twitter' };
+
+export default twitter;

@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import menu2 from './menu2.json';
+import type { Animation } from '../../types';
+import animationData from './menu2.json';
 
-export default { animationData: menu2, animationKey: 'menu2' } as Animation;
+const menu2: Animation = { animationData, animationKey: 'menu2' };
+
+export default menu2;

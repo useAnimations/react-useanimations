@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import home from './home.json';
+import type { Animation } from '../../types';
+import animationData from './home.json';
 
-export default { animationData: home, animationKey: 'home' } as Animation;
+const home: Animation = { animationData, animationKey: 'home' };
+
+export default home;

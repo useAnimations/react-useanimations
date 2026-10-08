@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import plusToX from './plusToX.json';
+import type { Animation } from '../../types';
+import animationData from './plusToX.json';
 
-export default { animationData: plusToX, animationKey: 'plusToX' } as Animation;
+const plusToX: Animation = { animationData, animationKey: 'plusToX' };
+
+export default plusToX;

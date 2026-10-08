@@ -1,4 +1,6 @@
-import type { Animation } from '../../utils/constants';
-import copy from './copy.json';
+import type { Animation } from '../../types';
+import animationData from './copy.json';
 
-export default { animationData: copy, animationKey: 'copy' } as Animation;
+const copy: Animation = { animationData, animationKey: 'copy' };
+
+export default copy;
