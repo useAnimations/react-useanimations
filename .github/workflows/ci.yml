@@ -13,13 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release: ${{ steps.release.outputs.release }}
+      name: ${{ steps.release.outputs.name }}
       version: ${{ steps.release.outputs.version }}
       tag: ${{ steps.release.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
       - run: npm ci
@@ -28,7 +29,6 @@ jobs:
         run: node scripts/release.mjs
         env:
           RELEASE_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-          RELEASE_CHECK_REGISTRY: ${{ github.event_name == 'push' }}
 
   test:
     needs: release_info
@@ -37,10 +37,8 @@ jobs:
       matrix:
         react: [18, 19]
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
       - run: npm ci
@@ -53,7 +51,7 @@ jobs:
       - run: npm run pack
       - name: Upload verified npm package
         if: matrix.react == 19
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: npm-package
           path: .release/*.tgz
@@ -65,6 +63,9 @@ jobs:
     needs: [release_info, test]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.release_info.outputs.release == 'true'
     runs-on: ubuntu-latest
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/${{ needs.release_info.outputs.name }}/v/${{ needs.release_info.outputs.version }}
     concurrency:
       group: npm-publish
       cancel-in-progress: false
@@ -72,14 +73,14 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
       - name: Use npm with Trusted Publishing support
         run: npm install --global npm@11
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: npm-package
           path: package
@@ -90,6 +91,40 @@ jobs:
             echo 'Expected exactly one verified npm package.' >&2
             exit 1
           fi
+          if curl -fsSo /dev/null "https://registry.npmjs.org/$NAME/$VERSION"; then
+            echo "$NAME@$VERSION is already published; skipping."
+            exit 0
+          fi
           npm publish "./${packages[0]}" --access public --tag "$NPM_TAG" --registry https://registry.npmjs.org/
         env:
+          NAME: ${{ needs.release_info.outputs.name }}
+          VERSION: ${{ needs.release_info.outputs.version }}
+          NPM_TAG: ${{ needs.release_info.outputs.tag }}
+
+  github_release:
+    needs: [release_info, publish]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: npm-package
+          path: package
+      - name: Tag and create GitHub release
+        run: |
+          if gh release view "$GIT_TAG" > /dev/null 2>&1; then
+            echo "GitHub release $GIT_TAG already exists; skipping."
+            exit 0
+          fi
+          if [ "$NPM_TAG" = latest ]; then
+            flags=(--latest)
+          else
+            flags=(--prerelease --latest=false)
+          fi
+          gh release create "$GIT_TAG" package/*.tgz --target "$GITHUB_SHA" --title "$GIT_TAG" --generate-notes "${flags[@]}"
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          GIT_TAG: v${{ needs.release_info.outputs.version }}
           NPM_TAG: ${{ needs.release_info.outputs.tag }}
