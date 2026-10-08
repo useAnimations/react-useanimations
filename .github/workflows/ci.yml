@@ -5,18 +5,44 @@ on:
     branches: [master]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+  release_info:
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.release.outputs.release }}
+      version: ${{ steps.release.outputs.version }}
+      tag: ${{ steps.release.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - name: Check release version
+        id: release
+        run: node scripts/release.mjs
+        env:
+          RELEASE_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          RELEASE_CHECK_REGISTRY: ${{ github.event_name == 'push' }}
+
   test:
+    needs: release_info
     runs-on: ubuntu-latest
     strategy:
       matrix:
         react: [18, 19]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          node-version: 24
       - run: npm ci
       - if: matrix.react != 19
         run: npm install --no-save react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
@@ -24,3 +50,45 @@ jobs:
       - run: npm run check-types
       - run: npm test
       - run: npm run build
+      - run: npm run pack
+      - name: Upload verified npm package
+        if: matrix.react == 19
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: .release/*.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: [release_info, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.release_info.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: npm-publish
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Use npm with Trusted Publishing support
+        run: npm install --global npm@11
+      - uses: actions/download-artifact@v4
+        with:
+          name: npm-package
+          path: package
+      - name: Publish verified package to npm
+        run: |
+          packages=(package/*.tgz)
+          if [ "${#packages[@]}" -ne 1 ] || [ ! -f "${packages[0]}" ]; then
+            echo 'Expected exactly one verified npm package.' >&2
+            exit 1
+          fi
+          npm publish "${packages[0]}" --access public --tag "$NPM_TAG" --registry https://registry.npmjs.org/
+        env:
+          NPM_TAG: ${{ needs.release_info.outputs.tag }}

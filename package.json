@@ -1,6 +1,6 @@
 {
   "name": "react-useanimations",
-  "version": "3.0.0",
+  "version": "3.0.0-beta.1",
   "private": true,
   "description": "Official React component for useAnimations animated Lottie icons",
   "repository": {
@@ -24,6 +24,7 @@
   ],
   "sideEffects": false,
   "scripts": {
+    "prebuild": "node scripts/clean-dist.mjs",
     "build": "tsup && node scripts/prepare-dist.mjs",
     "sync-icons": "node scripts/sync-icons.mjs",
     "lint": "eslint .",
@@ -31,7 +32,8 @@
     "check-types": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "release": "npm run lint && npm run check-types && npm test && npm run build && npm publish ./dist"
+    "pack": "node scripts/pack.mjs",
+    "release": "npm run lint && npm run check-types && npm test && npm run build && npm run pack"
   },
   "dependencies": {
     "lottie-web": "^5.13.0"
@@ -51,6 +53,7 @@
     "prettier": "^3.9.9",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "semver": "^7.7.3",
     "tsup": "^8.5.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.71.1",
