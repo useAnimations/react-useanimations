@@ -28,6 +28,9 @@ const lottieLocation = (url) => {
   return existsSync(local) ? local : url;
 };
 
+// Icon keys that are reserved words get a different local variable name in their module.
+const reserved = new Set(['delete', 'package']);
+
 // 'alert-circle' -> 'alertCircle', 'trash-v2' -> 'trash2'
 const toKey = (id) =>
   id.replace(/-v(\d+)$/, '$1').replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
@@ -57,14 +60,15 @@ for (const icon of catalog.icons) {
     writeFileSync(jsonPath, data);
     console.log(`  updated ${key}.json`);
   }
+  const name = reserved.has(key) ? `${key}Icon` : key;
   writeFileSync(
     join(dir, 'index.ts'),
     `import type { Animation } from '../../types';
 import animationData from './${key}.json';
 
-const ${key}: Animation = { animationData, animationKey: '${key}' };
+const ${name}: Animation = { animationData, animationKey: '${key}' };
 
-export default ${key};
+export default ${name};
 `
   );
   icons.push({ key, interaction: icon.interaction, full: Boolean(icon.requiresFullPlayer) });

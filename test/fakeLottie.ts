@@ -7,6 +7,7 @@ export class FakeAnimation {
   direction = 1;
   speed = 1;
   totalFrames = 60;
+  isPaused = true;
   svg: SVGSVGElement;
 
   constructor(
@@ -21,10 +22,12 @@ export class FakeAnimation {
 
   play() {
     this.calls.push(`play:${this.direction}`);
+    this.isPaused = false;
   }
 
   stop() {
     this.calls.push('stop');
+    this.isPaused = true;
   }
 
   setDirection(direction: number) {
@@ -37,6 +40,7 @@ export class FakeAnimation {
 
   playSegments(segments: [number, number], force: boolean) {
     this.calls.push(`segments:${segments.join('-')}:${force}`);
+    this.isPaused = false;
   }
 
   destroy() {
