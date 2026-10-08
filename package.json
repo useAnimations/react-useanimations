@@ -59,6 +59,9 @@
     "typescript-eslint": "^8.71.1",
     "vitest": "^4.1.11"
   },
+  "overrides": {
+    "esbuild": "^0.28.1"
+  },
   "peerDependencies": {
     "react": ">=16.8",
     "react-dom": ">=16.8"
