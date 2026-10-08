@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { AnimationConfigWithData, AnimationItem } from 'lottie-web';
 
 import { fullPlayerIcons } from './icons';
-import { getInteraction, hoverEnd, hoverStart, playToggle, replay } from './interactions';
+import { getInteraction, hoverEnd, hoverStart, isHover, playToggle, replay } from './interactions';
 import loadLottie from './lottie';
 import type { Animation, Interaction } from './types';
 
@@ -160,12 +160,12 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
     onMouseEnter: (event) => {
       onMouseEnter?.(event as React.MouseEvent<HTMLDivElement>);
       if (!player || event.defaultPrevented) return;
-      if (interaction === 'hover' || interaction === 'hover-loop') hoverStart(player, interaction);
+      if (isHover(interaction)) hoverStart(player, interaction);
     },
     onMouseLeave: (event) => {
       onMouseLeave?.(event as React.MouseEvent<HTMLDivElement>);
       if (!player || event.defaultPrevented) return;
-      if (interaction === 'hover' || interaction === 'hover-loop') hoverEnd(player, interaction);
+      if (isHover(interaction)) hoverEnd(player, interaction);
     },
   };
 

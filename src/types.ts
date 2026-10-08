@@ -7,8 +7,10 @@ import type { AnimationKey } from './icons';
  * - `click-replay`: replays from the start on every click.
  * - `hover`: plays forward on mouse enter and backward on mouse leave.
  * - `hover-loop`: loops while hovered and stops on mouse leave.
+ * - `hover-replay`: plays once from the start on mouse enter.
  */
-export type Interaction = 'loop' | 'click-toggle' | 'click-replay' | 'hover' | 'hover-loop';
+export type Interaction =
+  'loop' | 'click-toggle' | 'click-replay' | 'hover' | 'hover-loop' | 'hover-replay';
 
 export type Animation = {
   animationData: unknown;
