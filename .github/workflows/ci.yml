@@ -58,6 +58,7 @@ jobs:
           name: npm-package
           path: .release/*.tgz
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 7
 
   publish:
