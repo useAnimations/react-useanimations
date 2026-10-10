@@ -1,17 +1,19 @@
 import React, { StrictMode, useState } from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vite-plus/test';
 
 import UseAnimations from '../src';
-import activity from '../src/lib/activity';
-import bluetooth from '../src/lib/bluetooth';
-import checkBox from '../src/lib/checkBox';
-import download from '../src/lib/download';
-import github from '../src/lib/github';
-import menu from '../src/lib/menu';
-import share from '../src/lib/share';
-import star from '../src/lib/star';
+import { icon } from './icons';
 import { instances } from './fakePlayer';
+
+const activity = icon('activity');
+const bluetooth = icon('bluetooth');
+const checkBox = icon('checkBox');
+const download = icon('download');
+const github = icon('github');
+const menu = icon('menu');
+const share = icon('share');
+const star = icon('star');
 
 vi.mock('../src/player', async () => (await import('./fakePlayer')).fakePlayerModule);
 

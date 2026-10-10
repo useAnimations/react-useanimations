@@ -25,16 +25,15 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "prebuild": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\"",
-    "build": "tsdown && node scripts/prepare-dist.ts",
+    "build": "vp pack && node scripts/prepare-dist.ts",
+    "check": "vp check",
+    "format": "vp check --fix",
+    "test": "vp test run",
+    "test:watch": "vp test",
+    "icons": "node scripts/icons.ts",
     "sync-icons": "node scripts/sync-icons.ts",
-    "lint": "oxlint && oxfmt --check",
-    "format": "oxfmt",
-    "check-types": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "pack": "node scripts/pack.ts",
-    "verify": "npm run lint && npm run check-types && npm test && npm run build && npm run pack"
+    "verify": "npm run check && npm test && npm run build && npm run pack"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -43,21 +42,20 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/semver": "^7.8.0",
-    "@vitest/browser-playwright": "^5.0.3",
-    "oxfmt": "^0.72.0",
-    "oxlint": "^1.87.0",
     "playwright": "^1.64.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "semver": "^7.7.3",
-    "tsdown": "^0.23.1",
-    "typescript": "^7.0.2",
-    "vitest": "^5.0.3"
+    "vite-plus": "1.1.0"
   },
   "peerDependencies": {
     "react": ">=18"
   },
   "engines": {
     "node": "^22.18.0 || >=24.11.0"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
+    "vitest": "5.0.3"
   }
 }

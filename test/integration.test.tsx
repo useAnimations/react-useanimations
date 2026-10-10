@@ -1,12 +1,13 @@
 import React, { StrictMode } from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import UseAnimations from '../src';
-import icons from '../src/icons.json';
-import error from '../src/lib/error';
-import menu2 from '../src/lib/menu2';
-import twitter from '../src/lib/twitter';
+import { catalog, icon } from './icons';
+
+const error = icon('error');
+const menu2 = icon('menu2');
+const twitter = icon('twitter');
 
 // Uses the real player.
 describe('with the player', () => {
@@ -31,13 +32,9 @@ describe('with the player', () => {
   });
 });
 
-describe('icon modules', () => {
-  it.each(icons as { name: string; interaction: string }[])(
-    'lib/$name exports its animation',
-    async ({ name, interaction }) => {
-      const { default: animation } = await import(`../src/lib/${name}/index.ts`);
-      expect(animation.interaction).toBe(interaction);
-      expect(animation.animationData).toHaveProperty('layers');
-    }
-  );
+describe('icon set', () => {
+  it.each(catalog)('$name renders', async ({ name }) => {
+    const { container } = render(<UseAnimations animation={icon(name)} />);
+    await waitFor(() => expect(container.querySelector('svg path')).not.toBeNull());
+  });
 });

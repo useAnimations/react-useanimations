@@ -1,0 +1,3809 @@
+[
+  {
+    "name": "activity",
+    "id": "activity",
+    "title": "Activity",
+    "category": "Other",
+    "keywords": [
+      "activity",
+      "other"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "airplay",
+    "id": "airplay",
+    "title": "Airplay",
+    "category": "Media",
+    "keywords": [
+      "airplay",
+      "media"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "alertCircle",
+    "id": "alert-circle",
+    "title": "Alert circle",
+    "category": "Alerts",
+    "keywords": [
+      "alert",
+      "alert-circle",
+      "alerts",
+      "attention",
+      "circle",
+      "error",
+      "warning"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "alertOctagon",
+    "id": "alert-octagon",
+    "title": "Alert octagon",
+    "category": "Alerts",
+    "keywords": [
+      "alert",
+      "alert-octagon",
+      "alerts",
+      "attention",
+      "error",
+      "octagon",
+      "warning"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "alertTriangle",
+    "id": "alert-triangle",
+    "title": "Alert triangle",
+    "category": "Alerts",
+    "keywords": [
+      "alert",
+      "alert-triangle",
+      "alerts",
+      "attention",
+      "error",
+      "triangle",
+      "warning"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "alignCenter",
+    "id": "align-center",
+    "title": "Align Center",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-center",
+      "center",
+      "text editing"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "alignJustify",
+    "id": "align-justify",
+    "title": "Align Justify",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-justify",
+      "justify",
+      "text editing"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "alignLeft",
+    "id": "align-left",
+    "title": "Align Left",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-left",
+      "left",
+      "text editing"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "alignRight",
+    "id": "align-right",
+    "title": "Align Right",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-right",
+      "right",
+      "text editing"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "anchor",
+    "id": "anchor",
+    "title": "Anchor",
+    "category": "Maps & location",
+    "keywords": [
+      "anchor",
+      "maps & location"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "aperture",
+    "id": "aperture",
+    "title": "Aperture",
+    "category": "Media",
+    "keywords": [
+      "aperture",
+      "media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "archive",
+    "id": "archive",
+    "title": "Archive",
+    "category": "Content",
+    "keywords": [
+      "archive",
+      "box",
+      "content",
+      "storage"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "arrowDown",
+    "id": "arrow-down",
+    "title": "Arrow down",
+    "category": "Other",
+    "keywords": [
+      "arrow",
+      "arrow-down",
+      "direction",
+      "down",
+      "navigation",
+      "other"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "arrowDownCircle",
+    "id": "arrow-down-circle",
+    "title": "Arrow down circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-down-circle",
+      "circle",
+      "direction",
+      "down",
+      "navigation"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "arrowDownLeft",
+    "id": "arrow-down-left",
+    "title": "Arrow Down Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-down-left",
+      "direction",
+      "down",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "arrowDownRight",
+    "id": "arrow-down-right",
+    "title": "Arrow Down Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-down-right",
+      "direction",
+      "down",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "arrowLeft",
+    "id": "arrow-left",
+    "title": "Arrow Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-left",
+      "direction",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "arrowLeftCircle",
+    "id": "arrow-left-circle",
+    "title": "Arrow left circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-left-circle",
+      "circle",
+      "direction",
+      "left",
+      "navigation"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "arrowRight",
+    "id": "arrow-right",
+    "title": "Arrow Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-right",
+      "direction",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "arrowRightCircle",
+    "id": "arrow-right-circle",
+    "title": "Arrow right circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-right-circle",
+      "circle",
+      "direction",
+      "navigation",
+      "right"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "arrowUp",
+    "id": "arrow-up",
+    "title": "Arrow up",
+    "category": "Other",
+    "keywords": [
+      "arrow",
+      "arrow-up",
+      "direction",
+      "navigation",
+      "other",
+      "up"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "arrowUpCircle",
+    "id": "arrow-up-circle",
+    "title": "Arrow up circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-up-circle",
+      "circle",
+      "direction",
+      "navigation",
+      "up"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "arrowUpLeft",
+    "id": "arrow-up-left",
+    "title": "Arrow Up Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-up-left",
+      "direction",
+      "left",
+      "navigation",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "arrowUpRight",
+    "id": "arrow-up-right",
+    "title": "Arrow Up Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-up-right",
+      "direction",
+      "navigation",
+      "right",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "atSign",
+    "id": "at-sign",
+    "title": "At Sign",
+    "category": "Communication",
+    "keywords": [
+      "at",
+      "at-sign",
+      "communication",
+      "sign"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "award",
+    "id": "award",
+    "title": "Award",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "award"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "barChart",
+    "id": "bar-chart",
+    "title": "Bar Chart",
+    "category": "Charts",
+    "keywords": [
+      "bar",
+      "bar-chart",
+      "chart",
+      "charts"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "barChart2",
+    "id": "bar-chart-2",
+    "title": "Bar Chart 2",
+    "category": "Charts",
+    "keywords": [
+      "2",
+      "bar",
+      "bar-chart-2",
+      "chart",
+      "charts"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "battery",
+    "id": "battery",
+    "title": "Battery",
+    "category": "Devices",
+    "keywords": [
+      "battery",
+      "devices"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "batteryCharging",
+    "id": "battery-charging",
+    "title": "Battery Charging",
+    "category": "Devices",
+    "keywords": [
+      "battery",
+      "battery-charging",
+      "charging",
+      "devices"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "behance",
+    "id": "behance",
+    "title": "Behance",
+    "category": "Social media",
+    "keywords": [
+      "behance",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "bluetooth",
+    "id": "bluetooth",
+    "title": "Bluetooth",
+    "category": "Devices",
+    "keywords": [
+      "bluetooth",
+      "devices"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "bold",
+    "id": "bold",
+    "title": "Bold",
+    "category": "Text editing",
+    "keywords": [
+      "bold",
+      "text editing"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "book",
+    "id": "book",
+    "title": "Book",
+    "category": "Content",
+    "keywords": [
+      "book",
+      "content"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "bookmark",
+    "id": "bookmark",
+    "title": "Bookmark",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "bookmark",
+      "save"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "bookOpen",
+    "id": "book-open",
+    "title": "Book Open",
+    "category": "Content",
+    "keywords": [
+      "book",
+      "book-open",
+      "content",
+      "open"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "box",
+    "id": "box",
+    "title": "Box",
+    "category": "Commerce",
+    "keywords": [
+      "box",
+      "commerce"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "briefcase",
+    "id": "briefcase",
+    "title": "Briefcase",
+    "category": "Commerce",
+    "keywords": [
+      "briefcase",
+      "commerce"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "calendar",
+    "id": "calendar",
+    "title": "Calendar",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "calendar",
+      "date",
+      "schedule"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "camera",
+    "id": "camera",
+    "title": "Camera",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "cameraOff",
+    "id": "camera-off",
+    "title": "Camera Off",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "camera-off",
+      "camera-off-off",
+      "media",
+      "off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "cast",
+    "id": "cast",
+    "title": "Cast",
+    "category": "Media",
+    "keywords": [
+      "cast",
+      "media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "check",
+    "id": "check",
+    "title": "Check",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "check"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "checkBox",
+    "id": "check-box",
+    "title": "Checkbox",
+    "category": "Form",
+    "keywords": [
+      "check-square",
+      "checkbox",
+      "form",
+      "select"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "checkCircle",
+    "id": "check-circle",
+    "title": "Check Circle",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "check",
+      "check-circle",
+      "circle"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "checkmark",
+    "id": "checkmark",
+    "title": "Checkmark",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "check",
+      "checkmark",
+      "done",
+      "success",
+      "tick"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "chevronDown",
+    "id": "chevron-down",
+    "title": "Chevron Down",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-down",
+      "down",
+      "navigation",
+      "next"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "chevronLeft",
+    "id": "chevron-left",
+    "title": "Chevron left",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-left",
+      "left",
+      "navigation",
+      "next"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "chevronRight",
+    "id": "chevron-right",
+    "title": "Chevron right",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-right",
+      "navigation",
+      "next",
+      "right"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "chevronsDown",
+    "id": "chevrons-down",
+    "title": "Chevrons Down",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-down",
+      "down",
+      "navigation",
+      "next"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "chevronsLeft",
+    "id": "chevrons-left",
+    "title": "Chevrons Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-left",
+      "left",
+      "navigation",
+      "next"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "chevronsRight",
+    "id": "chevrons-right",
+    "title": "Chevrons Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-right",
+      "navigation",
+      "next",
+      "right"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "chevronsUp",
+    "id": "chevrons-up",
+    "title": "Chevrons Up",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-up",
+      "navigation",
+      "next",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "chevronUp",
+    "id": "chevron-up",
+    "title": "Chevron Up",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-up",
+      "navigation",
+      "next",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "chrome",
+    "id": "chrome",
+    "title": "Chrome",
+    "category": "Social media",
+    "keywords": [
+      "chrome",
+      "social media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "circle",
+    "id": "circle",
+    "title": "Circle",
+    "category": "Shapes & math",
+    "keywords": [
+      "circle",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "clipboard",
+    "id": "clipboard",
+    "title": "Clipboard",
+    "category": "Content",
+    "keywords": [
+      "clipboard",
+      "content"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "clock",
+    "id": "clock",
+    "title": "Clock",
+    "category": "Other",
+    "keywords": [
+      "clock",
+      "other"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cloud",
+    "id": "cloud",
+    "title": "Cloud",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "weather"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "cloudDrizzle",
+    "id": "cloud-drizzle",
+    "title": "Cloud Drizzle",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-drizzle",
+      "drizzle",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cloudLightning",
+    "id": "cloud-lightning",
+    "title": "Cloud Lightning",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-lightning",
+      "lightning",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cloudOff",
+    "id": "cloud-off",
+    "title": "Cloud Off",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-off",
+      "cloud-off-off",
+      "off",
+      "weather"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "cloudRain",
+    "id": "cloud-rain",
+    "title": "Cloud Rain",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-rain",
+      "rain",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cloudSnow",
+    "id": "cloud-snow",
+    "title": "Cloud Snow",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-snow",
+      "snow",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "code",
+    "id": "code",
+    "title": "Code",
+    "category": "Development",
+    "keywords": [
+      "code",
+      "development"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "codepen",
+    "id": "codepen",
+    "title": "Codepen",
+    "category": "Social media",
+    "keywords": [
+      "codepen",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "codesandbox",
+    "id": "codesandbox",
+    "title": "Codesandbox",
+    "category": "Social media",
+    "keywords": [
+      "codesandbox",
+      "social media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "coffee",
+    "id": "coffee",
+    "title": "Coffee",
+    "category": "Other",
+    "keywords": [
+      "coffee",
+      "other"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "columns",
+    "id": "columns",
+    "title": "Columns",
+    "category": "Design & layout",
+    "keywords": [
+      "columns",
+      "design & layout"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "command",
+    "id": "command",
+    "title": "Command",
+    "category": "Development",
+    "keywords": [
+      "command",
+      "development"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "copy",
+    "id": "copy",
+    "title": "Copy",
+    "category": "Content",
+    "keywords": [
+      "clipboard",
+      "content",
+      "copy",
+      "duplicate"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "cornerDownLeft",
+    "id": "corner-down-left",
+    "title": "Corner Down Left",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-down-left",
+      "down",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerDownRight",
+    "id": "corner-down-right",
+    "title": "Corner Down Right",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-down-right",
+      "down",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerLeftDown",
+    "id": "corner-left-down",
+    "title": "Corner Left Down",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-left-down",
+      "down",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerLeftUp",
+    "id": "corner-left-up",
+    "title": "Corner Left Up",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-left-up",
+      "left",
+      "navigation",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerRightDown",
+    "id": "corner-right-down",
+    "title": "Corner Right Down",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-right-down",
+      "down",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerRightUp",
+    "id": "corner-right-up",
+    "title": "Corner Right Up",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-right-up",
+      "navigation",
+      "right",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerUpLeft",
+    "id": "corner-up-left",
+    "title": "Corner Up Left",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-up-left",
+      "left",
+      "navigation",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cornerUpRight",
+    "id": "corner-up-right",
+    "title": "Corner Up Right",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-up-right",
+      "navigation",
+      "right",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "cpu",
+    "id": "cpu",
+    "title": "CPU",
+    "category": "Devices",
+    "keywords": [
+      "cpu",
+      "devices"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "creditCard",
+    "id": "credit-card",
+    "title": "Credit Card",
+    "category": "Commerce",
+    "keywords": [
+      "card",
+      "commerce",
+      "credit",
+      "credit-card"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "crop",
+    "id": "crop",
+    "title": "Crop",
+    "category": "Design & layout",
+    "keywords": [
+      "crop",
+      "design & layout"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "crosshair",
+    "id": "crosshair",
+    "title": "Crosshair",
+    "category": "Maps & location",
+    "keywords": [
+      "crosshair",
+      "maps & location"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "database",
+    "id": "database",
+    "title": "Database",
+    "category": "Development",
+    "keywords": [
+      "database",
+      "development"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "delete",
+    "id": "delete",
+    "title": "Delete",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "delete"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "disc",
+    "id": "disc",
+    "title": "Disc",
+    "category": "Media",
+    "keywords": [
+      "disc",
+      "media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "divide",
+    "id": "divide",
+    "title": "Divide",
+    "category": "Shapes & math",
+    "keywords": [
+      "divide",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "divideCircle",
+    "id": "divide-circle",
+    "title": "Divide Circle",
+    "category": "Shapes & math",
+    "keywords": [
+      "circle",
+      "divide",
+      "divide-circle",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "divideSquare",
+    "id": "divide-square",
+    "title": "Divide Square",
+    "category": "Shapes & math",
+    "keywords": [
+      "divide",
+      "divide-square",
+      "shapes & math",
+      "square"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "dollarSign",
+    "id": "dollar-sign",
+    "title": "Dollar Sign",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "dollar",
+      "dollar-sign",
+      "sign"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "download",
+    "id": "download",
+    "title": "Download",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "download",
+      "export",
+      "save"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "download2",
+    "id": "download-v2",
+    "title": "Download V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "download",
+      "download-v2",
+      "export",
+      "save"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "downloadCloud",
+    "id": "download-cloud",
+    "title": "Download Cloud",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cloud",
+      "download",
+      "download-cloud",
+      "export",
+      "save"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "dribbble",
+    "id": "dribbble",
+    "title": "Dribbble",
+    "category": "Social media",
+    "keywords": [
+      "dribbble",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "droplet",
+    "id": "droplet",
+    "title": "Droplet",
+    "category": "Weather",
+    "keywords": [
+      "droplet",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "edit",
+    "id": "edit",
+    "title": "Edit",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "edit",
+      "edit-2",
+      "pencil",
+      "write"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "edit2",
+    "id": "edit-2",
+    "title": "Edit 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "edit",
+      "edit-2",
+      "pencil",
+      "write"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "edit3",
+    "id": "edit-3",
+    "title": "Edit 3",
+    "category": "Action",
+    "keywords": [
+      "3",
+      "action",
+      "edit",
+      "edit-3",
+      "pencil",
+      "write"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "error",
+    "id": "error",
+    "title": "Error",
+    "category": "Alerts",
+    "keywords": [
+      "alerts",
+      "close",
+      "error",
+      "failure",
+      "x"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "explore",
+    "id": "explore",
+    "title": "Explore",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "compass",
+      "discover",
+      "explore"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "externalLink",
+    "id": "external-link",
+    "title": "External Link",
+    "category": "Navigation",
+    "keywords": [
+      "external",
+      "external-link",
+      "link",
+      "navigation"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "facebook",
+    "id": "facebook",
+    "title": "Facebook",
+    "category": "Social media",
+    "keywords": [
+      "facebook",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "fastForward",
+    "id": "fast-forward",
+    "title": "Fast Forward",
+    "category": "Media",
+    "keywords": [
+      "fast",
+      "fast-forward",
+      "forward",
+      "media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "figma",
+    "id": "figma",
+    "title": "Figma",
+    "category": "Social media",
+    "keywords": [
+      "figma",
+      "social media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "file",
+    "id": "file",
+    "title": "File",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "fileMinus",
+    "id": "file-minus",
+    "title": "File Minus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file",
+      "file-minus",
+      "minus"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "filePlus",
+    "id": "file-plus",
+    "title": "File Plus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file",
+      "file-plus",
+      "plus"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "fileText",
+    "id": "file-text",
+    "title": "File Text",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file",
+      "file-text",
+      "text"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "film",
+    "id": "film",
+    "title": "Film",
+    "category": "Media",
+    "keywords": [
+      "film",
+      "media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "filter",
+    "id": "filter",
+    "title": "Filter",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "filter",
+      "funnel",
+      "sort"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "flag",
+    "id": "flag",
+    "title": "Flag",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "flag"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "folder",
+    "id": "folder",
+    "title": "Folder",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "folder"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "folderMinus",
+    "id": "folder-minus",
+    "title": "Folder Minus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "folder",
+      "folder-minus",
+      "minus"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "folderPlus",
+    "id": "folder-plus",
+    "title": "Folder Plus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "folder",
+      "folder-plus",
+      "plus"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "framer",
+    "id": "framer",
+    "title": "Framer",
+    "category": "Social media",
+    "keywords": [
+      "framer",
+      "social media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "frown",
+    "id": "frown",
+    "title": "Frown",
+    "category": "Other",
+    "keywords": [
+      "frown",
+      "other"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "gift",
+    "id": "gift",
+    "title": "Gift",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "gift"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "gitBranch",
+    "id": "git-branch",
+    "title": "Git Branch",
+    "category": "Development",
+    "keywords": [
+      "branch",
+      "development",
+      "git",
+      "git-branch"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "gitCommit",
+    "id": "git-commit",
+    "title": "Git Commit",
+    "category": "Development",
+    "keywords": [
+      "commit",
+      "development",
+      "git",
+      "git-commit"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "github",
+    "id": "github",
+    "title": "Github",
+    "category": "Social media",
+    "keywords": [
+      "github",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "gitlab",
+    "id": "gitlab",
+    "title": "GitLab",
+    "category": "Social media",
+    "keywords": [
+      "gitlab",
+      "social media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "gitMerge",
+    "id": "git-merge",
+    "title": "Git Merge",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "git",
+      "git-merge",
+      "merge"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "gitPullRequest",
+    "id": "git-pull-request",
+    "title": "Git Pull Request",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "git",
+      "git-pull-request",
+      "pull",
+      "request"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "globe",
+    "id": "globe",
+    "title": "Globe",
+    "category": "Maps & location",
+    "keywords": [
+      "globe",
+      "maps & location"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "grid",
+    "id": "grid",
+    "title": "Grid",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "grid"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "hardDrive",
+    "id": "hard-drive",
+    "title": "Hard Drive",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "drive",
+      "hard",
+      "hard-drive"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "hash",
+    "id": "hash",
+    "title": "Hash",
+    "category": "Text editing",
+    "keywords": [
+      "hash",
+      "text editing"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "headphones",
+    "id": "headphones",
+    "title": "Headphones",
+    "category": "Media",
+    "keywords": [
+      "headphones",
+      "media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "heart",
+    "id": "heart",
+    "title": "Heart",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "favorite",
+      "heart",
+      "like",
+      "love"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "heart2",
+    "id": "heart-v2",
+    "title": "Heart V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "favorite",
+      "heart",
+      "heart-v2",
+      "like",
+      "love"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "help",
+    "id": "help",
+    "title": "Help",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "help",
+      "question",
+      "support"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "hexagon",
+    "id": "hexagon",
+    "title": "Hexagon",
+    "category": "Shapes & math",
+    "keywords": [
+      "hexagon",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "home",
+    "id": "home",
+    "title": "Home",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "home",
+      "house"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "image",
+    "id": "image",
+    "title": "Image",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "image"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "inbox",
+    "id": "inbox",
+    "title": "Inbox",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "inbox"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "infinity",
+    "id": "infinity",
+    "title": "Infinity",
+    "category": "Loading",
+    "keywords": [
+      "infinity",
+      "loader",
+      "loading",
+      "loop",
+      "spinner"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "info",
+    "id": "info",
+    "title": "Info",
+    "category": "Action",
+    "keywords": [
+      "about",
+      "action",
+      "info",
+      "information"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "instagram",
+    "id": "instagram",
+    "title": "Instagram",
+    "category": "Social media",
+    "keywords": [
+      "instagram",
+      "social media"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "italic",
+    "id": "italic",
+    "title": "Italic",
+    "category": "Text editing",
+    "keywords": [
+      "italic",
+      "text editing"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "key",
+    "id": "key",
+    "title": "Key",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "key"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "layers",
+    "id": "layers",
+    "title": "Layers",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "layers"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "layout",
+    "id": "layout",
+    "title": "Layout",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "layout"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "lifeBuoy",
+    "id": "life-buoy",
+    "title": "Life Buoy",
+    "category": "Maps & location",
+    "keywords": [
+      "buoy",
+      "life",
+      "life-buoy",
+      "maps & location"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "link",
+    "id": "link",
+    "title": "Link",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "link"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "link2",
+    "id": "link-2",
+    "title": "Link 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "link",
+      "link-2"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "linkedin",
+    "id": "linkedin",
+    "title": "Linkedin",
+    "category": "Social media",
+    "keywords": [
+      "linkedin",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "list",
+    "id": "list",
+    "title": "List",
+    "category": "Text editing",
+    "keywords": [
+      "list",
+      "text editing"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "loading",
+    "id": "loading",
+    "title": "Loading circular",
+    "category": "Loading",
+    "keywords": [
+      "circular",
+      "loader",
+      "loading",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "loading2",
+    "id": "loading-v2",
+    "title": "Loading V2",
+    "category": "Loading",
+    "keywords": [
+      "loader",
+      "loading",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "loading3",
+    "id": "loading-v3",
+    "title": "Loading V3",
+    "category": "Loading",
+    "keywords": [
+      "loader",
+      "loading",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "loading4",
+    "id": "loading-v4",
+    "title": "Loading V4",
+    "category": "Loading",
+    "keywords": [
+      "loader",
+      "loading",
+      "loadingv4",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "lock",
+    "id": "lock",
+    "title": "Lock / Unlock",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "lock",
+      "password",
+      "security",
+      "unlock"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "logIn",
+    "id": "log-in",
+    "title": "Log In",
+    "category": "Navigation",
+    "keywords": [
+      "in",
+      "log",
+      "log-in",
+      "navigation"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "logOut",
+    "id": "log-out",
+    "title": "Log Out",
+    "category": "Navigation",
+    "keywords": [
+      "log",
+      "log-out",
+      "navigation",
+      "out"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "mail",
+    "id": "mail",
+    "title": "Mail",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "email",
+      "envelope",
+      "mail",
+      "message"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "map",
+    "id": "map",
+    "title": "Map",
+    "category": "Maps & location",
+    "keywords": [
+      "map",
+      "maps & location"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "mapPin",
+    "id": "map-pin",
+    "title": "Map Pin",
+    "category": "Maps & location",
+    "keywords": [
+      "map",
+      "map-pin",
+      "maps & location",
+      "pin"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "maximize2",
+    "id": "maximize-2",
+    "title": "Maximize 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "maximize",
+      "maximize-2"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "maximizeMinimize",
+    "id": "maximize-minimize",
+    "title": "Maxi/Minimize",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "collapse",
+      "expand",
+      "fullscreen",
+      "maxi",
+      "maximize",
+      "minimize"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "maximizeMinimize2",
+    "id": "maximize-minimize-v2",
+    "title": "Maxi/Minimize V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "collapse",
+      "expand",
+      "fullscreen",
+      "maxi",
+      "maximize-2",
+      "minimize",
+      "minimize-2"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "meh",
+    "id": "meh",
+    "title": "Meh",
+    "category": "Other",
+    "keywords": [
+      "meh",
+      "other"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "menu",
+    "id": "menu",
+    "title": "Burger Menu",
+    "category": "Navigation",
+    "keywords": [
+      "burger",
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "menu2",
+    "id": "menu-v2",
+    "title": "Menu V2",
+    "category": "Navigation",
+    "keywords": [
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "menu3",
+    "id": "menu-v3",
+    "title": "Menu V3",
+    "category": "Navigation",
+    "keywords": [
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "menu4",
+    "id": "menu-v4",
+    "title": "Menu V4",
+    "category": "Navigation",
+    "keywords": [
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "messageCircle",
+    "id": "message-circle",
+    "title": "Message Circle",
+    "category": "Communication",
+    "keywords": [
+      "circle",
+      "communication",
+      "message",
+      "message-circle"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "messageSquare",
+    "id": "message-square",
+    "title": "Message Square",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "message",
+      "message-square",
+      "square"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "micOff",
+    "id": "mic-off",
+    "title": "Mic Off",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "mic",
+      "mic-off",
+      "mic-off-off",
+      "off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "microphone",
+    "id": "microphone",
+    "title": "Microphone",
+    "category": "Media",
+    "keywords": [
+      "audio",
+      "media",
+      "mic",
+      "mic-off",
+      "microphone",
+      "mute",
+      "record"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "microphone2",
+    "id": "microphone-v2",
+    "title": "Microphone V2",
+    "category": "Media",
+    "keywords": [
+      "audio",
+      "media",
+      "mic",
+      "mic-off",
+      "microphone",
+      "mute",
+      "record"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "minimize2",
+    "id": "minimize-2",
+    "title": "Minimize 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "minimize",
+      "minimize-2"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "minus",
+    "id": "minus",
+    "title": "Minus",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "minus"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "minusCircle",
+    "id": "minus-circle",
+    "title": "Minus Circle",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "circle",
+      "minus",
+      "minus-circle"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "minusSquare",
+    "id": "minus-square",
+    "title": "Minus Square",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "minus",
+      "minus-square",
+      "square"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "monitor",
+    "id": "monitor",
+    "title": "Monitor",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "monitor"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "moon",
+    "id": "moon",
+    "title": "Moon",
+    "category": "Weather",
+    "keywords": [
+      "moon",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "moreHorizontal",
+    "id": "more-horizontal",
+    "title": "More Horizontal",
+    "category": "Navigation",
+    "keywords": [
+      "horizontal",
+      "more",
+      "more-horizontal",
+      "navigation"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "moreVertical",
+    "id": "more-vertical",
+    "title": "More Vertical",
+    "category": "Navigation",
+    "keywords": [
+      "more",
+      "more-vertical",
+      "navigation",
+      "vertical"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "mousePointer",
+    "id": "mouse-pointer",
+    "title": "Mouse Pointer",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "mouse",
+      "mouse-pointer",
+      "pointer"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "move",
+    "id": "move",
+    "title": "Move",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "move"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "music",
+    "id": "music",
+    "title": "Music",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "music"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "navigation",
+    "id": "navigation",
+    "title": "Navigation",
+    "category": "Maps & location",
+    "keywords": [
+      "maps & location",
+      "navigation"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "navigation2",
+    "id": "navigation-2",
+    "title": "Navigation 2",
+    "category": "Maps & location",
+    "keywords": [
+      "2",
+      "maps & location",
+      "navigation",
+      "navigation-2"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "notification",
+    "id": "notification",
+    "title": "Notification",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "bell-off",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "notification2",
+    "id": "notification-v2",
+    "title": "Notification V2",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "bell-off",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "notification3",
+    "id": "notification-v3",
+    "title": "Notification V3",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "notification4",
+    "id": "notification-v4",
+    "title": "Notification V4",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "octagon",
+    "id": "octagon",
+    "title": "Octagon",
+    "category": "Shapes & math",
+    "keywords": [
+      "octagon",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "package",
+    "id": "package",
+    "title": "Package",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "package"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "paperclip",
+    "id": "paperclip",
+    "title": "Paperclip",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "paperclip"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "penTool",
+    "id": "pen-tool",
+    "title": "Pen Tool",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "pen",
+      "pen-tool",
+      "tool"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "percent",
+    "id": "percent",
+    "title": "Percent",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "percent"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "phone",
+    "id": "phone",
+    "title": "Phone",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "phone"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "phoneCall",
+    "id": "phone-call",
+    "title": "Phone Call",
+    "category": "Communication",
+    "keywords": [
+      "call",
+      "communication",
+      "phone",
+      "phone-call"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "phoneForwarded",
+    "id": "phone-forwarded",
+    "title": "Phone Forwarded",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "forwarded",
+      "phone",
+      "phone-forwarded"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "phoneIncoming",
+    "id": "phone-incoming",
+    "title": "Phone Incoming",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "incoming",
+      "phone",
+      "phone-incoming"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "phoneMissed",
+    "id": "phone-missed",
+    "title": "Phone Missed",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "missed",
+      "phone",
+      "phone-missed"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "phoneOff",
+    "id": "phone-off",
+    "title": "Phone Off",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "off",
+      "phone",
+      "phone-off",
+      "phone-off-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "phoneOutgoing",
+    "id": "phone-outgoing",
+    "title": "Phone Outgoing",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "outgoing",
+      "phone",
+      "phone-outgoing"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "pieChart",
+    "id": "pie-chart",
+    "title": "Pie Chart",
+    "category": "Charts",
+    "keywords": [
+      "chart",
+      "charts",
+      "pie",
+      "pie-chart"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "playPause",
+    "id": "play-pause",
+    "title": "Play/Pause",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "pause",
+      "play",
+      "player"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "playPauseCircle",
+    "id": "play-pause-circle",
+    "title": "Play/Pause circle",
+    "category": "Media",
+    "keywords": [
+      "circle",
+      "media",
+      "pause",
+      "pause-circle",
+      "play",
+      "play-circle",
+      "player"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "plusCircle",
+    "id": "plus-circle",
+    "title": "Plus Circle",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "circle",
+      "plus",
+      "plus-circle"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "plusSquare",
+    "id": "plus-square",
+    "title": "Plus Square",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "plus",
+      "plus-square",
+      "square"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "plusToX",
+    "id": "plus-to-x",
+    "title": "Plus/X",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "add",
+      "close",
+      "expand",
+      "plus",
+      "x"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "pocket",
+    "id": "pocket",
+    "title": "Pocket",
+    "category": "Social media",
+    "keywords": [
+      "pocket",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "power",
+    "id": "power",
+    "title": "Power",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "power"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "printer",
+    "id": "printer",
+    "title": "Printer",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "printer"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "radio",
+    "id": "radio",
+    "title": "Radio",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "radio"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "radioButton",
+    "id": "radio-button",
+    "title": "Radio button",
+    "category": "Form",
+    "keywords": [
+      "button",
+      "check-circle",
+      "form",
+      "radio",
+      "select"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "refresh",
+    "id": "refresh",
+    "title": "Refresh",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "refresh",
+      "reload",
+      "sync"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "refresh2",
+    "id": "refresh-v2",
+    "title": "Refresh V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "refresh",
+      "refresh-v2",
+      "reload",
+      "sync"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "refreshCcw",
+    "id": "refresh-ccw",
+    "title": "Refresh Ccw",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "ccw",
+      "refresh",
+      "refresh-ccw",
+      "reload",
+      "sync"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "repeat",
+    "id": "repeat",
+    "title": "Repeat",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "repeat"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "rewind",
+    "id": "rewind",
+    "title": "Rewind",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "rewind"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "rotateCcw",
+    "id": "rotate-ccw",
+    "title": "Rotate Ccw",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "ccw",
+      "rotate",
+      "rotate-ccw"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "rotateCw",
+    "id": "rotate-cw",
+    "title": "Rotate Cw",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cw",
+      "rotate",
+      "rotate-cw"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "rss",
+    "id": "rss",
+    "title": "RSS",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "rss"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "save",
+    "id": "save",
+    "title": "Save",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "save"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "scissors",
+    "id": "scissors",
+    "title": "Scissors",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "scissors"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "scrollDown",
+    "id": "scroll-down",
+    "title": "Scroll down",
+    "category": "Other",
+    "keywords": [
+      "down",
+      "indicator",
+      "mouse",
+      "other",
+      "scroll",
+      "scrolldown"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "searchToX",
+    "id": "search-to-x",
+    "title": "Search/X",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "clear",
+      "close",
+      "search",
+      "x"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "send",
+    "id": "send",
+    "title": "Send",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "send"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "server",
+    "id": "server",
+    "title": "Server",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "server"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "settings",
+    "id": "settings",
+    "title": "Settings",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cog",
+      "gear",
+      "preferences",
+      "settings"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "settings2",
+    "id": "settings-v2",
+    "title": "Settings V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cog",
+      "gear",
+      "preferences",
+      "settings",
+      "sliders"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "share",
+    "id": "share",
+    "title": "Share",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "send",
+      "share",
+      "social"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "shield",
+    "id": "shield",
+    "title": "Shield",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "shield"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "shieldOff",
+    "id": "shield-off",
+    "title": "Shield Off",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "off",
+      "shield",
+      "shield-off",
+      "shield-off-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "shoppingBag",
+    "id": "shopping-bag",
+    "title": "Shopping Bag",
+    "category": "Commerce",
+    "keywords": [
+      "bag",
+      "commerce",
+      "shopping",
+      "shopping-bag"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "shoppingCart",
+    "id": "shopping-cart",
+    "title": "Shopping Cart",
+    "category": "Commerce",
+    "keywords": [
+      "cart",
+      "commerce",
+      "shopping",
+      "shopping-cart"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "shuffle",
+    "id": "shuffle",
+    "title": "Shuffle",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "shuffle"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "sidebar",
+    "id": "sidebar",
+    "title": "Sidebar",
+    "category": "Navigation",
+    "keywords": [
+      "navigation",
+      "sidebar"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "skipBack",
+    "id": "skip-back",
+    "title": "Skip back",
+    "category": "Media",
+    "keywords": [
+      "back",
+      "media",
+      "next",
+      "player",
+      "previous",
+      "skip",
+      "skip-back"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "skipForward",
+    "id": "skip-forward",
+    "title": "Skip forward",
+    "category": "Media",
+    "keywords": [
+      "forward",
+      "media",
+      "next",
+      "player",
+      "previous",
+      "skip",
+      "skip-forward"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "slack",
+    "id": "slack",
+    "title": "Slack",
+    "category": "Social media",
+    "keywords": [
+      "slack",
+      "social media"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "slash",
+    "id": "slash",
+    "title": "Slash",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "slash"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "smartphone",
+    "id": "smartphone",
+    "title": "Smartphone",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "smartphone"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "smile",
+    "id": "smile",
+    "title": "Smile",
+    "category": "Other",
+    "keywords": [
+      "other",
+      "smile"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "speaker",
+    "id": "speaker",
+    "title": "Speaker",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "speaker"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "square",
+    "id": "square",
+    "title": "Square",
+    "category": "Shapes & math",
+    "keywords": [
+      "shapes & math",
+      "square"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "star",
+    "id": "star",
+    "title": "Star",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "favorite",
+      "rating",
+      "star"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "stopCircle",
+    "id": "stop-circle",
+    "title": "Stop Circle",
+    "category": "Media",
+    "keywords": [
+      "circle",
+      "media",
+      "stop",
+      "stop-circle"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "sun",
+    "id": "sun",
+    "title": "Sun",
+    "category": "Weather",
+    "keywords": [
+      "sun",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "sunrise",
+    "id": "sunrise",
+    "title": "Sunrise",
+    "category": "Weather",
+    "keywords": [
+      "sunrise",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "sunset",
+    "id": "sunset",
+    "title": "Sunset",
+    "category": "Weather",
+    "keywords": [
+      "sunset",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "table",
+    "id": "table",
+    "title": "Table",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "table"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "tablet",
+    "id": "tablet",
+    "title": "Tablet",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "tablet"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "tag",
+    "id": "tag",
+    "title": "Tag",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "tag"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "target",
+    "id": "target",
+    "title": "Target",
+    "category": "Maps & location",
+    "keywords": [
+      "maps & location",
+      "target"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "terminal",
+    "id": "terminal",
+    "title": "Terminal",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "terminal"
+    ],
+    "interaction": "loop"
+  },
+  {
+    "name": "thermometer",
+    "id": "thermometer",
+    "title": "Thermometer",
+    "category": "Weather",
+    "keywords": [
+      "thermometer",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "thumbsDown",
+    "id": "thumbs-down",
+    "title": "Thumbs Down",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "down",
+      "thumbs",
+      "thumbs-down"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "thumbUp",
+    "id": "thumb-up",
+    "title": "Thumb up",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "like",
+      "thumb",
+      "thumb-up",
+      "up",
+      "upvote"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "toggle",
+    "id": "toggle",
+    "title": "Toggle",
+    "category": "Form",
+    "keywords": [
+      "form",
+      "on off",
+      "switch",
+      "toggle",
+      "toggle-left",
+      "toggle-right"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "tool",
+    "id": "tool",
+    "title": "Tool",
+    "category": "Other",
+    "keywords": [
+      "other",
+      "tool"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "trash",
+    "id": "trash",
+    "title": "Trash",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "bin",
+      "delete",
+      "remove",
+      "trash"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "trash2",
+    "id": "trash-v2",
+    "title": "Trash V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "bin",
+      "delete",
+      "remove",
+      "trash",
+      "trash-2"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "trello",
+    "id": "trello",
+    "title": "Trello",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "trello"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "trendingDown",
+    "id": "trending-down",
+    "title": "Trending Down",
+    "category": "Charts",
+    "keywords": [
+      "charts",
+      "down",
+      "trending",
+      "trending-down"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "trendingUp",
+    "id": "trending-up",
+    "title": "Trending Up",
+    "category": "Charts",
+    "keywords": [
+      "charts",
+      "trending",
+      "trending-up",
+      "up"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "triangle",
+    "id": "triangle",
+    "title": "Triangle",
+    "category": "Shapes & math",
+    "keywords": [
+      "shapes & math",
+      "triangle"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "truck",
+    "id": "truck",
+    "title": "Truck",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "truck"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "tv",
+    "id": "tv",
+    "title": "TV",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "tv"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "twitch",
+    "id": "twitch",
+    "title": "Twitch",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "twitch"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "twitter",
+    "id": "twitter",
+    "title": "Twitter",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "twitter"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
+    "name": "twitterX",
+    "id": "twitter-x",
+    "title": "Twitter X",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "twitter",
+      "twitter-x",
+      "x"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "type",
+    "id": "type",
+    "title": "Type",
+    "category": "Text editing",
+    "keywords": [
+      "text editing",
+      "type"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "umbrella",
+    "id": "umbrella",
+    "title": "Umbrella",
+    "category": "Weather",
+    "keywords": [
+      "umbrella",
+      "weather"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "underline",
+    "id": "underline",
+    "title": "Underline",
+    "category": "Text editing",
+    "keywords": [
+      "text editing",
+      "underline"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "upload",
+    "id": "upload",
+    "title": "Upload",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "upload"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "uploadCloud",
+    "id": "upload-cloud",
+    "title": "Upload Cloud",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cloud",
+      "upload",
+      "upload-cloud"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "user",
+    "id": "user",
+    "title": "User",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "profile",
+      "user"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "userCheck",
+    "id": "user-check",
+    "title": "User Check",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "check",
+      "content",
+      "person",
+      "profile",
+      "user",
+      "user-check"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "userMinus",
+    "id": "user-minus",
+    "title": "User minus",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "minus",
+      "person",
+      "profile",
+      "user",
+      "user-minus"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "userPlus",
+    "id": "user-plus",
+    "title": "User plus",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "plus",
+      "profile",
+      "user",
+      "user-plus"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "users",
+    "id": "users",
+    "title": "Users",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "profile",
+      "users"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "userX",
+    "id": "user-x",
+    "title": "User X",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "profile",
+      "user",
+      "user-x",
+      "x"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "video",
+    "id": "video",
+    "title": "Video",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media",
+      "video",
+      "video call",
+      "video-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "video2",
+    "id": "video-v2",
+    "title": "Video V2",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media",
+      "video",
+      "video call",
+      "video-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "videoOff",
+    "id": "video-off",
+    "title": "Video Off",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media",
+      "off",
+      "video",
+      "video call",
+      "video-off",
+      "video-off-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "visibility",
+    "id": "visibility",
+    "title": "Visibility",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "eye",
+      "eye-off",
+      "hide",
+      "password",
+      "show",
+      "visibility"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "visibility2",
+    "id": "visibility-v2",
+    "title": "Visibility V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "eye",
+      "eye-off",
+      "hide",
+      "password",
+      "show",
+      "visibility"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "visibility3",
+    "id": "visibility-v3",
+    "title": "Visibility V3",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "eye",
+      "eye-off",
+      "hide",
+      "password",
+      "show",
+      "visibility"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "voicemail",
+    "id": "voicemail",
+    "title": "Voicemail",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "voicemail"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "volume",
+    "id": "volume",
+    "title": "Volume",
+    "category": "Media",
+    "keywords": [
+      "audio",
+      "media",
+      "mute",
+      "sound",
+      "speaker",
+      "volume",
+      "volume-1",
+      "volume-2",
+      "volume-x"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "watch",
+    "id": "watch",
+    "title": "Watch",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "watch"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "wifi",
+    "id": "wifi",
+    "title": "WiFi",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "wifi"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "wifiOff",
+    "id": "wifi-off",
+    "title": "Wifi Off",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "off",
+      "wifi",
+      "wifi-off",
+      "wifi-off-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "wind",
+    "id": "wind",
+    "title": "Wind",
+    "category": "Weather",
+    "keywords": [
+      "weather",
+      "wind"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "xOctagon",
+    "id": "x-octagon",
+    "title": "X Octagon",
+    "category": "Alerts",
+    "keywords": [
+      "alerts",
+      "octagon",
+      "x",
+      "x-octagon"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "xSquare",
+    "id": "x-square",
+    "title": "X Square",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "square",
+      "x",
+      "x-square"
+    ],
+    "interaction": "click-replay"
+  },
+  {
+    "name": "youtube",
+    "id": "youtube",
+    "title": "YouTube",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "youtube"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "youtube2",
+    "id": "youtube-v2",
+    "title": "YouTube V2",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "youtube",
+      "youtube-2"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "zap",
+    "id": "zap",
+    "title": "Zap",
+    "category": "Weather",
+    "keywords": [
+      "weather",
+      "zap"
+    ],
+    "interaction": "hover-replay"
+  },
+  {
+    "name": "zapOff",
+    "id": "zap-off",
+    "title": "Zap Off",
+    "category": "Weather",
+    "keywords": [
+      "off",
+      "weather",
+      "zap",
+      "zap-off",
+      "zap-off-off"
+    ],
+    "interaction": "click-toggle"
+  },
+  {
+    "name": "zoomIn",
+    "id": "zoom-in",
+    "title": "Zoom In",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "in",
+      "magnifier",
+      "magnify",
+      "zoom"
+    ],
+    "interaction": "hover"
+  },
+  {
+    "name": "zoomOut",
+    "id": "zoom-out",
+    "title": "Zoom Out",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "magnifier",
+      "magnify",
+      "out",
+      "zoom"
+    ],
+    "interaction": "hover"
+  }
+]

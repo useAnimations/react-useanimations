@@ -180,7 +180,7 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
 
   const eventProps: EventProps = {
     onClick: (event) => {
-      onClick?.(event as React.MouseEvent<HTMLSpanElement>);
+      onClick?.(event);
       const current = player.current;
       if (!current || event.defaultPrevented) return;
       if (interaction === 'click-toggle') {
@@ -191,24 +191,24 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
       }
     },
     onMouseEnter: (event) => {
-      onMouseEnter?.(event as React.MouseEvent<HTMLSpanElement>);
+      onMouseEnter?.(event);
       if (!event.defaultPrevented && lastPointer.current !== 'touch') startHover();
     },
     onMouseLeave: (event) => {
-      onMouseLeave?.(event as React.MouseEvent<HTMLSpanElement>);
+      onMouseLeave?.(event);
       if (!event.defaultPrevented && lastPointer.current !== 'touch') endHover();
     },
     onPointerEnter: (event) => {
-      onPointerEnter?.(event as React.PointerEvent<HTMLSpanElement>);
+      onPointerEnter?.(event);
       lastPointer.current = event.pointerType;
     },
     // Keyboard focus plays hover animations too.
     onFocus: (event) => {
-      onFocus?.(event as React.FocusEvent<HTMLSpanElement>);
+      onFocus?.(event);
       if (!event.defaultPrevented && focusVisible(event.currentTarget)) startHover();
     },
     onBlur: (event) => {
-      onBlur?.(event as React.FocusEvent<HTMLSpanElement>);
+      onBlur?.(event);
       if (!event.defaultPrevented) endHover();
     },
   };

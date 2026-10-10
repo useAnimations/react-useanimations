@@ -47,9 +47,8 @@ jobs:
         run: npm install --no-save react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
       # The tests run in Chromium, Firefox and WebKit.
       - run: npx playwright install --with-deps chromium firefox webkit
-      - if: matrix.react == 19
-        run: npm run lint
-      - run: npm run check-types
+      # Formatting, lint and type checks.
+      - run: npm run check
       - run: npm test
       - if: matrix.react == 19
         run: npm run build

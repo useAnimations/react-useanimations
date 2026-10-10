@@ -34,7 +34,7 @@ const segment = <T>(keyframes: Keyframe<T>[], frame: number) => {
 const vectorAt = (keyframes: Keyframe<Vector>[], frame: number): Vector => {
   const { key, next } = segment(keyframes, frame);
   const start = key.s as Vector;
-  const end = (next.s ?? key.e ?? start) as Vector;
+  const end = next.s ?? key.e ?? start;
   if (key.to) {
     const data = spatialBezier(start, end, key.to, key.ti ?? []);
     if (frame >= next.t || frame < key.t) {
@@ -115,7 +115,7 @@ export const vector = (
 ): Animated<Vector> => {
   if (!data) return constant(fallback);
   const keyframes = isKeyframed(data.k)
-    ? (data.k as Keyframe<Vector | number>[]).map((key) => ({
+    ? data.k.map((key) => ({
         ...key,
         s: key.s === undefined ? undefined : toVector(key.s, fallback),
         e: key.e === undefined ? undefined : toVector(key.e, fallback),
@@ -141,7 +141,7 @@ export const scalar = (
   fallback: number,
   ctx: Context
 ): Animated<number> => {
-  const v = vector(data as Property<Vector | number> | undefined, [fallback], ctx);
+  const v = vector(data, [fallback], ctx);
   return v.animated ? { animated: true, at: (frame) => v.at(frame)[0] } : constant(v.at(0)[0]);
 };
 
@@ -159,7 +159,7 @@ const firstPath = (value: PathData | PathData[] | undefined) =>
 
 export const path = (data: Property<PathData | PathData[]>): Animated<PathData> => {
   if (!isKeyframed(data.k)) return constant(absolute(firstPath(data.k as PathData) as PathData));
-  const keyframes = (data.k as Keyframe<PathData | PathData[]>[]).map((key) => ({
+  const keyframes = data.k.map((key) => ({
     ...key,
     s: key.s && absolute(firstPath(key.s) as PathData),
     e: key.e && absolute(firstPath(key.e) as PathData),

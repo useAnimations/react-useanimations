@@ -5,10 +5,8 @@ import type {
   LayerData,
   MaskData,
   PathData,
-  Property,
   ShapeItem,
   TransformData,
-  Vector,
 } from './lottie';
 import {
   identity,
@@ -139,7 +137,7 @@ type Shape = {
 const geometry = (item: ShapeItem, ctx: Context): Animated<PathData> | undefined => {
   if (item.ty === 'sh' && item.ks) return path(item.ks);
   const position = vector(item.p, [0, 0], ctx);
-  const size = vector(item.s as unknown as Property<Vector>, [0, 0], ctx);
+  const size = vector(item.s, [0, 0], ctx);
   const reversed = item.d === 3;
   if (item.ty === 'el') {
     return {
@@ -148,7 +146,7 @@ const geometry = (item: ShapeItem, ctx: Context): Animated<PathData> | undefined
     };
   }
   if (item.ty === 'rc') {
-    const roundness = scalar(item.r as ShapeItem['o'], 0, ctx);
+    const roundness = scalar(item.r, 0, ctx);
     return {
       animated: position.animated || size.animated || roundness.animated,
       at: (frame) => rectangle(position.at(frame), size.at(frame), roundness.at(frame), reversed),

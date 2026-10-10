@@ -1,21 +1,21 @@
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, readdirSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
+import { readCatalog } from './icons.ts';
 
 type Manifest = Record<string, unknown> & { name: string; version: string };
 
 const source = JSON.parse(readFileSync('package.json', 'utf8')) as Manifest;
 const pkg = JSON.parse(readFileSync('dist/package.json', 'utf8')) as Manifest;
-const icons = readdirSync('src/lib', { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name);
+const icons = readCatalog().map((icon) => icon.name);
 const extensions = ['js', 'mjs', 'd.ts', 'd.mts'];
 const expected = new Set([
   'package.json',
   'README.md',
   'LICENSE',
-  'icons.json',
-  ...extensions.map((extension) => `index.${extension}`),
-  ...icons.flatMap((icon) => extensions.map((extension) => `lib/${icon}/index.${extension}`)),
+  'catalog.json',
+  'svg.json',
+  ...['index', 'icons'].flatMap((base) => extensions.map((extension) => `${base}.${extension}`)),
+  ...icons.flatMap((icon) => extensions.map((extension) => `lib/${icon}.${extension}`)),
 ]);
 
 if (pkg.name !== source.name || pkg.version !== source.version || pkg.private) {
