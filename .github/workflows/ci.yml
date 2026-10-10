@@ -23,10 +23,11 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+          cache: npm
       - run: npm ci
       - name: Check release version
         id: release
-        run: node scripts/release.mjs
+        run: node scripts/release.ts
         env:
           RELEASE_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
@@ -40,14 +41,20 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+          cache: npm
       - run: npm ci
       - if: matrix.react != 19
         run: npm install --no-save react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
-      - run: npm run lint
+      # The tests run in Chromium, Firefox and WebKit.
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - if: matrix.react == 19
+        run: npm run lint
       - run: npm run check-types
       - run: npm test
-      - run: npm run build
-      - run: npm run pack
+      - if: matrix.react == 19
+        run: npm run build
+      - if: matrix.react == 19
+        run: npm run pack
       - name: Upload verified npm package
         if: matrix.react == 19
         uses: actions/upload-artifact@v7
@@ -72,13 +79,12 @@ jobs:
       contents: read
       id-token: write
     steps:
+      # Node 24 ships npm 11, which supports Trusted Publishing.
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
-      - name: Use npm with Trusted Publishing support
-        run: npm install --global npm@11
       - uses: actions/download-artifact@v8
         with:
           name: npm-package
