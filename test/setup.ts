@@ -1,12 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import { afterEach } from 'vitest';
 
-// jsdom has no canvas; lottie-web only needs a stub to initialise.
-if (typeof HTMLCanvasElement !== 'undefined') {
-  HTMLCanvasElement.prototype.getContext = (() => ({
-    fillRect() {},
-    measureText: () => ({ width: 0 }),
-  })) as unknown as typeof HTMLCanvasElement.prototype.getContext;
-}
+// Keeps rendered icons away from the browser's resting mouse position (0, 0), which would hover them.
+document.body.style.margin = '100px';
 
 afterEach(cleanup);

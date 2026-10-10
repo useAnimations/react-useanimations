@@ -2,14 +2,18 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync } from 'node:fs';
 import semver from 'semver';
 
-const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
-const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+type Manifest = { name: string; version: string };
+
+const pkg = JSON.parse(readFileSync('package.json', 'utf8')) as Manifest;
+const lock = JSON.parse(readFileSync('package-lock.json', 'utf8')) as Manifest & {
+  packages: Record<string, Manifest>;
+};
 const base = process.env.RELEASE_BASE_SHA;
 const pullRequest = process.env.GITHUB_EVENT_NAME === 'pull_request';
 const gitTag = `v${pkg.version}`;
-const git = (...args) => execFileSync('git', args, { encoding: 'utf8' });
+const git = (...args: string[]) => execFileSync('git', args, { encoding: 'utf8' });
 
-if (!semver.valid(pkg.version) || semver.parse(pkg.version).build.length) {
+if (!semver.valid(pkg.version) || semver.parse(pkg.version)?.build.length) {
   throw new Error('Use a valid semantic version without build metadata.');
 }
 if (lock.version !== pkg.version || lock.packages[''].version !== pkg.version) {
@@ -22,7 +26,7 @@ if (!base || !/^[a-f0-9]{40}$/.test(base) || /^0+$/.test(base)) {
   throw new Error('RELEASE_BASE_SHA must identify the commit before these changes.');
 }
 
-const previous = JSON.parse(git('show', `${base}:package.json`));
+const previous = JSON.parse(git('show', `${base}:package.json`)) as Manifest;
 const changed = pkg.version !== previous.version;
 const tag = semver.prerelease(pkg.version) ? 'next' : 'latest';
 
@@ -36,7 +40,10 @@ const response = await fetch(`https://registry.npmjs.org/${encodeURIComponent(pk
 if (!response.ok) {
   throw new Error(`Cannot check npm registry: HTTP ${response.status}.`);
 }
-const registry = await response.json();
+const registry = (await response.json()) as {
+  versions: Record<string, unknown>;
+  'dist-tags': Record<string, string>;
+};
 const published = Object.hasOwn(registry.versions, pkg.version);
 
 if (published) {

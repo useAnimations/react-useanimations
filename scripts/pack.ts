@@ -1,8 +1,10 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, readdirSync } from 'node:fs';
 
-const source = JSON.parse(readFileSync('package.json', 'utf8'));
-const pkg = JSON.parse(readFileSync('dist/package.json', 'utf8'));
+type Manifest = Record<string, unknown> & { name: string; version: string };
+
+const source = JSON.parse(readFileSync('package.json', 'utf8')) as Manifest;
+const pkg = JSON.parse(readFileSync('dist/package.json', 'utf8')) as Manifest;
 const icons = readdirSync('src/lib', { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name);
@@ -32,7 +34,7 @@ const [packed] = JSON.parse(
     ['pack', './dist', '--json', '--ignore-scripts', '--pack-destination', '.release'],
     { encoding: 'utf8' }
   )
-);
+) as { filename: string; size: number; files: { path: string }[] }[];
 const actual = new Set(packed.files.map((file) => file.path));
 const missing = [...expected].filter((file) => !actual.has(file));
 const unexpected = [...actual].filter((file) => !expected.has(file));

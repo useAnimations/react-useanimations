@@ -1,4 +1,0 @@
-dist
-src/lib/**/*.json
-src/icons.json
-package-lock.json

@@ -2,10 +2,20 @@
 // package with the same import paths as before: `react-useanimations` and `react-useanimations/lib/<name>`.
 import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
 
-const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
-const icons = JSON.parse(readFileSync('src/icons.json', 'utf8'));
+type Icon = {
+  name: string;
+  title: string;
+  category: string;
+  keywords: string[];
+  interaction: string;
+  import: string;
+  preview?: string;
+};
 
-const entry = (base) => ({
+const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+const icons = JSON.parse(readFileSync('src/icons.json', 'utf8')) as Icon[];
+
+const entry = (base: string) => ({
   import: { types: `${base}.d.mts`, default: `${base}.mjs` },
   require: { types: `${base}.d.ts`, default: `${base}.js` },
 });
@@ -37,7 +47,7 @@ const dist = {
 
 // Every icon module has the same type, so its declarations are written here instead of by tsdown.
 // The doc comment shows up on hover in editors and tells coding agents what the icon is.
-const docs = (icon) =>
+const docs = (icon: Icon) =>
   [
     `**${icon.title}** animated icon (${icon.category}). Default interaction: \`${icon.interaction}\`.`,
     '',
