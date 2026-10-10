@@ -9,7 +9,12 @@
  * - `hover-replay`: plays once from the start on mouse enter.
  */
 export type Interaction =
-  'loop' | 'click-toggle' | 'click-replay' | 'hover' | 'hover-loop' | 'hover-replay';
+  | 'loop'
+  | 'click-toggle'
+  | 'click-replay'
+  | 'hover'
+  | 'hover-loop'
+  | 'hover-replay';
 
 /** An icon imported from `react-useanimations/lib/<name>`, or your own Lottie animation. */
 export type Animation = {
@@ -17,6 +22,4 @@ export type Animation = {
   animationData: object;
   /** How the animation plays unless the `interaction` prop overrides it. Defaults to `'click-replay'`. */
   interaction?: Interaction;
-  /** The animation uses After Effects expressions and needs the full lottie-web player. */
-  fullPlayer?: boolean;
 };

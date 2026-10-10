@@ -9,7 +9,7 @@ const css =
   ':where([data-useanimations] path[stroke^="rgb"]:not([stroke="rgb(255,255,255)"])){stroke:var(--ua-stroke,currentColor)}' +
   ':where([data-useanimations] path[fill="rgb(0,0,0)"]){fill:var(--ua-fill,var(--ua-stroke,currentColor))}';
 
-export const injectStyles = (doc: Document) => {
+export const injectStyles = (doc: Document): void => {
   if (doc.getElementById(STYLE_ID)) return;
   const style = doc.createElement('style');
   style.id = STYLE_ID;
@@ -28,7 +28,7 @@ const subscribe = (onChange: () => void) => {
   return () => media.removeEventListener('change', onChange);
 };
 
-export const usePrefersReducedMotion = () =>
+export const usePrefersReducedMotion = (): boolean =>
   useSyncExternalStore(
     subscribe,
     () => hasMatchMedia() && window.matchMedia(QUERY).matches,

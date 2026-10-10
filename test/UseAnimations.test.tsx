@@ -7,17 +7,13 @@ import activity from '../src/lib/activity';
 import bluetooth from '../src/lib/bluetooth';
 import checkBox from '../src/lib/checkBox';
 import download from '../src/lib/download';
-import error from '../src/lib/error';
 import github from '../src/lib/github';
 import menu from '../src/lib/menu';
 import share from '../src/lib/share';
 import star from '../src/lib/star';
-import { instances } from './fakeLottie';
+import { instances } from './fakePlayer';
 
-vi.mock('lottie-web', async () => (await import('./fakeLottie')).fakePlayer('full'));
-vi.mock('lottie-web/build/player/lottie_light', async () =>
-  (await import('./fakeLottie')).fakePlayer('light')
-);
+vi.mock('../src/player', async () => (await import('./fakePlayer')).fakePlayerModule);
 
 const live = () => instances.filter((instance) => !instance.destroyed);
 
@@ -60,25 +56,10 @@ describe('lifecycle', () => {
     expect(container.querySelectorAll('svg')).toHaveLength(1);
   });
 
-  it('uses the light player unless the icon needs the full one', async () => {
-    render(
-      <>
-        <UseAnimations animation={menu} />
-        <UseAnimations animation={error} />
-      </>
-    );
-    const [light, full] = await loaded(2);
-    expect(light.player).toBe('light');
-    expect(full.player).toBe('full');
-  });
-
-  it('applies speed and custom options', async () => {
-    const { rerender } = render(
-      <UseAnimations animation={menu} speed={2} options={{ name: 'custom' }} />
-    );
+  it('applies the speed', async () => {
+    const { rerender } = render(<UseAnimations animation={menu} speed={2} />);
     const [animation] = await loaded();
     expect(animation.speed).toBe(2);
-    expect(animation.config.name).toBe('custom');
     rerender(<UseAnimations animation={menu} speed={0.5} />);
     expect(animation.speed).toBe(0.5);
   });
@@ -109,7 +90,7 @@ describe('interactions', () => {
     const { container } = render(<UseAnimations animation={download} />);
     const [animation] = await loaded();
     fireEvent.click(container.firstChild as Element);
-    expect(animation.calls).toEqual(['segments:0-60:true']);
+    expect(animation.calls).toEqual(['segments:0-60']);
   });
 
   it('plays hover icons forward on enter and backward on leave', async () => {
@@ -138,10 +119,10 @@ describe('interactions', () => {
     fireEvent.mouseEnter(container.firstChild as Element);
     fireEvent.mouseLeave(container.firstChild as Element);
     fireEvent.mouseEnter(container.firstChild as Element);
-    expect(animation.calls).toEqual(['segments:0-60:true']);
+    expect(animation.calls).toEqual(['segments:0-60']);
     animation.isPaused = true; // the replay finished
     fireEvent.mouseEnter(container.firstChild as Element);
-    expect(animation.calls).toEqual(['segments:0-60:true', 'segments:0-60:true']);
+    expect(animation.calls).toEqual(['segments:0-60', 'segments:0-60']);
   });
 
   it('lets the interaction prop override the default', async () => {
@@ -176,6 +157,13 @@ describe('interactions', () => {
   });
 });
 
+const Checkbox = () => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <UseAnimations animation={checkBox} active={checked} onClick={() => setChecked(!checked)} />
+  );
+};
+
 describe('controlled toggle (active)', () => {
   it('starts in the end state without animating when active is true', async () => {
     render(<UseAnimations animation={checkBox} active />);
@@ -192,12 +180,6 @@ describe('controlled toggle (active)', () => {
   });
 
   it('plays once per click when the parent mirrors the state', async () => {
-    const Checkbox = () => {
-      const [checked, setChecked] = useState(false);
-      return (
-        <UseAnimations animation={checkBox} active={checked} onClick={() => setChecked(!checked)} />
-      );
-    };
     const { container } = render(<Checkbox />);
     const [animation] = await loaded();
     fireEvent.click(container.firstChild as Element);

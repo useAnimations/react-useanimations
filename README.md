@@ -4,7 +4,7 @@
 
 #### What is react-useanimations?
 
-React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 290+ animated Lottie icons.
+React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 290+ animated Lottie icons. It has no dependencies: a built-in player (8 kB gzipped) renders the icons as SVG.
 
 📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation): React props and all import names, plus plain HTML/JS, Vue, iOS and Android guides.
 
@@ -40,19 +40,18 @@ Icons can be configured with inline props:
 
 These props are available:
 
-| Prop        |     Default      | Definition                                                                                                                   |
-| :---------- | :--------------: | :--------------------------------------------------------------------------------------------------------------------------- |
-| animation   |        /         | icon imported from `react-useanimations/lib/<name>`, or `{ animationData, interaction }` for your own Lottie JSON            |
-| size        |       `24`       | width and height; numbers are pixels, strings are any CSS length (e.g. `'1.5em'`)                                            |
-| strokeColor | `'currentColor'` | color of the icon's strokes; by default the icon follows the text color                                                      |
-| fillColor   |  `strokeColor`   | color of the icon's filled parts (e.g. a liked heart)                                                                        |
-| interaction |    per icon\*    | `'loop'`, `'click-toggle'`, `'click-replay'`, `'hover'`, `'hover-loop'` or `'hover-replay'`                                  |
-| active      |     `false`      | for `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox); can be controlled                            |
-| autoplay    |    per icon\*    | `true` for looping icons like loaders, unless reduced motion is preferred                                                    |
-| loop        |    per icon\*    | `true` for `loop` and `hover-loop` icons                                                                                     |
-| speed       |       `1`        | playback speed (1 is normal speed)                                                                                           |
-| options     |       `{}`       | any other [lottie-web options](https://github.com/airbnb/lottie-web#other-loading-options); applied when the animation loads |
-| render      |        /         | render prop for a custom wrapper, see below                                                                                  |
+| Prop        |     Default      | Definition                                                                                                        |
+| :---------- | :--------------: | :---------------------------------------------------------------------------------------------------------------- |
+| animation   |        /         | icon imported from `react-useanimations/lib/<name>`, or `{ animationData, interaction }` for your own Lottie JSON |
+| size        |       `24`       | width and height; numbers are pixels, strings are any CSS length (e.g. `'1.5em'`)                                 |
+| strokeColor | `'currentColor'` | color of the icon's strokes; by default the icon follows the text color                                           |
+| fillColor   |  `strokeColor`   | color of the icon's filled parts (e.g. a liked heart)                                                             |
+| interaction |    per icon\*    | `'loop'`, `'click-toggle'`, `'click-replay'`, `'hover'`, `'hover-loop'` or `'hover-replay'`                       |
+| active      |     `false`      | for `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox); can be controlled                 |
+| autoplay    |    per icon\*    | `true` for looping icons like loaders, unless reduced motion is preferred                                         |
+| loop        |    per icon\*    | `true` for `loop` and `hover-loop` icons                                                                          |
+| speed       |       `1`        | playback speed (1 is normal speed)                                                                                |
+| render      |        /         | render prop for a custom wrapper, see below                                                                       |
 
 \* Each icon has a default interaction matching [useanimations.com](https://useanimations.com):
 
@@ -62,6 +61,8 @@ These props are available:
 - `hover`: plays forward on mouse enter and backward on mouse leave.
 - `hover-loop`: loops while hovered and finishes the current cycle on mouse leave (social icons).
 - `hover-replay`: plays once from the start on mouse enter.
+
+Hover animations also play on keyboard focus (when the icon or its wrapper is focusable) and ignore taps on touch screens. Looping icons pause while they are scrolled out of view.
 
 When the user prefers reduced motion (`prefers-reduced-motion: reduce`), icons stay still: looping icons show their first frame, hover and replay animations don't play, and toggles switch to their new state immediately. Pass `autoplay` to play a loader anyway.
 
@@ -122,7 +123,7 @@ import animationData from './my-animation.json';
 <UseAnimations animation={{ animationData, interaction: 'hover' }} />;
 ```
 
-Add `fullPlayer: true` if the animation uses After Effects expressions, which need the full lottie-web player.
+The player supports what icon animations use: shape layers, precompositions, null layers and parenting, paths, rectangles, ellipses, strokes, fills, trim paths, masks, keyframes with easing, holds and motion paths, and the `loopOut()` and `wiggle()` expressions. Gradients, solid, text and image layers, effects, mattes and other expressions are not rendered; the console warns about them once per animation.
 
 #### Wrapping the animation in another element
 
@@ -147,7 +148,7 @@ export const LikeButton = () => (
 
 #### Next.js and other SSR frameworks
 
-The component is marked `'use client'` and loads lottie-web only in the browser, so it can be rendered from server components without `dynamic(..., { ssr: false })`.
+The component is marked `'use client'` and renders the animation only in the browser, so it can be rendered from server components without `dynamic(..., { ssr: false })`.
 
 ### Available animations
 
@@ -172,17 +173,19 @@ To find an icon by what it shows, search `react-useanimations/icons.json`: every
 - `pathCss` was removed: style the paths with `className` and CSS instead (see Colors). `wrapperStyle` still works but is deprecated; use `style`.
 - `onMouseEnter` / `onMouseLeave` no longer replace the hover animation, and `style` is merged into the wrapper styles.
 - `loop={false}` and `autoplay={false}` now override the defaults of looping icons.
-- `options` is typed as lottie-web's `AnimationConfigWithData<'svg'>`.
+- lottie-web is no longer a dependency: a built-in player renders the icons, so the `options` prop (lottie-web settings) was removed.
 - The `react-useanimations/utils/*` paths were removed; import the types (`Animation`, `AnimationKey`, `Interaction`, `UseAnimationsProps`) from `react-useanimations`.
 
 ### Development
 
 ```
 npm install
-npm test            # vitest
-npm run lint
-npm run check-types
-npm run build       # builds dist/ (CJS + ESM + types)
+npx playwright install chromium firefox webkit  # once, for the browser tests
+npm test            # vitest in Chromium, Firefox and WebKit, plus server rendering in Node
+npm run lint        # oxlint and oxfmt --check
+npm run format      # oxfmt
+npm run check-types # TypeScript 7
+npm run build       # builds dist/ (CJS + ESM + types) with tsdown
 npm run verify      # lint, types, tests, build and package check
 npm run sync-icons  # syncs src/lib with https://useanimations.com/icons.json
 ```

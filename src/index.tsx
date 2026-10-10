@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import type React from 'react';
-import type { AnimationConfigWithData, AnimationItem } from 'lottie-web';
 
 import { hoverEnd, hoverStart, isHover, replay, toggle } from './interactions';
-import loadLottie from './lottie';
+import { loadAnimation, type Player } from './player';
 import { injectStyles, usePrefersReducedMotion } from './styles';
 import type { Animation, Interaction } from './types';
 
-type MouseHandler = (event: React.MouseEvent<HTMLElement>) => void;
-
 export type EventProps = {
-  onClick: MouseHandler;
-  onMouseEnter: MouseHandler;
-  onMouseLeave: MouseHandler;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseEnter: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseLeave: (event: React.MouseEvent<HTMLElement>) => void;
+  onPointerEnter: (event: React.PointerEvent<HTMLElement>) => void;
+  onFocus: (event: React.FocusEvent<HTMLElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLElement>) => void;
 };
 
 export type AnimationProps = React.HTMLAttributes<HTMLElement> & {
@@ -42,8 +42,6 @@ type OwnProps = {
   loop?: boolean | number;
   /** Defaults to `true` for `loop` icons, unless reduced motion is preferred. */
   autoplay?: boolean;
-  /** Extra lottie-web options, applied when the animation loads. */
-  options?: Partial<AnimationConfigWithData<'svg'>>;
   /** @deprecated Use `style`. */
   wrapperStyle?: React.CSSProperties;
   /** Renders a custom wrapper: spread `eventProps` on the interactive element, `animationProps` on a span inside it. */
@@ -62,6 +60,14 @@ const missingAnimation = (): never => {
   );
 };
 
+const focusVisible = (element: Element) => {
+  try {
+    return element.matches(':focus-visible');
+  } catch {
+    return false;
+  }
+};
+
 const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
   const {
     animation,
@@ -74,119 +80,136 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
     fillColor,
     loop,
     autoplay,
-    options,
     wrapperStyle,
     render,
     style,
     onClick,
     onMouseEnter,
     onMouseLeave,
+    onPointerEnter,
+    onFocus,
+    onBlur,
     ...other
   } = props;
-  const {
-    animationData,
-    interaction: defaultInteraction,
-    fullPlayer = false,
-  } = animation?.animationData ? animation : missingAnimation();
+  const { animationData, interaction: defaultInteraction } = animation?.animationData
+    ? animation
+    : missingAnimation();
   const active = activeProp ?? reverse ?? false;
 
   const [container, setContainer] = useState<HTMLElement | null>(null);
-  const [player, setPlayer] = useState<AnimationItem | null>(null);
+  const player = useRef<Player | null>(null);
   const reducedMotion = usePrefersReducedMotion();
   // Whether a click-toggle animation currently sits at its end state.
   const atEnd = useRef(false);
   // Whether a hover-loop animation should stop when its current cycle completes.
   const stopAfterCycle = useRef(false);
+  // Touch devices fire mouseenter on tap; hover animations ignore it.
+  const lastPointer = useRef('');
   // Latest values read when the animation (re)loads, without reloading when they change.
-  const latest = useRef({ options, speed, active });
+  const latest = useRef({ speed, active });
 
   const interaction = interactionProp ?? defaultInteraction ?? 'click-replay';
   const shouldLoop = loop ?? (interaction === 'loop' || interaction === 'hover-loop');
   const shouldAutoplay = autoplay ?? (interaction === 'loop' && !reducedMotion);
 
   useEffect(() => {
-    latest.current = { options, speed, active };
+    latest.current = { speed, active };
   });
 
   // LOAD THE ANIMATION; the cleanup destroys exactly the instance this effect created
   useEffect(() => {
     if (!container) return undefined;
     injectStyles(container.ownerDocument);
-
-    let cancelled = false;
-    let instance: AnimationItem | undefined;
-
-    loadLottie(fullPlayer).then((lottie) => {
-      if (cancelled) return;
-      const { options: custom, speed: initialSpeed } = latest.current;
-      const created = lottie.loadAnimation({
-        container,
-        renderer: 'svg',
-        animationData,
-        loop: shouldLoop,
-        autoplay: shouldAutoplay,
-        ...custom,
-        rendererSettings: { progressiveLoad: true, ...custom?.rendererSettings },
-      });
-      instance = created;
-      created.setSpeed(initialSpeed);
-      const stopCycle = () => {
-        if (!stopAfterCycle.current) return;
-        stopAfterCycle.current = false;
-        created.goToAndStop(0, true);
-      };
-      created.addEventListener('loopComplete', stopCycle);
-      created.addEventListener('complete', stopCycle);
-      const ready = () => {
-        if (cancelled) return;
-        // A controlled toggle that starts active shows its end state without animating.
-        atEnd.current = interaction === 'click-toggle' && latest.current.active;
-        if (atEnd.current) created.goToAndStop(created.totalFrames - 1, true);
-        setPlayer(created);
-      };
-      if (created.isLoaded) ready();
-      else created.addEventListener('DOMLoaded', ready);
+    const created = loadAnimation({
+      container,
+      animationData,
+      loop: shouldLoop,
+      autoplay: shouldAutoplay,
     });
+    created.setSpeed(latest.current.speed);
+    const stopCycle = () => {
+      if (!stopAfterCycle.current) return;
+      stopAfterCycle.current = false;
+      created.goToAndStop(0);
+    };
+    created.addEventListener('loopComplete', stopCycle);
+    created.addEventListener('complete', stopCycle);
+    // A controlled toggle that starts active shows its end state without animating.
+    atEnd.current = interaction === 'click-toggle' && latest.current.active;
+    if (atEnd.current) created.goToAndStop(created.totalFrames - 1);
+    player.current = created;
+
+    // Autoplaying animations pause while they are scrolled out of view.
+    let observer: IntersectionObserver | undefined;
+    if (shouldAutoplay && typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) created.play();
+        else created.pause();
+      });
+      observer.observe(container);
+    }
 
     return () => {
-      cancelled = true;
-      instance?.destroy();
-      setPlayer(null);
+      observer?.disconnect();
+      created.destroy();
+      player.current = null;
     };
-  }, [container, animationData, fullPlayer, interaction, shouldLoop, shouldAutoplay]);
+  }, [container, animationData, interaction, shouldLoop, shouldAutoplay]);
 
   useEffect(() => {
-    player?.setSpeed(speed);
-  }, [player, speed]);
+    player.current?.setSpeed(speed);
+  }, [speed]);
 
   // CONTROLLED TOGGLE STATE (e.g. a checkbox checked from the outside)
   useEffect(() => {
-    if (!player || interaction !== 'click-toggle' || active === atEnd.current) return;
+    const current = player.current;
+    if (!current || interaction !== 'click-toggle' || active === atEnd.current) return;
     atEnd.current = active;
-    toggle(player, active, reducedMotion);
-  }, [player, interaction, active, reducedMotion]);
+    toggle(current, active, reducedMotion);
+  }, [interaction, active, reducedMotion]);
+
+  const startHover = () => {
+    if (!player.current || !isHover(interaction) || reducedMotion) return;
+    stopAfterCycle.current = false;
+    hoverStart(player.current, interaction);
+  };
+  const endHover = () => {
+    if (!player.current || !isHover(interaction) || reducedMotion) return;
+    stopAfterCycle.current = hoverEnd(player.current, interaction);
+  };
 
   const eventProps: EventProps = {
     onClick: (event) => {
       onClick?.(event as React.MouseEvent<HTMLSpanElement>);
-      if (!player || event.defaultPrevented) return;
+      const current = player.current;
+      if (!current || event.defaultPrevented) return;
       if (interaction === 'click-toggle') {
         atEnd.current = !atEnd.current;
-        toggle(player, atEnd.current, reducedMotion);
+        toggle(current, atEnd.current, reducedMotion);
       } else if (interaction === 'click-replay' && !reducedMotion) {
-        replay(player);
+        replay(current);
       }
     },
     onMouseEnter: (event) => {
       onMouseEnter?.(event as React.MouseEvent<HTMLSpanElement>);
-      if (!player || event.defaultPrevented || !isHover(interaction) || reducedMotion) return;
-      stopAfterCycle.current = false;
-      hoverStart(player, interaction);
+      if (!event.defaultPrevented && lastPointer.current !== 'touch') startHover();
     },
     onMouseLeave: (event) => {
       onMouseLeave?.(event as React.MouseEvent<HTMLSpanElement>);
-      if (!player || event.defaultPrevented || !isHover(interaction) || reducedMotion) return;
-      stopAfterCycle.current = hoverEnd(player, interaction);
+      if (!event.defaultPrevented && lastPointer.current !== 'touch') endHover();
+    },
+    onPointerEnter: (event) => {
+      onPointerEnter?.(event as React.PointerEvent<HTMLSpanElement>);
+      lastPointer.current = event.pointerType;
+    },
+    // Keyboard focus plays hover animations too.
+    onFocus: (event) => {
+      onFocus?.(event as React.FocusEvent<HTMLSpanElement>);
+      if (!event.defaultPrevented && focusVisible(event.currentTarget)) startHover();
+    },
+    onBlur: (event) => {
+      onBlur?.(event as React.FocusEvent<HTMLSpanElement>);
+      if (!event.defaultPrevented) endHover();
     },
   };
 
@@ -211,7 +234,7 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
   };
 
   // The handlers read refs only when events fire, never during render.
-  // eslint-disable-next-line react-hooks/refs
+  // oxlint-disable-next-line react/refs
   return render ? render(eventProps, animationProps) : <span {...animationProps} {...eventProps} />;
 };
 
