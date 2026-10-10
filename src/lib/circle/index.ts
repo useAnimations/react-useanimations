@@ -1,6 +1,6 @@
 import type { Animation } from '../../types';
 import animationData from './circle.json';
 
-const circle: Animation = { animationData, animationKey: 'circle' };
+const circle: Animation = { animationData, interaction: 'hover-replay' };
 
 export default circle;

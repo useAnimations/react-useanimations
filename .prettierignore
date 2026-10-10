@@ -1,4 +1,4 @@
 dist
-docs
 src/lib/**/*.json
+src/icons.json
 package-lock.json

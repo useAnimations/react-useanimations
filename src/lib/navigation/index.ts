@@ -1,6 +1,6 @@
 import type { Animation } from '../../types';
 import animationData from './navigation.json';
 
-const navigation: Animation = { animationData, animationKey: 'navigation' };
+const navigation: Animation = { animationData, interaction: 'hover-replay' };
 
 export default navigation;

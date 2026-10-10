@@ -1,6 +1,6 @@
 import type { Animation } from '../../types';
 import animationData from './video.json';
 
-const video: Animation = { animationData, animationKey: 'video' };
+const video: Animation = { animationData, interaction: 'click-toggle' };
 
 export default video;

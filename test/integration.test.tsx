@@ -3,7 +3,7 @@ import { render, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import UseAnimations from '../src';
-import { interactions } from '../src/icons';
+import icons from '../src/icons.json';
 import error from '../src/lib/error';
 import menu2 from '../src/lib/menu2';
 
@@ -16,8 +16,6 @@ describe('with lottie-web', () => {
       </StrictMode>
     );
     await waitFor(() => expect(container.querySelectorAll('svg')).toHaveLength(1));
-    const svg = container.querySelector('svg') as SVGSVGElement;
-    expect(svg.id).toMatch(/^useanimations-\d+$/);
   });
 
   it('renders icons that need the full player', async () => {
@@ -27,9 +25,12 @@ describe('with lottie-web', () => {
 });
 
 describe('icon modules', () => {
-  it.each(Object.keys(interactions))('lib/%s exports its animation', async (key) => {
-    const { default: animation } = await import(`../src/lib/${key}/index.ts`);
-    expect(animation.animationKey).toBe(key);
-    expect(animation.animationData).toHaveProperty('layers');
-  });
+  it.each(icons as { name: string; interaction: string }[])(
+    'lib/$name exports its animation',
+    async ({ name, interaction }) => {
+      const { default: animation } = await import(`../src/lib/${name}/index.ts`);
+      expect(animation.interaction).toBe(interaction);
+      expect(animation.animationData).toHaveProperty('layers');
+    }
+  );
 });

@@ -1,6 +1,6 @@
 import type { Animation } from '../../types';
 import animationData from './globe.json';
 
-const globe: Animation = { animationData, animationKey: 'globe' };
+const globe: Animation = { animationData, interaction: 'hover-loop' };
 
 export default globe;

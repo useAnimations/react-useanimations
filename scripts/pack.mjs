@@ -11,6 +11,7 @@ const expected = new Set([
   'package.json',
   'README.md',
   'LICENSE',
+  'icons.json',
   ...extensions.map((extension) => `index.${extension}`),
   ...icons.flatMap((icon) => extensions.map((extension) => `lib/${icon}/index.${extension}`)),
 ]);

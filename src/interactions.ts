@@ -1,12 +1,14 @@
 import type { AnimationItem } from 'lottie-web';
-import { interactions } from './icons';
-import type { Animation, Interaction } from './types';
+import type { Interaction } from './types';
 
-export const getInteraction = (key: Animation['animationKey']): Interaction =>
-  // Unknown keys (e.g. custom animations) fall back to replaying on click.
-  (interactions as Record<string, Interaction>)[key] ?? 'click-replay';
+export const isHover = (interaction: Interaction) =>
+  interaction === 'hover' || interaction === 'hover-loop' || interaction === 'hover-replay';
 
-export const playToggle = (animation: AnimationItem, toEnd: boolean) => {
+export const toggle = (animation: AnimationItem, toEnd: boolean, reducedMotion: boolean) => {
+  if (reducedMotion) {
+    animation.goToAndStop(toEnd ? animation.totalFrames - 1 : 0, true);
+    return;
+  }
   animation.setDirection(toEnd ? 1 : -1);
   animation.play();
 };
@@ -16,25 +18,24 @@ export const replay = (animation: AnimationItem) => {
   animation.playSegments([0, animation.totalFrames], true);
 };
 
-export const isHover = (interaction: Interaction) =>
-  interaction === 'hover' || interaction === 'hover-loop' || interaction === 'hover-replay';
-
 export const hoverStart = (animation: AnimationItem, interaction: Interaction) => {
   if (interaction === 'hover-replay') {
     // Let a running replay finish instead of restarting it on every re-enter.
     if (animation.isPaused) replay(animation);
     return;
   }
-  if (interaction === 'hover') animation.setDirection(1);
+  animation.setDirection(1);
   animation.play();
 };
 
-export const hoverEnd = (animation: AnimationItem, interaction: Interaction) => {
-  if (interaction === 'hover-replay') return;
+// Returns whether a `hover-loop` animation should stop once its current cycle completes.
+export const hoverEnd = (animation: AnimationItem, interaction: Interaction): boolean => {
   if (interaction === 'hover') {
     animation.setDirection(-1);
     animation.play();
-  } else {
-    animation.stop();
+  } else if (interaction === 'hover-loop') {
+    if (!animation.isPaused) return true;
+    animation.goToAndStop(0, true);
   }
+  return false;
 };

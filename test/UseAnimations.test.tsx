@@ -120,13 +120,15 @@ describe('interactions', () => {
     expect(animation.calls).toEqual(['play:1', 'play:-1']);
   });
 
-  it('loops hover-loop icons while hovered', async () => {
+  it('loops hover-loop icons while hovered and finishes the cycle on leave', async () => {
     const { container } = render(<UseAnimations animation={github} />);
     const [animation] = await loaded();
     expect(animation.config).toMatchObject({ loop: true, autoplay: false });
     fireEvent.mouseEnter(container.firstChild as Element);
     fireEvent.mouseLeave(container.firstChild as Element);
-    expect(animation.calls).toEqual(['play:1', 'stop']);
+    expect(animation.calls).toEqual(['play:1']);
+    animation.trigger('loopComplete');
+    expect(animation.calls).toEqual(['play:1', 'goto:0']);
   });
 
   it('replays hover-replay icons on enter without restarting a running replay', async () => {
@@ -174,30 +176,26 @@ describe('interactions', () => {
   });
 });
 
-describe('controlled toggle (reverse)', () => {
-  it('starts in the end state when reverse is true', async () => {
-    render(<UseAnimations animation={checkBox} reverse />);
+describe('controlled toggle (active)', () => {
+  it('starts in the end state without animating when active is true', async () => {
+    render(<UseAnimations animation={checkBox} active />);
     const [animation] = await loaded();
-    expect(animation.calls).toEqual(['play:1']);
+    expect(animation.calls).toEqual(['goto:59']);
   });
 
-  it('animates back when reverse changes from the outside', async () => {
-    const { rerender } = render(<UseAnimations animation={menu} reverse />);
+  it('animates back when active changes from the outside', async () => {
+    const { rerender } = render(<UseAnimations animation={menu} active />);
     const [animation] = await loaded();
-    rerender(<UseAnimations animation={menu} reverse={false} />);
+    rerender(<UseAnimations animation={menu} active={false} />);
     rerender(<UseAnimations animation={menu} reverse />);
-    expect(animation.calls).toEqual(['play:1', 'play:-1', 'play:1']);
+    expect(animation.calls).toEqual(['goto:59', 'play:-1', 'play:1']);
   });
 
   it('plays once per click when the parent mirrors the state', async () => {
     const Checkbox = () => {
       const [checked, setChecked] = useState(false);
       return (
-        <UseAnimations
-          animation={checkBox}
-          reverse={checked}
-          onClick={() => setChecked(!checked)}
-        />
+        <UseAnimations animation={checkBox} active={checked} onClick={() => setChecked(!checked)} />
       );
     };
     const { container } = render(<Checkbox />);
@@ -209,32 +207,20 @@ describe('controlled toggle (reverse)', () => {
 });
 
 describe('styling', () => {
-  it('scopes colors to each instance and removes them on unmount', async () => {
-    const { container, unmount } = render(
+  it('passes colors as CSS variables to one shared stylesheet', async () => {
+    const { container } = render(
       <>
         <UseAnimations animation={star} strokeColor="red" fillColor="pink" />
-        <UseAnimations animation={star} strokeColor="blue" />
+        <UseAnimations animation={star} />
       </>
     );
     await loaded(2);
-    const [first, second] = Array.from(container.querySelectorAll('svg'));
-    expect(first.id).not.toBe(second.id);
-
-    const css = Array.from(document.head.querySelectorAll('style'), (el) => el.textContent);
-    expect(
-      css.some(
-        (rule) =>
-          rule?.includes(`#${first.id} path`) &&
-          rule.includes('stroke: red;') &&
-          rule.includes('fill: pink;')
-      )
-    ).toBe(true);
-    expect(
-      css.some((rule) => rule?.includes(`#${second.id} path`) && rule.includes('stroke: blue;'))
-    ).toBe(true);
-
-    unmount();
-    expect(document.head.querySelectorAll('style')).toHaveLength(0);
+    const [first, second] = Array.from(container.children) as HTMLElement[];
+    expect(first.style.getPropertyValue('--ua-stroke')).toBe('red');
+    expect(first.style.getPropertyValue('--ua-fill')).toBe('pink');
+    expect(second.style.getPropertyValue('--ua-stroke')).toBe('');
+    expect(second.hasAttribute('data-useanimations')).toBe(true);
+    expect(document.head.querySelectorAll('#useanimations-styles')).toHaveLength(1);
   });
 
   it('sizes the wrapper and merges wrapperStyle and style', () => {
@@ -265,7 +251,7 @@ describe('styling', () => {
         onClick={onClick}
         render={(eventProps, animationProps) => (
           <button type="button" {...eventProps}>
-            <div {...animationProps} />
+            <span {...animationProps} />
           </button>
         )}
       />

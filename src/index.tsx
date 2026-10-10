@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type React from 'react';
 import type { AnimationConfigWithData, AnimationItem } from 'lottie-web';
 
-import { fullPlayerIcons } from './icons';
-import { getInteraction, hoverEnd, hoverStart, isHover, playToggle, replay } from './interactions';
+import { hoverEnd, hoverStart, isHover, replay, toggle } from './interactions';
 import loadLottie from './lottie';
+import { injectStyles, usePrefersReducedMotion } from './styles';
 import type { Animation, Interaction } from './types';
 
 type MouseHandler = (event: React.MouseEvent<HTMLElement>) => void;
@@ -14,55 +15,67 @@ export type EventProps = {
   onMouseLeave: MouseHandler;
 };
 
-export type AnimationProps = React.HTMLAttributes<HTMLDivElement> & {
-  ref: React.Ref<HTMLDivElement>;
+export type AnimationProps = React.HTMLAttributes<HTMLElement> & {
+  'data-useanimations': '';
+  ref: (element: HTMLElement | null) => void;
   style: React.CSSProperties;
 };
 
 type OwnProps = {
-  /** Animation imported from `react-useanimations/lib/<name>`. */
+  /** Icon imported from `react-useanimations/lib/<name>`, or `{ animationData, interaction }` for your own Lottie JSON. */
   animation: Animation;
   /** Overrides the icon's default interaction, e.g. `'hover'` for an icon that normally plays on click. */
   interaction?: Interaction;
   /** For `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox). Can be controlled. */
+  active?: boolean;
+  /** @deprecated Use `active`. */
   reverse?: boolean;
+  /** Width and height; numbers are pixels. Default `24`. */
+  size?: number | string;
+  /** Color of the icon's strokes. Default `'currentColor'`, so the icon follows the text color. */
   strokeColor?: string;
+  /** Color of the icon's filled parts (e.g. a liked heart). Defaults to `strokeColor`. */
   fillColor?: string;
-  /** Extra CSS declarations applied to every path of the icon. */
-  pathCss?: string;
+  /** Playback speed; `1` is normal speed. */
+  speed?: number;
+  /** Defaults to `true` for `loop` and `hover-loop` icons. */
+  loop?: boolean | number;
+  /** Defaults to `true` for `loop` icons, unless reduced motion is preferred. */
+  autoplay?: boolean;
   /** Extra lottie-web options, applied when the animation loads. */
   options?: Partial<AnimationConfigWithData<'svg'>>;
-  size?: number;
-  loop?: boolean | number;
-  autoplay?: boolean;
-  speed?: number;
+  /** @deprecated Use `style`. */
   wrapperStyle?: React.CSSProperties;
-  /** Renders a custom wrapper: spread `eventProps` on the interactive element, `animationProps` on a div. */
+  /** Renders a custom wrapper: spread `eventProps` on the interactive element, `animationProps` on a span inside it. */
   render?: (eventProps: EventProps, animationProps: AnimationProps) => React.ReactElement;
 };
 
 export type UseAnimationsProps = OwnProps &
-  Omit<React.HTMLAttributes<HTMLDivElement>, keyof OwnProps>;
+  Omit<React.HTMLAttributes<HTMLSpanElement>, keyof OwnProps>;
 
 export type { Animation, Interaction };
 export type { AnimationKey } from './icons';
 
-let idCounter = 0;
+const missingAnimation = (): never => {
+  throw new Error(
+    "UseAnimations: the `animation` prop is missing. Import an icon and pass it, e.g. `import github from 'react-useanimations/lib/github'` and `<UseAnimations animation={github} />`."
+  );
+};
 
 const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
   const {
-    animation: { animationData, animationKey },
+    animation,
     interaction: interactionProp,
-    reverse = false,
+    active: activeProp,
+    reverse,
     size = 24,
     speed = 1,
     strokeColor,
     fillColor,
-    pathCss,
     loop,
     autoplay,
-    wrapperStyle,
     options,
+    wrapperStyle,
     render,
     style,
     onClick,
@@ -70,51 +83,69 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
     onMouseLeave,
     ...other
   } = props;
-  const containerRef = useRef<HTMLDivElement>(null);
+  const {
+    animationData,
+    interaction: defaultInteraction,
+    fullPlayer = false,
+  } = animation?.animationData ? animation : missingAnimation();
+  const active = activeProp ?? reverse ?? false;
+
+  const [container, setContainer] = useState<HTMLElement | null>(null);
   const [player, setPlayer] = useState<AnimationItem | null>(null);
-  // Unique per component instance; used as the <svg> id that the color CSS targets.
-  const [id] = useState(() => `useanimations-${(idCounter += 1)}`);
+  const reducedMotion = usePrefersReducedMotion();
   // Whether a click-toggle animation currently sits at its end state.
   const atEnd = useRef(false);
+  // Whether a hover-loop animation should stop when its current cycle completes.
+  const stopAfterCycle = useRef(false);
   // Latest values read when the animation (re)loads, without reloading when they change.
-  const latest = useRef({ options, speed });
+  const latest = useRef({ options, speed, active });
 
-  const interaction = interactionProp ?? getInteraction(animationKey);
+  const interaction = interactionProp ?? defaultInteraction ?? 'click-replay';
   const shouldLoop = loop ?? (interaction === 'loop' || interaction === 'hover-loop');
-  const shouldAutoplay = autoplay ?? interaction === 'loop';
+  const shouldAutoplay = autoplay ?? (interaction === 'loop' && !reducedMotion);
 
   useEffect(() => {
-    latest.current = { options, speed };
+    latest.current = { options, speed, active };
   });
 
   // LOAD THE ANIMATION; the cleanup destroys exactly the instance this effect created
   useEffect(() => {
-    const container = containerRef.current;
     if (!container) return undefined;
+    injectStyles(container.ownerDocument);
 
     let cancelled = false;
     let instance: AnimationItem | undefined;
 
-    loadLottie(fullPlayerIcons.has(animationKey)).then((lottie) => {
+    loadLottie(fullPlayer).then((lottie) => {
       if (cancelled) return;
       const { options: custom, speed: initialSpeed } = latest.current;
-      instance = lottie.loadAnimation({
+      const created = lottie.loadAnimation({
         container,
         renderer: 'svg',
         animationData,
         loop: shouldLoop,
         autoplay: shouldAutoplay,
         ...custom,
-        // lottie-web supports `id` (set on the <svg>) but its types don't declare it.
-        rendererSettings: {
-          progressiveLoad: true,
-          ...custom?.rendererSettings,
-          id,
-        } as AnimationConfigWithData<'svg'>['rendererSettings'],
+        rendererSettings: { progressiveLoad: true, ...custom?.rendererSettings },
       });
-      instance.setSpeed(initialSpeed);
-      atEnd.current = false;
-      setPlayer(instance);
+      instance = created;
+      created.setSpeed(initialSpeed);
+      const stopCycle = () => {
+        if (!stopAfterCycle.current) return;
+        stopAfterCycle.current = false;
+        created.goToAndStop(0, true);
+      };
+      created.addEventListener('loopComplete', stopCycle);
+      created.addEventListener('complete', stopCycle);
+      const ready = () => {
+        if (cancelled) return;
+        // A controlled toggle that starts active shows its end state without animating.
+        atEnd.current = interaction === 'click-toggle' && latest.current.active;
+        if (atEnd.current) created.goToAndStop(created.totalFrames - 1, true);
+        setPlayer(created);
+      };
+      if (created.isLoaded) ready();
+      else created.addEventListener('DOMLoaded', ready);
     });
 
     return () => {
@@ -122,7 +153,7 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
       instance?.destroy();
       setPlayer(null);
     };
-  }, [animationData, animationKey, shouldLoop, shouldAutoplay, id]);
+  }, [container, animationData, fullPlayer, interaction, shouldLoop, shouldAutoplay]);
 
   useEffect(() => {
     player?.setSpeed(speed);
@@ -130,61 +161,60 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
 
   // CONTROLLED TOGGLE STATE (e.g. a checkbox checked from the outside)
   useEffect(() => {
-    if (!player || interaction !== 'click-toggle' || reverse === atEnd.current) return;
-    atEnd.current = reverse;
-    playToggle(player, reverse);
-  }, [player, interaction, reverse]);
-
-  // COLORS
-  useEffect(() => {
-    if (!strokeColor && !fillColor && !pathCss) return undefined;
-    const sheet = document.createElement('style');
-    sheet.textContent = `#${id} path { ${strokeColor ? `stroke: ${strokeColor};` : ''} ${
-      fillColor ? `fill: ${fillColor};` : ''
-    } ${pathCss ?? ''} }`;
-    document.head.appendChild(sheet);
-    return () => sheet.remove();
-  }, [id, strokeColor, fillColor, pathCss]);
+    if (!player || interaction !== 'click-toggle' || active === atEnd.current) return;
+    atEnd.current = active;
+    toggle(player, active, reducedMotion);
+  }, [player, interaction, active, reducedMotion]);
 
   const eventProps: EventProps = {
     onClick: (event) => {
-      onClick?.(event as React.MouseEvent<HTMLDivElement>);
+      onClick?.(event as React.MouseEvent<HTMLSpanElement>);
       if (!player || event.defaultPrevented) return;
       if (interaction === 'click-toggle') {
         atEnd.current = !atEnd.current;
-        playToggle(player, atEnd.current);
-      } else if (interaction === 'click-replay') {
+        toggle(player, atEnd.current, reducedMotion);
+      } else if (interaction === 'click-replay' && !reducedMotion) {
         replay(player);
       }
     },
     onMouseEnter: (event) => {
-      onMouseEnter?.(event as React.MouseEvent<HTMLDivElement>);
-      if (!player || event.defaultPrevented) return;
-      if (isHover(interaction)) hoverStart(player, interaction);
+      onMouseEnter?.(event as React.MouseEvent<HTMLSpanElement>);
+      if (!player || event.defaultPrevented || !isHover(interaction) || reducedMotion) return;
+      stopAfterCycle.current = false;
+      hoverStart(player, interaction);
     },
     onMouseLeave: (event) => {
-      onMouseLeave?.(event as React.MouseEvent<HTMLDivElement>);
-      if (!player || event.defaultPrevented) return;
-      if (isHover(interaction)) hoverEnd(player, interaction);
+      onMouseLeave?.(event as React.MouseEvent<HTMLSpanElement>);
+      if (!player || event.defaultPrevented || !isHover(interaction) || reducedMotion) return;
+      stopAfterCycle.current = hoverEnd(player, interaction);
     },
   };
 
+  // Decorative unless labelled; a labelled icon is announced as an image.
+  const labelled = Boolean(other['aria-label'] || other['aria-labelledby']);
   const animationProps: AnimationProps = {
+    'aria-hidden': labelled ? undefined : true,
+    role: labelled ? 'img' : undefined,
     ...other,
-    ref: containerRef,
+    'data-useanimations': '',
+    ref: setContainer,
     style: {
+      display: 'inline-block',
+      flexShrink: 0,
       overflow: 'hidden',
-      outline: 'none',
-      width: `${size}px`,
-      height: `${size}px`,
+      width: size,
+      height: size,
+      ...({ '--ua-stroke': strokeColor, '--ua-fill': fillColor } as React.CSSProperties),
       ...wrapperStyle,
       ...style,
     },
   };
 
-  // The render prop only receives the ref to attach it; neither branch reads it during render.
+  // The handlers read refs only when events fire, never during render.
   // eslint-disable-next-line react-hooks/refs
-  return render ? render(eventProps, animationProps) : <div {...eventProps} {...animationProps} />;
+  return render ? render(eventProps, animationProps) : <span {...animationProps} {...eventProps} />;
 };
 
+export { UseAnimations, UseAnimations as UseAnimation };
+export type { UseAnimationsProps as UseAnimationProps };
 export default UseAnimations;

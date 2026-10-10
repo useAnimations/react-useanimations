@@ -1,6 +1,6 @@
 import type { Animation } from '../../types';
 import animationData from './notification4.json';
 
-const notification4: Animation = { animationData, animationKey: 'notification4' };
+const notification4: Animation = { animationData, interaction: 'loop' };
 
 export default notification4;

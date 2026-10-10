@@ -1,6 +1,6 @@
 import type { Animation } from '../../types';
 import animationData from './triangle.json';
 
-const triangle: Animation = { animationData, animationKey: 'triangle' };
+const triangle: Animation = { animationData, interaction: 'hover-replay' };
 
 export default triangle;

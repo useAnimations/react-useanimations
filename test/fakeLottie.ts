@@ -8,6 +8,8 @@ export class FakeAnimation {
   speed = 1;
   totalFrames = 60;
   isPaused = true;
+  isLoaded = true;
+  listeners: Record<string, (() => void)[]> = {};
   svg: SVGSVGElement;
 
   constructor(
@@ -23,6 +25,19 @@ export class FakeAnimation {
   play() {
     this.calls.push(`play:${this.direction}`);
     this.isPaused = false;
+  }
+
+  goToAndStop(frame: number) {
+    this.calls.push(`goto:${frame}`);
+    this.isPaused = true;
+  }
+
+  addEventListener(name: string, callback: () => void) {
+    (this.listeners[name] ??= []).push(callback);
+  }
+
+  trigger(name: string) {
+    this.listeners[name]?.forEach((callback) => callback());
   }
 
   stop() {

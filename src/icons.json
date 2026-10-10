@@ -1,0 +1,4101 @@
+[
+  {
+    "name": "activity",
+    "title": "Activity",
+    "category": "Other",
+    "keywords": [
+      "activity",
+      "other"
+    ],
+    "interaction": "loop",
+    "import": "import activity from 'react-useanimations/lib/activity';",
+    "preview": "https://useanimations.com/icons/activity/activity.svg"
+  },
+  {
+    "name": "airplay",
+    "title": "Airplay",
+    "category": "Media",
+    "keywords": [
+      "airplay",
+      "media"
+    ],
+    "interaction": "loop",
+    "import": "import airplay from 'react-useanimations/lib/airplay';",
+    "preview": "https://useanimations.com/icons/airplay/airplay.svg"
+  },
+  {
+    "name": "alertCircle",
+    "title": "Alert circle",
+    "category": "Alerts",
+    "keywords": [
+      "alert",
+      "alert-circle",
+      "alerts",
+      "attention",
+      "circle",
+      "error",
+      "warning"
+    ],
+    "interaction": "loop",
+    "import": "import alertCircle from 'react-useanimations/lib/alertCircle';",
+    "preview": "https://useanimations.com/icons/alert-circle/alert-circle.svg"
+  },
+  {
+    "name": "alertOctagon",
+    "title": "Alert octagon",
+    "category": "Alerts",
+    "keywords": [
+      "alert",
+      "alert-octagon",
+      "alerts",
+      "attention",
+      "error",
+      "octagon",
+      "warning"
+    ],
+    "interaction": "loop",
+    "import": "import alertOctagon from 'react-useanimations/lib/alertOctagon';",
+    "preview": "https://useanimations.com/icons/alert-octagon/alert-octagon.svg"
+  },
+  {
+    "name": "alertTriangle",
+    "title": "Alert triangle",
+    "category": "Alerts",
+    "keywords": [
+      "alert",
+      "alert-triangle",
+      "alerts",
+      "attention",
+      "error",
+      "triangle",
+      "warning"
+    ],
+    "interaction": "loop",
+    "import": "import alertTriangle from 'react-useanimations/lib/alertTriangle';",
+    "preview": "https://useanimations.com/icons/alert-triangle/alert-triangle.svg"
+  },
+  {
+    "name": "alignCenter",
+    "title": "Align Center",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-center",
+      "center",
+      "text editing"
+    ],
+    "interaction": "click-replay",
+    "import": "import alignCenter from 'react-useanimations/lib/alignCenter';",
+    "preview": "https://useanimations.com/icons/align-center/align-center.svg"
+  },
+  {
+    "name": "alignJustify",
+    "title": "Align Justify",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-justify",
+      "justify",
+      "text editing"
+    ],
+    "interaction": "click-replay",
+    "import": "import alignJustify from 'react-useanimations/lib/alignJustify';",
+    "preview": "https://useanimations.com/icons/align-justify/align-justify.svg"
+  },
+  {
+    "name": "alignLeft",
+    "title": "Align Left",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-left",
+      "left",
+      "text editing"
+    ],
+    "interaction": "click-replay",
+    "import": "import alignLeft from 'react-useanimations/lib/alignLeft';",
+    "preview": "https://useanimations.com/icons/align-left/align-left.svg"
+  },
+  {
+    "name": "alignRight",
+    "title": "Align Right",
+    "category": "Text editing",
+    "keywords": [
+      "align",
+      "align-right",
+      "right",
+      "text editing"
+    ],
+    "interaction": "click-replay",
+    "import": "import alignRight from 'react-useanimations/lib/alignRight';",
+    "preview": "https://useanimations.com/icons/align-right/align-right.svg"
+  },
+  {
+    "name": "anchor",
+    "title": "Anchor",
+    "category": "Maps & location",
+    "keywords": [
+      "anchor",
+      "maps & location"
+    ],
+    "interaction": "hover-replay",
+    "import": "import anchor from 'react-useanimations/lib/anchor';",
+    "preview": "https://useanimations.com/icons/anchor/anchor.svg"
+  },
+  {
+    "name": "aperture",
+    "title": "Aperture",
+    "category": "Media",
+    "keywords": [
+      "aperture",
+      "media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import aperture from 'react-useanimations/lib/aperture';",
+    "preview": "https://useanimations.com/icons/aperture/aperture.svg"
+  },
+  {
+    "name": "archive",
+    "title": "Archive",
+    "category": "Content",
+    "keywords": [
+      "archive",
+      "box",
+      "content",
+      "storage"
+    ],
+    "interaction": "hover",
+    "import": "import archive from 'react-useanimations/lib/archive';",
+    "preview": "https://useanimations.com/icons/archive/archive.svg"
+  },
+  {
+    "name": "arrowDown",
+    "title": "Arrow down",
+    "category": "Other",
+    "keywords": [
+      "arrow",
+      "arrow-down",
+      "direction",
+      "down",
+      "navigation",
+      "other"
+    ],
+    "interaction": "loop",
+    "import": "import arrowDown from 'react-useanimations/lib/arrowDown';",
+    "preview": "https://useanimations.com/icons/arrow-down/arrow-down.svg"
+  },
+  {
+    "name": "arrowDownCircle",
+    "title": "Arrow down circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-down-circle",
+      "circle",
+      "direction",
+      "down",
+      "navigation"
+    ],
+    "interaction": "click-replay",
+    "import": "import arrowDownCircle from 'react-useanimations/lib/arrowDownCircle';",
+    "preview": "https://useanimations.com/icons/arrow-down-circle/arrow-down-circle.svg"
+  },
+  {
+    "name": "arrowDownLeft",
+    "title": "Arrow Down Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-down-left",
+      "direction",
+      "down",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay",
+    "import": "import arrowDownLeft from 'react-useanimations/lib/arrowDownLeft';",
+    "preview": "https://useanimations.com/icons/arrow-down-left/arrow-down-left.svg"
+  },
+  {
+    "name": "arrowDownRight",
+    "title": "Arrow Down Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-down-right",
+      "direction",
+      "down",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay",
+    "import": "import arrowDownRight from 'react-useanimations/lib/arrowDownRight';",
+    "preview": "https://useanimations.com/icons/arrow-down-right/arrow-down-right.svg"
+  },
+  {
+    "name": "arrowLeft",
+    "title": "Arrow Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-left",
+      "direction",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay",
+    "import": "import arrowLeft from 'react-useanimations/lib/arrowLeft';",
+    "preview": "https://useanimations.com/icons/arrow-left/arrow-left.svg"
+  },
+  {
+    "name": "arrowLeftCircle",
+    "title": "Arrow left circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-left-circle",
+      "circle",
+      "direction",
+      "left",
+      "navigation"
+    ],
+    "interaction": "click-replay",
+    "import": "import arrowLeftCircle from 'react-useanimations/lib/arrowLeftCircle';",
+    "preview": "https://useanimations.com/icons/arrow-left-circle/arrow-left-circle.svg"
+  },
+  {
+    "name": "arrowRight",
+    "title": "Arrow Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-right",
+      "direction",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay",
+    "import": "import arrowRight from 'react-useanimations/lib/arrowRight';",
+    "preview": "https://useanimations.com/icons/arrow-right/arrow-right.svg"
+  },
+  {
+    "name": "arrowRightCircle",
+    "title": "Arrow right circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-right-circle",
+      "circle",
+      "direction",
+      "navigation",
+      "right"
+    ],
+    "interaction": "click-replay",
+    "import": "import arrowRightCircle from 'react-useanimations/lib/arrowRightCircle';",
+    "preview": "https://useanimations.com/icons/arrow-right-circle/arrow-right-circle.svg"
+  },
+  {
+    "name": "arrowUp",
+    "title": "Arrow up",
+    "category": "Other",
+    "keywords": [
+      "arrow",
+      "arrow-up",
+      "direction",
+      "navigation",
+      "other",
+      "up"
+    ],
+    "interaction": "loop",
+    "import": "import arrowUp from 'react-useanimations/lib/arrowUp';",
+    "preview": "https://useanimations.com/icons/arrow-up/arrow-up.svg"
+  },
+  {
+    "name": "arrowUpCircle",
+    "title": "Arrow up circle",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-up-circle",
+      "circle",
+      "direction",
+      "navigation",
+      "up"
+    ],
+    "interaction": "click-replay",
+    "import": "import arrowUpCircle from 'react-useanimations/lib/arrowUpCircle';",
+    "preview": "https://useanimations.com/icons/arrow-up-circle/arrow-up-circle.svg"
+  },
+  {
+    "name": "arrowUpLeft",
+    "title": "Arrow Up Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-up-left",
+      "direction",
+      "left",
+      "navigation",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import arrowUpLeft from 'react-useanimations/lib/arrowUpLeft';",
+    "preview": "https://useanimations.com/icons/arrow-up-left/arrow-up-left.svg"
+  },
+  {
+    "name": "arrowUpRight",
+    "title": "Arrow Up Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "arrow-up-right",
+      "direction",
+      "navigation",
+      "right",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import arrowUpRight from 'react-useanimations/lib/arrowUpRight';",
+    "preview": "https://useanimations.com/icons/arrow-up-right/arrow-up-right.svg"
+  },
+  {
+    "name": "atSign",
+    "title": "At Sign",
+    "category": "Communication",
+    "keywords": [
+      "at",
+      "at-sign",
+      "communication",
+      "sign"
+    ],
+    "interaction": "hover-replay",
+    "import": "import atSign from 'react-useanimations/lib/atSign';",
+    "preview": "https://useanimations.com/icons/at-sign/at-sign.svg"
+  },
+  {
+    "name": "award",
+    "title": "Award",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "award"
+    ],
+    "interaction": "hover-replay",
+    "import": "import award from 'react-useanimations/lib/award';",
+    "preview": "https://useanimations.com/icons/award/award.svg"
+  },
+  {
+    "name": "barChart",
+    "title": "Bar Chart",
+    "category": "Charts",
+    "keywords": [
+      "bar",
+      "bar-chart",
+      "chart",
+      "charts"
+    ],
+    "interaction": "hover-replay",
+    "import": "import barChart from 'react-useanimations/lib/barChart';",
+    "preview": "https://useanimations.com/icons/bar-chart/bar-chart.svg"
+  },
+  {
+    "name": "barChart2",
+    "title": "Bar Chart 2",
+    "category": "Charts",
+    "keywords": [
+      "2",
+      "bar",
+      "bar-chart-2",
+      "chart",
+      "charts"
+    ],
+    "interaction": "hover-replay",
+    "import": "import barChart2 from 'react-useanimations/lib/barChart2';",
+    "preview": "https://useanimations.com/icons/bar-chart-2/bar-chart-2.svg"
+  },
+  {
+    "name": "battery",
+    "title": "Battery",
+    "category": "Devices",
+    "keywords": [
+      "battery",
+      "devices"
+    ],
+    "interaction": "hover-replay",
+    "import": "import battery from 'react-useanimations/lib/battery';",
+    "preview": "https://useanimations.com/icons/battery/battery.svg"
+  },
+  {
+    "name": "batteryCharging",
+    "title": "Battery Charging",
+    "category": "Devices",
+    "keywords": [
+      "battery",
+      "battery-charging",
+      "charging",
+      "devices"
+    ],
+    "interaction": "hover-replay",
+    "import": "import batteryCharging from 'react-useanimations/lib/batteryCharging';",
+    "preview": "https://useanimations.com/icons/battery-charging/battery-charging.svg"
+  },
+  {
+    "name": "behance",
+    "title": "Behance",
+    "category": "Social media",
+    "keywords": [
+      "behance",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import behance from 'react-useanimations/lib/behance';",
+    "preview": "https://useanimations.com/icons/behance/behance.svg"
+  },
+  {
+    "name": "bluetooth",
+    "title": "Bluetooth",
+    "category": "Devices",
+    "keywords": [
+      "bluetooth",
+      "devices"
+    ],
+    "interaction": "hover-replay",
+    "import": "import bluetooth from 'react-useanimations/lib/bluetooth';",
+    "preview": "https://useanimations.com/icons/bluetooth/bluetooth.svg"
+  },
+  {
+    "name": "bold",
+    "title": "Bold",
+    "category": "Text editing",
+    "keywords": [
+      "bold",
+      "text editing"
+    ],
+    "interaction": "click-replay",
+    "import": "import bold from 'react-useanimations/lib/bold';",
+    "preview": "https://useanimations.com/icons/bold/bold.svg"
+  },
+  {
+    "name": "book",
+    "title": "Book",
+    "category": "Content",
+    "keywords": [
+      "book",
+      "content"
+    ],
+    "interaction": "hover-replay",
+    "import": "import book from 'react-useanimations/lib/book';",
+    "preview": "https://useanimations.com/icons/book/book.svg"
+  },
+  {
+    "name": "bookmark",
+    "title": "Bookmark",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "bookmark",
+      "save"
+    ],
+    "interaction": "click-toggle",
+    "import": "import bookmark from 'react-useanimations/lib/bookmark';",
+    "preview": "https://useanimations.com/icons/bookmark/bookmark.svg"
+  },
+  {
+    "name": "bookOpen",
+    "title": "Book Open",
+    "category": "Content",
+    "keywords": [
+      "book",
+      "book-open",
+      "content",
+      "open"
+    ],
+    "interaction": "hover-replay",
+    "import": "import bookOpen from 'react-useanimations/lib/bookOpen';",
+    "preview": "https://useanimations.com/icons/book-open/book-open.svg"
+  },
+  {
+    "name": "box",
+    "title": "Box",
+    "category": "Commerce",
+    "keywords": [
+      "box",
+      "commerce"
+    ],
+    "interaction": "hover-replay",
+    "import": "import box from 'react-useanimations/lib/box';",
+    "preview": "https://useanimations.com/icons/box/box.svg"
+  },
+  {
+    "name": "briefcase",
+    "title": "Briefcase",
+    "category": "Commerce",
+    "keywords": [
+      "briefcase",
+      "commerce"
+    ],
+    "interaction": "hover-replay",
+    "import": "import briefcase from 'react-useanimations/lib/briefcase';",
+    "preview": "https://useanimations.com/icons/briefcase/briefcase.svg"
+  },
+  {
+    "name": "calendar",
+    "title": "Calendar",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "calendar",
+      "date",
+      "schedule"
+    ],
+    "interaction": "hover",
+    "import": "import calendar from 'react-useanimations/lib/calendar';"
+  },
+  {
+    "name": "camera",
+    "title": "Camera",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media"
+    ],
+    "interaction": "click-replay",
+    "import": "import camera from 'react-useanimations/lib/camera';",
+    "preview": "https://useanimations.com/icons/camera/camera.svg"
+  },
+  {
+    "name": "cameraOff",
+    "title": "Camera Off",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "camera-off",
+      "camera-off-off",
+      "media",
+      "off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import cameraOff from 'react-useanimations/lib/cameraOff';",
+    "preview": "https://useanimations.com/icons/camera-off/camera-off-off.svg"
+  },
+  {
+    "name": "cast",
+    "title": "Cast",
+    "category": "Media",
+    "keywords": [
+      "cast",
+      "media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cast from 'react-useanimations/lib/cast';",
+    "preview": "https://useanimations.com/icons/cast/cast.svg"
+  },
+  {
+    "name": "check",
+    "title": "Check",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "check"
+    ],
+    "interaction": "click-replay",
+    "import": "import check from 'react-useanimations/lib/check';",
+    "preview": "https://useanimations.com/icons/check/check.svg"
+  },
+  {
+    "name": "checkBox",
+    "title": "Checkbox",
+    "category": "Form",
+    "keywords": [
+      "check-square",
+      "checkbox",
+      "form",
+      "select"
+    ],
+    "interaction": "click-toggle",
+    "import": "import checkBox from 'react-useanimations/lib/checkBox';",
+    "preview": "https://useanimations.com/icons/check-box/check-square.svg"
+  },
+  {
+    "name": "checkCircle",
+    "title": "Check Circle",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "check",
+      "check-circle",
+      "circle"
+    ],
+    "interaction": "click-replay",
+    "import": "import checkCircle from 'react-useanimations/lib/checkCircle';",
+    "preview": "https://useanimations.com/icons/check-circle/check-circle.svg"
+  },
+  {
+    "name": "checkmark",
+    "title": "Checkmark",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "check",
+      "checkmark",
+      "done",
+      "success",
+      "tick"
+    ],
+    "interaction": "loop",
+    "import": "import checkmark from 'react-useanimations/lib/checkmark';",
+    "preview": "https://useanimations.com/icons/checkmark/checkmark.svg"
+  },
+  {
+    "name": "chevronDown",
+    "title": "Chevron Down",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-down",
+      "down",
+      "navigation",
+      "next"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chevronDown from 'react-useanimations/lib/chevronDown';",
+    "preview": "https://useanimations.com/icons/chevron-down/chevron-down.svg"
+  },
+  {
+    "name": "chevronLeft",
+    "title": "Chevron left",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-left",
+      "left",
+      "navigation",
+      "next"
+    ],
+    "interaction": "click-replay",
+    "import": "import chevronLeft from 'react-useanimations/lib/chevronLeft';",
+    "preview": "https://useanimations.com/icons/chevron-left/chevron-left.svg"
+  },
+  {
+    "name": "chevronRight",
+    "title": "Chevron right",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-right",
+      "navigation",
+      "next",
+      "right"
+    ],
+    "interaction": "click-replay",
+    "import": "import chevronRight from 'react-useanimations/lib/chevronRight';",
+    "preview": "https://useanimations.com/icons/chevron-right/chevron-right.svg"
+  },
+  {
+    "name": "chevronsDown",
+    "title": "Chevrons Down",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-down",
+      "down",
+      "navigation",
+      "next"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chevronsDown from 'react-useanimations/lib/chevronsDown';",
+    "preview": "https://useanimations.com/icons/chevrons-down/chevrons-down.svg"
+  },
+  {
+    "name": "chevronsLeft",
+    "title": "Chevrons Left",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-left",
+      "left",
+      "navigation",
+      "next"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chevronsLeft from 'react-useanimations/lib/chevronsLeft';",
+    "preview": "https://useanimations.com/icons/chevrons-left/chevrons-left.svg"
+  },
+  {
+    "name": "chevronsRight",
+    "title": "Chevrons Right",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-right",
+      "navigation",
+      "next",
+      "right"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chevronsRight from 'react-useanimations/lib/chevronsRight';",
+    "preview": "https://useanimations.com/icons/chevrons-right/chevrons-right.svg"
+  },
+  {
+    "name": "chevronsUp",
+    "title": "Chevrons Up",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevrons",
+      "chevrons-up",
+      "navigation",
+      "next",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chevronsUp from 'react-useanimations/lib/chevronsUp';",
+    "preview": "https://useanimations.com/icons/chevrons-up/chevrons-up.svg"
+  },
+  {
+    "name": "chevronUp",
+    "title": "Chevron Up",
+    "category": "Navigation",
+    "keywords": [
+      "arrow",
+      "back",
+      "chevron",
+      "chevron-up",
+      "navigation",
+      "next",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chevronUp from 'react-useanimations/lib/chevronUp';",
+    "preview": "https://useanimations.com/icons/chevron-up/chevron-up.svg"
+  },
+  {
+    "name": "chrome",
+    "title": "Chrome",
+    "category": "Social media",
+    "keywords": [
+      "chrome",
+      "social media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import chrome from 'react-useanimations/lib/chrome';",
+    "preview": "https://useanimations.com/icons/chrome/chrome.svg"
+  },
+  {
+    "name": "circle",
+    "title": "Circle",
+    "category": "Shapes & math",
+    "keywords": [
+      "circle",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay",
+    "import": "import circle from 'react-useanimations/lib/circle';",
+    "preview": "https://useanimations.com/icons/circle/circle.svg"
+  },
+  {
+    "name": "clipboard",
+    "title": "Clipboard",
+    "category": "Content",
+    "keywords": [
+      "clipboard",
+      "content"
+    ],
+    "interaction": "hover-replay",
+    "import": "import clipboard from 'react-useanimations/lib/clipboard';",
+    "preview": "https://useanimations.com/icons/clipboard/clipboard.svg"
+  },
+  {
+    "name": "clock",
+    "title": "Clock",
+    "category": "Other",
+    "keywords": [
+      "clock",
+      "other"
+    ],
+    "interaction": "hover-replay",
+    "import": "import clock from 'react-useanimations/lib/clock';",
+    "preview": "https://useanimations.com/icons/clock/clock.svg"
+  },
+  {
+    "name": "cloud",
+    "title": "Cloud",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "weather"
+    ],
+    "interaction": "hover-loop",
+    "import": "import cloud from 'react-useanimations/lib/cloud';",
+    "preview": "https://useanimations.com/icons/cloud/cloud.svg"
+  },
+  {
+    "name": "cloudDrizzle",
+    "title": "Cloud Drizzle",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-drizzle",
+      "drizzle",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cloudDrizzle from 'react-useanimations/lib/cloudDrizzle';",
+    "preview": "https://useanimations.com/icons/cloud-drizzle/cloud-drizzle.svg"
+  },
+  {
+    "name": "cloudLightning",
+    "title": "Cloud Lightning",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-lightning",
+      "lightning",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cloudLightning from 'react-useanimations/lib/cloudLightning';",
+    "preview": "https://useanimations.com/icons/cloud-lightning/cloud-lightning.svg"
+  },
+  {
+    "name": "cloudOff",
+    "title": "Cloud Off",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-off",
+      "cloud-off-off",
+      "off",
+      "weather"
+    ],
+    "interaction": "click-toggle",
+    "import": "import cloudOff from 'react-useanimations/lib/cloudOff';",
+    "preview": "https://useanimations.com/icons/cloud-off/cloud-off-off.svg"
+  },
+  {
+    "name": "cloudRain",
+    "title": "Cloud Rain",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-rain",
+      "rain",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cloudRain from 'react-useanimations/lib/cloudRain';",
+    "preview": "https://useanimations.com/icons/cloud-rain/cloud-rain.svg"
+  },
+  {
+    "name": "cloudSnow",
+    "title": "Cloud Snow",
+    "category": "Weather",
+    "keywords": [
+      "cloud",
+      "cloud-snow",
+      "snow",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cloudSnow from 'react-useanimations/lib/cloudSnow';",
+    "preview": "https://useanimations.com/icons/cloud-snow/cloud-snow.svg"
+  },
+  {
+    "name": "code",
+    "title": "Code",
+    "category": "Development",
+    "keywords": [
+      "code",
+      "development"
+    ],
+    "interaction": "hover-replay",
+    "import": "import code from 'react-useanimations/lib/code';",
+    "preview": "https://useanimations.com/icons/code/code.svg"
+  },
+  {
+    "name": "codepen",
+    "title": "Codepen",
+    "category": "Social media",
+    "keywords": [
+      "codepen",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import codepen from 'react-useanimations/lib/codepen';",
+    "preview": "https://useanimations.com/icons/codepen/codepen.svg"
+  },
+  {
+    "name": "codesandbox",
+    "title": "Codesandbox",
+    "category": "Social media",
+    "keywords": [
+      "codesandbox",
+      "social media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import codesandbox from 'react-useanimations/lib/codesandbox';",
+    "preview": "https://useanimations.com/icons/codesandbox/codesandbox.svg"
+  },
+  {
+    "name": "coffee",
+    "title": "Coffee",
+    "category": "Other",
+    "keywords": [
+      "coffee",
+      "other"
+    ],
+    "interaction": "hover-replay",
+    "import": "import coffee from 'react-useanimations/lib/coffee';",
+    "preview": "https://useanimations.com/icons/coffee/coffee.svg"
+  },
+  {
+    "name": "columns",
+    "title": "Columns",
+    "category": "Design & layout",
+    "keywords": [
+      "columns",
+      "design & layout"
+    ],
+    "interaction": "hover-replay",
+    "import": "import columns from 'react-useanimations/lib/columns';",
+    "preview": "https://useanimations.com/icons/columns/columns.svg"
+  },
+  {
+    "name": "command",
+    "title": "Command",
+    "category": "Development",
+    "keywords": [
+      "command",
+      "development"
+    ],
+    "interaction": "hover-replay",
+    "import": "import command from 'react-useanimations/lib/command';",
+    "preview": "https://useanimations.com/icons/command/command.svg"
+  },
+  {
+    "name": "copy",
+    "title": "Copy",
+    "category": "Content",
+    "keywords": [
+      "clipboard",
+      "content",
+      "copy",
+      "duplicate"
+    ],
+    "interaction": "hover",
+    "import": "import copy from 'react-useanimations/lib/copy';",
+    "preview": "https://useanimations.com/icons/copy/copy.svg"
+  },
+  {
+    "name": "cornerDownLeft",
+    "title": "Corner Down Left",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-down-left",
+      "down",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerDownLeft from 'react-useanimations/lib/cornerDownLeft';",
+    "preview": "https://useanimations.com/icons/corner-down-left/corner-down-left.svg"
+  },
+  {
+    "name": "cornerDownRight",
+    "title": "Corner Down Right",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-down-right",
+      "down",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerDownRight from 'react-useanimations/lib/cornerDownRight';",
+    "preview": "https://useanimations.com/icons/corner-down-right/corner-down-right.svg"
+  },
+  {
+    "name": "cornerLeftDown",
+    "title": "Corner Left Down",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-left-down",
+      "down",
+      "left",
+      "navigation"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerLeftDown from 'react-useanimations/lib/cornerLeftDown';",
+    "preview": "https://useanimations.com/icons/corner-left-down/corner-left-down.svg"
+  },
+  {
+    "name": "cornerLeftUp",
+    "title": "Corner Left Up",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-left-up",
+      "left",
+      "navigation",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerLeftUp from 'react-useanimations/lib/cornerLeftUp';",
+    "preview": "https://useanimations.com/icons/corner-left-up/corner-left-up.svg"
+  },
+  {
+    "name": "cornerRightDown",
+    "title": "Corner Right Down",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-right-down",
+      "down",
+      "navigation",
+      "right"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerRightDown from 'react-useanimations/lib/cornerRightDown';",
+    "preview": "https://useanimations.com/icons/corner-right-down/corner-right-down.svg"
+  },
+  {
+    "name": "cornerRightUp",
+    "title": "Corner Right Up",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-right-up",
+      "navigation",
+      "right",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerRightUp from 'react-useanimations/lib/cornerRightUp';",
+    "preview": "https://useanimations.com/icons/corner-right-up/corner-right-up.svg"
+  },
+  {
+    "name": "cornerUpLeft",
+    "title": "Corner Up Left",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-up-left",
+      "left",
+      "navigation",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerUpLeft from 'react-useanimations/lib/cornerUpLeft';",
+    "preview": "https://useanimations.com/icons/corner-up-left/corner-up-left.svg"
+  },
+  {
+    "name": "cornerUpRight",
+    "title": "Corner Up Right",
+    "category": "Navigation",
+    "keywords": [
+      "corner",
+      "corner-up-right",
+      "navigation",
+      "right",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cornerUpRight from 'react-useanimations/lib/cornerUpRight';",
+    "preview": "https://useanimations.com/icons/corner-up-right/corner-up-right.svg"
+  },
+  {
+    "name": "cpu",
+    "title": "CPU",
+    "category": "Devices",
+    "keywords": [
+      "cpu",
+      "devices"
+    ],
+    "interaction": "hover-replay",
+    "import": "import cpu from 'react-useanimations/lib/cpu';",
+    "preview": "https://useanimations.com/icons/cpu/cpu.svg"
+  },
+  {
+    "name": "creditCard",
+    "title": "Credit Card",
+    "category": "Commerce",
+    "keywords": [
+      "card",
+      "commerce",
+      "credit",
+      "credit-card"
+    ],
+    "interaction": "hover-replay",
+    "import": "import creditCard from 'react-useanimations/lib/creditCard';",
+    "preview": "https://useanimations.com/icons/credit-card/credit-card.svg"
+  },
+  {
+    "name": "crop",
+    "title": "Crop",
+    "category": "Design & layout",
+    "keywords": [
+      "crop",
+      "design & layout"
+    ],
+    "interaction": "click-replay",
+    "import": "import crop from 'react-useanimations/lib/crop';",
+    "preview": "https://useanimations.com/icons/crop/crop.svg"
+  },
+  {
+    "name": "crosshair",
+    "title": "Crosshair",
+    "category": "Maps & location",
+    "keywords": [
+      "crosshair",
+      "maps & location"
+    ],
+    "interaction": "hover-replay",
+    "import": "import crosshair from 'react-useanimations/lib/crosshair';",
+    "preview": "https://useanimations.com/icons/crosshair/crosshair.svg"
+  },
+  {
+    "name": "database",
+    "title": "Database",
+    "category": "Development",
+    "keywords": [
+      "database",
+      "development"
+    ],
+    "interaction": "hover-replay",
+    "import": "import database from 'react-useanimations/lib/database';",
+    "preview": "https://useanimations.com/icons/database/database.svg"
+  },
+  {
+    "name": "delete",
+    "title": "Delete",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "delete"
+    ],
+    "interaction": "click-replay",
+    "import": "import deleteIcon from 'react-useanimations/lib/delete';",
+    "preview": "https://useanimations.com/icons/delete/delete.svg"
+  },
+  {
+    "name": "disc",
+    "title": "Disc",
+    "category": "Media",
+    "keywords": [
+      "disc",
+      "media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import disc from 'react-useanimations/lib/disc';",
+    "preview": "https://useanimations.com/icons/disc/disc.svg"
+  },
+  {
+    "name": "divide",
+    "title": "Divide",
+    "category": "Shapes & math",
+    "keywords": [
+      "divide",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay",
+    "import": "import divide from 'react-useanimations/lib/divide';",
+    "preview": "https://useanimations.com/icons/divide/divide.svg"
+  },
+  {
+    "name": "divideCircle",
+    "title": "Divide Circle",
+    "category": "Shapes & math",
+    "keywords": [
+      "circle",
+      "divide",
+      "divide-circle",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay",
+    "import": "import divideCircle from 'react-useanimations/lib/divideCircle';",
+    "preview": "https://useanimations.com/icons/divide-circle/divide-circle.svg"
+  },
+  {
+    "name": "divideSquare",
+    "title": "Divide Square",
+    "category": "Shapes & math",
+    "keywords": [
+      "divide",
+      "divide-square",
+      "shapes & math",
+      "square"
+    ],
+    "interaction": "hover-replay",
+    "import": "import divideSquare from 'react-useanimations/lib/divideSquare';",
+    "preview": "https://useanimations.com/icons/divide-square/divide-square.svg"
+  },
+  {
+    "name": "dollarSign",
+    "title": "Dollar Sign",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "dollar",
+      "dollar-sign",
+      "sign"
+    ],
+    "interaction": "hover-replay",
+    "import": "import dollarSign from 'react-useanimations/lib/dollarSign';",
+    "preview": "https://useanimations.com/icons/dollar-sign/dollar-sign.svg"
+  },
+  {
+    "name": "download",
+    "title": "Download",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "download",
+      "export",
+      "save"
+    ],
+    "interaction": "click-replay",
+    "import": "import download from 'react-useanimations/lib/download';",
+    "preview": "https://useanimations.com/icons/download/download.svg"
+  },
+  {
+    "name": "download2",
+    "title": "Download V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "download",
+      "download-v2",
+      "export",
+      "save"
+    ],
+    "interaction": "click-replay",
+    "import": "import download2 from 'react-useanimations/lib/download2';",
+    "preview": "https://useanimations.com/icons/download-v2/download-v2.svg"
+  },
+  {
+    "name": "downloadCloud",
+    "title": "Download Cloud",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cloud",
+      "download",
+      "download-cloud",
+      "export",
+      "save"
+    ],
+    "interaction": "click-replay",
+    "import": "import downloadCloud from 'react-useanimations/lib/downloadCloud';",
+    "preview": "https://useanimations.com/icons/download-cloud/download-cloud.svg"
+  },
+  {
+    "name": "dribbble",
+    "title": "Dribbble",
+    "category": "Social media",
+    "keywords": [
+      "dribbble",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import dribbble from 'react-useanimations/lib/dribbble';",
+    "preview": "https://useanimations.com/icons/dribbble/dribbble.svg"
+  },
+  {
+    "name": "droplet",
+    "title": "Droplet",
+    "category": "Weather",
+    "keywords": [
+      "droplet",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import droplet from 'react-useanimations/lib/droplet';",
+    "preview": "https://useanimations.com/icons/droplet/droplet.svg"
+  },
+  {
+    "name": "edit",
+    "title": "Edit",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "edit",
+      "edit-2",
+      "pencil",
+      "write"
+    ],
+    "interaction": "hover",
+    "import": "import edit from 'react-useanimations/lib/edit';",
+    "preview": "https://useanimations.com/icons/edit/edit-2.svg"
+  },
+  {
+    "name": "edit2",
+    "title": "Edit 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "edit",
+      "edit-2",
+      "pencil",
+      "write"
+    ],
+    "interaction": "click-replay",
+    "import": "import edit2 from 'react-useanimations/lib/edit2';",
+    "preview": "https://useanimations.com/icons/edit-2/edit-2.svg"
+  },
+  {
+    "name": "edit3",
+    "title": "Edit 3",
+    "category": "Action",
+    "keywords": [
+      "3",
+      "action",
+      "edit",
+      "edit-3",
+      "pencil",
+      "write"
+    ],
+    "interaction": "click-replay",
+    "import": "import edit3 from 'react-useanimations/lib/edit3';",
+    "preview": "https://useanimations.com/icons/edit-3/edit-3.svg"
+  },
+  {
+    "name": "error",
+    "title": "Error",
+    "category": "Alerts",
+    "keywords": [
+      "alerts",
+      "close",
+      "error",
+      "failure",
+      "x"
+    ],
+    "interaction": "loop",
+    "import": "import error from 'react-useanimations/lib/error';",
+    "preview": "https://useanimations.com/icons/error/error.svg"
+  },
+  {
+    "name": "explore",
+    "title": "Explore",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "compass",
+      "discover",
+      "explore"
+    ],
+    "interaction": "hover",
+    "import": "import explore from 'react-useanimations/lib/explore';",
+    "preview": "https://useanimations.com/icons/explore/explore.svg"
+  },
+  {
+    "name": "externalLink",
+    "title": "External Link",
+    "category": "Navigation",
+    "keywords": [
+      "external",
+      "external-link",
+      "link",
+      "navigation"
+    ],
+    "interaction": "hover-replay",
+    "import": "import externalLink from 'react-useanimations/lib/externalLink';",
+    "preview": "https://useanimations.com/icons/external-link/external-link.svg"
+  },
+  {
+    "name": "facebook",
+    "title": "Facebook",
+    "category": "Social media",
+    "keywords": [
+      "facebook",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import facebook from 'react-useanimations/lib/facebook';",
+    "preview": "https://useanimations.com/icons/facebook/facebook.svg"
+  },
+  {
+    "name": "fastForward",
+    "title": "Fast Forward",
+    "category": "Media",
+    "keywords": [
+      "fast",
+      "fast-forward",
+      "forward",
+      "media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import fastForward from 'react-useanimations/lib/fastForward';",
+    "preview": "https://useanimations.com/icons/fast-forward/fast-forward.svg"
+  },
+  {
+    "name": "figma",
+    "title": "Figma",
+    "category": "Social media",
+    "keywords": [
+      "figma",
+      "social media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import figma from 'react-useanimations/lib/figma';",
+    "preview": "https://useanimations.com/icons/figma/figma.svg"
+  },
+  {
+    "name": "file",
+    "title": "File",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file"
+    ],
+    "interaction": "hover-replay",
+    "import": "import file from 'react-useanimations/lib/file';",
+    "preview": "https://useanimations.com/icons/file/file.svg"
+  },
+  {
+    "name": "fileMinus",
+    "title": "File Minus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file",
+      "file-minus",
+      "minus"
+    ],
+    "interaction": "click-replay",
+    "import": "import fileMinus from 'react-useanimations/lib/fileMinus';",
+    "preview": "https://useanimations.com/icons/file-minus/file-minus.svg"
+  },
+  {
+    "name": "filePlus",
+    "title": "File Plus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file",
+      "file-plus",
+      "plus"
+    ],
+    "interaction": "click-replay",
+    "import": "import filePlus from 'react-useanimations/lib/filePlus';",
+    "preview": "https://useanimations.com/icons/file-plus/file-plus.svg"
+  },
+  {
+    "name": "fileText",
+    "title": "File Text",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "file",
+      "file-text",
+      "text"
+    ],
+    "interaction": "hover-replay",
+    "import": "import fileText from 'react-useanimations/lib/fileText';",
+    "preview": "https://useanimations.com/icons/file-text/file-text.svg"
+  },
+  {
+    "name": "film",
+    "title": "Film",
+    "category": "Media",
+    "keywords": [
+      "film",
+      "media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import film from 'react-useanimations/lib/film';",
+    "preview": "https://useanimations.com/icons/film/film.svg"
+  },
+  {
+    "name": "filter",
+    "title": "Filter",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "filter",
+      "funnel",
+      "sort"
+    ],
+    "interaction": "click-replay",
+    "import": "import filter from 'react-useanimations/lib/filter';",
+    "preview": "https://useanimations.com/icons/filter/filter.svg"
+  },
+  {
+    "name": "flag",
+    "title": "Flag",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "flag"
+    ],
+    "interaction": "hover-loop",
+    "import": "import flag from 'react-useanimations/lib/flag';",
+    "preview": "https://useanimations.com/icons/flag/flag.svg"
+  },
+  {
+    "name": "folder",
+    "title": "Folder",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "folder"
+    ],
+    "interaction": "hover",
+    "import": "import folder from 'react-useanimations/lib/folder';",
+    "preview": "https://useanimations.com/icons/folder/folder.svg"
+  },
+  {
+    "name": "folderMinus",
+    "title": "Folder Minus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "folder",
+      "folder-minus",
+      "minus"
+    ],
+    "interaction": "click-replay",
+    "import": "import folderMinus from 'react-useanimations/lib/folderMinus';",
+    "preview": "https://useanimations.com/icons/folder-minus/folder-minus.svg"
+  },
+  {
+    "name": "folderPlus",
+    "title": "Folder Plus",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "folder",
+      "folder-plus",
+      "plus"
+    ],
+    "interaction": "click-replay",
+    "import": "import folderPlus from 'react-useanimations/lib/folderPlus';",
+    "preview": "https://useanimations.com/icons/folder-plus/folder-plus.svg"
+  },
+  {
+    "name": "framer",
+    "title": "Framer",
+    "category": "Social media",
+    "keywords": [
+      "framer",
+      "social media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import framer from 'react-useanimations/lib/framer';",
+    "preview": "https://useanimations.com/icons/framer/framer.svg"
+  },
+  {
+    "name": "frown",
+    "title": "Frown",
+    "category": "Other",
+    "keywords": [
+      "frown",
+      "other"
+    ],
+    "interaction": "hover-replay",
+    "import": "import frown from 'react-useanimations/lib/frown';",
+    "preview": "https://useanimations.com/icons/frown/frown.svg"
+  },
+  {
+    "name": "gift",
+    "title": "Gift",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "gift"
+    ],
+    "interaction": "hover-replay",
+    "import": "import gift from 'react-useanimations/lib/gift';",
+    "preview": "https://useanimations.com/icons/gift/gift.svg"
+  },
+  {
+    "name": "gitBranch",
+    "title": "Git Branch",
+    "category": "Development",
+    "keywords": [
+      "branch",
+      "development",
+      "git",
+      "git-branch"
+    ],
+    "interaction": "hover-replay",
+    "import": "import gitBranch from 'react-useanimations/lib/gitBranch';",
+    "preview": "https://useanimations.com/icons/git-branch/git-branch.svg"
+  },
+  {
+    "name": "gitCommit",
+    "title": "Git Commit",
+    "category": "Development",
+    "keywords": [
+      "commit",
+      "development",
+      "git",
+      "git-commit"
+    ],
+    "interaction": "hover-replay",
+    "import": "import gitCommit from 'react-useanimations/lib/gitCommit';",
+    "preview": "https://useanimations.com/icons/git-commit/git-commit.svg"
+  },
+  {
+    "name": "github",
+    "title": "Github",
+    "category": "Social media",
+    "keywords": [
+      "github",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import github from 'react-useanimations/lib/github';",
+    "preview": "https://useanimations.com/icons/github/github.svg"
+  },
+  {
+    "name": "gitlab",
+    "title": "GitLab",
+    "category": "Social media",
+    "keywords": [
+      "gitlab",
+      "social media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import gitlab from 'react-useanimations/lib/gitlab';",
+    "preview": "https://useanimations.com/icons/gitlab/gitlab.svg"
+  },
+  {
+    "name": "gitMerge",
+    "title": "Git Merge",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "git",
+      "git-merge",
+      "merge"
+    ],
+    "interaction": "hover-replay",
+    "import": "import gitMerge from 'react-useanimations/lib/gitMerge';",
+    "preview": "https://useanimations.com/icons/git-merge/git-merge.svg"
+  },
+  {
+    "name": "gitPullRequest",
+    "title": "Git Pull Request",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "git",
+      "git-pull-request",
+      "pull",
+      "request"
+    ],
+    "interaction": "hover-replay",
+    "import": "import gitPullRequest from 'react-useanimations/lib/gitPullRequest';",
+    "preview": "https://useanimations.com/icons/git-pull-request/git-pull-request.svg"
+  },
+  {
+    "name": "globe",
+    "title": "Globe",
+    "category": "Maps & location",
+    "keywords": [
+      "globe",
+      "maps & location"
+    ],
+    "interaction": "hover-loop",
+    "import": "import globe from 'react-useanimations/lib/globe';",
+    "preview": "https://useanimations.com/icons/globe/globe.svg"
+  },
+  {
+    "name": "grid",
+    "title": "Grid",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "grid"
+    ],
+    "interaction": "hover-replay",
+    "import": "import grid from 'react-useanimations/lib/grid';",
+    "preview": "https://useanimations.com/icons/grid/grid.svg"
+  },
+  {
+    "name": "hardDrive",
+    "title": "Hard Drive",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "drive",
+      "hard",
+      "hard-drive"
+    ],
+    "interaction": "hover-replay",
+    "import": "import hardDrive from 'react-useanimations/lib/hardDrive';",
+    "preview": "https://useanimations.com/icons/hard-drive/hard-drive.svg"
+  },
+  {
+    "name": "hash",
+    "title": "Hash",
+    "category": "Text editing",
+    "keywords": [
+      "hash",
+      "text editing"
+    ],
+    "interaction": "hover-replay",
+    "import": "import hash from 'react-useanimations/lib/hash';",
+    "preview": "https://useanimations.com/icons/hash/hash.svg"
+  },
+  {
+    "name": "headphones",
+    "title": "Headphones",
+    "category": "Media",
+    "keywords": [
+      "headphones",
+      "media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import headphones from 'react-useanimations/lib/headphones';",
+    "preview": "https://useanimations.com/icons/headphones/headphones.svg"
+  },
+  {
+    "name": "heart",
+    "title": "Heart",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "favorite",
+      "heart",
+      "like",
+      "love"
+    ],
+    "interaction": "click-toggle",
+    "import": "import heart from 'react-useanimations/lib/heart';",
+    "preview": "https://useanimations.com/icons/heart/heart.svg"
+  },
+  {
+    "name": "heart2",
+    "title": "Heart V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "favorite",
+      "heart",
+      "heart-v2",
+      "like",
+      "love"
+    ],
+    "interaction": "click-replay",
+    "import": "import heart2 from 'react-useanimations/lib/heart2';",
+    "preview": "https://useanimations.com/icons/heart-v2/heart-v2.svg"
+  },
+  {
+    "name": "help",
+    "title": "Help",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "help",
+      "question",
+      "support"
+    ],
+    "interaction": "loop",
+    "import": "import help from 'react-useanimations/lib/help';",
+    "preview": "https://useanimations.com/icons/help/help.svg"
+  },
+  {
+    "name": "hexagon",
+    "title": "Hexagon",
+    "category": "Shapes & math",
+    "keywords": [
+      "hexagon",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay",
+    "import": "import hexagon from 'react-useanimations/lib/hexagon';",
+    "preview": "https://useanimations.com/icons/hexagon/hexagon.svg"
+  },
+  {
+    "name": "home",
+    "title": "Home",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "home",
+      "house"
+    ],
+    "interaction": "hover",
+    "import": "import home from 'react-useanimations/lib/home';",
+    "preview": "https://useanimations.com/icons/home/home.svg"
+  },
+  {
+    "name": "image",
+    "title": "Image",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "image"
+    ],
+    "interaction": "hover-replay",
+    "import": "import image from 'react-useanimations/lib/image';",
+    "preview": "https://useanimations.com/icons/image/image.svg"
+  },
+  {
+    "name": "inbox",
+    "title": "Inbox",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "inbox"
+    ],
+    "interaction": "hover-replay",
+    "import": "import inbox from 'react-useanimations/lib/inbox';",
+    "preview": "https://useanimations.com/icons/inbox/inbox.svg"
+  },
+  {
+    "name": "infinity",
+    "title": "Infinity",
+    "category": "Loading",
+    "keywords": [
+      "infinity",
+      "loader",
+      "loading",
+      "loop",
+      "spinner"
+    ],
+    "interaction": "loop",
+    "import": "import infinity from 'react-useanimations/lib/infinity';",
+    "preview": "https://useanimations.com/icons/infinity/infinity.svg"
+  },
+  {
+    "name": "info",
+    "title": "Info",
+    "category": "Action",
+    "keywords": [
+      "about",
+      "action",
+      "info",
+      "information"
+    ],
+    "interaction": "hover",
+    "import": "import info from 'react-useanimations/lib/info';",
+    "preview": "https://useanimations.com/icons/info/info.svg"
+  },
+  {
+    "name": "instagram",
+    "title": "Instagram",
+    "category": "Social media",
+    "keywords": [
+      "instagram",
+      "social media"
+    ],
+    "interaction": "hover",
+    "import": "import instagram from 'react-useanimations/lib/instagram';",
+    "preview": "https://useanimations.com/icons/instagram/instagram.svg"
+  },
+  {
+    "name": "italic",
+    "title": "Italic",
+    "category": "Text editing",
+    "keywords": [
+      "italic",
+      "text editing"
+    ],
+    "interaction": "click-replay",
+    "import": "import italic from 'react-useanimations/lib/italic';",
+    "preview": "https://useanimations.com/icons/italic/italic.svg"
+  },
+  {
+    "name": "key",
+    "title": "Key",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "key"
+    ],
+    "interaction": "hover-replay",
+    "import": "import key from 'react-useanimations/lib/key';",
+    "preview": "https://useanimations.com/icons/key/key.svg"
+  },
+  {
+    "name": "layers",
+    "title": "Layers",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "layers"
+    ],
+    "interaction": "hover-replay",
+    "import": "import layers from 'react-useanimations/lib/layers';",
+    "preview": "https://useanimations.com/icons/layers/layers.svg"
+  },
+  {
+    "name": "layout",
+    "title": "Layout",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "layout"
+    ],
+    "interaction": "hover-replay",
+    "import": "import layout from 'react-useanimations/lib/layout';",
+    "preview": "https://useanimations.com/icons/layout/layout.svg"
+  },
+  {
+    "name": "lifeBuoy",
+    "title": "Life Buoy",
+    "category": "Maps & location",
+    "keywords": [
+      "buoy",
+      "life",
+      "life-buoy",
+      "maps & location"
+    ],
+    "interaction": "hover-replay",
+    "import": "import lifeBuoy from 'react-useanimations/lib/lifeBuoy';",
+    "preview": "https://useanimations.com/icons/life-buoy/life-buoy.svg"
+  },
+  {
+    "name": "link",
+    "title": "Link",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "link"
+    ],
+    "interaction": "click-replay",
+    "import": "import link from 'react-useanimations/lib/link';",
+    "preview": "https://useanimations.com/icons/link/link.svg"
+  },
+  {
+    "name": "link2",
+    "title": "Link 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "link",
+      "link-2"
+    ],
+    "interaction": "click-replay",
+    "import": "import link2 from 'react-useanimations/lib/link2';",
+    "preview": "https://useanimations.com/icons/link-2/link-2.svg"
+  },
+  {
+    "name": "linkedin",
+    "title": "Linkedin",
+    "category": "Social media",
+    "keywords": [
+      "linkedin",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import linkedin from 'react-useanimations/lib/linkedin';",
+    "preview": "https://useanimations.com/icons/linkedin/linkedin.svg"
+  },
+  {
+    "name": "list",
+    "title": "List",
+    "category": "Text editing",
+    "keywords": [
+      "list",
+      "text editing"
+    ],
+    "interaction": "hover-replay",
+    "import": "import list from 'react-useanimations/lib/list';",
+    "preview": "https://useanimations.com/icons/list/list.svg"
+  },
+  {
+    "name": "loading",
+    "title": "Loading circular",
+    "category": "Loading",
+    "keywords": [
+      "circular",
+      "loader",
+      "loading",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop",
+    "import": "import loading from 'react-useanimations/lib/loading';"
+  },
+  {
+    "name": "loading2",
+    "title": "Loading V2",
+    "category": "Loading",
+    "keywords": [
+      "loader",
+      "loading",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop",
+    "import": "import loading2 from 'react-useanimations/lib/loading2';"
+  },
+  {
+    "name": "loading3",
+    "title": "Loading V3",
+    "category": "Loading",
+    "keywords": [
+      "loader",
+      "loading",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop",
+    "import": "import loading3 from 'react-useanimations/lib/loading3';"
+  },
+  {
+    "name": "loading4",
+    "title": "Loading V4",
+    "category": "Loading",
+    "keywords": [
+      "loader",
+      "loading",
+      "loadingv4",
+      "progress",
+      "spinner"
+    ],
+    "interaction": "loop",
+    "import": "import loading4 from 'react-useanimations/lib/loading4';",
+    "preview": "https://useanimations.com/icons/loading-v4/loadingv4.svg"
+  },
+  {
+    "name": "lock",
+    "title": "Lock / Unlock",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "lock",
+      "password",
+      "security",
+      "unlock"
+    ],
+    "interaction": "click-toggle",
+    "import": "import lock from 'react-useanimations/lib/lock';",
+    "preview": "https://useanimations.com/icons/lock/lock.svg"
+  },
+  {
+    "name": "logIn",
+    "title": "Log In",
+    "category": "Navigation",
+    "keywords": [
+      "in",
+      "log",
+      "log-in",
+      "navigation"
+    ],
+    "interaction": "click-replay",
+    "import": "import logIn from 'react-useanimations/lib/logIn';",
+    "preview": "https://useanimations.com/icons/log-in/log-in.svg"
+  },
+  {
+    "name": "logOut",
+    "title": "Log Out",
+    "category": "Navigation",
+    "keywords": [
+      "log",
+      "log-out",
+      "navigation",
+      "out"
+    ],
+    "interaction": "click-replay",
+    "import": "import logOut from 'react-useanimations/lib/logOut';",
+    "preview": "https://useanimations.com/icons/log-out/log-out.svg"
+  },
+  {
+    "name": "mail",
+    "title": "Mail",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "email",
+      "envelope",
+      "mail",
+      "message"
+    ],
+    "interaction": "hover",
+    "import": "import mail from 'react-useanimations/lib/mail';",
+    "preview": "https://useanimations.com/icons/mail/mail.svg"
+  },
+  {
+    "name": "map",
+    "title": "Map",
+    "category": "Maps & location",
+    "keywords": [
+      "map",
+      "maps & location"
+    ],
+    "interaction": "hover-replay",
+    "import": "import map from 'react-useanimations/lib/map';",
+    "preview": "https://useanimations.com/icons/map/map.svg"
+  },
+  {
+    "name": "mapPin",
+    "title": "Map Pin",
+    "category": "Maps & location",
+    "keywords": [
+      "map",
+      "map-pin",
+      "maps & location",
+      "pin"
+    ],
+    "interaction": "hover-replay",
+    "import": "import mapPin from 'react-useanimations/lib/mapPin';",
+    "preview": "https://useanimations.com/icons/map-pin/map-pin.svg"
+  },
+  {
+    "name": "maximize2",
+    "title": "Maximize 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "maximize",
+      "maximize-2"
+    ],
+    "interaction": "hover-replay",
+    "import": "import maximize2 from 'react-useanimations/lib/maximize2';",
+    "preview": "https://useanimations.com/icons/maximize-2/maximize-2.svg"
+  },
+  {
+    "name": "maximizeMinimize",
+    "title": "Maxi/Minimize",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "collapse",
+      "expand",
+      "fullscreen",
+      "maxi",
+      "maximize",
+      "minimize"
+    ],
+    "interaction": "click-toggle",
+    "import": "import maximizeMinimize from 'react-useanimations/lib/maximizeMinimize';",
+    "preview": "https://useanimations.com/icons/maximize-minimize/maximize.svg"
+  },
+  {
+    "name": "maximizeMinimize2",
+    "title": "Maxi/Minimize V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "collapse",
+      "expand",
+      "fullscreen",
+      "maxi",
+      "maximize-2",
+      "minimize",
+      "minimize-2"
+    ],
+    "interaction": "click-toggle",
+    "import": "import maximizeMinimize2 from 'react-useanimations/lib/maximizeMinimize2';",
+    "preview": "https://useanimations.com/icons/maximize-minimize-v2/maximize-2.svg"
+  },
+  {
+    "name": "meh",
+    "title": "Meh",
+    "category": "Other",
+    "keywords": [
+      "meh",
+      "other"
+    ],
+    "interaction": "hover-replay",
+    "import": "import meh from 'react-useanimations/lib/meh';",
+    "preview": "https://useanimations.com/icons/meh/meh.svg"
+  },
+  {
+    "name": "menu",
+    "title": "Burger Menu",
+    "category": "Navigation",
+    "keywords": [
+      "burger",
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle",
+    "import": "import menu from 'react-useanimations/lib/menu';",
+    "preview": "https://useanimations.com/icons/menu/menu.svg"
+  },
+  {
+    "name": "menu2",
+    "title": "Menu V2",
+    "category": "Navigation",
+    "keywords": [
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle",
+    "import": "import menu2 from 'react-useanimations/lib/menu2';",
+    "preview": "https://useanimations.com/icons/menu-v2/menu.svg"
+  },
+  {
+    "name": "menu3",
+    "title": "Menu V3",
+    "category": "Navigation",
+    "keywords": [
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle",
+    "import": "import menu3 from 'react-useanimations/lib/menu3';",
+    "preview": "https://useanimations.com/icons/menu-v3/menu.svg"
+  },
+  {
+    "name": "menu4",
+    "title": "Menu V4",
+    "category": "Navigation",
+    "keywords": [
+      "close",
+      "hamburger",
+      "menu",
+      "navigation"
+    ],
+    "interaction": "click-toggle",
+    "import": "import menu4 from 'react-useanimations/lib/menu4';",
+    "preview": "https://useanimations.com/icons/menu-v4/menu.svg"
+  },
+  {
+    "name": "messageCircle",
+    "title": "Message Circle",
+    "category": "Communication",
+    "keywords": [
+      "circle",
+      "communication",
+      "message",
+      "message-circle"
+    ],
+    "interaction": "hover-replay",
+    "import": "import messageCircle from 'react-useanimations/lib/messageCircle';",
+    "preview": "https://useanimations.com/icons/message-circle/message-circle.svg"
+  },
+  {
+    "name": "messageSquare",
+    "title": "Message Square",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "message",
+      "message-square",
+      "square"
+    ],
+    "interaction": "hover-replay",
+    "import": "import messageSquare from 'react-useanimations/lib/messageSquare';",
+    "preview": "https://useanimations.com/icons/message-square/message-square.svg"
+  },
+  {
+    "name": "micOff",
+    "title": "Mic Off",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "mic",
+      "mic-off",
+      "mic-off-off",
+      "off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import micOff from 'react-useanimations/lib/micOff';",
+    "preview": "https://useanimations.com/icons/mic-off/mic-off-off.svg"
+  },
+  {
+    "name": "microphone",
+    "title": "Microphone",
+    "category": "Media",
+    "keywords": [
+      "audio",
+      "media",
+      "mic",
+      "mic-off",
+      "microphone",
+      "mute",
+      "record"
+    ],
+    "interaction": "click-toggle",
+    "import": "import microphone from 'react-useanimations/lib/microphone';",
+    "preview": "https://useanimations.com/icons/microphone/mic-off.svg"
+  },
+  {
+    "name": "microphone2",
+    "title": "Microphone V2",
+    "category": "Media",
+    "keywords": [
+      "audio",
+      "media",
+      "mic",
+      "mic-off",
+      "microphone",
+      "mute",
+      "record"
+    ],
+    "interaction": "click-toggle",
+    "import": "import microphone2 from 'react-useanimations/lib/microphone2';",
+    "preview": "https://useanimations.com/icons/microphone-v2/mic-off.svg"
+  },
+  {
+    "name": "minimize2",
+    "title": "Minimize 2",
+    "category": "Action",
+    "keywords": [
+      "2",
+      "action",
+      "minimize",
+      "minimize-2"
+    ],
+    "interaction": "hover-replay",
+    "import": "import minimize2 from 'react-useanimations/lib/minimize2';",
+    "preview": "https://useanimations.com/icons/minimize-2/minimize-2.svg"
+  },
+  {
+    "name": "minus",
+    "title": "Minus",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "minus"
+    ],
+    "interaction": "click-replay",
+    "import": "import minus from 'react-useanimations/lib/minus';",
+    "preview": "https://useanimations.com/icons/minus/minus.svg"
+  },
+  {
+    "name": "minusCircle",
+    "title": "Minus Circle",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "circle",
+      "minus",
+      "minus-circle"
+    ],
+    "interaction": "click-replay",
+    "import": "import minusCircle from 'react-useanimations/lib/minusCircle';",
+    "preview": "https://useanimations.com/icons/minus-circle/minus-circle.svg"
+  },
+  {
+    "name": "minusSquare",
+    "title": "Minus Square",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "minus",
+      "minus-square",
+      "square"
+    ],
+    "interaction": "click-replay",
+    "import": "import minusSquare from 'react-useanimations/lib/minusSquare';",
+    "preview": "https://useanimations.com/icons/minus-square/minus-square.svg"
+  },
+  {
+    "name": "monitor",
+    "title": "Monitor",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "monitor"
+    ],
+    "interaction": "hover-replay",
+    "import": "import monitor from 'react-useanimations/lib/monitor';",
+    "preview": "https://useanimations.com/icons/monitor/monitor.svg"
+  },
+  {
+    "name": "moon",
+    "title": "Moon",
+    "category": "Weather",
+    "keywords": [
+      "moon",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import moon from 'react-useanimations/lib/moon';",
+    "preview": "https://useanimations.com/icons/moon/moon.svg"
+  },
+  {
+    "name": "moreHorizontal",
+    "title": "More Horizontal",
+    "category": "Navigation",
+    "keywords": [
+      "horizontal",
+      "more",
+      "more-horizontal",
+      "navigation"
+    ],
+    "interaction": "loop",
+    "import": "import moreHorizontal from 'react-useanimations/lib/moreHorizontal';",
+    "preview": "https://useanimations.com/icons/more-horizontal/more-horizontal.svg"
+  },
+  {
+    "name": "moreVertical",
+    "title": "More Vertical",
+    "category": "Navigation",
+    "keywords": [
+      "more",
+      "more-vertical",
+      "navigation",
+      "vertical"
+    ],
+    "interaction": "loop",
+    "import": "import moreVertical from 'react-useanimations/lib/moreVertical';",
+    "preview": "https://useanimations.com/icons/more-vertical/more-vertical.svg"
+  },
+  {
+    "name": "mousePointer",
+    "title": "Mouse Pointer",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "mouse",
+      "mouse-pointer",
+      "pointer"
+    ],
+    "interaction": "click-replay",
+    "import": "import mousePointer from 'react-useanimations/lib/mousePointer';",
+    "preview": "https://useanimations.com/icons/mouse-pointer/mouse-pointer.svg"
+  },
+  {
+    "name": "move",
+    "title": "Move",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "move"
+    ],
+    "interaction": "hover-replay",
+    "import": "import move from 'react-useanimations/lib/move';",
+    "preview": "https://useanimations.com/icons/move/move.svg"
+  },
+  {
+    "name": "music",
+    "title": "Music",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "music"
+    ],
+    "interaction": "hover-replay",
+    "import": "import music from 'react-useanimations/lib/music';",
+    "preview": "https://useanimations.com/icons/music/music.svg"
+  },
+  {
+    "name": "navigation",
+    "title": "Navigation",
+    "category": "Maps & location",
+    "keywords": [
+      "maps & location",
+      "navigation"
+    ],
+    "interaction": "hover-replay",
+    "import": "import navigation from 'react-useanimations/lib/navigation';",
+    "preview": "https://useanimations.com/icons/navigation/navigation.svg"
+  },
+  {
+    "name": "navigation2",
+    "title": "Navigation 2",
+    "category": "Maps & location",
+    "keywords": [
+      "2",
+      "maps & location",
+      "navigation",
+      "navigation-2"
+    ],
+    "interaction": "hover-replay",
+    "import": "import navigation2 from 'react-useanimations/lib/navigation2';",
+    "preview": "https://useanimations.com/icons/navigation-2/navigation-2.svg"
+  },
+  {
+    "name": "notification",
+    "title": "Notification",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "bell-off",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "click-toggle",
+    "import": "import notification from 'react-useanimations/lib/notification';",
+    "preview": "https://useanimations.com/icons/notification/bell-off.svg"
+  },
+  {
+    "name": "notification2",
+    "title": "Notification V2",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "bell-off",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "click-toggle",
+    "import": "import notification2 from 'react-useanimations/lib/notification2';",
+    "preview": "https://useanimations.com/icons/notification-v2/bell-off.svg"
+  },
+  {
+    "name": "notification3",
+    "title": "Notification V3",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "loop",
+    "import": "import notification3 from 'react-useanimations/lib/notification3';",
+    "preview": "https://useanimations.com/icons/notification-v3/bell.svg"
+  },
+  {
+    "name": "notification4",
+    "title": "Notification V4",
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "bell",
+      "mute",
+      "notification",
+      "notifications"
+    ],
+    "interaction": "loop",
+    "import": "import notification4 from 'react-useanimations/lib/notification4';",
+    "preview": "https://useanimations.com/icons/notification-v4/bell.svg"
+  },
+  {
+    "name": "octagon",
+    "title": "Octagon",
+    "category": "Shapes & math",
+    "keywords": [
+      "octagon",
+      "shapes & math"
+    ],
+    "interaction": "hover-replay",
+    "import": "import octagon from 'react-useanimations/lib/octagon';",
+    "preview": "https://useanimations.com/icons/octagon/octagon.svg"
+  },
+  {
+    "name": "package",
+    "title": "Package",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "package"
+    ],
+    "interaction": "hover-replay",
+    "import": "import packageIcon from 'react-useanimations/lib/package';",
+    "preview": "https://useanimations.com/icons/package/package.svg"
+  },
+  {
+    "name": "paperclip",
+    "title": "Paperclip",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "paperclip"
+    ],
+    "interaction": "hover-replay",
+    "import": "import paperclip from 'react-useanimations/lib/paperclip';",
+    "preview": "https://useanimations.com/icons/paperclip/paperclip.svg"
+  },
+  {
+    "name": "penTool",
+    "title": "Pen Tool",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "pen",
+      "pen-tool",
+      "tool"
+    ],
+    "interaction": "hover-replay",
+    "import": "import penTool from 'react-useanimations/lib/penTool';",
+    "preview": "https://useanimations.com/icons/pen-tool/pen-tool.svg"
+  },
+  {
+    "name": "percent",
+    "title": "Percent",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "percent"
+    ],
+    "interaction": "hover-replay",
+    "import": "import percent from 'react-useanimations/lib/percent';",
+    "preview": "https://useanimations.com/icons/percent/percent.svg"
+  },
+  {
+    "name": "phone",
+    "title": "Phone",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "phone"
+    ],
+    "interaction": "click-replay",
+    "import": "import phone from 'react-useanimations/lib/phone';",
+    "preview": "https://useanimations.com/icons/phone/phone.svg"
+  },
+  {
+    "name": "phoneCall",
+    "title": "Phone Call",
+    "category": "Communication",
+    "keywords": [
+      "call",
+      "communication",
+      "phone",
+      "phone-call"
+    ],
+    "interaction": "click-replay",
+    "import": "import phoneCall from 'react-useanimations/lib/phoneCall';",
+    "preview": "https://useanimations.com/icons/phone-call/phone-call.svg"
+  },
+  {
+    "name": "phoneForwarded",
+    "title": "Phone Forwarded",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "forwarded",
+      "phone",
+      "phone-forwarded"
+    ],
+    "interaction": "hover-replay",
+    "import": "import phoneForwarded from 'react-useanimations/lib/phoneForwarded';",
+    "preview": "https://useanimations.com/icons/phone-forwarded/phone-forwarded.svg"
+  },
+  {
+    "name": "phoneIncoming",
+    "title": "Phone Incoming",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "incoming",
+      "phone",
+      "phone-incoming"
+    ],
+    "interaction": "hover-replay",
+    "import": "import phoneIncoming from 'react-useanimations/lib/phoneIncoming';",
+    "preview": "https://useanimations.com/icons/phone-incoming/phone-incoming.svg"
+  },
+  {
+    "name": "phoneMissed",
+    "title": "Phone Missed",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "missed",
+      "phone",
+      "phone-missed"
+    ],
+    "interaction": "hover-replay",
+    "import": "import phoneMissed from 'react-useanimations/lib/phoneMissed';",
+    "preview": "https://useanimations.com/icons/phone-missed/phone-missed.svg"
+  },
+  {
+    "name": "phoneOff",
+    "title": "Phone Off",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "off",
+      "phone",
+      "phone-off",
+      "phone-off-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import phoneOff from 'react-useanimations/lib/phoneOff';",
+    "preview": "https://useanimations.com/icons/phone-off/phone-off-off.svg"
+  },
+  {
+    "name": "phoneOutgoing",
+    "title": "Phone Outgoing",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "outgoing",
+      "phone",
+      "phone-outgoing"
+    ],
+    "interaction": "hover-replay",
+    "import": "import phoneOutgoing from 'react-useanimations/lib/phoneOutgoing';",
+    "preview": "https://useanimations.com/icons/phone-outgoing/phone-outgoing.svg"
+  },
+  {
+    "name": "pieChart",
+    "title": "Pie Chart",
+    "category": "Charts",
+    "keywords": [
+      "chart",
+      "charts",
+      "pie",
+      "pie-chart"
+    ],
+    "interaction": "hover-replay",
+    "import": "import pieChart from 'react-useanimations/lib/pieChart';",
+    "preview": "https://useanimations.com/icons/pie-chart/pie-chart.svg"
+  },
+  {
+    "name": "playPause",
+    "title": "Play/Pause",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "pause",
+      "play",
+      "player"
+    ],
+    "interaction": "click-toggle",
+    "import": "import playPause from 'react-useanimations/lib/playPause';",
+    "preview": "https://useanimations.com/icons/play-pause/pause.svg"
+  },
+  {
+    "name": "playPauseCircle",
+    "title": "Play/Pause circle",
+    "category": "Media",
+    "keywords": [
+      "circle",
+      "media",
+      "pause",
+      "pause-circle",
+      "play",
+      "play-circle",
+      "player"
+    ],
+    "interaction": "click-toggle",
+    "import": "import playPauseCircle from 'react-useanimations/lib/playPauseCircle';",
+    "preview": "https://useanimations.com/icons/play-pause-circle/pause-circle.svg"
+  },
+  {
+    "name": "plusCircle",
+    "title": "Plus Circle",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "circle",
+      "plus",
+      "plus-circle"
+    ],
+    "interaction": "click-replay",
+    "import": "import plusCircle from 'react-useanimations/lib/plusCircle';",
+    "preview": "https://useanimations.com/icons/plus-circle/plus-circle.svg"
+  },
+  {
+    "name": "plusSquare",
+    "title": "Plus Square",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "plus",
+      "plus-square",
+      "square"
+    ],
+    "interaction": "click-replay",
+    "import": "import plusSquare from 'react-useanimations/lib/plusSquare';",
+    "preview": "https://useanimations.com/icons/plus-square/plus-square.svg"
+  },
+  {
+    "name": "plusToX",
+    "title": "Plus/X",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "add",
+      "close",
+      "expand",
+      "plus",
+      "x"
+    ],
+    "interaction": "click-toggle",
+    "import": "import plusToX from 'react-useanimations/lib/plusToX';",
+    "preview": "https://useanimations.com/icons/plus-to-x/plus.svg"
+  },
+  {
+    "name": "pocket",
+    "title": "Pocket",
+    "category": "Social media",
+    "keywords": [
+      "pocket",
+      "social media"
+    ],
+    "interaction": "hover-loop",
+    "import": "import pocket from 'react-useanimations/lib/pocket';",
+    "preview": "https://useanimations.com/icons/pocket/pocket.svg"
+  },
+  {
+    "name": "power",
+    "title": "Power",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "power"
+    ],
+    "interaction": "click-replay",
+    "import": "import power from 'react-useanimations/lib/power';",
+    "preview": "https://useanimations.com/icons/power/power.svg"
+  },
+  {
+    "name": "printer",
+    "title": "Printer",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "printer"
+    ],
+    "interaction": "click-replay",
+    "import": "import printer from 'react-useanimations/lib/printer';",
+    "preview": "https://useanimations.com/icons/printer/printer.svg"
+  },
+  {
+    "name": "radio",
+    "title": "Radio",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "radio"
+    ],
+    "interaction": "hover-replay",
+    "import": "import radio from 'react-useanimations/lib/radio';",
+    "preview": "https://useanimations.com/icons/radio/radio.svg"
+  },
+  {
+    "name": "radioButton",
+    "title": "Radio button",
+    "category": "Form",
+    "keywords": [
+      "button",
+      "check-circle",
+      "form",
+      "radio",
+      "select"
+    ],
+    "interaction": "click-toggle",
+    "import": "import radioButton from 'react-useanimations/lib/radioButton';",
+    "preview": "https://useanimations.com/icons/radio-button/check-circle.svg"
+  },
+  {
+    "name": "refresh",
+    "title": "Refresh",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "refresh",
+      "reload",
+      "sync"
+    ],
+    "interaction": "click-replay",
+    "import": "import refresh from 'react-useanimations/lib/refresh';",
+    "preview": "https://useanimations.com/icons/refresh/refresh.svg"
+  },
+  {
+    "name": "refresh2",
+    "title": "Refresh V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "refresh",
+      "refresh-v2",
+      "reload",
+      "sync"
+    ],
+    "interaction": "click-replay",
+    "import": "import refresh2 from 'react-useanimations/lib/refresh2';",
+    "preview": "https://useanimations.com/icons/refresh-v2/refresh-v2.svg"
+  },
+  {
+    "name": "refreshCcw",
+    "title": "Refresh Ccw",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "ccw",
+      "refresh",
+      "refresh-ccw",
+      "reload",
+      "sync"
+    ],
+    "interaction": "click-replay",
+    "import": "import refreshCcw from 'react-useanimations/lib/refreshCcw';",
+    "preview": "https://useanimations.com/icons/refresh-ccw/refresh-ccw.svg"
+  },
+  {
+    "name": "repeat",
+    "title": "Repeat",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "repeat"
+    ],
+    "interaction": "click-replay",
+    "import": "import repeat from 'react-useanimations/lib/repeat';",
+    "preview": "https://useanimations.com/icons/repeat/repeat.svg"
+  },
+  {
+    "name": "rewind",
+    "title": "Rewind",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "rewind"
+    ],
+    "interaction": "hover-replay",
+    "import": "import rewind from 'react-useanimations/lib/rewind';",
+    "preview": "https://useanimations.com/icons/rewind/rewind.svg"
+  },
+  {
+    "name": "rotateCcw",
+    "title": "Rotate Ccw",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "ccw",
+      "rotate",
+      "rotate-ccw"
+    ],
+    "interaction": "click-replay",
+    "import": "import rotateCcw from 'react-useanimations/lib/rotateCcw';",
+    "preview": "https://useanimations.com/icons/rotate-ccw/rotate-ccw.svg"
+  },
+  {
+    "name": "rotateCw",
+    "title": "Rotate Cw",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cw",
+      "rotate",
+      "rotate-cw"
+    ],
+    "interaction": "click-replay",
+    "import": "import rotateCw from 'react-useanimations/lib/rotateCw';",
+    "preview": "https://useanimations.com/icons/rotate-cw/rotate-cw.svg"
+  },
+  {
+    "name": "rss",
+    "title": "RSS",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "rss"
+    ],
+    "interaction": "hover-replay",
+    "import": "import rss from 'react-useanimations/lib/rss';",
+    "preview": "https://useanimations.com/icons/rss/rss.svg"
+  },
+  {
+    "name": "save",
+    "title": "Save",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "save"
+    ],
+    "interaction": "click-replay",
+    "import": "import save from 'react-useanimations/lib/save';",
+    "preview": "https://useanimations.com/icons/save/save.svg"
+  },
+  {
+    "name": "scissors",
+    "title": "Scissors",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "scissors"
+    ],
+    "interaction": "click-replay",
+    "import": "import scissors from 'react-useanimations/lib/scissors';",
+    "preview": "https://useanimations.com/icons/scissors/scissors.svg"
+  },
+  {
+    "name": "scrollDown",
+    "title": "Scroll down",
+    "category": "Other",
+    "keywords": [
+      "down",
+      "indicator",
+      "mouse",
+      "other",
+      "scroll",
+      "scrolldown"
+    ],
+    "interaction": "loop",
+    "import": "import scrollDown from 'react-useanimations/lib/scrollDown';",
+    "preview": "https://useanimations.com/icons/scroll-down/scrolldown.svg"
+  },
+  {
+    "name": "searchToX",
+    "title": "Search/X",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "clear",
+      "close",
+      "search",
+      "x"
+    ],
+    "interaction": "click-toggle",
+    "import": "import searchToX from 'react-useanimations/lib/searchToX';",
+    "preview": "https://useanimations.com/icons/search-to-x/search.svg"
+  },
+  {
+    "name": "send",
+    "title": "Send",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "send"
+    ],
+    "interaction": "click-replay",
+    "import": "import send from 'react-useanimations/lib/send';",
+    "preview": "https://useanimations.com/icons/send/send.svg"
+  },
+  {
+    "name": "server",
+    "title": "Server",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "server"
+    ],
+    "interaction": "hover-replay",
+    "import": "import server from 'react-useanimations/lib/server';",
+    "preview": "https://useanimations.com/icons/server/server.svg"
+  },
+  {
+    "name": "settings",
+    "title": "Settings",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cog",
+      "gear",
+      "preferences",
+      "settings"
+    ],
+    "interaction": "hover",
+    "import": "import settings from 'react-useanimations/lib/settings';",
+    "preview": "https://useanimations.com/icons/settings/settings.svg"
+  },
+  {
+    "name": "settings2",
+    "title": "Settings V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cog",
+      "gear",
+      "preferences",
+      "settings",
+      "sliders"
+    ],
+    "interaction": "click-toggle",
+    "import": "import settings2 from 'react-useanimations/lib/settings2';",
+    "preview": "https://useanimations.com/icons/settings-v2/sliders.svg"
+  },
+  {
+    "name": "share",
+    "title": "Share",
+    "category": "Content",
+    "keywords": [
+      "content",
+      "send",
+      "share",
+      "social"
+    ],
+    "interaction": "hover",
+    "import": "import share from 'react-useanimations/lib/share';",
+    "preview": "https://useanimations.com/icons/share/share.svg"
+  },
+  {
+    "name": "shield",
+    "title": "Shield",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "shield"
+    ],
+    "interaction": "hover-replay",
+    "import": "import shield from 'react-useanimations/lib/shield';",
+    "preview": "https://useanimations.com/icons/shield/shield.svg"
+  },
+  {
+    "name": "shieldOff",
+    "title": "Shield Off",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "off",
+      "shield",
+      "shield-off",
+      "shield-off-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import shieldOff from 'react-useanimations/lib/shieldOff';",
+    "preview": "https://useanimations.com/icons/shield-off/shield-off-off.svg"
+  },
+  {
+    "name": "shoppingBag",
+    "title": "Shopping Bag",
+    "category": "Commerce",
+    "keywords": [
+      "bag",
+      "commerce",
+      "shopping",
+      "shopping-bag"
+    ],
+    "interaction": "hover-replay",
+    "import": "import shoppingBag from 'react-useanimations/lib/shoppingBag';",
+    "preview": "https://useanimations.com/icons/shopping-bag/shopping-bag.svg"
+  },
+  {
+    "name": "shoppingCart",
+    "title": "Shopping Cart",
+    "category": "Commerce",
+    "keywords": [
+      "cart",
+      "commerce",
+      "shopping",
+      "shopping-cart"
+    ],
+    "interaction": "click-replay",
+    "import": "import shoppingCart from 'react-useanimations/lib/shoppingCart';",
+    "preview": "https://useanimations.com/icons/shopping-cart/shopping-cart.svg"
+  },
+  {
+    "name": "shuffle",
+    "title": "Shuffle",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "shuffle"
+    ],
+    "interaction": "click-replay",
+    "import": "import shuffle from 'react-useanimations/lib/shuffle';",
+    "preview": "https://useanimations.com/icons/shuffle/shuffle.svg"
+  },
+  {
+    "name": "sidebar",
+    "title": "Sidebar",
+    "category": "Navigation",
+    "keywords": [
+      "navigation",
+      "sidebar"
+    ],
+    "interaction": "hover-replay",
+    "import": "import sidebar from 'react-useanimations/lib/sidebar';",
+    "preview": "https://useanimations.com/icons/sidebar/sidebar.svg"
+  },
+  {
+    "name": "skipBack",
+    "title": "Skip back",
+    "category": "Media",
+    "keywords": [
+      "back",
+      "media",
+      "next",
+      "player",
+      "previous",
+      "skip",
+      "skip-back"
+    ],
+    "interaction": "click-replay",
+    "import": "import skipBack from 'react-useanimations/lib/skipBack';",
+    "preview": "https://useanimations.com/icons/skip-back/skip-back.svg"
+  },
+  {
+    "name": "skipForward",
+    "title": "Skip forward",
+    "category": "Media",
+    "keywords": [
+      "forward",
+      "media",
+      "next",
+      "player",
+      "previous",
+      "skip",
+      "skip-forward"
+    ],
+    "interaction": "click-replay",
+    "import": "import skipForward from 'react-useanimations/lib/skipForward';",
+    "preview": "https://useanimations.com/icons/skip-forward/skip-forward.svg"
+  },
+  {
+    "name": "slack",
+    "title": "Slack",
+    "category": "Social media",
+    "keywords": [
+      "slack",
+      "social media"
+    ],
+    "interaction": "hover-replay",
+    "import": "import slack from 'react-useanimations/lib/slack';",
+    "preview": "https://useanimations.com/icons/slack/slack.svg"
+  },
+  {
+    "name": "slash",
+    "title": "Slash",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "slash"
+    ],
+    "interaction": "hover-replay",
+    "import": "import slash from 'react-useanimations/lib/slash';",
+    "preview": "https://useanimations.com/icons/slash/slash.svg"
+  },
+  {
+    "name": "smartphone",
+    "title": "Smartphone",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "smartphone"
+    ],
+    "interaction": "hover-replay",
+    "import": "import smartphone from 'react-useanimations/lib/smartphone';",
+    "preview": "https://useanimations.com/icons/smartphone/smartphone.svg"
+  },
+  {
+    "name": "smile",
+    "title": "Smile",
+    "category": "Other",
+    "keywords": [
+      "other",
+      "smile"
+    ],
+    "interaction": "hover-replay",
+    "import": "import smile from 'react-useanimations/lib/smile';",
+    "preview": "https://useanimations.com/icons/smile/smile.svg"
+  },
+  {
+    "name": "speaker",
+    "title": "Speaker",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "speaker"
+    ],
+    "interaction": "hover-replay",
+    "import": "import speaker from 'react-useanimations/lib/speaker';",
+    "preview": "https://useanimations.com/icons/speaker/speaker.svg"
+  },
+  {
+    "name": "square",
+    "title": "Square",
+    "category": "Shapes & math",
+    "keywords": [
+      "shapes & math",
+      "square"
+    ],
+    "interaction": "hover-replay",
+    "import": "import square from 'react-useanimations/lib/square';",
+    "preview": "https://useanimations.com/icons/square/square.svg"
+  },
+  {
+    "name": "star",
+    "title": "Star",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "favorite",
+      "rating",
+      "star"
+    ],
+    "interaction": "click-toggle",
+    "import": "import star from 'react-useanimations/lib/star';",
+    "preview": "https://useanimations.com/icons/star/star.svg"
+  },
+  {
+    "name": "stopCircle",
+    "title": "Stop Circle",
+    "category": "Media",
+    "keywords": [
+      "circle",
+      "media",
+      "stop",
+      "stop-circle"
+    ],
+    "interaction": "click-replay",
+    "import": "import stopCircle from 'react-useanimations/lib/stopCircle';",
+    "preview": "https://useanimations.com/icons/stop-circle/stop-circle.svg"
+  },
+  {
+    "name": "sun",
+    "title": "Sun",
+    "category": "Weather",
+    "keywords": [
+      "sun",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import sun from 'react-useanimations/lib/sun';",
+    "preview": "https://useanimations.com/icons/sun/sun.svg"
+  },
+  {
+    "name": "sunrise",
+    "title": "Sunrise",
+    "category": "Weather",
+    "keywords": [
+      "sunrise",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import sunrise from 'react-useanimations/lib/sunrise';",
+    "preview": "https://useanimations.com/icons/sunrise/sunrise.svg"
+  },
+  {
+    "name": "sunset",
+    "title": "Sunset",
+    "category": "Weather",
+    "keywords": [
+      "sunset",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import sunset from 'react-useanimations/lib/sunset';",
+    "preview": "https://useanimations.com/icons/sunset/sunset.svg"
+  },
+  {
+    "name": "table",
+    "title": "Table",
+    "category": "Design & layout",
+    "keywords": [
+      "design & layout",
+      "table"
+    ],
+    "interaction": "hover-replay",
+    "import": "import table from 'react-useanimations/lib/table';",
+    "preview": "https://useanimations.com/icons/table/table.svg"
+  },
+  {
+    "name": "tablet",
+    "title": "Tablet",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "tablet"
+    ],
+    "interaction": "hover-replay",
+    "import": "import tablet from 'react-useanimations/lib/tablet';",
+    "preview": "https://useanimations.com/icons/tablet/tablet.svg"
+  },
+  {
+    "name": "tag",
+    "title": "Tag",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "tag"
+    ],
+    "interaction": "hover-replay",
+    "import": "import tag from 'react-useanimations/lib/tag';",
+    "preview": "https://useanimations.com/icons/tag/tag.svg"
+  },
+  {
+    "name": "target",
+    "title": "Target",
+    "category": "Maps & location",
+    "keywords": [
+      "maps & location",
+      "target"
+    ],
+    "interaction": "hover-replay",
+    "import": "import target from 'react-useanimations/lib/target';",
+    "preview": "https://useanimations.com/icons/target/target.svg"
+  },
+  {
+    "name": "terminal",
+    "title": "Terminal",
+    "category": "Development",
+    "keywords": [
+      "development",
+      "terminal"
+    ],
+    "interaction": "loop",
+    "import": "import terminal from 'react-useanimations/lib/terminal';",
+    "preview": "https://useanimations.com/icons/terminal/terminal.svg"
+  },
+  {
+    "name": "thermometer",
+    "title": "Thermometer",
+    "category": "Weather",
+    "keywords": [
+      "thermometer",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import thermometer from 'react-useanimations/lib/thermometer';",
+    "preview": "https://useanimations.com/icons/thermometer/thermometer.svg"
+  },
+  {
+    "name": "thumbsDown",
+    "title": "Thumbs Down",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "down",
+      "thumbs",
+      "thumbs-down"
+    ],
+    "interaction": "click-replay",
+    "import": "import thumbsDown from 'react-useanimations/lib/thumbsDown';",
+    "preview": "https://useanimations.com/icons/thumbs-down/thumbs-down.svg"
+  },
+  {
+    "name": "thumbUp",
+    "title": "Thumb up",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "like",
+      "thumb",
+      "thumb-up",
+      "up",
+      "upvote"
+    ],
+    "interaction": "click-toggle",
+    "import": "import thumbUp from 'react-useanimations/lib/thumbUp';",
+    "preview": "https://useanimations.com/icons/thumb-up/thumb-up.svg"
+  },
+  {
+    "name": "toggle",
+    "title": "Toggle",
+    "category": "Form",
+    "keywords": [
+      "form",
+      "on off",
+      "switch",
+      "toggle",
+      "toggle-left",
+      "toggle-right"
+    ],
+    "interaction": "click-toggle",
+    "import": "import toggle from 'react-useanimations/lib/toggle';",
+    "preview": "https://useanimations.com/icons/toggle/toggle-left.svg"
+  },
+  {
+    "name": "tool",
+    "title": "Tool",
+    "category": "Other",
+    "keywords": [
+      "other",
+      "tool"
+    ],
+    "interaction": "hover-replay",
+    "import": "import tool from 'react-useanimations/lib/tool';",
+    "preview": "https://useanimations.com/icons/tool/tool.svg"
+  },
+  {
+    "name": "trash",
+    "title": "Trash",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "bin",
+      "delete",
+      "remove",
+      "trash"
+    ],
+    "interaction": "hover",
+    "import": "import trash from 'react-useanimations/lib/trash';",
+    "preview": "https://useanimations.com/icons/trash/trash.svg"
+  },
+  {
+    "name": "trash2",
+    "title": "Trash V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "bin",
+      "delete",
+      "remove",
+      "trash",
+      "trash-2"
+    ],
+    "interaction": "hover",
+    "import": "import trash2 from 'react-useanimations/lib/trash2';",
+    "preview": "https://useanimations.com/icons/trash-v2/trash-2.svg"
+  },
+  {
+    "name": "trello",
+    "title": "Trello",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "trello"
+    ],
+    "interaction": "hover-replay",
+    "import": "import trello from 'react-useanimations/lib/trello';",
+    "preview": "https://useanimations.com/icons/trello/trello.svg"
+  },
+  {
+    "name": "trendingDown",
+    "title": "Trending Down",
+    "category": "Charts",
+    "keywords": [
+      "charts",
+      "down",
+      "trending",
+      "trending-down"
+    ],
+    "interaction": "hover-replay",
+    "import": "import trendingDown from 'react-useanimations/lib/trendingDown';",
+    "preview": "https://useanimations.com/icons/trending-down/trending-down.svg"
+  },
+  {
+    "name": "trendingUp",
+    "title": "Trending Up",
+    "category": "Charts",
+    "keywords": [
+      "charts",
+      "trending",
+      "trending-up",
+      "up"
+    ],
+    "interaction": "hover-replay",
+    "import": "import trendingUp from 'react-useanimations/lib/trendingUp';",
+    "preview": "https://useanimations.com/icons/trending-up/trending-up.svg"
+  },
+  {
+    "name": "triangle",
+    "title": "Triangle",
+    "category": "Shapes & math",
+    "keywords": [
+      "shapes & math",
+      "triangle"
+    ],
+    "interaction": "hover-replay",
+    "import": "import triangle from 'react-useanimations/lib/triangle';",
+    "preview": "https://useanimations.com/icons/triangle/triangle.svg"
+  },
+  {
+    "name": "truck",
+    "title": "Truck",
+    "category": "Commerce",
+    "keywords": [
+      "commerce",
+      "truck"
+    ],
+    "interaction": "hover-replay",
+    "import": "import truck from 'react-useanimations/lib/truck';",
+    "preview": "https://useanimations.com/icons/truck/truck.svg"
+  },
+  {
+    "name": "tv",
+    "title": "TV",
+    "category": "Media",
+    "keywords": [
+      "media",
+      "tv"
+    ],
+    "interaction": "hover-replay",
+    "import": "import tv from 'react-useanimations/lib/tv';",
+    "preview": "https://useanimations.com/icons/tv/tv.svg"
+  },
+  {
+    "name": "twitch",
+    "title": "Twitch",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "twitch"
+    ],
+    "interaction": "hover-replay",
+    "import": "import twitch from 'react-useanimations/lib/twitch';",
+    "preview": "https://useanimations.com/icons/twitch/twitch.svg"
+  },
+  {
+    "name": "twitter",
+    "title": "Twitter",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "twitter"
+    ],
+    "interaction": "hover-loop",
+    "import": "import twitter from 'react-useanimations/lib/twitter';",
+    "preview": "https://useanimations.com/icons/twitter/twitter.svg"
+  },
+  {
+    "name": "twitterX",
+    "title": "Twitter X",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "twitter",
+      "twitter-x",
+      "x"
+    ],
+    "interaction": "hover-replay",
+    "import": "import twitterX from 'react-useanimations/lib/twitterX';",
+    "preview": "https://useanimations.com/icons/twitter-x/twitter-x.svg"
+  },
+  {
+    "name": "type",
+    "title": "Type",
+    "category": "Text editing",
+    "keywords": [
+      "text editing",
+      "type"
+    ],
+    "interaction": "click-replay",
+    "import": "import type from 'react-useanimations/lib/type';",
+    "preview": "https://useanimations.com/icons/type/type.svg"
+  },
+  {
+    "name": "umbrella",
+    "title": "Umbrella",
+    "category": "Weather",
+    "keywords": [
+      "umbrella",
+      "weather"
+    ],
+    "interaction": "hover-replay",
+    "import": "import umbrella from 'react-useanimations/lib/umbrella';",
+    "preview": "https://useanimations.com/icons/umbrella/umbrella.svg"
+  },
+  {
+    "name": "underline",
+    "title": "Underline",
+    "category": "Text editing",
+    "keywords": [
+      "text editing",
+      "underline"
+    ],
+    "interaction": "click-replay",
+    "import": "import underline from 'react-useanimations/lib/underline';",
+    "preview": "https://useanimations.com/icons/underline/underline.svg"
+  },
+  {
+    "name": "upload",
+    "title": "Upload",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "upload"
+    ],
+    "interaction": "click-replay",
+    "import": "import upload from 'react-useanimations/lib/upload';",
+    "preview": "https://useanimations.com/icons/upload/upload.svg"
+  },
+  {
+    "name": "uploadCloud",
+    "title": "Upload Cloud",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "cloud",
+      "upload",
+      "upload-cloud"
+    ],
+    "interaction": "click-replay",
+    "import": "import uploadCloud from 'react-useanimations/lib/uploadCloud';",
+    "preview": "https://useanimations.com/icons/upload-cloud/upload-cloud.svg"
+  },
+  {
+    "name": "user",
+    "title": "User",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "profile",
+      "user"
+    ],
+    "interaction": "hover-replay",
+    "import": "import user from 'react-useanimations/lib/user';",
+    "preview": "https://useanimations.com/icons/user/user.svg"
+  },
+  {
+    "name": "userCheck",
+    "title": "User Check",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "check",
+      "content",
+      "person",
+      "profile",
+      "user",
+      "user-check"
+    ],
+    "interaction": "click-replay",
+    "import": "import userCheck from 'react-useanimations/lib/userCheck';",
+    "preview": "https://useanimations.com/icons/user-check/user-check.svg"
+  },
+  {
+    "name": "userMinus",
+    "title": "User minus",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "minus",
+      "person",
+      "profile",
+      "user",
+      "user-minus"
+    ],
+    "interaction": "hover",
+    "import": "import userMinus from 'react-useanimations/lib/userMinus';",
+    "preview": "https://useanimations.com/icons/user-minus/user-minus.svg"
+  },
+  {
+    "name": "userPlus",
+    "title": "User plus",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "plus",
+      "profile",
+      "user",
+      "user-plus"
+    ],
+    "interaction": "hover",
+    "import": "import userPlus from 'react-useanimations/lib/userPlus';",
+    "preview": "https://useanimations.com/icons/user-plus/user-plus.svg"
+  },
+  {
+    "name": "users",
+    "title": "Users",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "profile",
+      "users"
+    ],
+    "interaction": "hover-replay",
+    "import": "import users from 'react-useanimations/lib/users';",
+    "preview": "https://useanimations.com/icons/users/users.svg"
+  },
+  {
+    "name": "userX",
+    "title": "User X",
+    "category": "Content",
+    "keywords": [
+      "account",
+      "content",
+      "person",
+      "profile",
+      "user",
+      "user-x",
+      "x"
+    ],
+    "interaction": "hover",
+    "import": "import userX from 'react-useanimations/lib/userX';",
+    "preview": "https://useanimations.com/icons/user-x/user-x.svg"
+  },
+  {
+    "name": "video",
+    "title": "Video",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media",
+      "video",
+      "video call",
+      "video-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import video from 'react-useanimations/lib/video';",
+    "preview": "https://useanimations.com/icons/video/video-off.svg"
+  },
+  {
+    "name": "video2",
+    "title": "Video V2",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media",
+      "video",
+      "video call",
+      "video-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import video2 from 'react-useanimations/lib/video2';",
+    "preview": "https://useanimations.com/icons/video-v2/video-off.svg"
+  },
+  {
+    "name": "videoOff",
+    "title": "Video Off",
+    "category": "Media",
+    "keywords": [
+      "camera",
+      "media",
+      "off",
+      "video",
+      "video call",
+      "video-off",
+      "video-off-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import videoOff from 'react-useanimations/lib/videoOff';",
+    "preview": "https://useanimations.com/icons/video-off/video-off-off.svg"
+  },
+  {
+    "name": "visibility",
+    "title": "Visibility",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "eye",
+      "eye-off",
+      "hide",
+      "password",
+      "show",
+      "visibility"
+    ],
+    "interaction": "click-toggle",
+    "import": "import visibility from 'react-useanimations/lib/visibility';",
+    "preview": "https://useanimations.com/icons/visibility/eye-off.svg"
+  },
+  {
+    "name": "visibility2",
+    "title": "Visibility V2",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "eye",
+      "eye-off",
+      "hide",
+      "password",
+      "show",
+      "visibility"
+    ],
+    "interaction": "click-toggle",
+    "import": "import visibility2 from 'react-useanimations/lib/visibility2';",
+    "preview": "https://useanimations.com/icons/visibility-v2/eye-off.svg"
+  },
+  {
+    "name": "visibility3",
+    "title": "Visibility V3",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "eye",
+      "eye-off",
+      "hide",
+      "password",
+      "show",
+      "visibility"
+    ],
+    "interaction": "click-toggle",
+    "import": "import visibility3 from 'react-useanimations/lib/visibility3';",
+    "preview": "https://useanimations.com/icons/visibility-v3/eye-off.svg"
+  },
+  {
+    "name": "voicemail",
+    "title": "Voicemail",
+    "category": "Communication",
+    "keywords": [
+      "communication",
+      "voicemail"
+    ],
+    "interaction": "hover-replay",
+    "import": "import voicemail from 'react-useanimations/lib/voicemail';",
+    "preview": "https://useanimations.com/icons/voicemail/voicemail.svg"
+  },
+  {
+    "name": "volume",
+    "title": "Volume",
+    "category": "Media",
+    "keywords": [
+      "audio",
+      "media",
+      "mute",
+      "sound",
+      "speaker",
+      "volume",
+      "volume-1",
+      "volume-2",
+      "volume-x"
+    ],
+    "interaction": "click-toggle",
+    "import": "import volume from 'react-useanimations/lib/volume';",
+    "preview": "https://useanimations.com/icons/volume/volume-1.svg"
+  },
+  {
+    "name": "watch",
+    "title": "Watch",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "watch"
+    ],
+    "interaction": "hover-replay",
+    "import": "import watch from 'react-useanimations/lib/watch';",
+    "preview": "https://useanimations.com/icons/watch/watch.svg"
+  },
+  {
+    "name": "wifi",
+    "title": "WiFi",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "wifi"
+    ],
+    "interaction": "hover-replay",
+    "import": "import wifi from 'react-useanimations/lib/wifi';",
+    "preview": "https://useanimations.com/icons/wifi/wifi.svg"
+  },
+  {
+    "name": "wifiOff",
+    "title": "Wifi Off",
+    "category": "Devices",
+    "keywords": [
+      "devices",
+      "off",
+      "wifi",
+      "wifi-off",
+      "wifi-off-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import wifiOff from 'react-useanimations/lib/wifiOff';",
+    "preview": "https://useanimations.com/icons/wifi-off/wifi-off-off.svg"
+  },
+  {
+    "name": "wind",
+    "title": "Wind",
+    "category": "Weather",
+    "keywords": [
+      "weather",
+      "wind"
+    ],
+    "interaction": "hover-replay",
+    "import": "import wind from 'react-useanimations/lib/wind';",
+    "preview": "https://useanimations.com/icons/wind/wind.svg"
+  },
+  {
+    "name": "xOctagon",
+    "title": "X Octagon",
+    "category": "Alerts",
+    "keywords": [
+      "alerts",
+      "octagon",
+      "x",
+      "x-octagon"
+    ],
+    "interaction": "click-replay",
+    "import": "import xOctagon from 'react-useanimations/lib/xOctagon';",
+    "preview": "https://useanimations.com/icons/x-octagon/x-octagon.svg"
+  },
+  {
+    "name": "xSquare",
+    "title": "X Square",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "square",
+      "x",
+      "x-square"
+    ],
+    "interaction": "click-replay",
+    "import": "import xSquare from 'react-useanimations/lib/xSquare';",
+    "preview": "https://useanimations.com/icons/x-square/x-square.svg"
+  },
+  {
+    "name": "youtube",
+    "title": "YouTube",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "youtube"
+    ],
+    "interaction": "hover",
+    "import": "import youtube from 'react-useanimations/lib/youtube';",
+    "preview": "https://useanimations.com/icons/youtube/youtube.svg"
+  },
+  {
+    "name": "youtube2",
+    "title": "YouTube V2",
+    "category": "Social media",
+    "keywords": [
+      "social media",
+      "youtube",
+      "youtube-2"
+    ],
+    "interaction": "hover",
+    "import": "import youtube2 from 'react-useanimations/lib/youtube2';",
+    "preview": "https://useanimations.com/icons/youtube-v2/youtube-2.svg"
+  },
+  {
+    "name": "zap",
+    "title": "Zap",
+    "category": "Weather",
+    "keywords": [
+      "weather",
+      "zap"
+    ],
+    "interaction": "hover-replay",
+    "import": "import zap from 'react-useanimations/lib/zap';",
+    "preview": "https://useanimations.com/icons/zap/zap.svg"
+  },
+  {
+    "name": "zapOff",
+    "title": "Zap Off",
+    "category": "Weather",
+    "keywords": [
+      "off",
+      "weather",
+      "zap",
+      "zap-off",
+      "zap-off-off"
+    ],
+    "interaction": "click-toggle",
+    "import": "import zapOff from 'react-useanimations/lib/zapOff';",
+    "preview": "https://useanimations.com/icons/zap-off/zap-off-off.svg"
+  },
+  {
+    "name": "zoomIn",
+    "title": "Zoom In",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "in",
+      "magnifier",
+      "magnify",
+      "zoom"
+    ],
+    "interaction": "hover",
+    "import": "import zoomIn from 'react-useanimations/lib/zoomIn';"
+  },
+  {
+    "name": "zoomOut",
+    "title": "Zoom Out",
+    "category": "Action",
+    "keywords": [
+      "action",
+      "magnifier",
+      "magnify",
+      "out",
+      "zoom"
+    ],
+    "interaction": "hover",
+    "import": "import zoomOut from 'react-useanimations/lib/zoomOut';"
+  }
+]

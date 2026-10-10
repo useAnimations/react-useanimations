@@ -8,7 +8,7 @@
     "url": "git+https://github.com/useAnimations/react-useanimations.git"
   },
   "author": "Tuan Phung, Marek Feikus",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
@@ -25,7 +25,7 @@
   "sideEffects": false,
   "scripts": {
     "prebuild": "node scripts/clean-dist.mjs",
-    "build": "tsup && node scripts/prepare-dist.mjs",
+    "build": "tsdown && node scripts/prepare-dist.mjs",
     "sync-icons": "node scripts/sync-icons.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -33,7 +33,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "pack": "node scripts/pack.mjs",
-    "release": "npm run lint && npm run check-types && npm test && npm run build && npm run pack"
+    "verify": "npm run lint && npm run check-types && npm test && npm run build && npm run pack"
   },
   "dependencies": {
     "lottie-web": "^5.13.0"
@@ -54,7 +54,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "semver": "^7.7.3",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.23.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.71.1",
     "vitest": "^4.1.11"
@@ -63,10 +63,9 @@
     "esbuild": "^0.28.1"
   },
   "peerDependencies": {
-    "react": ">=16.8",
-    "react-dom": ">=16.8"
+    "react": ">=18"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^22.18.0 || >=24.11.0"
   }
 }
