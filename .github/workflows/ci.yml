@@ -31,7 +31,6 @@ jobs:
           RELEASE_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
   test:
-    needs: release_info
     runs-on: ubuntu-latest
     strategy:
       matrix:
