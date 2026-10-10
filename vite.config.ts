@@ -21,6 +21,8 @@ export default defineConfig({
       'react/set-state-in-render': 'error',
       'react/purity': 'error',
       'react/immutability': 'error',
+      // JSX uses the automatic runtime (tsconfig "jsx": "react-jsx").
+      'react/react-in-jsx-scope': 'off',
       // The player reads Lottie JSON and the scripts read JSON files: both are typed by assertion.
       'typescript/no-unsafe-type-assertion': 'off',
     },

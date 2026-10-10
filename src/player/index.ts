@@ -16,14 +16,17 @@ export type PlayerOptions = {
 // One requestAnimationFrame loop drives every playing animation.
 const playing = new Set<Player>();
 let frameRequest = 0;
-let lastTime = 0;
+let lastTime: number | undefined;
 
+// Times come from requestAnimationFrame only: its timestamp is when the frame started, which can be
+// earlier than a performance.now() taken in the event handler that started the animation.
 const tick = (now: number) => {
-  const elapsed = now - lastTime;
+  const elapsed = lastTime === undefined ? 0 : Math.max(0, now - lastTime);
   lastTime = now;
   // A copy: advancing can start or stop other animations.
   for (const player of Array.from(playing)) player.advance(elapsed);
   frameRequest = playing.size ? requestAnimationFrame(tick) : 0;
+  if (!frameRequest) lastTime = undefined;
 };
 
 const warned = new WeakMap<object, Set<string>>();
@@ -69,10 +72,7 @@ export class Player {
     if (!this.isPaused) return;
     this.isPaused = false;
     playing.add(this);
-    if (!frameRequest) {
-      lastTime = performance.now();
-      frameRequest = requestAnimationFrame(tick);
-    }
+    if (!frameRequest) frameRequest = requestAnimationFrame(tick);
   }
 
   pause(): void {
@@ -126,7 +126,7 @@ export class Player {
 
   /** Moves the animation forward by `elapsed` milliseconds, like lottie-web's advanceTime. */
   advance(elapsed: number): void {
-    if (this.isPaused) return;
+    if (this.isPaused || elapsed <= 0) return;
     const modifier = (this.frameRate / 1000) * this.speed * this.direction;
     let next = this.frame + elapsed * modifier;
     if (next >= this.totalFrames - 1 && modifier > 0) {
