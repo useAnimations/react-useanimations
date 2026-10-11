@@ -1,14 +1,17 @@
-*.swp
-*~
-*.iml
-.*.haste_cache.*
 .DS_Store
 .idea
-npm-debug.log
 node_modules
-yarn-lock
+npm-debug.log
 dist
 
 # local tarballs
 *.tgz
 .release
+
+# Vitest browser-mode failure screenshots
+.vitest
+
+# Website build output
+website/dist
+website/.astro
+website/.netlify

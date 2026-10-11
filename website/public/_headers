@@ -1,0 +1,45 @@
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/
+  Link: </robots.txt>; rel="robots"
+  Link: </licencing-and-terms>; rel="license"
+  Link: </icons.json>; rel="alternate"; type="application/json"; title="Icon catalog"
+  Link: </index.md>; rel="alternate"; type="text/markdown"
+  Vary: Accept
+
+/documentation
+  Link: </documentation.md>; rel="alternate"; type="text/markdown"
+  Vary: Accept
+
+/icons.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+# The icon files are cached for an hour; the icon pages (/icons/<id>) keep Netlify's HTML caching.
+/icons/*
+  Access-Control-Allow-Origin: *
+
+/icons/*.json
+  Cache-Control: public, max-age=3600
+
+/icons/*.zip
+  Cache-Control: public, max-age=3600
+
+/icons/*/*.svg
+  Cache-Control: public, max-age=3600
+
+/r/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+
+/documentation.md
+  Content-Type: text/markdown; charset=utf-8
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

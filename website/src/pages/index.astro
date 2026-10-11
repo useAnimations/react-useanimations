@@ -1,0 +1,507 @@
+---
+import CodeBlock from '../components/CodeBlock.astro';
+import IconCard from '../components/IconCard';
+import IconDialog, { type DialogIcon, type Templates } from '../components/IconDialog';
+import IconField from '../components/IconField.astro';
+import InstallCommand from '../components/InstallCommand.astro';
+import ColorRow from '../components/ColorRow';
+import InteractionDemo from '../components/InteractionDemo';
+import Layout from '../layouts/Layout.astro';
+import { highlight } from '../lib/highlight';
+import {
+  CATEGORIES,
+  filesExample,
+  icons,
+  INTERACTIONS,
+  reactExample,
+  searchText,
+  shadcnExample,
+  SITE,
+} from '../lib/icons';
+import { GITHUB } from '../lib/site';
+
+// HERO FIELD: icons whose animation starts and ends at rest, taken from every category in turn.
+const replayable = new Set(['hover-replay', 'click-replay', 'loop', 'hover-loop']);
+// Some icons start from an empty frame; the field shows only icons that are visible at rest.
+const drawn = (svg: string) => /\sd="(?!M0 0")[^"]+"/.test(svg);
+const pools = CATEGORIES.map((category) =>
+  icons.filter(
+    (icon) => icon.category === category && replayable.has(icon.interaction) && drawn(icon.firstFrame)
+  )
+);
+const field: typeof icons = [];
+for (let round = 0; field.length < 72; round += 1) {
+  for (const pool of pools) if (pool[round] && field.length < 72) field.push(pool[round]);
+}
+
+const byName = (name: string) => icons.find((icon) => icon.name === name)!;
+const demos = [
+  { name: 'infinity', interaction: 'loop' as const, title: 'Loop', description: 'Plays continuously, for loaders and ambient status.' },
+  { name: 'menu', interaction: 'click-toggle' as const, title: 'Click toggle', description: 'Switches between two states: menu and close, play and pause.' },
+  { name: 'download', interaction: 'click-replay' as const, title: 'Click replay', description: 'Replays from the start on every click, as feedback.' },
+  { name: 'archive', interaction: 'hover' as const, title: 'Hover', description: 'Plays forward on enter and back on leave.' },
+  { name: 'github', interaction: 'hover-loop' as const, title: 'Hover loop', description: 'Loops while hovered and finishes its cycle on leave.' },
+  { name: 'trendingUp', interaction: 'hover-replay' as const, title: 'Hover replay', description: 'Plays once from the start on every enter.' },
+].map((demo) => ({ ...demo, lottie: byName(demo.name).lottie }));
+
+// DIALOG: metadata of every icon and the code blocks, highlighted once with placeholders.
+const index: DialogIcon[] = icons.map((icon) => ({
+  id: icon.id,
+  name: icon.name,
+  exportName: icon.exportName,
+  component: icon.component,
+  title: icon.title,
+  category: icon.category,
+  interaction: icon.interaction,
+  svg: Object.keys(icon.svgs),
+  durationMs: icon.durationMs,
+}));
+const templates: Templates = {
+  react: await highlight(reactExample('__EXPORT__', '__NAME__'), 'jsx'),
+  shadcnCommand: await highlight(`npx shadcn@latest add ${SITE}/r/__ID__.json`, 'bash'),
+  shadcn: await highlight(shadcnExample('__ID__', '__COMPONENT__'), 'tsx'),
+  files: await highlight(filesExample('__ID__'), 'bash'),
+};
+
+const COLORS = [
+  { label: 'Text color', value: '' },
+  { label: 'Indigo', value: '#4b5cff' },
+  { label: 'Red', value: '#e5484d' },
+  { label: 'Amber', value: '#f59e0b' },
+  { label: 'Teal', value: '#12a594' },
+  { label: 'Violet', value: '#a24bff' },
+];
+
+const platforms = [
+  {
+    name: 'React',
+    lang: 'jsx',
+    code: `import UseAnimations from 'react-useanimations';
+import menu from 'react-useanimations/lib/menu';
+
+export function MenuButton({ open, onToggle }) {
+  return (
+    <UseAnimations
+      animation={menu}
+      active={open}
+      onClick={onToggle}
+      size={28}
+    />
+  );
+}`,
+  },
+  {
+    name: 'shadcn',
+    lang: 'bash',
+    code: `npx shadcn@latest add ${SITE}/r/menu.json
+# then: <AnimatedMenu size={24} />`,
+  },
+  {
+    name: 'Files',
+    lang: 'bash',
+    code: `# Every icon as an SVG, as its animation (Lottie JSON) and as a ZIP of both
+${SITE}/icons/menu/menu.svg
+${filesExample('menu')}`,
+  },
+  {
+    name: 'Agents',
+    lang: 'js',
+    code: `const { icons } = await fetch('${SITE}/icons.json').then((r) => r.json());
+const icon = icons.find((i) => i.keywords.includes('hamburger'));
+icon.react.import; // "import menu from 'react-useanimations/lib/menu';"`,
+  },
+];
+
+const colorRow = ['heart', 'star', 'bookmark', 'notification', 'settings', 'zap'].map(byName);
+const colorful = ['#e5484d', '#f59e0b', '#12a594', '#4b5cff', '#a24bff', 'var(--fg)'];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', name: 'useAnimations', url: `${SITE}/` },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'react-useanimations',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      license: 'https://opensource.org/license/mit/',
+      downloadUrl: `${SITE}/icons.json`,
+    },
+    {
+      '@type': 'Organization',
+      name: 'useAnimations',
+      url: `${SITE}/`,
+      logo: `${SITE}/apple-touch-icon.png`,
+      sameAs: ['https://twitter.com/useAnimations', 'https://www.instagram.com/getuseanimations/', GITHUB],
+    },
+  ],
+};
+---
+
+<Layout
+  title="useAnimations — Free animated icons for React"
+  description={`${icons.length} free animated icons with hover, click and loop interactions built in. A tiny React component with no dependencies and a shadcn registry. MIT licensed.`}
+  path="/"
+  alternates={{ en: '/', 'zh-Hans': '/zh', 'x-default': '/' }}
+  head={[
+    { rel: 'license', href: '/licencing-and-terms' },
+    { rel: 'alternate', type: 'text/markdown', href: '/index.md', title: 'Homepage (Markdown)' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)] opacity-60"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-5 pt-20 pb-10 text-center sm:px-8 sm:pt-28">
+      <a
+        href="/documentation#upgrading-from-v2"
+        class="group mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 py-1 pr-3 pl-1 text-xs text-muted backdrop-blur transition hover:text-fg"
+      >
+        <span class="rounded-full bg-accent px-2 py-0.5 font-medium text-accent-fg">v3</span>
+        {icons.length} icons · zero dependencies · MIT
+        <span class="transition-transform group-hover:translate-x-0.5">→</span>
+      </a>
+      <h1 class="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-balance sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]">
+        Icons that <span class="text-gradient">come alive.</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted sm:text-xl">
+        {icons.length} hand-crafted animated icons with hover, click and loop interactions built in. Free, for
+        React.
+      </p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href="#icons"
+          class="inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg shadow-[0_10px_30px_-12px_var(--glow)] transition hover:opacity-90"
+          >Browse icons</a
+        >
+        <InstallCommand />
+      </div>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-3 pb-6 sm:px-8">
+      <div
+        class="field-stage relative h-[300px] overflow-hidden rounded-[2rem] border border-line bg-surface/60 shadow-[0_40px_120px_-60px_var(--glow)] backdrop-blur sm:h-[400px]"
+      >
+        <IconField icons={field} />
+        <div
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg/90 to-transparent"
+          aria-hidden="true"
+        >
+        </div>
+      </div>
+      <p class="mt-4 text-center text-xs text-subtle">Move your pointer across the field.</p>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="mx-auto mt-10 max-w-6xl px-5 sm:px-8" aria-label="At a glance">
+    <dl class="grid grid-cols-2 overflow-hidden rounded-3xl border border-line sm:grid-cols-4">
+      {
+        [
+          [String(icons.length), 'animated icons'],
+          ['6', 'built-in interactions'],
+          ['8 kB', 'player, gzipped'],
+          ['0', 'dependencies'],
+        ].map(([value, label]) => (
+          <div class="border-line p-6 text-center not-last:border-r max-sm:nth-[2]:border-r-0 max-sm:nth-[-n+2]:border-b">
+            <dt class="sr-only">{label}</dt>
+            <dd class="text-3xl font-semibold tracking-tight sm:text-4xl">{value}</dd>
+            <dd class="mt-1 text-sm text-muted">{label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <!-- INTERACTIONS -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="interactions-title">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium text-accent">Interactions built in</p>
+      <h2 id="interactions-title" class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+        Every icon knows how to move.
+      </h2>
+      <p class="mt-4 text-lg text-muted">
+        Each icon ships with the interaction it was designed for. Drop it in and it just works — or pick another one with
+        a single prop. Try them:
+      </p>
+    </div>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {demos.map((demo) => <InteractionDemo client:visible {...demo} hint={demo.description} />)}
+    </div>
+  </section>
+
+  <!-- ICON BROWSER -->
+  <section id="icons" class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="icons-title" data-browser>
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="text-sm font-medium text-accent">The library</p>
+        <h2 id="icons-title" class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          {icons.length} free animated icons
+        </h2>
+        <p class="mt-4 text-lg text-muted">
+          Hover or click to play. Open an icon for its code and downloads — Lottie JSON, SVG and ZIP.
+        </p>
+      </div>
+    </div>
+
+    <div
+      data-filters
+      class="sticky top-16 z-30 -mx-5 mt-10 border-b border-line bg-bg/85 px-5 py-4 backdrop-blur-xl sm:-mx-8 sm:px-8"
+    >
+      <div class="flex flex-wrap items-center gap-3">
+        <label class="relative min-w-[16rem] flex-1">
+          <span class="sr-only">Search icons</span>
+          <svg
+            viewBox="0 0 24 24"
+            class="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-subtle"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg
+          >
+          <input
+            data-search
+            type="search"
+            placeholder={`Search ${icons.length} icons — try “eye”, “bell” or “arrow”`}
+            autocomplete="off"
+            class="w-full rounded-full border border-line-strong bg-surface py-2.5 pr-10 pl-10 text-sm text-fg placeholder:text-subtle focus:border-accent focus:outline-none"
+          />
+          <kbd
+            class="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 rounded-md border border-line px-1.5 font-mono text-[11px] text-subtle sm:block"
+            >/</kbd
+          >
+        </label>
+        <label class="relative">
+          <span class="sr-only">Interaction</span>
+          <select
+            data-interaction-filter
+            class="appearance-none rounded-full border border-line-strong bg-surface py-2.5 pr-9 pl-4 text-sm text-fg focus:border-accent focus:outline-none"
+          >
+            <option value="">All interactions</option>
+            {Object.entries(INTERACTIONS).map(([value, { label }]) => <option value={value}>{label}</option>)}
+          </select>
+          <svg
+            viewBox="0 0 24 24"
+            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-subtle"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg
+          >
+        </label>
+        <div class="flex items-center gap-1.5" role="group" aria-label="Icon color">
+          {
+            COLORS.map((color) => (
+              <button
+                type="button"
+                data-color={color.value}
+                aria-label={color.label}
+                aria-pressed={color.value === '' ? 'true' : 'false'}
+                class="size-6 rounded-full border border-line-strong ring-offset-2 ring-offset-bg aria-pressed:ring-2 aria-pressed:ring-accent"
+                style={{ background: color.value || 'var(--fg)' }}
+              />
+            ))
+          }
+          <label class="relative size-6 cursor-pointer overflow-hidden rounded-full border border-line-strong bg-[conic-gradient(#e5484d,#f59e0b,#12a594,#4b5cff,#a24bff,#e5484d)]">
+            <span class="sr-only">Custom color</span>
+            <input data-color-input type="color" class="absolute inset-0 cursor-pointer opacity-0" />
+          </label>
+        </div>
+        <label class="flex items-center gap-2 text-xs text-muted">
+          Size
+          <input data-size type="range" min="24" max="64" value="40" class="w-24 accent-[var(--accent)]" />
+        </label>
+      </div>
+      <div class="no-scrollbar mt-4 flex gap-2 overflow-x-auto" role="group" aria-label="Category">
+        {
+          ['', ...CATEGORIES].map((category) => (
+            <button
+              type="button"
+              data-category-filter={category}
+              aria-pressed={category === '' ? 'true' : 'false'}
+              class="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm whitespace-nowrap text-muted transition hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
+            >
+              {category || 'All'}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="mt-6 text-sm text-subtle" aria-live="polite" data-count>{icons.length} icons</p>
+    <div data-grid class="mt-2">
+      {
+        CATEGORIES.map((category) => (
+          <section
+            data-section
+            id={category === 'Alerts' ? 'alerts' : undefined}
+            aria-label={category}
+            class="mt-8 first:mt-4"
+          >
+            <h3 class="mb-4 text-sm font-medium text-muted">{category}</h3>
+            <ul class="grid grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))] gap-3">
+              {icons
+                .filter((icon) => icon.category === category)
+                .map((icon) => (
+                  <li
+                    data-card
+                    data-id={icon.id}
+                    data-title={icon.title}
+                    data-category={icon.category}
+                    data-interaction={icon.interaction}
+                    data-keywords={searchText(icon)}
+                  >
+                    <IconCard
+                      icon={{ id: icon.id, title: icon.title, interaction: icon.interaction }}
+                      firstFrame={icon.firstFrame}
+                    />
+                  </li>
+                ))}
+            </ul>
+          </section>
+        ))
+      }
+      <div data-empty hidden class="rounded-3xl border border-dashed border-line-strong px-6 py-16 text-center">
+        <p class="text-lg font-medium">No icons match.</p>
+        <p class="mt-2 text-sm text-muted">
+          Try another word, or <a class="underline underline-offset-4" href={`${GITHUB}/issues`}>suggest an icon</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVERYWHERE -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="everywhere-title">
+    <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.3fr]">
+      <div class="lg:sticky lg:top-28">
+        <p class="text-sm font-medium text-accent">Use them your way</p>
+        <h2 id="everywhere-title" class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+          Install, import, done.
+        </h2>
+        <p class="mt-4 text-lg text-muted">
+          A React component with no dependencies, a shadcn registry, downloadable files with stable URLs, and a
+          catalog that AI agents can read.
+        </p>
+        <a
+          href="/documentation"
+          class="mt-8 inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm font-medium transition hover:bg-surface-2"
+          >Read the documentation →</a
+        >
+      </div>
+      <div data-tabs class="min-w-0">
+        <div role="tablist" aria-label="Platform" class="no-scrollbar flex gap-1 overflow-x-auto rounded-full border border-line bg-surface-2 p-1">
+          {
+            platforms.map((platform, i) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${platform.name}`}
+                aria-controls={`panel-${platform.name}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                class="shrink-0 rounded-full px-4 py-1.5 text-sm text-muted transition aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm"
+              >
+                {platform.name}
+              </button>
+            ))
+          }
+        </div>
+        {
+          platforms.map((platform, i) => (
+            <div
+              role="tabpanel"
+              id={`panel-${platform.name}`}
+              aria-labelledby={`tab-${platform.name}`}
+              hidden={i !== 0}
+              class="mt-4"
+            >
+              <CodeBlock code={platform.code} lang={platform.lang} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="features-title">
+    <h2 id="features-title" class="max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+      Small, accessible and yours to style.
+    </h2>
+    <div class="mt-12 grid gap-4 md:grid-cols-6">
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-4">
+        <h3 class="text-lg font-semibold tracking-tight">Follows your colors</h3>
+        <p class="mt-2 max-w-md text-muted">
+          Icons use <code class="font-mono text-sm text-fg">currentColor</code>: they pick up text color, hover states and
+          dark mode on their own. Override with a prop, a class or plain CSS.
+        </p>
+        <ColorRow
+          client:visible
+          icons={colorRow.map((icon, i) => ({
+            title: icon.title,
+            color: colorful[i],
+            lottie: icon.lottie,
+            interaction: icon.interaction,
+          }))}
+        />
+      </article>
+      <article class="flex flex-col justify-between rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">Tiny by design</h3>
+        <p class="mt-10 text-6xl font-semibold tracking-tight">8<span class="text-3xl text-muted"> kB</span></p>
+        <p class="mt-2 text-muted">A built-in player, zero dependencies. Each icon is its own 2 kB module.</p>
+      </article>
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">Accessible by default</h3>
+        <p class="mt-2 text-muted">
+          Respects reduced motion, plays hover animations on keyboard focus and stays out of screen readers unless you
+          label it.
+        </p>
+      </article>
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">Server-rendering ready</h3>
+        <p class="mt-2 text-muted">
+          A client component that renders safely in Next.js, Remix and Astro. Icons are plain data you can import
+          anywhere.
+        </p>
+      </article>
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">Made for agents</h3>
+        <p class="mt-2 text-muted">
+          A typed catalog with keywords for every icon, <a class="underline underline-offset-4" href="/icons.json"
+            >icons.json</a
+          >, <a class="underline underline-offset-4" href="/llms.txt">llms.txt</a> and Markdown docs.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8">
+    <div class="cta relative overflow-hidden rounded-[2.5rem] border border-line px-6 py-20 text-center sm:px-16">
+      <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <h2 class="relative text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+        Give your interface a <span class="text-gradient">pulse.</span>
+      </h2>
+      <p class="relative mx-auto mt-4 max-w-xl text-lg text-muted">Free and MIT licensed, for personal and commercial work.</p>
+      <div class="relative mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <InstallCommand />
+        <a href="/documentation" class="rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg hover:opacity-90"
+          >Get started</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <script type="application/json" id="icon-index" set:html={JSON.stringify(index)} />
+  <IconDialog client:idle templates={templates} />
+</Layout>
+
+<script>
+  import '../scripts/browser';
+  import '../scripts/tabs';
+</script>

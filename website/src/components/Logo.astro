@@ -1,0 +1,32 @@
+---
+// The useAnimations mark: the two rounded shapes of the original logo, now in the brand gradient.
+interface Props {
+  class?: string;
+  wordmark?: boolean;
+}
+const { class: className = '', wordmark = true } = Astro.props;
+const id = `logo-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<span class:list={['group/logo inline-flex items-center gap-2.5', className]}>
+  <svg viewBox="0 0 35 34" class="h-7 w-auto shrink-0" aria-hidden="true">
+    <defs>
+      <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--accent)"></stop>
+        <stop offset="1" stop-color="var(--accent-2)"></stop>
+      </linearGradient>
+    </defs>
+    <path
+      class="origin-bottom-left transition-transform duration-500 ease-out group-hover/logo:-translate-y-0.5 group-hover/logo:rotate-[-6deg]"
+      fill={`url(#${id})`}
+      opacity="0.55"
+      d="M11.29 33.89c.28 0 1.3.18 1.3-1.1V14.96a3 3 0 0 0-3-3H3a3 3 0 0 0-3 3v7.97c0 6.05 5.05 10.96 11.29 10.96Z"
+    ></path>
+    <path
+      class="origin-bottom transition-transform duration-500 ease-out group-hover/logo:translate-y-[-1.5px]"
+      fill={`url(#${id})`}
+      d="M32.61 0c.43 0 2.02-.27 2.02 1.71V31a3 3 0 0 1-3 3H18.11a3 3 0 0 1-3-3V17.01C15.11 7.62 22.95 0 32.61 0Z"
+    ></path>
+  </svg>
+  {wordmark && <span class="text-[1.05rem] font-semibold tracking-tight text-fg">useAnimations</span>}
+</span>

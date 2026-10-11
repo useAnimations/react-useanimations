@@ -1,0 +1,64 @@
+---
+import InstallCommand from '../components/InstallCommand.astro';
+import Layout from '../layouts/Layout.astro';
+import { icons, SITE } from '../lib/icons';
+
+const preview = ['heart', 'menu', 'github', 'download', 'settings', 'star', 'notification', 'visibility']
+  .map((name) => icons.find((icon) => icon.name === name)!);
+const perks = [
+  ['零依赖', '内置播放器，仅 8 kB，无其他依赖。'],
+  ['交互内置', '每个图标自带循环、点击或悬停交互，开箱即用。'],
+  ['跟随颜色', '图标使用 currentColor，自动适配文字颜色与深色模式。'],
+  ['完全免费', 'MIT 许可证，个人与商业项目均可免费使用，无需署名。'],
+];
+---
+
+<Layout
+  title="useAnimations — 免费 React 动画图标库"
+  description={`${icons.length} 个手工制作的动画图标，内置交互，可直接用于 React 应用。免费、轻量，并提供 SVG 下载。`}
+  path="/zh"
+  lang="zh-Hans"
+  alternates={{ en: '/', 'zh-Hans': '/zh', 'x-default': '/' }}
+  jsonLd={{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'useAnimations — 免费动画图标库', url: `${SITE}/zh`, inLanguage: 'zh-Hans' }}
+>
+  <section class="relative overflow-hidden">
+    <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-4xl px-5 pt-24 pb-16 text-center sm:px-8">
+      <p class="text-sm font-medium text-accent">微动画图标库</p>
+      <h1 class="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">
+        让图标<span class="text-gradient">动起来</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted">
+        {icons.length} 个动画图标，内置悬停、点击与循环交互，可直接用于您的 React 应用。
+      </p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="/#icons" class="rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg hover:opacity-90">浏览全部图标</a>
+        <InstallCommand />
+      </div>
+      <div class="mx-auto mt-14 flex max-w-2xl flex-wrap justify-center gap-3" aria-hidden="true">
+        {
+          preview.map((icon) => (
+            <span class="flex size-16 items-center justify-center rounded-2xl border border-line bg-surface">
+              <span data-useanimations="" class="block size-8" set:html={icon.firstFrame} />
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <section class="mx-auto grid max-w-5xl gap-4 px-5 sm:grid-cols-2 sm:px-8">
+    {
+      perks.map(([title, text]) => (
+        <article class="rounded-3xl border border-line bg-surface p-7">
+          <h2 class="text-lg font-semibold">{title}</h2>
+          <p class="mt-2 text-muted">{text}</p>
+        </article>
+      ))
+    }
+  </section>
+  <p class="mx-auto mt-12 max-w-5xl px-5 text-center text-sm text-muted sm:px-8">
+    完整的图标库、下载与文档目前提供英文版：<a class="underline underline-offset-4" href="/#icons">图标</a> ·
+    <a class="underline underline-offset-4" href="/documentation">文档</a> ·
+    <a class="underline underline-offset-4" href="/licencing-and-terms">许可</a>
+  </p>
+</Layout>

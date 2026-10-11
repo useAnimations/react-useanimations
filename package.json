@@ -1,6 +1,6 @@
 {
   "name": "react-useanimations",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0",
   "private": true,
   "description": "Official React component for useAnimations animated Lottie icons",
   "repository": {
@@ -8,11 +8,15 @@
     "url": "git+https://github.com/useAnimations/react-useanimations.git"
   },
   "author": "Tuan Phung, Marek Feikus",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "website"
+  ],
   "bugs": {
     "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
-  "homepage": "https://useanimations.com/documentation#react",
+  "homepage": "https://react.useanimations.com",
   "keywords": [
     "react",
     "lottie",
@@ -24,49 +28,39 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "prebuild": "node scripts/clean-dist.mjs",
-    "build": "tsup && node scripts/prepare-dist.mjs",
-    "sync-icons": "node scripts/sync-icons.mjs",
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "check-types": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "pack": "node scripts/pack.mjs",
-    "release": "npm run lint && npm run check-types && npm test && npm run build && npm run pack"
-  },
-  "dependencies": {
-    "lottie-web": "^5.13.0"
+    "build": "vp pack && node scripts/prepare-dist.ts",
+    "check": "vp check",
+    "format": "vp check --fix",
+    "test": "vp test run",
+    "test:watch": "vp test",
+    "icons": "node scripts/icons.ts",
+    "pack": "node scripts/pack.ts",
+    "verify": "npm run check && npm test && npm run build && npm run pack",
+    "website:dev": "npm run dev -w website",
+    "website:build": "npm run build -w website"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.3",
-    "@types/node": "^20.19.0",
+    "@types/node": "^22.20.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "eslint": "^10.12.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "globals": "^17.13.0",
-    "jsdom": "^26.1.0",
-    "prettier": "^3.9.9",
+    "@types/semver": "^7.8.0",
+    "@vitest/browser-playwright": "^5.0.3",
+    "playwright": "^1.64.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "semver": "^7.7.3",
-    "tsup": "^8.5.1",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.71.1",
-    "vitest": "^4.1.11"
-  },
-  "overrides": {
-    "esbuild": "^0.28.1"
+    "vite-plus": "1.1.0"
   },
   "peerDependencies": {
-    "react": ">=16.8",
-    "react-dom": ">=16.8"
+    "react": ">=18"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^22.18.0 || >=24.11.0"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
+    "vitest": "5.0.3"
   }
 }

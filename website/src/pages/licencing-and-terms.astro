@@ -1,0 +1,55 @@
+---
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../lib/icons';
+
+const license = readFileSync(join(import.meta.env.REPO_DIR, 'LICENSE'), 'utf8');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebPage', name: 'Licencing & Terms', url: `${SITE}/licencing-and-terms`, license: 'https://opensource.org/license/mit/' },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'useAnimations', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: 'Licencing & Terms', item: `${SITE}/licencing-and-terms` },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title="Licencing & Terms — useAnimations"
+  description="useAnimations icons and the react-useanimations package are MIT licensed: free for personal and commercial use, modification and redistribution, with no attribution required."
+  path="/licencing-and-terms"
+  jsonLd={jsonLd}
+>
+  <article class="prose mx-auto max-w-3xl px-5 pt-16 sm:px-8">
+    <p class="mb-2 text-sm font-medium text-accent">Licencing & Terms</p>
+    <h1>Free to use. MIT licensed.</h1>
+    <p class="text-lg">
+      The useAnimations icons and the <code>react-useanimations</code> package are released under the
+      <a href="https://opensource.org/license/mit/">MIT license</a>.
+    </p>
+    <h2>What you can do</h2>
+    <ul>
+      <li><strong>Use</strong> the icons in personal and commercial websites, apps and products.</li>
+      <li><strong>Modify</strong> them: change colors, sizes, timing or the motion itself.</li>
+      <li>
+        <strong>Redistribute</strong> them, including inside icon packs, templates, themes, UI kits and component registries.
+      </li>
+    </ul>
+    <h2>Attribution</h2>
+    <p>
+      Not required, but appreciated. Keep the license notice when you redistribute the files themselves, and if you'd
+      like to credit us:
+    </p>
+    <pre><code>Animated icons by &lt;a href="https://useanimations.com"&gt;useAnimations&lt;/a&gt;</code></pre>
+    <h2>No warranty</h2>
+    <p>The icons and the code are provided as-is, without warranty of any kind.</p>
+    <h2>License text</h2>
+    <pre class="whitespace-pre-wrap"><code>{license}</code></pre>
+  </article>
+</Layout>

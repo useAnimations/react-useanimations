@@ -1,23 +1,21 @@
 import React, { StrictMode, useState } from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vite-plus/test';
 
 import UseAnimations from '../src';
-import activity from '../src/lib/activity';
-import bluetooth from '../src/lib/bluetooth';
-import checkBox from '../src/lib/checkBox';
-import download from '../src/lib/download';
-import error from '../src/lib/error';
-import github from '../src/lib/github';
-import menu from '../src/lib/menu';
-import share from '../src/lib/share';
-import star from '../src/lib/star';
-import { instances } from './fakeLottie';
+import { icon } from './icons';
+import { instances } from './fakePlayer';
 
-vi.mock('lottie-web', async () => (await import('./fakeLottie')).fakePlayer('full'));
-vi.mock('lottie-web/build/player/lottie_light', async () =>
-  (await import('./fakeLottie')).fakePlayer('light')
-);
+const activity = icon('activity');
+const bluetooth = icon('bluetooth');
+const checkBox = icon('checkBox');
+const download = icon('download');
+const github = icon('github');
+const menu = icon('menu');
+const share = icon('share');
+const star = icon('star');
+
+vi.mock('../src/player', async () => (await import('./fakePlayer')).fakePlayerModule);
 
 const live = () => instances.filter((instance) => !instance.destroyed);
 
@@ -60,25 +58,10 @@ describe('lifecycle', () => {
     expect(container.querySelectorAll('svg')).toHaveLength(1);
   });
 
-  it('uses the light player unless the icon needs the full one', async () => {
-    render(
-      <>
-        <UseAnimations animation={menu} />
-        <UseAnimations animation={error} />
-      </>
-    );
-    const [light, full] = await loaded(2);
-    expect(light.player).toBe('light');
-    expect(full.player).toBe('full');
-  });
-
-  it('applies speed and custom options', async () => {
-    const { rerender } = render(
-      <UseAnimations animation={menu} speed={2} options={{ name: 'custom' }} />
-    );
+  it('applies the speed', async () => {
+    const { rerender } = render(<UseAnimations animation={menu} speed={2} />);
     const [animation] = await loaded();
     expect(animation.speed).toBe(2);
-    expect(animation.config.name).toBe('custom');
     rerender(<UseAnimations animation={menu} speed={0.5} />);
     expect(animation.speed).toBe(0.5);
   });
@@ -109,7 +92,7 @@ describe('interactions', () => {
     const { container } = render(<UseAnimations animation={download} />);
     const [animation] = await loaded();
     fireEvent.click(container.firstChild as Element);
-    expect(animation.calls).toEqual(['segments:0-60:true']);
+    expect(animation.calls).toEqual(['segments:0-60']);
   });
 
   it('plays hover icons forward on enter and backward on leave', async () => {
@@ -120,13 +103,15 @@ describe('interactions', () => {
     expect(animation.calls).toEqual(['play:1', 'play:-1']);
   });
 
-  it('loops hover-loop icons while hovered', async () => {
+  it('loops hover-loop icons while hovered and finishes the cycle on leave', async () => {
     const { container } = render(<UseAnimations animation={github} />);
     const [animation] = await loaded();
     expect(animation.config).toMatchObject({ loop: true, autoplay: false });
     fireEvent.mouseEnter(container.firstChild as Element);
     fireEvent.mouseLeave(container.firstChild as Element);
-    expect(animation.calls).toEqual(['play:1', 'stop']);
+    expect(animation.calls).toEqual(['play:1']);
+    animation.trigger('loopComplete');
+    expect(animation.calls).toEqual(['play:1', 'goto:0']);
   });
 
   it('replays hover-replay icons on enter without restarting a running replay', async () => {
@@ -136,10 +121,10 @@ describe('interactions', () => {
     fireEvent.mouseEnter(container.firstChild as Element);
     fireEvent.mouseLeave(container.firstChild as Element);
     fireEvent.mouseEnter(container.firstChild as Element);
-    expect(animation.calls).toEqual(['segments:0-60:true']);
+    expect(animation.calls).toEqual(['segments:0-60']);
     animation.isPaused = true; // the replay finished
     fireEvent.mouseEnter(container.firstChild as Element);
-    expect(animation.calls).toEqual(['segments:0-60:true', 'segments:0-60:true']);
+    expect(animation.calls).toEqual(['segments:0-60', 'segments:0-60']);
   });
 
   it('lets the interaction prop override the default', async () => {
@@ -174,32 +159,29 @@ describe('interactions', () => {
   });
 });
 
-describe('controlled toggle (reverse)', () => {
-  it('starts in the end state when reverse is true', async () => {
-    render(<UseAnimations animation={checkBox} reverse />);
+const Checkbox = () => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <UseAnimations animation={checkBox} active={checked} onClick={() => setChecked(!checked)} />
+  );
+};
+
+describe('controlled toggle (active)', () => {
+  it('starts in the end state without animating when active is true', async () => {
+    render(<UseAnimations animation={checkBox} active />);
     const [animation] = await loaded();
-    expect(animation.calls).toEqual(['play:1']);
+    expect(animation.calls).toEqual(['goto:59']);
   });
 
-  it('animates back when reverse changes from the outside', async () => {
-    const { rerender } = render(<UseAnimations animation={menu} reverse />);
+  it('animates back when active changes from the outside', async () => {
+    const { rerender } = render(<UseAnimations animation={menu} active />);
     const [animation] = await loaded();
-    rerender(<UseAnimations animation={menu} reverse={false} />);
+    rerender(<UseAnimations animation={menu} active={false} />);
     rerender(<UseAnimations animation={menu} reverse />);
-    expect(animation.calls).toEqual(['play:1', 'play:-1', 'play:1']);
+    expect(animation.calls).toEqual(['goto:59', 'play:-1', 'play:1']);
   });
 
   it('plays once per click when the parent mirrors the state', async () => {
-    const Checkbox = () => {
-      const [checked, setChecked] = useState(false);
-      return (
-        <UseAnimations
-          animation={checkBox}
-          reverse={checked}
-          onClick={() => setChecked(!checked)}
-        />
-      );
-    };
     const { container } = render(<Checkbox />);
     const [animation] = await loaded();
     fireEvent.click(container.firstChild as Element);
@@ -209,32 +191,20 @@ describe('controlled toggle (reverse)', () => {
 });
 
 describe('styling', () => {
-  it('scopes colors to each instance and removes them on unmount', async () => {
-    const { container, unmount } = render(
+  it('passes colors as CSS variables to one shared stylesheet', async () => {
+    const { container } = render(
       <>
         <UseAnimations animation={star} strokeColor="red" fillColor="pink" />
-        <UseAnimations animation={star} strokeColor="blue" />
+        <UseAnimations animation={star} />
       </>
     );
     await loaded(2);
-    const [first, second] = Array.from(container.querySelectorAll('svg'));
-    expect(first.id).not.toBe(second.id);
-
-    const css = Array.from(document.head.querySelectorAll('style'), (el) => el.textContent);
-    expect(
-      css.some(
-        (rule) =>
-          rule?.includes(`#${first.id} path`) &&
-          rule.includes('stroke: red;') &&
-          rule.includes('fill: pink;')
-      )
-    ).toBe(true);
-    expect(
-      css.some((rule) => rule?.includes(`#${second.id} path`) && rule.includes('stroke: blue;'))
-    ).toBe(true);
-
-    unmount();
-    expect(document.head.querySelectorAll('style')).toHaveLength(0);
+    const [first, second] = Array.from(container.children) as HTMLElement[];
+    expect(first.style.getPropertyValue('--ua-stroke')).toBe('red');
+    expect(first.style.getPropertyValue('--ua-fill')).toBe('pink');
+    expect(second.style.getPropertyValue('--ua-stroke')).toBe('');
+    expect(second.hasAttribute('data-useanimations')).toBe(true);
+    expect(document.head.querySelectorAll('#useanimations-styles')).toHaveLength(1);
   });
 
   it('sizes the wrapper and merges wrapperStyle and style', () => {
@@ -265,7 +235,7 @@ describe('styling', () => {
         onClick={onClick}
         render={(eventProps, animationProps) => (
           <button type="button" {...eventProps}>
-            <div {...animationProps} />
+            <span {...animationProps} />
           </button>
         )}
       />

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
 
 permissions:
@@ -23,15 +23,15 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+          cache: npm
       - run: npm ci
       - name: Check release version
         id: release
-        run: node scripts/release.mjs
+        run: node scripts/release.ts
         env:
           RELEASE_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
   test:
-    needs: release_info
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -41,14 +41,22 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+          cache: npm
       - run: npm ci
       - if: matrix.react != 19
         run: npm install --no-save react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
-      - run: npm run lint
-      - run: npm run check-types
+      # The tests run in Chromium, Firefox and WebKit.
+      - run: npx playwright install --with-deps chromium firefox webkit
+      # Formatting, lint and type checks.
+      - run: npm run check
       - run: npm test
-      - run: npm run build
-      - run: npm run pack
+      - if: matrix.react == 19
+        run: npm run build
+      - if: matrix.react == 19
+        run: npm run pack
+      # useanimations.com, built from the same icon set and component.
+      - if: matrix.react == 19
+        run: npm run website:build
       - name: Upload verified npm package
         if: matrix.react == 19
         uses: actions/upload-artifact@v7
@@ -59,9 +67,36 @@ jobs:
           include-hidden-files: true
           retention-days: 7
 
+  website:
+    # react.useanimations.com is deployed from main after the tests pass.
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: website
+      url: https://react.useanimations.com
+    concurrency:
+      group: website-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run website:build
+        env:
+          SITE_URL: https://react.useanimations.com
+      - name: Deploy to Netlify
+        run: npx --yes netlify-cli@27 deploy --prod --no-build --dir website/dist --site "$NETLIFY_SITE_ID" --message "$GITHUB_SHA"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+
   publish:
     needs: [release_info, test]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.release_info.outputs.release == 'true'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release_info.outputs.release == 'true'
     runs-on: ubuntu-latest
     environment:
       name: npm
@@ -73,13 +108,12 @@ jobs:
       contents: read
       id-token: write
     steps:
+      # Node 24 ships npm 11, which supports Trusted Publishing.
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
-      - name: Use npm with Trusted Publishing support
-        run: npm install --global npm@11
       - uses: actions/download-artifact@v8
         with:
           name: npm-package

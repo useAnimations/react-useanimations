@@ -1,0 +1,100 @@
+---
+// The hero: a field of icons. A wave runs across it when it appears, icons play where the pointer
+// passes, and a random icon plays now and then. With reduced motion the field stays still.
+// Vertical swipes scroll the page (touch-action: pan-y); sideways swipes play the icons they cross.
+import type { Icon } from '../lib/icons';
+
+interface Props {
+  icons: Icon[];
+}
+const { icons } = Astro.props;
+---
+
+<div
+  data-icon-field
+  aria-hidden="true"
+  class="icon-field relative grid touch-pan-y grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-2 p-3 sm:gap-3 sm:p-4"
+>
+  {
+    icons.map((icon) => (
+      <div
+        data-cell={icon.id}
+        title={icon.title}
+        class="field-cell relative flex aspect-square items-center justify-center rounded-2xl"
+      >
+        <span data-slot data-useanimations="" class="block size-7 sm:size-8" set:html={icon.firstFrame} />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  import { loadAnimation, type Player } from '../../../src/player';
+  import { loadIconData } from '../lib/icon-data';
+
+  const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const field = document.querySelector<HTMLElement>('[data-icon-field]');
+  if (field) {
+    const cells = [...field.querySelectorAll<HTMLElement>('[data-cell]')];
+    const players: (Player | undefined)[] = [];
+    let visible = true;
+    let pointerInside = false;
+
+    const play = (index: number) => {
+      const player = players[index];
+      if (!player || !player.isPaused || reducedMotion()) return;
+      player.playSegments([0, player.totalFrames]);
+      const cell = cells[index];
+      cell.dataset.active = '';
+      setTimeout(() => delete cell.dataset.active, 900);
+    };
+
+    const wave = () => {
+      const origin = field.getBoundingClientRect();
+      cells.forEach((cell, index) => {
+        const box = cell.getBoundingClientRect();
+        setTimeout(() => play(index), 250 + Math.hypot(box.left - origin.left, box.top - origin.top) * 1.1);
+      });
+    };
+
+    cells.forEach((cell, index) => cell.addEventListener('pointerenter', () => play(index)));
+    field.addEventListener('pointermove', (event) => {
+      const box = field.getBoundingClientRect();
+      field.style.setProperty('--mx', `${event.clientX - box.left}px`);
+      field.style.setProperty('--my', `${event.clientY - box.top}px`);
+      // Touch pointers stay captured by the first cell, so find the cell under the finger.
+      if (event.pointerType === 'touch') {
+        const cell = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-cell]');
+        const index = cell ? cells.indexOf(cell as HTMLElement) : -1;
+        if (index >= 0) play(index);
+      }
+    });
+    for (const type of ['pointerenter', 'pointerleave'] as const) {
+      field.addEventListener(type, () => {
+        pointerInside = type === 'pointerenter';
+        field.dataset.pointer = pointerInside ? 'in' : 'out';
+      });
+    }
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    }).observe(field);
+
+    setInterval(() => {
+      if (visible && !pointerInside && !document.hidden) play(Math.floor(Math.random() * cells.length));
+    }, 900);
+
+    void Promise.all(cells.map((cell) => loadIconData(cell.dataset.cell!).catch(() => undefined))).then(
+      (data) => {
+        data.forEach((animationData, index) => {
+          if (!animationData) return;
+          const slot = cells[index].querySelector<HTMLElement>('[data-slot]')!;
+          // The player draws the same first frame as the prerendered SVG it replaces.
+          slot.replaceChildren();
+          players[index] = loadAnimation({ container: slot, animationData });
+        });
+        wave();
+      }
+    );
+  }
+</script>

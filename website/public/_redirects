@@ -1,0 +1,49 @@
+# Pages of the previous site (www and http are redirected by Netlify).
+/index.html                   /                     301!
+/documentation.html           /documentation        301!
+/licencing-and-terms.html     /licencing-and-terms  301!
+/zh.html                      /zh                   301!
+
+# Images of the previous site.
+/images/OGuseAnimationsImage.jpg  /og.png                301
+/images/apple-touch-icon.png      /apple-touch-icon.png  301
+/images/favicon-32x32.png         /favicon.ico           301
+/images/favicon-16x16.png         /favicon.ico           301
+/images/safari-pinned-tab.svg     /favicon.svg           301
+/images/logo-useanimations.svg    /favicon.svg           301
+
+# Lottie files of the previous site's previews: renamed ones first, then the rest by id.
+/animations/airplay-001.json                   /icons/airplay.json  301
+/animations/alert-circle-001.json              /icons/alert-circle.json  301
+/animations/alert-octagon-001.json             /icons/alert-octagon.json  301
+/animations/alert-triangle-001.json            /icons/alert-triangle.json  301
+/animations/check-box-001.json                 /icons/check-box.json  301
+/animations/loading-001.json                   /icons/loading.json  301
+/animations/loading-V2.json                    /icons/loading-v2.json  301
+/animations/loading-V4.json                    /icons/loading-v4.json  301
+/animations/loadingV3.json                     /icons/loading-v3.json  301
+/animations/lock-001.json                      /icons/lock.json  301
+/animations/maximize-minimize-V2.json          /icons/maximize-minimize-v2.json  301
+/animations/menu-001.json                      /icons/menu.json  301
+/animations/menu-002.json                      /icons/menu-v2.json  301
+/animations/menu-003.json                      /icons/menu-v3.json  301
+/animations/menu-004.json                      /icons/menu-v4.json  301
+/animations/mic-on-off-001.json                /icons/microphone.json  301
+/animations/mic-on-off-002.json                /icons/microphone-v2.json  301
+/animations/notification-V3.json               /icons/notification-v3.json  301
+/animations/notification-V4.json               /icons/notification-v4.json  301
+/animations/notification-bell-on-off-001.json  /icons/notification.json  301
+/animations/notification-bell-on-off-002.json  /icons/notification-v2.json  301
+/animations/radio-button-001.json              /icons/radio-button.json  301
+/animations/scrolldown.json                    /icons/scroll-down.json  301
+/animations/settings-001.json                  /icons/settings.json  301
+/animations/settings-002.json                  /icons/settings-v2.json  301
+/animations/trash-V2.json                      /icons/trash-v2.json  301
+/animations/video-on-off-001.json              /icons/video.json  301
+/animations/video-on-off-002.json              /icons/video-v2.json  301
+/animations/visibility-V2.json                 /icons/visibility-v2.json  301
+/animations/visibility-V3.json                 /icons/visibility-v3.json  301
+/animations/volume-001.json                    /icons/volume.json  301
+/animations/youtube-001.json                   /icons/youtube.json  301
+/animations/youtube-002.json                   /icons/youtube-v2.json  301
+/animations/:file                              /icons/:file  301

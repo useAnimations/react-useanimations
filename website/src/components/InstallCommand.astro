@@ -1,0 +1,25 @@
+---
+interface Props {
+  command?: string;
+  class?: string;
+}
+const { command = 'npm i react-useanimations', class: className } = Astro.props;
+---
+
+<button
+  type="button"
+  data-copy={command}
+  class:list={[
+    'group inline-flex items-center gap-3 rounded-full border border-line-strong bg-surface/70 py-2.5 pr-3 pl-5 font-mono text-sm text-fg backdrop-blur transition hover:border-accent',
+    className,
+  ]}
+  aria-label={`Copy: ${command}`}
+>
+  <span class="text-subtle select-none">$</span>
+  <span>{command}</span>
+  <span
+    data-copy-label
+    class="rounded-full bg-surface-2 px-2.5 py-1 font-sans text-xs text-muted transition group-hover:text-fg"
+    >Copy</span
+  >
+</button>
