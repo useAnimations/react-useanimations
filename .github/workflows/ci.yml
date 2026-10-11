@@ -102,6 +102,9 @@ jobs:
     environment:
       name: preview
       url: ${{ steps.deploy.outputs.url }}
+    permissions:
+      contents: read
+      pull-requests: write
     concurrency:
       group: website-preview-${{ github.event.pull_request.number }}
       cancel-in-progress: true
@@ -125,6 +128,18 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+      # One comment per PR, updated on every push.
+      - name: Comment preview URL
+        run: |
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "### 🔎 Website preview
+          **$URL**
+
+          Updated for commit $SHA."
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          URL: ${{ steps.deploy.outputs.url }}
+          SHA: ${{ github.event.pull_request.head.sha }}
 
   publish:
     needs: [release_info, test]
