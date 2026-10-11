@@ -34,6 +34,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      # One failing React version should not cancel the other.
+      fail-fast: false
       matrix:
         react: [18, 19]
     steps:
@@ -45,10 +47,20 @@ jobs:
       - run: npm ci
       - if: matrix.react != 19
         run: npm install --no-save react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
-      # The tests run in Chromium, Firefox and WebKit.
-      - run: npx playwright install --with-deps chromium firefox webkit
-      # Formatting, lint and type checks.
+      # Formatting, lint and type checks first, so they fail before the browser download.
       - run: npm run check
+      # The tests run in Chromium, Firefox and WebKit. Browsers are cached per Playwright version.
+      - id: playwright
+        run: echo "version=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
+      - id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+      - if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium firefox webkit
+      - if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium firefox webkit
       - run: npm test
       - if: matrix.react == 19
         run: npm run build
