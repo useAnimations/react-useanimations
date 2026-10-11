@@ -81,6 +81,16 @@ const image = `${SITE}/og.png`;
       src="https://umami.tuancodes.com/script.js"
       data-website-id="24bb398f-c08b-4abd-be1c-5a4a64ca3dc9"
       data-domains="useanimations.com,www.useanimations.com"></script>
+    <script is:inline>
+      // Session replays and heatmaps for our Umami (switched on in its website settings). The
+      // recorder has no data-domains, so it's only added on useanimations.com.
+      if (['useanimations.com', 'www.useanimations.com'].includes(location.hostname)) {
+        const recorder = document.createElement('script');
+        recorder.src = 'https://umami.tuancodes.com/recorder.js';
+        recorder.dataset.websiteId = '24bb398f-c08b-4abd-be1c-5a4a64ca3dc9';
+        document.head.append(recorder);
+      }
+    </script>
   </head>
   <body class="min-h-screen bg-bg text-fg">
     <a
