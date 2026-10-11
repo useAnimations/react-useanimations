@@ -1,3 +1,7 @@
+# react.useanimations.com, where the v3 site lived before it moved here (a domain alias of the
+# Netlify site).
+https://react.useanimations.com/*  https://useanimations.com/:splat  301!
+
 # Pages of the previous site (www and http are redirected by Netlify). Trailing slashes, .html
 # pages and the aliases below are redirected first by netlify/edge-functions/canonical-url.ts;
 # these rules are the fallback.
