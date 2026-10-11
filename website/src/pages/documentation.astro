@@ -1,0 +1,107 @@
+---
+import { Content, getHeadings } from '../content/documentation.md';
+import Layout from '../layouts/Layout.astro';
+import { icons, SITE } from '../lib/icons';
+
+const toc = getHeadings().filter((heading) => heading.depth === 2);
+const faq = [
+  ['Is useAnimations free for commercial projects?', 'Yes. The icons and the React package are MIT-licensed, with no attribution required.'],
+  ['How do I use useAnimations icons in React?', "Install react-useanimations, import UseAnimations and an icon (e.g. react-useanimations/lib/checkmark), then render <UseAnimations animation={checkmark} size={32} />."],
+  ['How do I change the color of an icon?', 'Icons follow the text color. Use strokeColor and fillColor in React, CSS on the web, and Lottie dynamic properties on iOS and Android.'],
+  ['Do I need After Effects?', 'No. The JSON files play in any Lottie player. After Effects is only needed to change the motion itself.'],
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      headline: 'useAnimations documentation',
+      description: 'How to use the useAnimations animated icons in React, shadcn/ui, HTML, Vue, iOS and Android.',
+      url: `${SITE}/documentation`,
+      dateModified: new Date().toISOString().slice(0, 10),
+      publisher: { '@type': 'Organization', name: 'useAnimations', url: `${SITE}/` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'useAnimations', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: 'Documentation', item: `${SITE}/documentation` },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })),
+    },
+  ],
+};
+---
+
+<Layout
+  title="Documentation — useAnimations"
+  description={`How to use ${icons.length} animated icons in React, shadcn/ui, HTML, Vue, iOS and Android: interactions, props, colors, direct URLs and accessibility.`}
+  path="/documentation"
+  head={[{ rel: 'alternate', type: 'text/markdown', href: '/documentation.md', title: 'Documentation (Markdown)' }]}
+  jsonLd={jsonLd}
+>
+  <div class="mx-auto grid max-w-7xl gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-[14rem_minmax(0,1fr)] xl:grid-cols-[14rem_minmax(0,46rem)_1fr]">
+    <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
+      <details class="group rounded-2xl border border-line p-4 lg:border-0 lg:p-0" open>
+        <summary class="cursor-pointer text-sm font-medium text-fg lg:pointer-events-none lg:list-none">On this page</summary>
+        <nav aria-label="On this page" class="mt-3">
+          <ul class="space-y-0.5 border-l border-line">
+            {
+              toc.map((heading) => (
+                <li>
+                  <a
+                    href={`#${heading.slug}`}
+                    data-toc={heading.slug}
+                    class="-ml-px block border-l border-transparent py-1 pl-4 text-sm text-muted transition-colors hover:text-fg data-[active]:border-accent data-[active]:text-fg"
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a href="/documentation.md" class="mt-6 hidden pl-4 text-xs text-subtle hover:text-fg lg:block">View as Markdown</a>
+      </details>
+    </aside>
+    <article class="prose min-w-0 pb-10">
+      <p class="mb-2 text-sm font-medium text-accent">Documentation</p>
+      <Content />
+    </article>
+  </div>
+</Layout>
+
+<script>
+  // Highlights the section being read in the table of contents.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')].map((link) => [link.dataset.toc!, link])
+  );
+  const headings = [...links.keys()].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+  const update = () => {
+    let current = headings[0];
+    for (const heading of headings) if (heading.getBoundingClientRect().top < 140) current = heading;
+    for (const [id, link] of links) link.toggleAttribute('data-active', id === current?.id);
+  };
+  addEventListener('scroll', update, { passive: true });
+  update();
+
+  // Copy buttons on code blocks.
+  for (const pre of document.querySelectorAll<HTMLPreElement>('.prose pre')) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'group/code relative';
+    wrapper.dataset.copyScope = '';
+    pre.replaceWith(wrapper);
+    wrapper.append(pre);
+    pre.dataset.code = '';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.copyFrom = '[data-code]';
+    button.className =
+      'absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100';
+    button.innerHTML = '<span data-copy-label>Copy</span>';
+    wrapper.append(button);
+  }
+</script>

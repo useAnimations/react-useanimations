@@ -8,7 +8,7 @@ export default defineConfig({
     singleQuote: true,
     trailingComma: 'es5',
     sortPackageJson: false,
-    ignorePatterns: ['icons/**', 'package-lock.json'],
+    ignorePatterns: ['icons/**', 'package-lock.json', 'website/dist/**', 'website/.astro/**'],
   },
   lint: {
     plugins: ['typescript', 'unicorn', 'oxc', 'react'],
@@ -26,7 +26,7 @@ export default defineConfig({
       // The player reads Lottie JSON and the scripts read JSON files: both are typed by assertion.
       'typescript/no-unsafe-type-assertion': 'off',
     },
-    ignorePatterns: ['dist'],
+    ignorePatterns: ['dist', 'website/dist', 'website/.astro'],
     options: { typeAware: true, typeCheck: true },
   },
 

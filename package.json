@@ -10,6 +10,9 @@
   "author": "Tuan Phung, Marek Feikus",
   "license": "MIT",
   "type": "module",
+  "workspaces": [
+    "website"
+  ],
   "bugs": {
     "url": "https://github.com/useAnimations/react-useanimations/issues"
   },
@@ -33,7 +36,9 @@
     "icons": "node scripts/icons.ts",
     "sync-icons": "node scripts/sync-icons.ts",
     "pack": "node scripts/pack.ts",
-    "verify": "npm run check && npm test && npm run build && npm run pack"
+    "verify": "npm run check && npm test && npm run build && npm run pack",
+    "website:dev": "npm run dev -w website",
+    "website:build": "npm run build -w website"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

@@ -10,3 +10,7 @@ dist
 
 # Vitest browser-mode failure screenshots
 .vitest
+
+# Website build output
+website/dist
+website/.astro

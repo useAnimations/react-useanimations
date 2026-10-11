@@ -1,0 +1,35 @@
+---
+import Logo from './Logo.astro';
+import { FOOTER } from '../lib/site';
+---
+
+<footer class="mt-32 border-t border-line">
+  <div class="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+    <div class="max-w-xs">
+      <a href="/" aria-label="useAnimations home"><Logo /></a>
+      <p class="mt-4 text-sm leading-relaxed text-muted">
+        Free animated icons with interactions built in. MIT licensed, made for React, the web, iOS and Android.
+      </p>
+    </div>
+    {
+      FOOTER.map((column) => (
+        <div>
+          <h2 class="text-sm font-medium text-fg">{column.title}</h2>
+          <ul class="mt-4 space-y-2.5">
+            {column.links.map((link) => (
+              <li>
+                <a href={link.href} class="text-sm text-muted transition-colors hover:text-fg">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+  <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-6 text-xs text-subtle sm:px-8">
+    <span>© {new Date().getFullYear()} useAnimations · MIT License</span>
+    <span>Icons drawn with Lottie · Site built with Astro</span>
+  </div>
+</footer>

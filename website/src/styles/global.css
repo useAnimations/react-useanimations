@@ -1,0 +1,349 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* SEMANTIC COLORS: light by default, dark under html.dark (set before paint by Layout.astro). */
+:root {
+  --bg: #fbfbfd;
+  --fg: #0d0f14;
+  --muted: #5b6170;
+  --subtle: #8b90a0;
+  --surface: #ffffff;
+  --surface-2: #f3f4f8;
+  --line: rgb(13 15 20 / 0.08);
+  --line-strong: rgb(13 15 20 / 0.14);
+  --accent: #4b5cff;
+  --accent-2: #a24bff;
+  --accent-fg: #ffffff;
+  --glow: rgb(75 92 255 / 0.18);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #08090c;
+  --fg: #eef0f6;
+  --muted: #9aa0b2;
+  --subtle: #6b7183;
+  --surface: #101218;
+  --surface-2: #161922;
+  --line: rgb(255 255 255 / 0.07);
+  --line-strong: rgb(255 255 255 / 0.13);
+  --accent: #7b8bff;
+  --accent-2: #c084fc;
+  --accent-fg: #08090c;
+  --glow: rgb(123 139 255 / 0.22);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-fg: var(--accent-fg);
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 30%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Icons rendered at build time (first frames) get the same coloring as the live component. */
+:where([data-useanimations] path[stroke^='rgb']:not([stroke='rgb(255,255,255)'])) {
+  stroke: var(--ua-stroke, currentColor);
+}
+:where([data-useanimations] path[fill='rgb(0,0,0)']) {
+  fill: var(--ua-fill, var(--ua-stroke, currentColor));
+}
+
+@utility text-gradient {
+  background: linear-gradient(100deg, var(--accent), var(--accent-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* CODE: Shiki emits both themes as CSS variables (defaultColor: false). */
+.astro-code,
+.astro-code span,
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: transparent !important;
+}
+.dark .astro-code,
+.dark .astro-code span,
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+}
+
+.code-block {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.code-block pre {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+/* PROSE: the documentation and licence pages. */
+.prose {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.prose :where(h1, h2, h3, h4) {
+  color: var(--fg);
+  letter-spacing: -0.02em;
+  scroll-margin-top: 6rem;
+}
+.prose h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 650;
+  margin: 0 0 1rem;
+}
+.prose h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 3.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.prose h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 2.25rem 0 0.75rem;
+}
+.prose p,
+.prose ul,
+.prose ol,
+.prose table,
+.prose blockquote,
+.prose pre {
+  margin: 0 0 1.15rem;
+}
+.prose a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 60%, transparent);
+  text-underline-offset: 3px;
+}
+.prose a:hover {
+  text-decoration-color: var(--accent);
+}
+.prose strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+.prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.prose li {
+  margin: 0.35rem 0;
+}
+.prose li::marker {
+  color: var(--subtle);
+}
+.prose :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--fg);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+.prose pre {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2) !important;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+.prose pre code {
+  font-family: var(--font-mono);
+}
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 12px 12px 0;
+  padding: 0.85rem 1.1rem;
+}
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  display: block;
+  overflow-x: auto;
+}
+.prose th {
+  color: var(--fg);
+  font-weight: 600;
+  text-align: left;
+}
+.prose th,
+.prose td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 0.75rem 0.6rem 0;
+  vertical-align: top;
+}
+.prose details {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 0.85rem 1.1rem;
+  margin: 0 0 0.75rem;
+}
+.prose summary {
+  color: var(--fg);
+  font-weight: 550;
+  cursor: pointer;
+}
+.prose details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+/* HERO */
+.hero-glow {
+  background:
+    radial-gradient(
+      40rem 22rem at 50% -4rem,
+      color-mix(in oklab, var(--accent) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      28rem 18rem at 85% 30%,
+      color-mix(in oklab, var(--accent-2) 14%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      24rem 16rem at 12% 40%,
+      color-mix(in oklab, var(--accent) 10%, transparent),
+      transparent 70%
+    );
+}
+
+.icon-field {
+  --mx: 50%;
+  --my: 40%;
+  color: var(--subtle);
+}
+/* A soft spotlight under the pointer. */
+.icon-field::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(14rem circle at var(--mx) var(--my), var(--glow), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.icon-field[data-pointer='in']::before {
+  opacity: 1;
+}
+.field-cell {
+  transition:
+    color 0.6s ease,
+    background-color 0.6s ease,
+    transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+.field-cell[data-active] {
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 9%, transparent);
+  transform: scale(1.12);
+  transition-duration: 0.15s;
+}
+.dark .field-cell[data-active] {
+  color: color-mix(in oklab, var(--accent) 75%, white);
+}
+@media (prefers-reduced-motion: reduce) {
+  .field-cell,
+  .field-cell[data-active] {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* The dialog itself takes focus when it opens; only its controls show a focus ring. */
+.icon-dialog:focus-visible {
+  outline: none;
+}
+
+/* The icon dialog opens with a short rise. */
+.icon-dialog[open] {
+  animation: dialog-in 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .icon-dialog[open] {
+    animation: none;
+  }
+}

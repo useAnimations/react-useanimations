@@ -1,0 +1,23 @@
+---
+import { highlight } from '../lib/highlight';
+
+interface Props {
+  code: string;
+  lang: string;
+  label?: string;
+  class?: string;
+}
+const { code, lang, label, class: className } = Astro.props;
+const html = await highlight(code, lang);
+---
+
+<div class:list={['code-block group/code', className]} data-copy-scope>
+  {label && <div class="border-b border-line px-4 py-2 text-xs text-subtle">{label}</div>}
+  <div data-code set:html={html} />
+  <button
+    type="button"
+    data-copy-from="[data-code]"
+    class="absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent"
+    ><span data-copy-label>Copy</span></button
+  >
+</div>

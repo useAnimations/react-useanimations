@@ -1,0 +1,35 @@
+import react from '@astrojs/react';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
+
+const allowedHosts = process.env.ASTRO_ALLOWED_HOSTS?.split(',').filter(Boolean) ?? [];
+
+export default defineConfig({
+  site: 'https://useanimations.com',
+  output: 'static',
+  trailingSlash: 'ignore',
+  integrations: [react()],
+  markdown: {
+    shikiConfig: {
+      themes: { light: 'github-light', dark: 'github-dark-dimmed' },
+      defaultColor: false,
+    },
+  },
+  vite: {
+    // @tailwindcss/vite brings its own copy of Vite's types.
+    plugins: [tailwindcss() as never],
+    // Extra hostnames for the dev and preview servers, e.g. a private network name:
+    // ASTRO_ALLOWED_HOSTS=my-machine.example npm run dev -w website
+    server: { allowedHosts },
+    preview: { allowedHosts },
+    // The repository the site is built from: the icon set in icons/ and the package version.
+    define: {
+      'import.meta.env.REPO_DIR': JSON.stringify(fileURLToPath(new URL('../', import.meta.url))),
+    },
+    resolve: {
+      // The site uses the library from this repository, as apps use the npm package.
+      alias: { 'react-useanimations': fileURLToPath(new URL('../src/index.tsx', import.meta.url)) },
+    },
+  },
+});

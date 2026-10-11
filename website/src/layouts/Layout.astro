@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE } from '../lib/icons';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of the canonical URL, e.g. /documentation. */
+  path: string;
+  lang?: string;
+  /** hreflang alternates, e.g. { en: '/', 'zh-Hans': '/zh' }. */
+  alternates?: Record<string, string>;
+  jsonLd?: object;
+  /** Extra <link>/<meta> tags. */
+  head?: { rel: string; href: string; type?: string; title?: string }[];
+  noindex?: boolean;
+}
+
+const { title, description, path, lang = 'en', alternates, jsonLd, head = [], noindex } = Astro.props;
+const canonical = new URL(path, SITE).href;
+const image = `${SITE}/og.png`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {
+      alternates &&
+        Object.entries(alternates).map(([hreflang, href]) => (
+          <link rel="alternate" hreflang={hreflang} href={new URL(href, SITE).href} />
+        ))
+    }
+    {head.map((link) => <link {...link} />)}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="useAnimations" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@useAnimations" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/json" title="useAnimations icon catalog" href="/icons.json" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script is:inline>
+      // Applies the saved or system theme before the first paint.
+      (() => {
+        const saved = localStorage.getItem('theme');
+        const dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="c6736abb-8f30-42da-9094-5046c19e883f"></script>
+  </head>
+  <body class="min-h-screen bg-bg text-fg">
+    <a
+      href="#main"
+      class="sr-only z-50 rounded-lg bg-fg px-4 py-2 text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >Skip to content</a
+    >
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/copy';
+    </script>
+  </body>
+</html>

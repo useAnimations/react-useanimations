@@ -54,6 +54,9 @@ jobs:
         run: npm run build
       - if: matrix.react == 19
         run: npm run pack
+      # useanimations.com, built from the same icon set and component.
+      - if: matrix.react == 19
+        run: npm run website:build
       - name: Upload verified npm package
         if: matrix.react == 19
         uses: actions/upload-artifact@v7

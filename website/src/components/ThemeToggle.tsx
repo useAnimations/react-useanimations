@@ -1,0 +1,43 @@
+import { useSyncExternalStore } from 'react';
+import UseAnimations from 'react-useanimations';
+import moon from '../../../icons/moon.json';
+import sun from '../../../icons/sun.json';
+
+const isDark = () => document.documentElement.classList.contains('dark');
+
+// The theme is the `dark` class on <html>, set before the first paint by Layout.astro.
+const subscribe = (onChange: () => void) => {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  return () => observer.disconnect();
+};
+
+/** Switches between light and dark; the choice is saved, otherwise the system theme applies. */
+export default function ThemeToggle() {
+  const dark = useSyncExternalStore(subscribe, isDark, () => false);
+
+  const toggle = () => {
+    const next = !isDark();
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+  };
+
+  return (
+    <UseAnimations
+      key={dark ? 'sun' : 'moon'}
+      animation={{ animationData: dark ? sun : moon, interaction: 'hover-replay' }}
+      size={20}
+      onClick={toggle}
+      render={(eventProps, animationProps) => (
+        <button
+          type="button"
+          aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
+          className="inline-flex size-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+          {...eventProps}
+        >
+          <span {...animationProps} />
+        </button>
+      )}
+    />
+  );
+}

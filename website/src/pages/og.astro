@@ -1,0 +1,46 @@
+---
+// The social card (og.png), rendered to an image by scripts/images.ts. Not linked from the site.
+import Logo from '../components/Logo.astro';
+import '../styles/global.css';
+import { icons } from '../lib/icons';
+
+const names = ['heart', 'menu', 'github', 'download', 'settings', 'star', 'notification', 'visibility', 'zap', 'bookmark', 'mail', 'lock', 'trash', 'share', 'home', 'music', 'camera', 'cloud', 'send', 'calendar', 'checkBox', 'thumbUp', 'search', 'globe'];
+const grid = names.map((name) => icons.find((icon) => icon.name === name)).filter(Boolean);
+const colors = ['#e5484d', '#f59e0b', '#12a594', '#7b8bff', '#c084fc', '#eef0f6'];
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>useAnimations</title>
+  </head>
+  <body class="m-0 bg-bg">
+    <div id="card" class="relative h-[630px] w-[1200px] overflow-hidden bg-bg">
+      <div class="hero-glow absolute inset-0"></div>
+      <div class="absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_left,black_10%,transparent_75%)]"></div>
+      <div class="relative flex h-full">
+        <div class="flex w-[640px] flex-col justify-center pl-20">
+          <Logo class="scale-[1.6] origin-left" />
+          <h1 class="mt-14 text-[76px] leading-[0.98] font-semibold tracking-[-0.045em] text-fg">
+            Icons that<br /><span class="text-gradient">come alive.</span>
+          </h1>
+          <p class="mt-7 text-2xl text-muted">{icons.length} free animated icons</p>
+          <p class="mt-2 text-xl text-subtle">React · shadcn · Web · iOS · Android · MIT</p>
+        </div>
+        <div class="grid flex-1 grid-cols-4 content-center gap-4 pr-16 pl-4">
+          {
+            grid.slice(0, 20).map((icon, i) => (
+              <span
+                class="flex aspect-square items-center justify-center rounded-3xl border border-line bg-surface/80"
+                style={{ color: i % 3 === 0 ? colors[(i / 3) % colors.length] : 'var(--muted)' }}
+              >
+                <span data-useanimations="" class="block size-11" set:html={icon!.firstFrame} />
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
