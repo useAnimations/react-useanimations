@@ -1,8 +1,0 @@
-# useanimations.com: the Astro site in website/, built from the icon set in icons/.
-[build]
-command = "npm run website:build"
-publish = "website/dist"
-edge_functions = "website/netlify/edge-functions"
-
-[build.environment]
-NODE_VERSION = "24"

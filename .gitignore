@@ -15,3 +15,4 @@ dist
 website/dist
 website/.astro
 website/.netlify
+.wrangler

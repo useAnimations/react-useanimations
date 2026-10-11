@@ -1,0 +1,39 @@
+// useanimations.com: the Astro site in website/, built from the icon set in icons/ with
+// `npm run website:build`, then deployed by CI (.github/workflows/ci.yml).
+{
+  "name": "useanimations",
+  "main": "website/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "website/dist",
+    "binding": "ASSETS",
+    // Pages are written as documentation.html and served at /documentation.
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+    // The Worker handles only the pages and the URL variants it redirects; icon files, scripts
+    // and the rest come straight from the assets.
+    "run_worker_first": [
+      "/",
+      "/documentation",
+      "/licencing-and-terms",
+      "/docs",
+      "/license",
+      "/licence",
+      "/licensing",
+      "/licensing-and-terms",
+      "/icons/*",
+      "/categories/*",
+      "/*/",
+      "/*.html",
+      "!/icons/*.json",
+      "!/icons/*.zip",
+      "!/icons/*.svg",
+      "!/icons/*.md",
+    ],
+  },
+  // www and react.useanimations.com redirect here with a Redirect Rule on the zone.
+  "routes": [{ "pattern": "useanimations.com", "custom_domain": true }],
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": { "enabled": true },
+}

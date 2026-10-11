@@ -1,4 +1,4 @@
-# The same HSTS policy on every response (Netlify's default omits includeSubDomains and preload).
+# The same HSTS policy on every response.
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Frame-Options: SAMEORIGIN
@@ -6,7 +6,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
 
 # The Markdown alternates of pages (Link and Vary: Accept) come from
-# netlify/edge-functions/markdown-negotiation.ts.
+# website/worker.ts.
 /
   Link: </robots.txt>; rel="robots"
   Link: </licencing-and-terms>; rel="license"
@@ -23,7 +23,7 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=3600
 
-# The icon files are cached for an hour; the icon pages (/icons/<id>) keep Netlify's HTML caching.
+# The icon files are cached for an hour; the icon pages (/icons/<id>) keep the default HTML caching.
 /icons/*
   Access-Control-Allow-Origin: *
 
@@ -33,7 +33,7 @@
 /icons/*.zip
   Cache-Control: public, max-age=3600
 
-/icons/*/*.svg
+/icons/:id/*
   Cache-Control: public, max-age=3600
 
 /r/*

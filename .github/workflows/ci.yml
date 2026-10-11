@@ -103,14 +103,15 @@ jobs:
       - run: npm run website:build
         env:
           SITE_URL: https://useanimations.com
-      - name: Deploy to Netlify
-        run: npx --yes netlify-cli@27 deploy --prod --no-build --dir website/dist --site "$NETLIFY_SITE_ID" --message "$GITHUB_SHA"
+      # The Worker and its assets, configured in wrangler.jsonc.
+      - name: Deploy to Cloudflare
+        run: npx --yes wrangler@4 deploy --message "$GITHUB_SHA"
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
   preview:
-    # Every PR from this repository gets its own preview at pr-<number>--<site>.netlify.app.
+    # Every PR from this repository gets its own preview at pr-<number>-useanimations.<subdomain>.workers.dev.
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     # The link shows up in the PR as "View deployment".
@@ -137,15 +138,19 @@ jobs:
       # Keep previews out of search engines.
       - run: |
           printf '\n/*\n  X-Robots-Tag: noindex\n' >> website/dist/_headers
-      - name: Deploy preview to Netlify
+      # A new version of the Worker that production doesn't serve, under a stable alias per PR.
+      - name: Deploy preview to Cloudflare
         id: deploy
         run: |
-          url=$(npx --yes netlify-cli@27 deploy --no-build --dir website/dist --site "$NETLIFY_SITE_ID" --alias "pr-$PR" --message "PR #$PR $GITHUB_SHA" --json | jq -r '.deploy_url')
+          out=$(npx --yes wrangler@4 versions upload --preview-alias "pr-$PR" --message "PR #$PR $GITHUB_SHA")
+          echo "$out"
+          url=$(grep -oE 'https://pr-[0-9]+-[a-z0-9.-]+\.workers\.dev' <<< "$out" | head -n 1)
+          test -n "$url"
           echo "url=$url" >> "$GITHUB_OUTPUT"
         env:
           PR: ${{ github.event.pull_request.number }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       # One comment per PR, updated on every push.
       - name: Comment preview URL
         run: |
