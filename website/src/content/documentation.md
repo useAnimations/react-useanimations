@@ -162,7 +162,7 @@ import animationData from './my-animation.json';
 
 Your animation must be a Lottie JSON file, the format the icons use. The player supports what the icons need: shape layers, precompositions, null layers and parenting, paths, rectangles, ellipses, strokes, fills, trim paths, masks, keyframes with easing, holds and motion paths, and the `loopOut()` and `wiggle()` expressions. Anything else, such as gradients, text or image layers, effects and mattes, is not drawn; the console warns about unsupported layers, shapes and expressions.
 
-<div id="direct-urls"></div><div id="download"></div><div id="html"></div><div id="interactions-web"></div><div id="vue"></div><div id="without-react"></div><div id="ios"></div><div id="android"></div>
+<div id="direct-urls"></div><div id="download"></div>
 
 ## Files & icons.json
 
@@ -177,6 +177,124 @@ Every icon can also be downloaded, from its page or from stable, CORS-enabled UR
 | Catalog of every icon      | `https://useanimations.com/icons.json`             |
 
 [icons.json](/icons.json) lists every icon with its id, title, category, search keywords, interaction, file URLs, size and duration, its `react-useanimations` import and the shadcn command. The npm package ships the same data: `react-useanimations/catalog.json` (metadata), `react-useanimations/icons` (the animations) and `react-useanimations/svg.json` (the static SVGs).
+
+<div id="without-react"></div>
+
+## Use without React
+
+The icons are standard Lottie JSON, so any Lottie player can play them from `https://useanimations.com/icons/<id>.json` or from a copy in your project. Outside React you wire up the interaction yourself. [Lottie icons](/lottie-icons) has more players and examples.
+
+Some icons use After Effects expressions (`loopOut()`, `wiggle()`); `requiresFullPlayer` marks them in [icons.json](/icons.json). On the web they need lottie-web's full build, not `lottie_light`, and native players don't evaluate expressions.
+
+<div id="html"></div><div id="interactions-web"></div>
+
+### HTML and JavaScript
+
+```html
+<div id="icon" style="width: 48px; height: 48px"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.13.0/build/player/lottie.min.js"></script>
+<script>
+  const el = document.getElementById('icon');
+  const animation = lottie.loadAnimation({
+    container: el,
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    path: 'https://useanimations.com/icons/archive.json',
+  });
+  // hover: forward on enter, backward on leave
+  el.addEventListener('mouseenter', () => {
+    animation.setDirection(1);
+    animation.play();
+  });
+  el.addEventListener('mouseleave', () => {
+    animation.setDirection(-1);
+    animation.play();
+  });
+</script>
+```
+
+With the SVG renderer, the icon can follow the text color like the React component:
+
+```css
+#icon path[stroke^='rgb']:not([stroke='rgb(255,255,255)']) {
+  stroke: currentColor;
+}
+#icon path[fill='rgb(0,0,0)'] {
+  fill: currentColor;
+}
+```
+
+<div id="vue"></div>
+
+### Vue
+
+```vue
+<script setup>
+import lottie from 'lottie-web';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+
+const el = ref(null);
+let animation;
+onMounted(() => {
+  animation = lottie.loadAnimation({
+    container: el.value,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://useanimations.com/icons/loading.json',
+  });
+});
+onBeforeUnmount(() => animation?.destroy());
+</script>
+
+<template>
+  <div ref="el" style="width: 48px; height: 48px" />
+</template>
+```
+
+### React Native
+
+```jsx
+import LottieView from 'lottie-react-native';
+
+<LottieView source={require('./loading.json')} autoPlay loop style={{ width: 48, height: 48 }} />;
+```
+
+<div id="ios"></div>
+
+### iOS
+
+With [lottie-ios](https://github.com/airbnb/lottie-ios) and the JSON in your app bundle:
+
+```swift
+import Lottie
+import SwiftUI
+
+LottieView(animation: .named("loading"))
+  .looping()
+  .frame(width: 48, height: 48)
+```
+
+<div id="android"></div>
+
+### Android
+
+With [lottie-android](https://github.com/airbnb/lottie-android) in Jetpack Compose and the JSON in `res/raw`:
+
+```kotlin
+val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+LottieAnimation(composition, iterations = LottieConstants.IterateForever, modifier = Modifier.size(48.dp))
+```
+
+### Flutter
+
+With the [lottie](https://pub.dev/packages/lottie) package:
+
+```dart
+Lottie.asset('assets/loading.json', width: 48, height: 48)
+```
 
 <div id="performance"></div><div id="accessibility"></div>
 
@@ -325,7 +443,7 @@ Icons follow the text color. Change it with `strokeColor` and `fillColor`, CSS `
 
 <details><summary>Does it work without React?</summary>
 
-The package is for React. You can still download every icon as an SVG, or as the animation's Lottie JSON for a Lottie player of your choice. See [Files & icons.json](#files--iconsjson).
+The package is for React. Every icon is also a Lottie JSON file that lottie-web, lottie-ios, lottie-android, Flutter and React Native can play, and a static SVG. See [Use without React](#use-without-react) and [Lottie icons](/lottie-icons).
 
 </details>
 

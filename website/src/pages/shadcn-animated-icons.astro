@@ -1,0 +1,179 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import FaqList from '../components/FaqList.astro';
+import IconGrid from '../components/IconGrid.astro';
+import Layout from '../layouts/Layout.astro';
+import { breadcrumbNode, categories, categoryPath, hubDescription, hubTitle, itemListNode, pickIcons } from '../lib/hubs';
+import { iconById, icons, shadcnCommand, shadcnExample, SITE, VERSION } from '../lib/icons';
+import { type Faq, faqNode, websiteNode, WEBSITE_ID } from '../lib/seo';
+
+const popular = pickIcons([
+  'menu', 'check-box', 'toggle', 'visibility', 'heart', 'bookmark', 'star', 'trash',
+  'copy', 'download', 'search-to-x', 'settings', 'notification', 'refresh', 'send', 'sun',
+  'play-pause', 'volume', 'shopping-cart', 'alert-circle', 'arrow-right', 'external-link', 'github', 'plus-to-x',
+]);
+const menu = iconById.get('menu')!;
+const checkmark = iconById.get('checkmark')!;
+
+const componentsJson = `{
+  "registries": {
+    "@useanimations": "${SITE}/r/{name}.json"
+  }
+}`;
+const toggleExample = `"use client"
+
+import { useState } from "react"
+import { AnimatedMenu } from "@/components/animations/menu"
+import { Button } from "@/components/ui/button"
+
+export function MenuToggle() {
+  const [open, setOpen] = useState(false)
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      aria-label={open ? "Close menu" : "Open menu"}
+      aria-expanded={open}
+      onClick={() => setOpen(!open)}
+    >
+      <AnimatedMenu size={20} active={open} />
+    </Button>
+  )
+}`;
+
+const faq: Faq = [
+  {
+    question: 'Are the shadcn/ui animated icons free?',
+    answer: `Yes. All ${icons.length} icons and the component code are MIT-licensed, for personal and commercial projects. The registry needs no account or API key.`,
+  },
+  {
+    question: 'What does the shadcn CLI add to my project?',
+    answer: `The icon component in components/animations/<id>.tsx, the shared UseAnimation player wrapper in components/use-animation.tsx (once, as a registry dependency) and react-useanimations@^${VERSION} from npm. lottie-web is not needed: the package has its own 8 kB player.`,
+  },
+  {
+    question: 'Do the components work with Next.js server components?',
+    answer: 'Yes. The components are marked "use client" and draw the animation only in the browser, so you can render them from server components and pages without dynamic imports or ssr: false.',
+  },
+  {
+    question: 'Can I change how the icons look and move?',
+    answer: 'The code is yours, in your repository. The components take the props of UseAnimations: size, strokeColor, fillColor, interaction, active, autoplay, loop and speed. Icons follow the text color, so Tailwind classes such as text-primary or text-muted-foreground recolor them.',
+  },
+];
+
+const title = hubTitle(`Animated icons for shadcn/ui: ${icons.length} components`, 'Animated icons for shadcn/ui');
+const description = hubDescription(
+  `${icons.length} animated icons for shadcn/ui: add any icon with one shadcn CLI command. Hover, click and loop micro interactions, MIT licensed, no lottie-web.`
+);
+const crumbs = [
+  { name: 'Icons', path: '/icons' },
+  { name: 'shadcn/ui', path: '/shadcn-animated-icons' },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE}/shadcn-animated-icons`,
+      url: `${SITE}/shadcn-animated-icons`,
+      name: 'Animated icons for shadcn/ui',
+      description,
+      inLanguage: 'en',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: itemListNode(popular, 'Popular shadcn/ui animated icons'),
+    },
+    breadcrumbNode(crumbs),
+    faqNode(faq),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/shadcn-animated-icons" jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{icons.length} components · shadcn registry · MIT licensed</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Animated icons for shadcn/ui</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">
+        Every useAnimations icon is in a shadcn registry. One CLI command adds a typed React component to your
+        project, with the hover, click or loop interaction it was designed for, reduced-motion support and colors that
+        follow your theme. The code lands in your repository, like any other shadcn/ui component.
+      </p>
+    </header>
+
+    <div class="mt-12 max-w-3xl">
+      <section aria-labelledby="add-title">
+        <h2 id="add-title" class="text-2xl font-semibold tracking-tight">Add an icon</h2>
+        <p class="mt-3 leading-relaxed text-muted">Run the shadcn CLI with the icon's registry URL:</p>
+        <CodeBlock class="mt-4" lang="bash" code={shadcnCommand(checkmark)} track={{ icon: checkmark.id, code: 'shadcn-command' }} />
+        <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(checkmark.id, checkmark.component)} track={{ icon: checkmark.id, code: 'shadcn' }} />
+        <p class="mt-4 leading-relaxed text-muted">
+          The component is named <code class="font-mono text-sm text-fg">Animated</code> + the icon id in PascalCase
+          (<code class="font-mono text-sm text-fg">check-box</code> → <code class="font-mono text-sm text-fg">AnimatedCheckBox</code>)
+          and lands in <code class="font-mono text-sm text-fg">components/animations/&lt;id&gt;.tsx</code>. The CLI also
+          adds the shared <code class="font-mono text-sm text-fg">components/use-animation.tsx</code> wrapper and installs{' '}
+          <code class="font-mono text-sm text-fg">react-useanimations</code>, which brings its own player: no lottie-web.
+        </p>
+      </section>
+
+      <section class="mt-14" aria-labelledby="namespace-title">
+        <h2 id="namespace-title" class="text-2xl font-semibold tracking-tight">Short names with a registry namespace</h2>
+        <p class="mt-3 leading-relaxed text-muted">
+          Add the registry to <code class="font-mono text-sm text-fg">components.json</code> once, then add icons by
+          name, several at a time:
+        </p>
+        <CodeBlock class="mt-4" lang="json" code={componentsJson} track={{ code: 'components-json' }} />
+        <CodeBlock class="mt-3" lang="bash" code="npx shadcn@latest add @useanimations/menu @useanimations/heart @useanimations/loading" track={{ code: 'shadcn-namespace' }} />
+        <p class="mt-4 leading-relaxed text-muted">
+          The registry index at <a href="/r/registry.json" class="text-fg underline underline-offset-4">/r/registry.json</a>{' '}
+          lists every item with its title, category and interaction.
+        </p>
+      </section>
+
+      <section class="mt-14" aria-labelledby="usage-title">
+        <h2 id="usage-title" class="text-2xl font-semibold tracking-tight">Use it in a shadcn Button</h2>
+        <p class="mt-3 leading-relaxed text-muted">
+          The components take the same props as <code class="font-mono text-sm text-fg">UseAnimations</code>. For a
+          toggle such as the menu icon, pass <code class="font-mono text-sm text-fg">active</code> and keep the state in
+          your button; the icon animates whenever it changes:
+        </p>
+        <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(menu)} track={{ icon: menu.id, code: 'shadcn-command' }} />
+        <CodeBlock class="mt-3" lang="tsx" code={toggleExample} track={{ icon: menu.id, code: 'shadcn' }} />
+        <p class="mt-4 leading-relaxed text-muted">
+          Icons follow the text color, so <code class="font-mono text-sm text-fg">text-primary</code> or{' '}
+          <code class="font-mono text-sm text-fg">text-muted-foreground</code> recolor them and dark mode needs nothing
+          extra. More props and patterns are in the{' '}
+          <a href="/documentation#shadcn" class="text-fg underline underline-offset-4">documentation</a>.
+        </p>
+      </section>
+    </div>
+
+    <section class="mt-16" aria-labelledby="popular-title">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="popular-title" class="text-lg font-semibold">Popular icons for shadcn/ui</h2>
+        <a href="/icons" class="text-sm text-muted hover:text-fg">All {icons.length} icons →</a>
+      </div>
+      <p class="mt-2 text-sm text-muted">Every icon page shows its shadcn command.</p>
+      <IconGrid class="mt-4" icons={popular} />
+    </section>
+
+    <FaqList class="mt-16" faq={faq} />
+
+    <nav aria-labelledby="more-title" class="mt-16 border-t border-line pt-8">
+      <h2 id="more-title" class="text-lg font-semibold">Browse by category</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          categories().map(({ meta, icons: group }) => (
+            <li>
+              <a href={categoryPath(meta)} class="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition hover:border-line-strong hover:text-fg">
+                {meta.name} <span class="ml-1.5 text-subtle">{group.length}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</Layout>

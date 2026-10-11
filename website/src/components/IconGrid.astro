@@ -1,0 +1,28 @@
+---
+import type { Icon } from '../lib/icons';
+
+interface Props {
+  icons: Icon[];
+  class?: string;
+}
+
+// Static cards: a link to the icon page with its first frame, so every icon is crawlable without
+// scripts. Same markup as the related icons on icon pages.
+const { icons, class: className } = Astro.props;
+---
+
+<ul class:list={['grid grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))] gap-3', className]}>
+  {
+    icons.map((icon) => (
+      <li>
+        <a
+          href={`/icons/${icon.id}`}
+          class="flex aspect-[1/1.08] flex-col items-center justify-center gap-3 rounded-2xl border border-line bg-surface px-2 text-center text-[13px] text-muted transition hover:border-line-strong hover:text-fg"
+        >
+          <span data-useanimations="" class="block size-10 text-fg" set:html={icon.firstFrame} />
+          {icon.title}
+        </a>
+      </li>
+    ))
+  }
+</ul>

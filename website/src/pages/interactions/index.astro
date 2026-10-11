@@ -1,0 +1,111 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Layout from '../../layouts/Layout.astro';
+import { breadcrumbNode, hubDescription, hubTitle, interactionPath, interactions, REDUCED_MOTION } from '../../lib/hubs';
+import { icons, INTERACTIONS, SITE } from '../../lib/icons';
+import { websiteNode, WEBSITE_ID } from '../../lib/seo';
+import { INTERACTION_META } from '../../lib/taxonomy';
+
+const all = interactions();
+const title = hubTitle('Micro interactions: hover, click and loop icons', 'Micro interactions for animated icons');
+const description = hubDescription(
+  `${icons.length} animated icons in ${all.length} micro interactions: loop, click toggle, click replay, hover, hover replay and hover loop. With reduced-motion support.`
+);
+const crumbs = [
+  { name: 'Icons', path: '/icons' },
+  { name: 'Interactions', path: '/interactions' },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE}/interactions`,
+      url: `${SITE}/interactions`,
+      name: 'Animated icon interactions',
+      description,
+      inLanguage: 'en',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: all.length,
+        itemListElement: all.map(({ interaction }, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${SITE}${interactionPath(interaction)}`,
+          name: INTERACTION_META[interaction].title,
+        })),
+      },
+    },
+    breadcrumbNode(crumbs),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/interactions" jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{all.length} interactions · {icons.length} icons</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Animated icon interactions</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">
+        Every icon ships with the micro interaction it was designed for: it loops, toggles or replays on click, or plays
+        on hover. The React component wires it up and respects reduced motion, and the{' '}
+        <code class="font-mono text-base text-fg">interaction</code> prop switches any icon to another one.
+      </p>
+    </header>
+
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        all.map(({ interaction, icons: group }) => (
+          <li>
+            <a
+              href={interactionPath(interaction)}
+              class="group flex h-full flex-col rounded-3xl border border-line bg-surface p-6 transition hover:border-line-strong"
+            >
+              <span class="flex gap-2 text-fg" aria-hidden="true">
+                {group.slice(0, 5).map((icon) => (
+                  <span data-useanimations="" class="block size-8" set:html={icon.firstFrame} />
+                ))}
+              </span>
+              <span class="mt-5 font-mono text-xs text-accent">interaction="{interaction}"</span>
+              <span class="mt-2 flex items-baseline justify-between gap-3">
+                <span class="text-lg font-semibold tracking-tight text-fg">{INTERACTION_META[interaction].title}</span>
+                <span class="shrink-0 text-sm text-subtle">{group.length} icons</span>
+              </span>
+              <span class="mt-2 text-sm leading-relaxed text-muted">{INTERACTIONS[interaction].description}</span>
+              <span class="mt-2 text-sm leading-relaxed text-subtle">{INTERACTION_META[interaction].example}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-16 grid max-w-5xl gap-12 lg:grid-cols-2">
+      <section aria-labelledby="choose-title">
+        <h2 id="choose-title" class="text-2xl font-semibold tracking-tight">Choosing an interaction</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 leading-relaxed text-muted marker:text-subtle">
+          <li><strong class="font-medium text-fg">State that lasts</strong>, such as loading or an active alert: <a class="text-fg underline underline-offset-4" href={interactionPath('loop')}>loop</a>.</li>
+          <li><strong class="font-medium text-fg">An on/off control</strong>, such as mute, menu or show password: <a class="text-fg underline underline-offset-4" href={interactionPath('click-toggle')}>click toggle</a>, with <code class="font-mono text-sm text-fg">active</code> for controlled state.</li>
+          <li><strong class="font-medium text-fg">A one-shot action</strong>, such as send, save or refresh: <a class="text-fg underline underline-offset-4" href={interactionPath('click-replay')}>click replay</a>.</li>
+          <li><strong class="font-medium text-fg">A hint of what a link opens</strong>: <a class="text-fg underline underline-offset-4" href={interactionPath('hover')}>hover</a>, which reverses when the pointer leaves.</li>
+          <li><strong class="font-medium text-fg">Toolbars and lists people sweep across</strong>: <a class="text-fg underline underline-offset-4" href={interactionPath('hover-replay')}>hover replay</a>, which finishes on its own.</li>
+          <li><strong class="font-medium text-fg">Links that invite a longer look</strong>, such as social icons: <a class="text-fg underline underline-offset-4" href={interactionPath('hover-loop')}>hover loop</a>.</li>
+        </ul>
+      </section>
+      <section aria-labelledby="motion-title">
+        <h2 id="motion-title" class="text-2xl font-semibold tracking-tight">Reduced motion</h2>
+        <p class="mt-4 leading-relaxed text-muted">
+          The React component follows <code class="font-mono text-sm text-fg">prefers-reduced-motion</code> and updates
+          when the setting changes. Taps on touch screens never start hover animations.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm leading-relaxed text-muted">
+          {all.map(({ interaction }) => (
+            <li><code class="font-mono text-fg">{interaction}</code>: {REDUCED_MOTION[interaction].replace('With reduced motion preferred, ', '')}</li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+</Layout>
