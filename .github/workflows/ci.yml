@@ -92,6 +92,9 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Full history: the sitemap's lastmod dates come from Git (website/src/lib/git.ts).
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -122,6 +125,9 @@ jobs:
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Full history: the sitemap's lastmod dates come from Git (website/src/lib/git.ts).
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 24
