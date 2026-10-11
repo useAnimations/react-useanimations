@@ -42,14 +42,16 @@ const fill = (template: string, icon: DialogIcon) =>
     .replaceAll('__COMPONENT__', icon.component)
     .replaceAll('__ID__', icon.id);
 
-function Code({ html }: { html: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+function Code({ html, icon, code }: { html: string; icon: string; code: string }) {
   return (
     <div className="code-block group/code" data-copy-scope>
-      <div ref={ref} data-code dangerouslySetInnerHTML={{ __html: html }} />
+      <div data-code dangerouslySetInnerHTML={{ __html: html }} />
       <button
         type="button"
         data-copy-from="[data-code]"
+        data-track="copy"
+        data-track-icon={icon}
+        data-track-code={code}
         className="absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent"
       >
         <span data-copy-label>Copy</span>
@@ -199,6 +201,9 @@ export default function IconDialog({ templates }: { templates: Templates }) {
                   aria-selected={tab === name}
                   aria-controls="icon-tabpanel"
                   tabIndex={tab === name ? 0 : -1}
+                  data-track="code-tab"
+                  data-track-icon={icon.id}
+                  data-track-tab={name.toLowerCase()}
                   onClick={() => setTab(name)}
                   onKeyDown={(event) => {
                     const next = tabFromKey(event.key, i, TABS.length);
@@ -218,23 +223,31 @@ export default function IconDialog({ templates }: { templates: Templates }) {
               id="icon-tabpanel"
               aria-labelledby={`icon-tab-${tab}`}
             >
-              {tab === 'React' && <Code html={fill(templates.react, icon)} />}
+              {tab === 'React' && (
+                <Code html={fill(templates.react, icon)} icon={icon.id} code="react" />
+              )}
               {tab === 'shadcn' && (
                 <>
-                  <Code html={fill(templates.shadcnCommand, icon)} />
-                  <Code html={fill(templates.shadcn, icon)} />
+                  <Code
+                    html={fill(templates.shadcnCommand, icon)}
+                    icon={icon.id}
+                    code="shadcn-command"
+                  />
+                  <Code html={fill(templates.shadcn, icon)} icon={icon.id} code="shadcn" />
                 </>
               )}
-              {tab === 'Files' && <Code html={fill(templates.files, icon)} />}
+              {tab === 'Files' && (
+                <Code html={fill(templates.files, icon)} icon={icon.id} code="files" />
+              )}
             </div>
             <h3 className="mt-8 text-sm font-medium">Download</h3>
             <div className="mt-3 flex flex-wrap gap-2">
               <a
                 href={`/icons/${icon.id}.zip`}
                 download
-                data-umami-event="download"
-                data-umami-event-icon={icon.id}
-                data-umami-event-format="zip"
+                data-track="download"
+                data-track-icon={icon.id}
+                data-track-format="zip"
                 className="rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
               >
                 ZIP
@@ -242,9 +255,9 @@ export default function IconDialog({ templates }: { templates: Templates }) {
               <a
                 href={`/icons/${icon.id}.json`}
                 download
-                data-umami-event="download"
-                data-umami-event-icon={icon.id}
-                data-umami-event-format="json"
+                data-track="download"
+                data-track-icon={icon.id}
+                data-track-format="json"
                 className="rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-surface-2"
               >
                 Lottie JSON
@@ -254,9 +267,10 @@ export default function IconDialog({ templates }: { templates: Templates }) {
                   key={state}
                   href={`/icons/${icon.id}/${state}.svg`}
                   download
-                  data-umami-event="download"
-                  data-umami-event-icon={icon.id}
-                  data-umami-event-format="svg"
+                  data-track="download"
+                  data-track-icon={icon.id}
+                  data-track-format="svg"
+                  data-track-file={`${state}.svg`}
                   className="rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-surface-2"
                 >
                   {icon.svg.length > 1 ? `${state}.svg` : 'SVG'}
@@ -264,6 +278,8 @@ export default function IconDialog({ templates }: { templates: Templates }) {
               ))}
               <a
                 href={`/icons/${icon.id}`}
+                data-track="icon-page"
+                data-track-icon={icon.id}
                 className="ml-auto self-center text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
               >
                 Icon page →

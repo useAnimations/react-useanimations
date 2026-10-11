@@ -104,17 +104,17 @@ const jsonLd = {
           <a
             href={`/icons/${icon.id}.zip`}
             download
-            data-umami-event="download"
-            data-umami-event-icon={icon.id}
-            data-umami-event-format="zip"
+            data-track="download"
+            data-track-icon={icon.id}
+            data-track-format="zip"
             class="rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg hover:opacity-85">Download ZIP</a
           >
           <a
             href={`/icons/${icon.id}.json`}
             download
-            data-umami-event="download"
-            data-umami-event-icon={icon.id}
-            data-umami-event-format="json"
+            data-track="download"
+            data-track-icon={icon.id}
+            data-track-format="json"
             class="rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2">Lottie JSON</a
           >
           {
@@ -122,9 +122,10 @@ const jsonLd = {
               <a
                 href={`/icons/${icon.id}/${state}.svg`}
                 download
-                data-umami-event="download"
-                data-umami-event-icon={icon.id}
-                data-umami-event-format="svg"
+                data-track="download"
+                data-track-icon={icon.id}
+                data-track-format="svg"
+                data-track-file={`${state}.svg`}
                 class="rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
               >
                 {Object.keys(icon.svgs).length > 1 ? `${state}.svg` : 'SVG'}
@@ -134,15 +135,15 @@ const jsonLd = {
         </div>
 
         <h2 class="mt-12 text-lg font-semibold">React</h2>
-        <CodeBlock class="mt-3" lang="bash" code="npm install react-useanimations" />
-        <CodeBlock class="mt-3" lang="jsx" code={reactExample(icon.exportName, icon.name)} />
+        <CodeBlock class="mt-3" lang="bash" code="npm install react-useanimations" track={{ icon: icon.id, code: 'install' }} />
+        <CodeBlock class="mt-3" lang="jsx" code={reactExample(icon.exportName, icon.name)} track={{ icon: icon.id, code: 'react' }} />
 
         <h2 class="mt-10 text-lg font-semibold">shadcn/ui</h2>
-        <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(icon)} />
-        <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(icon.id, icon.component)} />
+        <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(icon)} track={{ icon: icon.id, code: 'shadcn-command' }} />
+        <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(icon.id, icon.component)} track={{ icon: icon.id, code: 'shadcn' }} />
 
         <h2 class="mt-10 text-lg font-semibold">Files</h2>
-        <CodeBlock class="mt-3" lang="bash" code={filesExample(icon.id)} />
+        <CodeBlock class="mt-3" lang="bash" code={filesExample(icon.id)} track={{ icon: icon.id, code: 'files' }} />
         <p class="mt-3 text-sm text-muted">
           The animation as Lottie JSON and a ZIP with it and the SVGs. See{' '}
           <a class="underline underline-offset-4" href="/documentation#files--iconsjson">Files & icons.json</a>.

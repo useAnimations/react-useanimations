@@ -118,21 +118,16 @@ if (browser) {
     grid.style.setProperty('--icon-size', `${sizeInput.value}px`)
   );
 
-  // DETAILS: an icon's title links to its page; once the dialog is ready it opens the details there
-  // instead, also on cards whose live component hasn't loaded yet.
+  // DETAILS: a click anywhere on a card opens the details dialog, or the icon's page until the
+  // dialog is ready. The title stays a link, so modified clicks on it open the page in a new tab.
   grid.addEventListener('click', (event) => {
-    const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-details]');
-    if (
-      !link ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    )
-      return;
-    const id = link.closest<HTMLElement>('[data-card]')?.dataset.id;
-    if (id && openIcon(id)) event.preventDefault();
+    const target = event.target as Element;
+    const id = target.closest<HTMLElement>('[data-card]')?.dataset.id;
+    if (!id) return;
+    const modified = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+    if (target.closest('a[data-details]') && (event.button !== 0 || modified)) return;
+    event.preventDefault();
+    if (!openIcon(id)) location.assign(`/icons/${id}`);
   });
 
   // LIVE ICONS: each card swaps its prerendered frame for the component once it's near the viewport.
