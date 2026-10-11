@@ -13,7 +13,6 @@ export type DialogIcon = {
   interaction: Interaction;
   svg: string[];
   durationMs: number;
-  fullPlayer: boolean;
 };
 
 /** Code blocks highlighted at build time, with __PLACEHOLDERS__ for the icon. */
@@ -21,10 +20,10 @@ export type Templates = {
   react: string;
   shadcnCommand: string;
   shadcn: string;
-  html: Record<string, string>;
+  files: string;
 };
 
-const TABS = ['React', 'shadcn', 'HTML'] as const;
+const TABS = ['React', 'shadcn', 'Files'] as const;
 const COLORS = ['', '#4b5cff', '#e5484d', '#f59e0b', '#12a594', '#a24bff'];
 const HINTS: Record<Interaction, string> = {
   loop: 'Plays on its own',
@@ -40,8 +39,7 @@ const fill = (template: string, icon: DialogIcon) =>
     .replaceAll('__EXPORT__', icon.exportName)
     .replaceAll('__NAME__', icon.name)
     .replaceAll('__COMPONENT__', icon.component)
-    .replaceAll('__ID__', icon.id)
-    .replaceAll('__PLAYER__', icon.fullPlayer ? 'lottie' : 'lottie_light');
+    .replaceAll('__ID__', icon.id);
 
 function Code({ html }: { html: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -208,7 +206,7 @@ export default function IconDialog({ templates }: { templates: Templates }) {
                   <Code html={fill(templates.shadcn, icon)} />
                 </>
               )}
-              {tab === 'HTML' && <Code html={fill(templates.html[icon.interaction], icon)} />}
+              {tab === 'Files' && <Code html={fill(templates.files, icon)} />}
             </div>
             <h3 className="mt-8 text-sm font-medium">Download</h3>
             <div className="mt-3 flex flex-wrap gap-2">

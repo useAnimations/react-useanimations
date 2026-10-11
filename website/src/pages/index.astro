@@ -10,7 +10,7 @@ import Layout from '../layouts/Layout.astro';
 import { highlight } from '../lib/highlight';
 import {
   CATEGORIES,
-  htmlExample,
+  filesExample,
   icons,
   INTERACTIONS,
   reactExample,
@@ -55,23 +55,12 @@ const index: DialogIcon[] = icons.map((icon) => ({
   interaction: icon.interaction,
   svg: Object.keys(icon.svgs),
   durationMs: icon.durationMs,
-  fullPlayer: icon.requiresFullPlayer,
 }));
 const templates: Templates = {
   react: await highlight(reactExample('__EXPORT__', '__NAME__'), 'jsx'),
   shadcnCommand: await highlight(`npx shadcn@latest add ${SITE}/r/__ID__.json`, 'bash'),
   shadcn: await highlight(shadcnExample('__ID__', '__COMPONENT__'), 'tsx'),
-  html: Object.fromEntries(
-    await Promise.all(
-      Object.keys(INTERACTIONS).map(async (interaction) => [
-        interaction,
-        (await highlight(htmlExample(interaction as never, `${SITE}/icons/__ID__.json`, false), 'html')).replace(
-          'lottie_light.min.js',
-          '__PLAYER__.min.js'
-        ),
-      ])
-    )
-  ),
+  files: await highlight(filesExample('__ID__'), 'bash'),
 };
 
 const COLORS = [
@@ -108,9 +97,11 @@ export function MenuButton({ open, onToggle }) {
 # then: <AnimatedMenu size={24} />`,
   },
   {
-    name: 'HTML',
-    lang: 'html',
-    code: htmlExample('click-toggle', `${SITE}/icons/menu.json`, false),
+    name: 'Files',
+    lang: 'bash',
+    code: `# Standard Lottie JSON, static SVGs and a ZIP for every icon
+${filesExample('menu')}
+${SITE}/icons/menu/menu.svg`,
   },
   {
     name: 'iOS',

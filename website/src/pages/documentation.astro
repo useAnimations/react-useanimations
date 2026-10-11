@@ -16,7 +16,7 @@ const jsonLd = {
     {
       '@type': 'TechArticle',
       headline: 'useAnimations documentation',
-      description: 'How to use the useAnimations animated icons in React, shadcn/ui, HTML, Vue, iOS and Android.',
+      description: 'How to use the useAnimations animated icons in React, shadcn/ui, iOS, Android and any Lottie player.',
       url: `${SITE}/documentation`,
       dateModified: new Date().toISOString().slice(0, 10),
       publisher: { '@type': 'Organization', name: 'useAnimations', url: `${SITE}/` },
@@ -38,7 +38,7 @@ const jsonLd = {
 
 <Layout
   title="Documentation — useAnimations"
-  description={`How to use ${icons.length} animated icons in React, shadcn/ui, HTML, Vue, iOS and Android: interactions, props, colors, direct URLs and accessibility.`}
+  description={`How to use ${icons.length} animated icons in React and shadcn/ui, or as Lottie and SVG files: interactions, props, colors, direct URLs and accessibility.`}
   path="/documentation"
   head={[{ rel: 'alternate', type: 'text/markdown', href: '/documentation.md', title: 'Documentation (Markdown)' }]}
   jsonLd={jsonLd}

@@ -15,11 +15,10 @@ License: MIT — free for personal and commercial use, modification and redistri
 - React: \`npm install react-useanimations\`, then \`import checkmark from 'react-useanimations/lib/checkmark'\` and \`<UseAnimations animation={checkmark} size={32} />\`. Several icons: \`import { github, heart } from 'react-useanimations/icons'\`. No dependencies; icons follow currentColor and respect reduced motion.
 - shadcn/ui: \`npx shadcn@latest add ${SITE}/r/<id>.json\` adds \`components/animations/<id>.tsx\` exporting \`Animated<PascalCaseId>\` (e.g. \`<AnimatedCheckmark size={24} />\`); registry index: ${SITE}/r/registry.json
 - Direct file URLs: \`${SITE}/icons/<id>.json\` (Lottie), \`${SITE}/icons/<id>/<state>.svg\` (static SVG), \`${SITE}/icons/<id>.zip\` (full package), \`${SITE}/icons/<id>\` (icon page).
-- Web player: lottie-web light build \`https://cdn.jsdelivr.net/npm/lottie-web@5.13.0/build/player/lottie_light.min.js\` (icons \`error\` and \`twitter\` need the full build \`lottie.min.js\`).
 
 ## Docs
 
-- [Documentation (Markdown)](${SITE}/documentation.md): React props and interactions, shadcn/ui, size and color, direct URLs, HTML/vanilla JS, Vue/Svelte/Angular, iOS, Android, performance, accessibility, license and FAQ. HTML version: ${SITE}/documentation
+- [Documentation (Markdown)](${SITE}/documentation.md): React props and interactions, shadcn/ui, size and color, direct URLs, using the Lottie files without React, iOS, Android, performance, accessibility, license and FAQ. HTML version: ${SITE}/documentation
 - [Homepage summary (Markdown)](${SITE}/index.md): every icon by category.
 - [Licencing & Terms](${SITE}/licencing-and-terms): full usage rights.
 

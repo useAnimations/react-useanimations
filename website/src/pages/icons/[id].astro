@@ -4,7 +4,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 import IconPreview from '../../components/IconPreview';
 import Layout from '../../layouts/Layout.astro';
 import {
-  htmlExample,
+  filesExample,
   type Icon,
   icons,
   INTERACTIONS,
@@ -141,12 +141,11 @@ const jsonLd = {
         <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(icon)} />
         <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(icon.id, icon.component)} />
 
-        <h2 class="mt-10 text-lg font-semibold">HTML & lottie-web</h2>
-        <CodeBlock class="mt-3" lang="html" code={htmlExample(icon.interaction, u.lottie, icon.requiresFullPlayer)} />
+        <h2 class="mt-10 text-lg font-semibold">Files</h2>
+        <CodeBlock class="mt-3" lang="bash" code={filesExample(icon.id)} />
         <p class="mt-3 text-sm text-muted">
-          iOS, Android, Vue and more: see the <a class="underline underline-offset-4" href="/documentation"
-            >documentation</a
-          >.
+          Standard Lottie JSON for any Lottie player, on iOS, Android and the web. See
+          <a class="underline underline-offset-4" href="/documentation#without-react">Without React</a>.
         </p>
 
         {

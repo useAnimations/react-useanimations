@@ -4,7 +4,7 @@
 
 #### What is react-useanimations?
 
-React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 290+ animated Lottie icons. It has no dependencies: a built-in player (8 kB gzipped) renders the icons as SVG.
+React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 298 animated Lottie icons. It has no dependencies: a built-in player (8 kB gzipped) renders the icons as SVG.
 
 📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation): React props and all import names, plus plain HTML/JS, Vue, iOS and Android guides.
 
@@ -182,7 +182,7 @@ import { writeFileSync } from 'node:fs';
 import catalog from 'react-useanimations/catalog.json' with { type: 'json' };
 import * as icons from 'react-useanimations/icons';
 
-// Write each icon as a plain Lottie file, e.g. for lottie-web or a CDN.
+// Write each icon as a plain Lottie file, e.g. for a CDN or a native app.
 for (const icon of catalog) {
   writeFileSync(`${icon.id}.json`, JSON.stringify(icons[icon.export].animationData));
 }

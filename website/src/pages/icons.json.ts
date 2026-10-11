@@ -60,7 +60,7 @@ export const GET = () =>
         'react-useanimations import of the icon (`import`) and its name in react-useanimations/icons (`export`).',
       page: 'The icon page on useanimations.com.',
       snippet:
-        "Ready-to-use lottie-web code for the icon's intended interaction; `el` is the container element.",
+        "Ready-to-use lottie-web code for the icon's intended interaction, for players outside React; `el` is the container element.",
     },
     count: icons.length,
     icons: icons.map((icon) => {

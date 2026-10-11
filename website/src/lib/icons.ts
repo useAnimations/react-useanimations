@@ -202,53 +202,9 @@ export const lottieSnippet = (icon: Icon) =>
 export const searchText = (icon: Icon) =>
   [icon.title, icon.name, icon.id, icon.category, ...icon.keywords].join(' ').toLowerCase();
 
-// The same lottie-web code, formatted to read: `el` is the element the icon renders into.
-const READABLE: Record<Interaction, string> = {
-  loop: `const animation = lottie.loadAnimation({
-  container: el, renderer: 'svg', loop: true, autoplay: true, path: '{lottie}',
-});`,
-  'click-toggle': `const animation = lottie.loadAnimation({
-  container: el, renderer: 'svg', loop: false, autoplay: false, path: '{lottie}',
-});
-let direction = 1;
-el.addEventListener('click', () => {
-  animation.setDirection(direction);
-  animation.play();
-  direction = -direction;
-});`,
-  'click-replay': `const animation = lottie.loadAnimation({
-  container: el, renderer: 'svg', loop: false, autoplay: false, path: '{lottie}',
-});
-el.addEventListener('click', () => animation.playSegments([0, animation.totalFrames], true));`,
-  hover: `const animation = lottie.loadAnimation({
-  container: el, renderer: 'svg', loop: false, autoplay: false, path: '{lottie}',
-});
-el.addEventListener('mouseenter', () => { animation.setDirection(1); animation.play(); });
-el.addEventListener('mouseleave', () => { animation.setDirection(-1); animation.play(); });`,
-  'hover-replay': `const animation = lottie.loadAnimation({
-  container: el, renderer: 'svg', loop: false, autoplay: false, path: '{lottie}',
-});
-el.addEventListener('mouseenter', () => {
-  if (animation.isPaused) animation.playSegments([0, animation.totalFrames], true);
-});`,
-  'hover-loop': `const animation = lottie.loadAnimation({
-  container: el, renderer: 'svg', loop: true, autoplay: false, path: '{lottie}',
-});
-el.addEventListener('mouseenter', () => animation.play());
-el.addEventListener('mouseleave', () => animation.goToAndStop(0, true));`,
-};
-
-/** A complete HTML page fragment that plays the icon with lottie-web. */
-export const htmlExample = (
-  interaction: Interaction,
-  lottie: string,
-  fullPlayer: boolean
-) => `<div id="icon" style="width: 32px; height: 32px"></div>
-<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.13.0/build/player/${fullPlayer ? 'lottie' : 'lottie_light'}.min.js"></script>
-<script>
-const el = document.getElementById('icon');
-${READABLE[interaction].replace('{lottie}', lottie)}
-</script>`;
+/** The files of an icon, as listed on the site. */
+export const filesExample = (id: string) => `${SITE}/icons/${id}.json  # Lottie JSON
+${SITE}/icons/${id}.zip   # Lottie JSON + static SVGs`;
 
 export const reactExample = (
   exportName: string,

@@ -31,7 +31,6 @@ export const FOOTER = [
   {
     title: 'Lottie',
     links: [
-      { label: 'lottie-web', href: 'https://github.com/airbnb/lottie-web' },
       { label: 'lottie-ios', href: 'https://github.com/airbnb/lottie-ios' },
       { label: 'lottie-android', href: 'https://github.com/airbnb/lottie-android' },
       { label: 'About Lottie', href: 'https://airbnb.design/lottie/' },
