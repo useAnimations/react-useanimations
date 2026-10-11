@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Interaction } from 'react-useanimations';
 import { createRenderer } from '../../../src/player/render';
+import { compactSvg } from './svg';
 
 const read = (file: string) => readFileSync(join(import.meta.env.REPO_DIR, 'icons', file), 'utf8');
 
@@ -131,8 +132,9 @@ const firstFrame = (id: string, data: { fr: number; ip: number }) => {
   try {
     const { svg, render } = createRenderer(data as never, { frameRate: data.fr, warn: () => {} });
     render(data.ip);
-    // Element ids must stay unique next to the live players on the same page.
-    return svg.outerHTML.replaceAll('__ua_', `__uas_${id}_`);
+    // Element ids must stay unique next to the live players on the same page, and the same between
+    // builds: the renderer's prefix is random ('__ua<random>_').
+    return compactSvg(svg.outerHTML.replace(/__ua[a-z0-9]*_/g, `__uas_${id}_`));
   } finally {
     (globalThis as { document?: unknown }).document = previous;
   }

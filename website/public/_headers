@@ -1,18 +1,23 @@
+# The same HSTS policy on every response (Netlify's default omits includeSubDomains and preload).
 /*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
+# The Markdown alternates of pages (Link and Vary: Accept) come from
+# netlify/edge-functions/markdown-negotiation.ts.
 /
   Link: </robots.txt>; rel="robots"
   Link: </licencing-and-terms>; rel="license"
   Link: </icons.json>; rel="alternate"; type="application/json"; title="Icon catalog"
-  Link: </index.md>; rel="alternate"; type="text/markdown"
-  Vary: Accept
 
-/documentation
-  Link: </documentation.md>; rel="alternate"; type="text/markdown"
-  Vary: Accept
+# The social card template, rendered to og.png at build time; not a page.
+/og
+  X-Robots-Tag: noindex, nofollow
+
+/og.html
+  X-Robots-Tag: noindex, nofollow
 
 /icons.json
   Access-Control-Allow-Origin: *
@@ -35,11 +40,18 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=3600
 
-/index.md
+/*.md
   Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
 
-/documentation.md
-  Content-Type: text/markdown; charset=utf-8
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+/sitemap*.xml
+  Content-Type: application/xml; charset=utf-8
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

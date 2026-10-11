@@ -22,7 +22,13 @@ const { icons } = Astro.props;
         title={icon.title}
         class="field-cell relative flex aspect-square items-center justify-center rounded-2xl"
       >
-        <span data-slot data-useanimations="" class="block size-7 sm:size-8" set:html={icon.firstFrame} />
+        {/* Own element ids: the same icons are prerendered again in the icon browser below. */}
+        <span
+          data-slot
+          data-useanimations=""
+          class="block size-7 sm:size-8"
+          set:html={icon.firstFrame.replaceAll('__uas_', '__uaf_')}
+        />
       </div>
     ))
   }
