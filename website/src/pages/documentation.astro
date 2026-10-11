@@ -1,6 +1,7 @@
 ---
 import { compiledContent, getHeadings } from '../content/documentation.md';
 import Layout from '../layouts/Layout.astro';
+import { lastModifiedOf } from '../lib/git';
 import { icons, SITE } from '../lib/icons';
 import { withSite } from '../lib/site';
 
@@ -22,7 +23,8 @@ const jsonLd = {
       headline: 'useAnimations documentation',
       description: 'How to use the useAnimations animated icons in React and shadcn/ui.',
       url: `${SITE}/documentation`,
-      dateModified: new Date().toISOString().slice(0, 10),
+      // The last commit to the documentation, not the build date; omitted without Git history.
+      dateModified: lastModifiedOf(['website/src/content/documentation.md'])?.slice(0, 10),
       publisher: { '@type': 'Organization', name: 'useAnimations', url: `${SITE}/` },
     },
     {

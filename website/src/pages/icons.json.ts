@@ -9,6 +9,7 @@ import {
   urls,
   libImport,
 } from '../lib/icons';
+import { lastModifiedOf } from '../lib/git';
 import { json } from '../lib/http';
 
 export const GET = () =>
@@ -18,7 +19,8 @@ export const GET = () =>
       'Free library of animated icons (24/32 px artboards) for React, with a built-in interaction each. Every icon also has direct SVG and Lottie JSON URLs.',
     homepage: `${SITE}/`,
     documentation: `${SITE}/documentation.md`,
-    updated: new Date().toISOString().slice(0, 10),
+    // The last commit to the icon set; omitted without Git history.
+    updated: lastModifiedOf(['icons/'])?.slice(0, 10),
     license: {
       name: 'MIT',
       url: 'https://opensource.org/license/mit/',
