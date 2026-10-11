@@ -1,6 +1,6 @@
 # Documentation
 
-useAnimations is a free, MIT-licensed library of 298 animated icons for React. Every icon comes with a built-in interaction: it loops, plays on click or plays on hover. Use them with the `react-useanimations` package or add them with the shadcn CLI.
+useAnimations is a free, MIT-licensed library of 300 animated icons for React. Every icon comes with a built-in interaction: it loops, plays on click or plays on hover. Use them with the `react-useanimations` package or add them with the shadcn CLI.
 
 <div id="quick-start-react"></div>
 
@@ -297,7 +297,7 @@ The `react-useanimations/utils` paths were removed. Import the types from the pa
 
 ### What else is new
 
-219 more icons (298 in total), several icons at once from `react-useanimations/icons`, reduced-motion support, hover on keyboard focus, no stuck hover animations on touch screens, server rendering without workarounds, and a [shadcn registry](#shadcnui).
+221 more icons (300 in total), several icons at once from `react-useanimations/icons`, reduced-motion support, hover on keyboard focus, no stuck hover animations on touch screens, server rendering without workarounds, and a [shadcn registry](#shadcnui).
 
 ## License
 
