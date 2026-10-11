@@ -1,0 +1,136 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import FaqList from '../../components/FaqList.astro';
+import IconGrid from '../../components/IconGrid.astro';
+import Layout from '../../layouts/Layout.astro';
+import {
+  breadcrumbNode,
+  categories,
+  categoryFaq,
+  categoryPath,
+  categoryText,
+  collectionPageNode,
+  interactionPath,
+  plural,
+} from '../../lib/hubs';
+import { INTERACTIONS, reactExample, shadcnCommand, shadcnExample } from '../../lib/icons';
+import { faqNode, websiteNode } from '../../lib/seo';
+import { INTERACTION_META } from '../../lib/taxonomy';
+
+export const getStaticPaths = (() =>
+  categories().map(({ meta }) => ({ params: { slug: meta.slug }, props: { name: meta.name } }))) satisfies GetStaticPaths;
+
+const { name } = Astro.props as { name: string };
+const all = categories();
+const { meta, icons } = all.find((category) => category.meta.name === name)!;
+const text = categoryText(meta);
+const path = categoryPath(meta);
+const faq = categoryFaq(meta);
+const crumbs = [
+  { name: 'Icons', path: '/icons' },
+  { name: 'Categories', path: '/categories' },
+  { name: meta.name, path },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    collectionPageNode(path, meta.title, text.description, icons),
+    breadcrumbNode(crumbs),
+    faqNode(faq),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={text.title} description={text.description} path={path} jsonLd={jsonLd} noindex={!meta.indexable} head={[{ rel: 'alternate', type: 'text/markdown', href: `${path}.md`, title: `${meta.title} (Markdown)` }]}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{plural(icons.length, 'icon')} · MIT licensed</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{meta.title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">{meta.intro}</p>
+      <p class="mt-4 leading-relaxed text-muted">{text.summary}</p>
+    </header>
+
+    <section class="mt-12" aria-labelledby="icons-title">
+      <h2 id="icons-title" class="text-lg font-semibold">All {meta.name.toLowerCase()} icons</h2>
+      <IconGrid class="mt-4" icons={icons} />
+    </section>
+
+    <div class="mt-16 grid gap-12 lg:grid-cols-2">
+      <section aria-labelledby="uses-title">
+        <h2 id="uses-title" class="text-2xl font-semibold tracking-tight">Where to use them</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-muted marker:text-subtle">
+          {meta.useCases.map((useCase) => <li>{useCase}</li>)}
+        </ul>
+      </section>
+
+      <section aria-labelledby="by-interaction-title">
+        <h2 id="by-interaction-title" class="text-2xl font-semibold tracking-tight">By interaction</h2>
+        <ul class="mt-4 space-y-4">
+          {
+            text.byInteraction.map(({ interaction, icons: group }) => (
+              <li>
+                <a href={interactionPath(interaction)} class="font-medium text-fg underline-offset-4 hover:underline">
+                  {INTERACTION_META[interaction].title}
+                </a>
+                <span class="text-subtle"> · {group.length}</span>
+                <p class="mt-1 text-sm leading-relaxed text-muted">
+                  {INTERACTIONS[interaction].description} {group.map((icon) => icon.title).join(', ')}.
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+
+    <section class="mt-16 max-w-3xl" aria-labelledby="code-title">
+      <h2 id="code-title" class="text-2xl font-semibold tracking-tight">Add one to your app</h2>
+      <p class="mt-3 leading-relaxed text-muted">
+        With React, install <code class="font-mono text-sm text-fg">react-useanimations</code> and import the icon; it
+        plays its {INTERACTIONS[text.example.interaction].label.toLowerCase()} interaction on its own. Every icon in this
+        category works the same way: swap <code class="font-mono text-sm text-fg">{text.example.name}</code> for the
+        name on its page.
+      </p>
+      <CodeBlock class="mt-4" lang="bash" code="npm install react-useanimations" track={{ code: 'install' }} />
+      <CodeBlock class="mt-3" lang="jsx" code={reactExample(text.example.exportName, text.example.name)} track={{ icon: text.example.id, code: 'react' }} />
+      <p class="mt-6 leading-relaxed text-muted">
+        With <a class="text-fg underline underline-offset-4" href="/shadcn-animated-icons">shadcn/ui</a>, the CLI adds a
+        ready-made component:
+      </p>
+      <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(text.example)} track={{ icon: text.example.id, code: 'shadcn-command' }} />
+      <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(text.example.id, text.example.component)} track={{ icon: text.example.id, code: 'shadcn' }} />
+      <p class="mt-6 leading-relaxed text-muted">
+        Not using React? Each icon is a Lottie JSON file at <code class="font-mono text-sm text-fg">/icons/&lt;id&gt;.json</code>;
+        see <a class="text-fg underline underline-offset-4" href="/lottie-icons">Lottie icons</a> for web, iOS, Android
+        and Flutter players.
+      </p>
+    </section>
+
+    <FaqList class="mt-16" faq={faq} />
+
+    <nav aria-labelledby="more-title" class="mt-16 border-t border-line pt-8">
+      <h2 id="more-title" class="text-lg font-semibold">More categories</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          all
+            .filter((other) => other.meta.name !== meta.name)
+            .map((other) => (
+              <li>
+                <a href={categoryPath(other.meta)} class="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition hover:border-line-strong hover:text-fg">
+                  {other.meta.name} <span class="ml-1.5 text-subtle">{other.icons.length}</span>
+                </a>
+              </li>
+            ))
+        }
+        <li>
+          <a href="/icons" class="inline-flex rounded-full bg-fg px-3.5 py-1.5 text-sm font-medium text-bg hover:opacity-85">All icons</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</Layout>

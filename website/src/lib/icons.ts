@@ -1,9 +1,11 @@
 // The icon set from ../icons, with everything the site derives from it at build time.
+import { Resvg } from '@resvg/resvg-js';
 import { parseHTML } from 'linkedom';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Interaction } from 'react-useanimations';
 import { createRenderer } from '../../../src/player/render';
+import { compactSvg } from './svg';
 
 const read = (file: string) => readFileSync(join(import.meta.env.REPO_DIR, 'icons', file), 'utf8');
 
@@ -41,6 +43,11 @@ export type Icon = CatalogEntry & {
   requiresFullPlayer: boolean;
   /** The first frame, drawn by the library's renderer, so the page shows icons before any script. */
   firstFrame: string;
+  /**
+   * A still for static tiles: the first frame, or for icons whose first frame draws nothing
+   * (loaders that start empty, checkmarks that draw in) the fullest of a few later frames.
+   */
+  preview: string;
 };
 
 /** The order of the sections on the site. */
@@ -125,17 +132,45 @@ const hasExpressions = (value: unknown): boolean =>
 
 const { document } = parseHTML('<!doctype html><html><body></body></html>');
 
-const firstFrame = (id: string, data: { fr: number; ip: number }) => {
+/** Frames of the animation at `progress` (0–1 each), drawn by the library's renderer. */
+const framesAt = (id: string, data: { fr: number; ip: number; op: number }, progress: number[]) => {
   const previous = (globalThis as { document?: unknown }).document;
   (globalThis as { document?: unknown }).document = document;
   try {
     const { svg, render } = createRenderer(data as never, { frameRate: data.fr, warn: () => {} });
-    render(data.ip);
-    // Element ids must stay unique next to the live players on the same page.
-    return svg.outerHTML.replaceAll('__ua_', `__uas_${id}_`);
+    return progress.map((p) => {
+      render(data.ip + (data.op - 1 - data.ip) * p);
+      // Element ids must stay unique next to the live players on the same page, and the same
+      // between builds: the renderer's prefix is random ('__ua<random>_').
+      return compactSvg(svg.outerHTML.replace(/__ua[a-z0-9]*_/g, `__uas_${id}_`));
+    });
   } finally {
     (globalThis as { document?: unknown }).document = previous;
   }
+};
+
+/** How many pixels a drawing paints at 48 px (trimmed or transparent frames paint none). */
+const painted = (svg: string) => {
+  const markup = svg
+    .replace(/^(<svg[^>]*?)\s*\/>$/, '$1></svg>')
+    .replace(/^<svg(?![^>]*xmlns=)/, '<svg xmlns="http://www.w3.org/2000/svg"');
+  const { pixels } = new Resvg(markup, {
+    fitTo: { mode: 'width', value: 48 },
+    font: { loadSystemFonts: false },
+  }).render();
+  let count = 0;
+  for (let i = 3; i < pixels.length; i += 4) if (pixels[i] > 0) count += 1;
+  return count;
+};
+
+const LATER = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+
+const stills = (id: string, data: { fr: number; ip: number; op: number }) => {
+  const [first] = framesAt(id, data, [0]);
+  if (painted(first) > 20) return { firstFrame: first, preview: first };
+  const later = framesAt(id, data, LATER).map((svg) => ({ svg, count: painted(svg) }));
+  const fullest = later.reduce((best, frame) => (frame.count > best.count ? frame : best));
+  return { firstFrame: first, preview: fullest.count > 20 ? fullest.svg : first };
 };
 
 const load = (): Icon[] => {
@@ -158,7 +193,7 @@ const load = (): Icon[] => {
         fps: data.fr,
         durationMs: Math.round(((data.op - data.ip) / data.fr) * 1000),
         requiresFullPlayer: hasExpressions(data.layers),
-        firstFrame: firstFrame(entry.id, data),
+        ...stills(entry.id, data),
       };
     });
 };
@@ -176,6 +211,8 @@ export const urls = (icon: Icon) => ({
   zip: `${SITE}/icons/${icon.id}.zip`,
   svg: Object.keys(icon.svgs).map((state) => `${SITE}/icons/${icon.id}/${state}.svg`),
   registry: `${SITE}/r/${icon.id}.json`,
+  markdown: `${SITE}/icons/${icon.id}.md`,
+  og: `${SITE}/og/icons/${icon.id}.png`,
 });
 
 export const shadcnCommand = (icon: Icon) => `npx shadcn@latest add ${urls(icon).registry}`;
@@ -197,6 +234,70 @@ const SNIPPETS: Record<Interaction, string> = {
 
 export const lottieSnippet = (icon: Icon) =>
   SNIPPETS[icon.interaction].replace('{lottie}', urls(icon).lottie);
+
+/** The lottie-web version the HTML example loads from a CDN. */
+export const LOTTIE_WEB_VERSION = '5.13.0';
+
+/** A complete HTML page fragment: a container, lottie-web from a CDN and the interaction code. */
+export const htmlLottieExample = (icon: Icon) => {
+  // The light build has no expression support; icons with expressions need the full player.
+  const build = icon.requiresFullPlayer ? 'lottie.min.js' : 'lottie_light.min.js';
+  return `<div id="${icon.id}-icon" style="width: 48px; height: 48px"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@${LOTTIE_WEB_VERSION}/build/player/${build}"></script>
+<script>
+  const el = document.getElementById('${icon.id}-icon');
+  ${lottieSnippet(icon).replaceAll('\n', '\n  ')}
+</script>`;
+};
+
+/** Minimal native examples that load the Lottie JSON from its URL. */
+export const mobileExamples = (icon: Icon) => {
+  const url = urls(icon).lottie;
+  const loop = icon.interaction === 'loop';
+  return [
+    {
+      name: 'React Native',
+      lang: 'tsx',
+      code: `import LottieView from 'lottie-react-native';
+
+<LottieView source={{ uri: '${url}' }} autoPlay${loop ? ' loop' : ' loop={false}'} style={{ width: 48, height: 48 }} />`,
+    },
+    {
+      name: 'iOS (SwiftUI)',
+      lang: 'swift',
+      code: `import Lottie
+
+LottieView {
+  await LottieAnimation.loadedFrom(url: URL(string: "${url}")!)
+}
+.playing(loopMode: ${loop ? '.loop' : '.playOnce'})
+.frame(width: 48, height: 48)`,
+    },
+    {
+      name: 'Android (Compose)',
+      lang: 'kotlin',
+      code: `val composition by rememberLottieComposition(LottieCompositionSpec.Url("${url}"))
+LottieAnimation(composition, iterations = ${loop ? 'LottieConstants.IterateForever' : '1'}, modifier = Modifier.size(48.dp))`,
+    },
+    {
+      name: 'Flutter',
+      lang: 'dart',
+      code: `import 'package:lottie/lottie.dart';
+
+Lottie.network('${url}', width: 48, height: 48, repeat: ${loop})`,
+    },
+  ];
+};
+
+/** <img> tags for the static SVGs. */
+export const svgImgExample = (icon: Icon) =>
+  Object.keys(icon.svgs)
+    .map(
+      (state) =>
+        `<img src="${SITE}/icons/${icon.id}/${state}.svg" alt="${icon.title}" width="24" height="24" />`
+    )
+    .join('\n');
 
 /** Keywords plus everything else a search should match. */
 export const searchText = (icon: Icon) =>

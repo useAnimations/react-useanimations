@@ -1,20 +1,21 @@
-import { icons, SITE } from '../lib/icons';
 import { text } from '../lib/http';
+import { seoLint } from '../lib/seo';
+import { hubEntries, iconEntries, pageEntries, sitemapIndex } from '../lib/sitemap';
 
-const pages = [
-  '/',
-  '/documentation',
-  '/licencing-and-terms',
-  '/zh',
-  ...icons.map((icon) => `/icons/${icon.id}`),
-];
+// Duplicate or over-long icon titles and descriptions, logged once per build.
+const issues = seoLint();
+console.warn(
+  issues.length
+    ? `seoLint: ${issues.length} issue(s)\n${issues.map((i) => `  ${i.kind} [${i.ids.join(', ')}] (${i.value.length}) ${i.value}`).join('\n')}`
+    : 'seoLint: no duplicate or over-long icon titles and descriptions'
+);
 
 export const GET = () =>
   text(
-    `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join('\n')}
-</urlset>
-`,
+    sitemapIndex([
+      { path: '/sitemap-pages.xml', entries: pageEntries() },
+      { path: '/sitemap-hubs.xml', entries: hubEntries() },
+      { path: '/sitemap-icons.xml', entries: iconEntries() },
+    ]),
     'application/xml'
   );

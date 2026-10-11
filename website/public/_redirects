@@ -1,8 +1,20 @@
-# Pages of the previous site (www and http are redirected by Netlify).
+# Pages of the previous site (www and http are redirected by Netlify). Trailing slashes, .html
+# pages and the aliases below are redirected first by netlify/edge-functions/canonical-url.ts;
+# these rules are the fallback.
 /index.html                   /                     301!
 /documentation.html           /documentation        301!
 /licencing-and-terms.html     /licencing-and-terms  301!
 /zh.html                      /zh                   301!
+
+# The all-icons index: icons/ is also the folder of the icon files, so serve icons.html explicitly.
+/icons                        /icons.html           200!
+
+# Other spellings of pages.
+/docs                         /documentation        301!
+/license                      /licencing-and-terms  301!
+/licence                      /licencing-and-terms  301!
+/licensing                    /licencing-and-terms  301!
+/licensing-and-terms          /licencing-and-terms  301!
 
 # Images of the previous site.
 /images/OGuseAnimationsImage.jpg  /og.png                301

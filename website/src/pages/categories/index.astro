@@ -1,0 +1,82 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Layout from '../../layouts/Layout.astro';
+import { breadcrumbNode, categories, categoryPath, hubDescription, hubTitle } from '../../lib/hubs';
+import { icons, SITE } from '../../lib/icons';
+import { websiteNode, WEBSITE_ID } from '../../lib/seo';
+
+const all = categories();
+const title = hubTitle(`Animated icon categories: ${all.length} collections`, 'Animated icon categories');
+const description = hubDescription(
+  `Browse ${icons.length} free animated icons in ${all.length} categories: navigation, action, media, loading, social media and more. For React, shadcn/ui and Lottie.`
+);
+const crumbs = [
+  { name: 'Icons', path: '/icons' },
+  { name: 'Categories', path: '/categories' },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE}/categories`,
+      url: `${SITE}/categories`,
+      name: 'Animated icon categories',
+      description,
+      inLanguage: 'en',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: all.length,
+        itemListElement: all.map(({ meta }, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${SITE}${categoryPath(meta)}`,
+          name: meta.title,
+        })),
+      },
+    },
+    breadcrumbNode(crumbs),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/categories" jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{icons.length} icons · {all.length} categories</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Animated icon categories</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">
+        Every useAnimations icon belongs to one category, from navigation arrows and media controls to loaders and
+        social media logos. Open a category for all of its icons, where to use them and the code to add one, or browse
+        by <a href="/interactions" class="text-fg underline underline-offset-4">interaction</a> instead.
+      </p>
+    </header>
+
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        all.map(({ meta, icons: group }) => (
+          <li>
+            <a
+              href={categoryPath(meta)}
+              class="group flex h-full flex-col rounded-3xl border border-line bg-surface p-6 transition hover:border-line-strong"
+            >
+              <span class="flex gap-2 text-fg" aria-hidden="true">
+                {group.slice(0, 5).map((icon) => (
+                  <span data-useanimations="" class="block size-8" set:html={icon.preview} />
+                ))}
+              </span>
+              <span class="mt-5 flex items-baseline justify-between gap-3">
+                <span class="text-lg font-semibold tracking-tight text-fg">{meta.name}</span>
+                <span class="text-sm text-subtle">{group.length} icons</span>
+              </span>
+              <span class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{meta.intro}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>

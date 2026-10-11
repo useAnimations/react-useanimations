@@ -1,35 +1,142 @@
 ---
+import CodeBlock from '../components/CodeBlock.astro';
 import InstallCommand from '../components/InstallCommand.astro';
 import Layout from '../layouts/Layout.astro';
-import { icons, SITE } from '../lib/icons';
+import { categoryLinks, interactionLinks } from '../lib/home';
+import { icons, SITE, VERSION } from '../lib/icons';
+import { faqNode, WEBSITE_ID } from '../lib/seo';
 
 const preview = ['heart', 'menu', 'github', 'download', 'settings', 'star', 'notification', 'visibility']
   .map((name) => icons.find((icon) => icon.name === name)!);
+
 const perks = [
-  ['零依赖', '内置播放器，仅 8 kB，无其他依赖。'],
-  ['交互内置', '每个图标自带循环、点击或悬停交互，开箱即用。'],
-  ['跟随颜色', '图标使用 currentColor，自动适配文字颜色与深色模式。'],
-  ['完全免费', 'MIT 许可证，个人与商业项目均可免费使用，无需署名。'],
+  ['零依赖，体积小', `内置播放器压缩后约 8 kB，没有任何第三方依赖；每个图标都是独立模块（中位数约 2 kB），只打包您实际引入的图标。`],
+  ['交互内置', '每个图标都自带设计好的交互：循环、点击切换、点击重播、悬停、悬停重播或悬停循环，放进页面即可使用，也可以用一个属性换成其他交互。'],
+  ['跟随颜色与主题', '图标使用 currentColor，自动继承文字颜色、悬停状态和深色模式；也可以通过属性、类名或普通 CSS 修改颜色和线条粗细。'],
+  ['默认无障碍', '尊重系统的“减少动态效果”设置，键盘聚焦时同样播放悬停动画，并且在您添加标签之前不会干扰屏幕阅读器。'],
+  ['支持服务端渲染', '组件标记为 use client，只在浏览器中绘制动画，可以直接用于 Next.js、Remix 和 Astro 等框架，无需动态导入。'],
+  ['完全免费', 'MIT 许可证：个人和商业项目均可免费使用、修改和再分发，无需署名。'],
 ];
+
+// Category names as on the English pages, in Chinese.
+const CATEGORY_ZH: Record<string, string> = {
+  Alerts: '警告提示',
+  Notifications: '通知铃铛',
+  Navigation: '导航与箭头',
+  Action: '操作按钮',
+  Content: '文件、文件夹与用户',
+  Form: '表单控件',
+  Media: '媒体播放',
+  'Text editing': '文本编辑',
+  Communication: '沟通交流',
+  Devices: '设备',
+  Weather: '天气',
+  'Maps & location': '地图与位置',
+  Commerce: '电子商务',
+  Charts: '图表',
+  Development: '开发者',
+  'Design & layout': '设计与布局',
+  'Shapes & math': '形状与数学',
+  Loading: '加载动画',
+  'Social media': '社交媒体',
+  Other: '其他',
+};
+
+const INTERACTION_ZH: Record<string, [string, string]> = {
+  loop: ['循环', '持续播放，适合加载中、警告等持续状态。'],
+  'click-toggle': ['点击切换', '每次点击在两个状态之间切换，例如菜单与关闭、播放与暂停、静音与取消静音。'],
+  'click-replay': ['点击重播', '每次点击都从头播放一次，用来确认发送、保存、下载等操作已经完成。'],
+  hover: ['悬停', '指针移入时正向播放，移出时反向播放，动画始终跟随光标。'],
+  'hover-replay': ['悬停重播', '指针移入时播放一次并自然结束，快速划过工具栏时也不会抖动。'],
+  'hover-loop': ['悬停循环', '悬停期间循环播放，离开后播放完当前一轮再停止。'],
+};
+
+const faq = [
+  {
+    question: '什么是微动画和动态图标？',
+    answer:
+      '微动画是响应用户操作的简短动效，例如菜单图标变成关闭按钮、点赞时爱心被填满、有新消息时铃铛摇动。动态图标是最常见的微动画，它让界面反馈更及时，不需要额外的文字就能表达状态变化。',
+  },
+  {
+    question: 'Lottie 文件和 SVG 文件有什么区别？',
+    answer:
+      'Lottie JSON 文件包含完整的动画，可以在任何 Lottie 播放器中播放，包括 react-useanimations 内置的播放器。SVG 文件是图标静止时的图片，每个状态一张（例如 eye 和 eye-off），适合邮件、文档、设计工具或不运行 JavaScript 的场景。',
+  },
+  {
+    question: '可以在 Next.js 和服务端渲染中使用吗？',
+    answer:
+      '可以。组件标记为 use client，只在浏览器中绘制动画，因此可以在服务端组件以及 Next.js、Remix、Astro 等 SSR 框架中直接渲染，不需要 dynamic(…, { ssr: false })。图标模块是普通数据，服务端组件可以直接导入并作为属性传递。',
+  },
+  {
+    question: '可以用于商业项目吗？',
+    answer:
+      '可以。图标和 react-useanimations 软件包都采用 MIT 许可证，可以在个人和商业作品中使用、修改和再分发。署名不是必需的，但我们很欢迎。',
+  },
+  {
+    question: '不使用 React 也能用吗？',
+    answer:
+      '可以。每个图标都是标准的 Lottie JSON 文件，可以通过 lottie-web 在原生 JavaScript、Vue、Svelte、Angular 或 CMS 中播放，也可以在 iOS、Android 和 Flutter 的 Lottie 播放器中使用。',
+  },
+  {
+    question: '会让打包体积增加多少？',
+    answer: `react-useanimations ${VERSION} 的播放器压缩后约 8 kB，没有依赖；每个图标是 1 到 15 kB 的独立模块（中位数 2 kB），最终只打包您导入的图标。`,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${SITE}/zh#webpage`,
+      name: 'useAnimations — 免费动态图标库',
+      url: `${SITE}/zh`,
+      inLanguage: 'zh-Hans',
+      isPartOf: { '@id': WEBSITE_ID },
+    },
+    { ...faqNode(faq), inLanguage: 'zh-Hans' },
+  ],
+};
+
+const reactCode = `import UseAnimations from 'react-useanimations';
+import menu from 'react-useanimations/lib/menu';
+
+export function MenuButton({ open, onToggle }) {
+  return (
+    <UseAnimations
+      animation={menu}
+      active={open}
+      onClick={onToggle}
+      size={28}
+    />
+  );
+}`;
+const categories = categoryLinks();
+const interactions = interactionLinks();
+const link = 'underline decoration-line-strong underline-offset-4 hover:decoration-accent';
 ---
 
 <Layout
-  title="useAnimations — 免费 React 动画图标库"
-  description={`${icons.length} 个手工制作的动画图标，内置交互，可直接用于 React 应用。免费、轻量，并提供 SVG 下载。`}
+  title="useAnimations — 免费动态图标库：React 动画图标与 Lottie 微动画"
+  description={`${icons.length} 个免费动态图标（微动画），内置悬停、点击与循环交互，支持 React、shadcn/ui 和 Lottie，提供 SVG 与 JSON 下载，MIT 许可。`}
   path="/zh"
   lang="zh-Hans"
   alternates={{ en: '/', 'zh-Hans': '/zh', 'x-default': '/' }}
-  jsonLd={{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'useAnimations — 免费动画图标库', url: `${SITE}/zh`, inLanguage: 'zh-Hans' }}
+  jsonLd={jsonLd}
 >
   <section class="relative overflow-hidden">
     <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-4xl px-5 pt-24 pb-16 text-center sm:px-8">
-      <p class="text-sm font-medium text-accent">微动画图标库</p>
-      <h1 class="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">
+      <p class="text-sm font-medium text-accent">微动画图标库 · {icons.length} 个图标 · MIT</p>
+      <p class="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">
         让图标<span class="text-gradient">动起来</span>
+      </p>
+      <h1 class="mx-auto mt-6 max-w-3xl text-xl font-semibold tracking-tight text-balance sm:text-2xl">
+        免费动态图标库：适用于 React、shadcn/ui 和 Lottie 的动画图标
       </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted">
-        {icons.length} 个动画图标，内置悬停、点击与循环交互，可直接用于您的 React 应用。
+      <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+        useAnimations 提供 {icons.length} 个手工制作的动态图标，每个图标都内置悬停、点击或循环交互。您可以把它们作为 React
+        组件使用，通过 shadcn 一条命令添加到项目中，或者直接下载 SVG 和 Lottie JSON 文件。全部免费，采用 MIT 许可证。
       </p>
       <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a href="/#icons" class="rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg hover:opacity-90">浏览全部图标</a>
@@ -39,26 +146,135 @@ const perks = [
         {
           preview.map((icon) => (
             <span class="flex size-16 items-center justify-center rounded-2xl border border-line bg-surface">
-              <span data-useanimations="" class="block size-8" set:html={icon.firstFrame} />
+              <span data-useanimations="" class="block size-8" set:html={icon.preview} />
             </span>
           ))
         }
       </div>
     </div>
   </section>
-  <section class="mx-auto grid max-w-5xl gap-4 px-5 sm:grid-cols-2 sm:px-8">
-    {
-      perks.map(([title, text]) => (
-        <article class="rounded-3xl border border-line bg-surface p-7">
-          <h2 class="text-lg font-semibold">{title}</h2>
-          <p class="mt-2 text-muted">{text}</p>
-        </article>
-      ))
-    }
+
+  <section class="mx-auto max-w-5xl px-5 sm:px-8" aria-labelledby="perks-title">
+    <h2 id="perks-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">为什么选择 useAnimations</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        perks.map(([title, text]) => (
+          <article class="rounded-3xl border border-line bg-surface p-7">
+            <h3 class="text-lg font-semibold">{title}</h3>
+            <p class="mt-2 text-muted">{text}</p>
+          </article>
+        ))
+      }
+    </div>
   </section>
-  <p class="mx-auto mt-12 max-w-5xl px-5 text-center text-sm text-muted sm:px-8">
-    完整的图标库、下载与文档目前提供英文版：<a class="underline underline-offset-4" href="/#icons">图标</a> ·
-    <a class="underline underline-offset-4" href="/documentation">文档</a> ·
-    <a class="underline underline-offset-4" href="/licencing-and-terms">许可</a>
-  </p>
+
+  <section class="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="install-title">
+    <h2 id="install-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">安装与使用</h2>
+    <div class="mt-8 grid gap-10 lg:grid-cols-2">
+      <div class="min-w-0">
+        <h3 class="text-lg font-semibold">React</h3>
+        <p class="mt-2 text-muted">
+          先安装软件包，再从 <code class="font-mono text-sm text-fg">react-useanimations/lib/&lt;名称&gt;</code>
+          导入需要的图标。下面的菜单按钮在打开和关闭之间切换，<code class="font-mono text-sm text-fg">active</code>
+          属性让图标与您的状态保持同步：
+        </p>
+        <CodeBlock code="npm install react-useanimations" lang="bash" class="mt-4" />
+        <CodeBlock code={reactCode} lang="jsx" class="mt-3" />
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-lg font-semibold">shadcn/ui</h3>
+        <p class="mt-2 text-muted">
+          每个图标也在 shadcn 注册表中。CLI 会在 <code class="font-mono text-sm text-fg">components/animations/</code>
+          下生成一个现成的组件，并自动安装依赖：
+        </p>
+        <CodeBlock code={`npx shadcn@latest add ${SITE}/r/menu.json`} lang="bash" class="mt-4" />
+        <h3 class="mt-8 text-lg font-semibold">Lottie、SVG 与 ZIP 文件</h3>
+        <p class="mt-2 text-muted">
+          不使用 React 时，可以直接下载文件：每个图标都有 Lottie JSON 动画、每个状态一张静态 SVG，以及包含全部文件的 ZIP
+          压缩包。所有文件都有固定网址并支持跨域访问，可用于 lottie-web、Vue、Svelte、移动应用或设计工具。
+        </p>
+        <CodeBlock
+          code={`${SITE}/icons/menu.json      # Lottie JSON\n${SITE}/icons/menu/menu.svg  # 静态 SVG\n${SITE}/icons/menu.zip       # 全部文件`}
+          lang="bash"
+          class="mt-4"
+        />
+      </div>
+    </div>
+    <p class="mt-8 text-muted">
+      完整的属性说明、受控切换、颜色与尺寸、服务端渲染和从 v2 升级的步骤，请参阅<a class={link} href="/documentation"
+        >英文文档</a
+      >。
+    </p>
+  </section>
+
+  <section class="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="interactions-title">
+    <h2 id="interactions-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">六种内置交互</h2>
+    <p class="mt-4 text-muted">
+      每个图标都带有为它设计的交互，放进页面就能正确播放；需要时也可以通过 <code class="font-mono text-sm text-fg"
+        >interaction</code
+      > 属性改成其他方式。
+    </p>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+      {
+        interactions.map((item) => (
+          <li class="rounded-3xl border border-line bg-surface p-6">
+            <a href={item.href} class="text-lg font-semibold hover:text-accent">
+              {INTERACTION_ZH[item.interaction][0]}
+              <span class="ml-2 font-mono text-xs font-normal text-subtle">{item.interaction}</span>
+            </a>
+            <p class="mt-2 text-muted">
+              {INTERACTION_ZH[item.interaction][1]}（{item.count} 个图标）
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mx-auto mt-24 max-w-5xl px-5 sm:px-8" aria-labelledby="categories-title">
+    <h2 id="categories-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">按类别浏览</h2>
+    <p class="mt-4 text-muted">
+      图标按用途分为 {categories.length} 个类别，从导航菜单、通知铃铛、媒体播放到电子商务和开发者工具。类别页面目前为英文，包含每个图标的预览和用法。
+    </p>
+    <ul class="mt-8 grid gap-x-6 gap-y-2 sm:grid-cols-2 md:grid-cols-3">
+      {
+        categories.map((item) => (
+          <li>
+            <a href={item.href} class="flex items-baseline justify-between gap-3 py-1 text-muted hover:text-fg">
+              <span>
+                {CATEGORY_ZH[item.name] ?? item.name}
+                <span class="ml-1.5 text-xs text-subtle" lang="en">{item.name}</span>
+              </span>
+              <span class="text-xs text-subtle tabular-nums">{item.count}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6 text-muted">
+      也可以查看<a class={link} href="/icons">全部动画图标</a>、<a class={link} href="/lottie-icons">Lottie 图标</a
+      >和<a class={link} href="/shadcn-animated-icons">shadcn/ui 动画图标</a>。
+    </p>
+  </section>
+
+  <section class="mx-auto mt-24 max-w-3xl px-5 sm:px-8" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">常见问题</h2>
+    <div class="mt-8 divide-y divide-line border-y border-line">
+      {
+        faq.map((item) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium [&::-webkit-details-marker]:hidden">
+              <h3>{item.question}</h3>
+              <span class="text-subtle transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 leading-relaxed text-muted">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+    <p class="mt-8 text-center text-sm text-muted">
+      <a class={link} href="/#icons">全部图标</a> · <a class={link} href="/documentation">文档</a> ·
+      <a class={link} href="/licencing-and-terms">许可与条款</a> · <a class={link} href="/" hreflang="en">English</a>
+    </p>
+  </section>
 </Layout>

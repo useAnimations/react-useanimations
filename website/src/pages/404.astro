@@ -7,12 +7,18 @@ const icon = icons.find((item) => item.name === 'alertTriangle')!;
 
 <Layout title="Page not found — useAnimations" description="This page doesn't exist." noindex>
   <section class="mx-auto max-w-xl px-5 py-32 text-center">
-    <span data-useanimations="" class="mx-auto block size-14 text-accent" set:html={icon.firstFrame} />
+    <span data-useanimations="" class="mx-auto block size-14 text-accent" set:html={icon.preview} />
     <h1 class="mt-8 text-4xl font-semibold tracking-tight">Page not found</h1>
     <p class="mt-4 text-muted">The page you're looking for doesn't exist or has moved.</p>
     <div class="mt-8 flex justify-center gap-3">
       <a href="/" class="rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg">Home</a>
-      <a href="/#icons" class="rounded-full border border-line-strong px-5 py-2.5 text-sm">Browse icons</a>
+      <a href="/icons" class="rounded-full border border-line-strong px-5 py-2.5 text-sm">Browse icons</a>
     </div>
+    <nav aria-label="Popular pages" class="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted">
+      <a href="/icons" class="underline underline-offset-4 hover:text-fg">All animated icons</a>
+      <a href="/categories" class="underline underline-offset-4 hover:text-fg">Categories</a>
+      <a href="/interactions" class="underline underline-offset-4 hover:text-fg">Interactions</a>
+      <a href="/documentation" class="underline underline-offset-4 hover:text-fg">Documentation</a>
+    </nav>
   </section>
 </Layout>
