@@ -6,7 +6,7 @@
 
 React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 298 animated Lottie icons. It has no dependencies: a built-in player (8 kB gzipped) renders the icons as SVG.
 
-📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation): interactions, props, all import names, shadcn/ui and file downloads.
+📖 **Documentation:** [react.useanimations.com/documentation](https://react.useanimations.com/documentation): interactions, props, all import names, shadcn/ui and file downloads.
 
 ![](useanimations-preview.gif)
 
@@ -38,7 +38,7 @@ import { github, heart, menu } from 'react-useanimations/icons';
 
 Prefer `react-useanimations/lib/<name>` when your dev server or test runner doesn't tree-shake, since `react-useanimations/icons` loads every icon there.
 
-The component is also available as the named exports `UseAnimations` and `UseAnimation` (the name used by the [shadcn registry](https://useanimations.com/documentation)).
+The component is also available as the named exports `UseAnimations` and `UseAnimation` (the name used by the [shadcn registry](https://react.useanimations.com/documentation#shadcnui)).
 
 Icons can be configured with inline props:
 
@@ -190,18 +190,16 @@ for (const icon of catalog) {
 
 ### Upgrading from v2
 
-- 211 new icons (290+ in total), matching the full set on useanimations.com.
-- Requires React 18 or newer.
-- Icon interactions now match useanimations.com (e.g. `zoomIn` plays on hover instead of looping, social icons loop while hovered). Pass `interaction` to keep a different behavior.
-- Icons follow the text color by default (`strokeColor` defaults to `'currentColor'`, `fillColor` to `strokeColor`).
-- Icons respect `prefers-reduced-motion`.
-- The wrapper is an inline-block `<span>` (it was a `<div>`), so it is valid inside buttons and links. Icons are `aria-hidden` unless you pass `aria-label`.
-- `reverse` is now `active` and fully controlled: changing it from `true` to `false` animates back. `reverse` still works but is deprecated.
-- `pathCss` was removed: style the paths with `className` and CSS instead (see Colors). `wrapperStyle` still works but is deprecated; use `style`.
-- `onMouseEnter` / `onMouseLeave` no longer replace the hover animation, and `style` is merged into the wrapper styles.
-- `loop={false}` and `autoplay={false}` now override the defaults of looping icons.
-- lottie-web is no longer a dependency: a built-in player renders the icons, so the `options` prop (lottie-web settings) was removed.
-- The `react-useanimations/utils/*` paths were removed; import the types (`Animation`, `AnimationKey`, `Interaction`, `UseAnimationsProps`) from `react-useanimations`.
+Imports and the component stay the same, and all 79 v2 icons are still there. The full guide, with before/after code, is at [react.useanimations.com/documentation#upgrading-from-v2](https://react.useanimations.com/documentation#upgrading-from-v2). In short:
+
+- Requires React 18 or newer; lottie-web is no longer a dependency, so remove it unless something else uses it.
+- `reverse` is now `active`, fully controlled (`reverse` still works but is deprecated).
+- Icons follow the text color (`currentColor`); set `strokeColor="#000"` to keep them black.
+- `wrapperStyle` is deprecated (use `style`); `pathCss` and `options` were removed (use CSS, and the `loop`, `autoplay` and `speed` props).
+- The wrapper is an inline-block `<span>` instead of a `<div>`, hidden from screen readers unless you pass `aria-label`; spread `animationProps` on a `<span>` in the `render` prop.
+- 19 icons now play the interaction they have on useanimations.com (e.g. `zoomIn` plays on hover instead of looping); pass `interaction` to keep the old behavior.
+- Types come from `react-useanimations` (`Animation`, `AnimationKey`, `Interaction`, `UseAnimationsProps`); the `react-useanimations/utils` paths were removed.
+- New: 219 more icons (298 in total), `react-useanimations/icons`, reduced-motion support and server rendering without workarounds.
 
 ### Development
 

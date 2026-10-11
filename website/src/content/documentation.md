@@ -191,13 +191,96 @@ Agents can pick icons by keyword or interaction from [icons.json](/icons.json), 
 
 ## Upgrading from v2
 
-- 298 icons instead of 87.
-- No dependencies: a built-in player replaces lottie-web, so you can remove lottie-web if nothing else uses it.
-- Icons follow the text color by default and respect `prefers-reduced-motion`.
-- `reverse` is now `active` and fully controlled; `reverse` still works but is deprecated.
-- The wrapper is an inline-block `<span>` (it was a `<div>`), hidden from screen readers unless you pass `aria-label`.
-- `pathCss` was removed: style the paths with CSS. `options` was removed with lottie-web. `wrapperStyle` is deprecated; use `style`.
-- Requires React 18 or newer.
+For most apps, upgrading means installing v3: the component, `react-useanimations/lib/<name>` imports and all 79 v2 icons stay the same. Work through the steps below that apply to your code.
+
+### 1. Install v3
+
+v3 needs React 18 or newer and has no dependencies. Remove lottie-web too, unless something else in your app uses it.
+
+```bash
+npm install react-useanimations@3
+npm uninstall lottie-web
+```
+
+### 2. Replace `reverse` with `active`
+
+`active` is fully controlled: changing it from `true` to `false` animates back. `reverse` still works but is deprecated.
+
+```diff
+- <UseAnimations animation={checkBox} reverse={checked} onClick={toggle} />
++ <UseAnimations animation={checkBox} active={checked} onClick={toggle} />
+```
+
+### 3. Check the colors
+
+v2 icons were black unless you set `strokeColor`. v3 icons follow the text color (`currentColor`), and `fillColor` defaults to `strokeColor`. Icons inside colored text or links change color with it; to keep them black, set the color yourself:
+
+```jsx
+<UseAnimations animation={github} strokeColor="#000" />
+```
+
+### 4. Move `wrapperStyle`, `pathCss` and `options`
+
+- **`wrapperStyle`** is deprecated: use `style`.
+- **`pathCss`** was removed: style the paths with a class.
+- **`options`** (lottie-web settings) was removed with lottie-web. Use the `loop`, `autoplay` and `speed` props; other lottie-web options have no equivalent.
+
+```diff
+- <UseAnimations animation={github} wrapperStyle={{ margin: 8 }} pathCss="stroke-width: 3px;" options={{ loop: true }} />
++ <UseAnimations animation={github} style={{ margin: 8 }} className="thick" loop />
+```
+
+```css
+.thick path {
+  stroke-width: 3px;
+}
+```
+
+### 5. Check the wrapper element
+
+The wrapper is now an inline-block `<span>` instead of a `<div>`, so it is valid inside buttons and links and sits on the text line. Update CSS that targets the wrapper as a `div`, and spread `animationProps` on a `<span>` in the `render` prop:
+
+```diff
+  render={(eventProps, animationProps) => (
+    <button type="button" aria-label="Like" {...eventProps}>
+-     <div {...animationProps} />
++     <span {...animationProps} />
+    </button>
+  )}
+```
+
+Icons are now hidden from screen readers (`aria-hidden`) unless you pass `aria-label`; add one to icons that carry meaning on their own.
+
+### 6. Check the icons whose interaction changed
+
+Interactions now match useanimations.com. If an icon should behave as in v2, pass its old interaction:
+
+| Icons                                                                                              | v2             | v3             |
+| -------------------------------------------------------------------------------------------------- | -------------- | -------------- |
+| `arrowDownCircle`, `arrowLeftCircle`, `arrowRightCircle`, `arrowUpCircle`                          | `click-toggle` | `click-replay` |
+| `calendar`, `folder`, `home`, `instagram`, `userMinus`, `userPlus`, `userX`, `youtube`, `youtube2` | `hover-loop`   | `hover`        |
+| `copy`, `edit`, `mail`                                                                             | `click-replay` | `hover`        |
+| `dribbble`                                                                                         | `hover`        | `hover-loop`   |
+| `zoomIn`, `zoomOut`                                                                                | `loop`         | `hover`        |
+
+```jsx
+<UseAnimations animation={zoomIn} interaction="loop" />
+```
+
+### 7. Update type imports
+
+The `react-useanimations/utils` paths were removed. Import the types from the package:
+
+```diff
+- import type { Animation, AnimationKey } from 'react-useanimations/utils';
++ import type { Animation, AnimationKey, Interaction, UseAnimationsProps } from 'react-useanimations';
+```
+
+`Animation` is now `{ animationData, interaction }`; v2's `animationKey` field is gone, so objects you built yourself use `interaction` instead.
+
+### What else is new
+
+219 more icons (298 in total), several icons at once from `react-useanimations/icons`, reduced-motion support, hover on keyboard focus, no stuck hover animations on touch screens, server rendering without workarounds, and a [shadcn registry](#shadcnui).
 
 <div id="license"></div>
 
