@@ -67,6 +67,33 @@ jobs:
           include-hidden-files: true
           retention-days: 7
 
+  website:
+    # react.useanimations.com is deployed from master after the tests pass.
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment:
+      name: website
+      url: https://react.useanimations.com
+    concurrency:
+      group: website-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run website:build
+        env:
+          SITE_URL: https://react.useanimations.com
+      - name: Deploy to Netlify
+        run: npx --yes netlify-cli@27 deploy --prod --no-build --dir website/dist --site "$NETLIFY_SITE_ID" --message "$GITHUB_SHA"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+
   publish:
     needs: [release_info, test]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.release_info.outputs.release == 'true'
