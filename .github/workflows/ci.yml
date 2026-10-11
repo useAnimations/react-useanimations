@@ -68,13 +68,13 @@ jobs:
           retention-days: 7
 
   website:
-    # react.useanimations.com is deployed from main after the tests pass.
+    # useanimations.com is deployed from main after the tests pass.
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: website
-      url: https://react.useanimations.com
+      url: https://useanimations.com
     concurrency:
       group: website-deploy
       cancel-in-progress: false
@@ -87,7 +87,7 @@ jobs:
       - run: npm ci
       - run: npm run website:build
         env:
-          SITE_URL: https://react.useanimations.com
+          SITE_URL: https://useanimations.com
       - name: Deploy to Netlify
         run: npx --yes netlify-cli@27 deploy --prod --no-build --dir website/dist --site "$NETLIFY_SITE_ID" --message "$GITHUB_SHA"
         env:
