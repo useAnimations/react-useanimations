@@ -12,7 +12,8 @@ export const VERSION: string = JSON.parse(
   readFileSync(join(import.meta.env.REPO_DIR, 'package.json'), 'utf8')
 ).version;
 
-export const SITE = 'https://useanimations.com';
+/** The site's own URL, without a trailing slash (SITE_URL, see astro.config.ts). */
+export const SITE: string = import.meta.env.SITE.replace(/\/$/, '');
 
 type CatalogEntry = {
   name: string;

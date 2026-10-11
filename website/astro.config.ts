@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 const allowedHosts = process.env.ASTRO_ALLOWED_HOSTS?.split(',').filter(Boolean) ?? [];
 
 export default defineConfig({
-  site: 'https://useanimations.com',
+  // The site's own URL: canonical links, sitemap and the file URLs in icons.json and the registry.
+  site: process.env.SITE_URL ?? 'https://useanimations.com',
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [react()],
