@@ -301,6 +301,8 @@ const jsonLd = {
               <button
                 type="button"
                 data-color={color.value}
+                data-track="color"
+                data-track-color={color.label}
                 aria-label={color.label}
                 aria-pressed={color.value === '' ? 'true' : 'false'}
                 class="size-6 rounded-full border border-line-strong ring-offset-2 ring-offset-bg aria-pressed:ring-2 aria-pressed:ring-accent"
@@ -324,6 +326,8 @@ const jsonLd = {
             <button
               type="button"
               data-category-filter={category}
+              data-track="category"
+              data-track-category={category || 'All'}
               aria-pressed={category === '' ? 'true' : 'false'}
               class="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm whitespace-nowrap text-muted transition hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
             >
