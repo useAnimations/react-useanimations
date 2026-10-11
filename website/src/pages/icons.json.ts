@@ -15,7 +15,7 @@ export const GET = () =>
   json({
     name: 'useAnimations',
     description:
-      'Free library of animated Lottie icons (24/32 px artboards) for web, React, iOS and Android. Every icon has a direct Lottie JSON URL that can be used as-is.',
+      'Free library of animated icons (24/32 px artboards) for React, with a built-in interaction each. Every icon also has direct SVG and Lottie JSON URLs.',
     homepage: `${SITE}/`,
     documentation: `${SITE}/documentation.md`,
     updated: new Date().toISOString().slice(0, 10),

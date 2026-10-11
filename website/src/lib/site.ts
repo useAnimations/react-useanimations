@@ -29,14 +29,6 @@ export const FOOTER = [
     ],
   },
   {
-    title: 'Lottie',
-    links: [
-      { label: 'lottie-ios', href: 'https://github.com/airbnb/lottie-ios' },
-      { label: 'lottie-android', href: 'https://github.com/airbnb/lottie-android' },
-      { label: 'About Lottie', href: 'https://airbnb.design/lottie/' },
-    ],
-  },
-  {
     title: 'Follow',
     links: [
       { label: 'X (Twitter)', href: 'https://twitter.com/useAnimations/' },

@@ -4,7 +4,7 @@ import { text } from '../lib/http';
 export const GET = () =>
   text(`# useAnimations
 
-> Free library of ${icons.length} handcrafted animated icons built with Lottie (24/32 px artboards), each with a built-in interaction. Every icon has a direct, CORS-enabled Lottie JSON URL plus static SVGs, a React import and a shadcn registry item, so it can be used in web, React, iOS and Android projects without any account or build step.
+> Free library of ${icons.length} handcrafted animated icons built with Lottie (24/32 px artboards), each with a built-in interaction. Every icon has a direct, CORS-enabled Lottie JSON URL plus static SVGs, a React import and a shadcn registry item, for React projects; no account needed.
 
 Author: useAnimations
 License: MIT — free for personal and commercial use, modification and redistribution, no attribution required.
@@ -18,7 +18,7 @@ License: MIT — free for personal and commercial use, modification and redistri
 
 ## Docs
 
-- [Documentation (Markdown)](${SITE}/documentation.md): React props and interactions, shadcn/ui, size and color, direct URLs, using the Lottie files without React, iOS, Android, performance, accessibility, license and FAQ. HTML version: ${SITE}/documentation
+- [Documentation (Markdown)](${SITE}/documentation.md): interactions, props, importing icons, size and color, server rendering, shadcn/ui, your own animations, files and icons.json, performance and accessibility, license and FAQ. HTML version: ${SITE}/documentation
 - [Homepage summary (Markdown)](${SITE}/index.md): every icon by category.
 - [Licencing & Terms](${SITE}/licencing-and-terms): full usage rights.
 

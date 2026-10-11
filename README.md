@@ -6,7 +6,7 @@
 
 React-useanimations is the official React component for [useAnimations](https://useanimations.com), a free library of 298 animated Lottie icons. It has no dependencies: a built-in player (8 kB gzipped) renders the icons as SVG.
 
-📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation): React props and all import names, plus plain HTML/JS, Vue, iOS and Android guides.
+📖 **Documentation:** [useanimations.com/documentation](https://useanimations.com/documentation): interactions, props, all import names, shadcn/ui and file downloads.
 
 ![](useanimations-preview.gif)
 

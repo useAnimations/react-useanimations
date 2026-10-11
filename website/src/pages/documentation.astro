@@ -7,8 +7,8 @@ const toc = getHeadings().filter((heading) => heading.depth === 2);
 const faq = [
   ['Is useAnimations free for commercial projects?', 'Yes. The icons and the React package are MIT-licensed, with no attribution required.'],
   ['How do I use useAnimations icons in React?', "Install react-useanimations, import UseAnimations and an icon (e.g. react-useanimations/lib/checkmark), then render <UseAnimations animation={checkmark} size={32} />."],
-  ['How do I change the color of an icon?', 'Icons follow the text color. Use strokeColor and fillColor in React, CSS on the web, and Lottie dynamic properties on iOS and Android.'],
-  ['Do I need After Effects?', 'No. The JSON files play in any Lottie player. After Effects is only needed to change the motion itself.'],
+  ['How do I change the color of an icon?', 'Icons follow the text color. Change it with strokeColor and fillColor, CSS color, or by styling the paths.'],
+  ['Does it work without React?', 'The package is for React. Every icon can also be downloaded as an SVG or as its Lottie JSON animation.'],
 ];
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -16,7 +16,7 @@ const jsonLd = {
     {
       '@type': 'TechArticle',
       headline: 'useAnimations documentation',
-      description: 'How to use the useAnimations animated icons in React, shadcn/ui, iOS, Android and any Lottie player.',
+      description: 'How to use the useAnimations animated icons in React and shadcn/ui.',
       url: `${SITE}/documentation`,
       dateModified: new Date().toISOString().slice(0, 10),
       publisher: { '@type': 'Organization', name: 'useAnimations', url: `${SITE}/` },
@@ -38,7 +38,7 @@ const jsonLd = {
 
 <Layout
   title="Documentation — useAnimations"
-  description={`How to use ${icons.length} animated icons in React and shadcn/ui, or as Lottie and SVG files: interactions, props, colors, direct URLs and accessibility.`}
+  description={`How to use ${icons.length} animated icons in React and shadcn/ui: interactions, props, colors, files and accessibility.`}
   path="/documentation"
   head={[{ rel: 'alternate', type: 'text/markdown', href: '/documentation.md', title: 'Documentation (Markdown)' }]}
   jsonLd={jsonLd}

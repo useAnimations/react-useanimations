@@ -5,7 +5,7 @@ export const GET = () =>
   text(
     `# useAnimations
 
-> ${icons.length} free animated icons (Lottie) with hover, click and loop interactions built in, for React, the web, iOS and Android. MIT licensed.
+> ${icons.length} free animated icons (Lottie) with hover, click and loop interactions built in, for React. MIT licensed.
 
 - React: \`npm install react-useanimations\`, then \`import github from 'react-useanimations/lib/github'\` and \`<UseAnimations animation={github} size={32} />\`.
 - shadcn/ui: \`npx shadcn@latest add ${SITE}/r/<id>.json\`.
