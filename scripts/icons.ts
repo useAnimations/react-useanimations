@@ -5,8 +5,9 @@
 //
 //   node scripts/icons.ts   # validates the set, normalizes new Lottie files, updates derived files
 //
-// To add an icon: put its Lottie file in icons/, add it to catalog.json (and its SVGs to svg.json),
-// then run the command above.
+// To add an icon: put its Lottie file in icons/ and run the command above. A Lottie file that is not
+// in catalog.json yet gets a starter entry (category Other, interaction hover-replay); refine its title,
+// category, keywords and interaction there, and add its SVGs to svg.json if it has static states.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -122,6 +123,30 @@ ${catalog.map(({ name }) => `  | '${name}'`).join('\n')};
   };
 };
 
+/** Starter catalog entries for the Lottie files in icons/ that the catalog does not list yet. */
+export const scaffold = (catalog: CatalogEntry[]): CatalogEntry[] => {
+  const known = new Set(catalog.map(({ name }) => name));
+  return readdirSync(iconsDir)
+    .filter((file) => file.endsWith('.json') && !['catalog.json', 'svg.json'].includes(file))
+    .map((file) => file.replace(/\.json$/, ''))
+    .filter((name) => !known.has(name))
+    .map((name) => {
+      const words = name
+        .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+        .toLowerCase()
+        .split(' ');
+      const title = words.join(' ');
+      return {
+        name,
+        id: words.join('-'),
+        title: title[0].toUpperCase() + title.slice(1),
+        category: 'Other',
+        keywords: [...new Set([...words, 'other'])].toSorted(),
+        interaction: 'hover-replay',
+      };
+    });
+};
+
 /** Files that need `node scripts/icons.ts`. */
 export const staleFiles = (catalog: CatalogEntry[]): string[] => [
   ...catalog
@@ -133,7 +158,13 @@ export const staleFiles = (catalog: CatalogEntry[]): string[] => [
 ];
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const catalog = readCatalog().toSorted((a, b) => a.name.localeCompare(b.name));
+  const added = scaffold(readCatalog());
+  for (const icon of added) {
+    console.log(
+      `  added ${icon.name} to icons/catalog.json (category ${icon.category}); refine it`
+    );
+  }
+  const catalog = [...readCatalog(), ...added].toSorted((a, b) => a.name.localeCompare(b.name));
   validate(catalog);
   writeFileSync(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
   for (const icon of catalog) {
