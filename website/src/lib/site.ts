@@ -14,8 +14,10 @@ export const withSite = (text: string, site: string) =>
 
 export const NAV = [
   { label: 'Icons', href: '/#icons' },
+  { label: 'Categories', href: '/categories' },
   { label: 'Documentation', href: '/documentation' },
-  { label: 'shadcn', href: '/documentation#shadcn' },
+  { label: 'shadcn', href: '/shadcn-animated-icons' },
+  { label: 'Lottie icons', href: '/lottie-icons' },
   { label: 'License', href: '/licencing-and-terms' },
 ];
 
@@ -23,7 +25,11 @@ export const FOOTER = [
   {
     title: 'Product',
     links: [
-      { label: 'Icons', href: '/#icons' },
+      { label: 'All icons', href: '/icons' },
+      { label: 'Categories', href: '/categories' },
+      { label: 'Interactions', href: '/interactions' },
+      { label: 'Lottie icons', href: '/lottie-icons' },
+      { label: 'shadcn/ui icons', href: '/shadcn-animated-icons' },
       { label: 'Documentation', href: '/documentation' },
       { label: 'Licencing & Terms', href: '/licencing-and-terms' },
       { label: '中文', href: '/zh' },
