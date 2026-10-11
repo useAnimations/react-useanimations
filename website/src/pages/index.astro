@@ -320,7 +320,7 @@ const jsonLd = {
           <input data-size type="range" min="24" max="64" value="40" class="w-24 accent-[var(--accent)]" />
         </label>
       </div>
-      <div class="no-scrollbar mt-4 flex gap-2 overflow-x-auto" role="group" aria-label="Category">
+      <div class="no-scrollbar mt-4 flex gap-2 overflow-x-auto sm:flex-wrap sm:overflow-visible" role="group" aria-label="Category">
         {
           ['', ...CATEGORIES].map((category) => (
             <button
