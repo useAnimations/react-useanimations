@@ -1123,6 +1123,20 @@
     "interaction": "hover-replay"
   },
   {
+    "name": "discord",
+    "id": "discord",
+    "title": "Discord",
+    "category": "Social media",
+    "keywords": [
+      "chat",
+      "community",
+      "discord",
+      "gaming",
+      "social media"
+    ],
+    "interaction": "hover-loop"
+  },
+  {
     "name": "divide",
     "id": "divide",
     "title": "Divide",
@@ -3176,6 +3190,20 @@
       "target"
     ],
     "interaction": "hover-replay"
+  },
+  {
+    "name": "telegram",
+    "id": "telegram",
+    "title": "Telegram",
+    "category": "Social media",
+    "keywords": [
+      "chat",
+      "messenger",
+      "paper plane",
+      "social media",
+      "telegram"
+    ],
+    "interaction": "hover-loop"
   },
   {
     "name": "terminal",
