@@ -1,0 +1,103 @@
+---
+// How to use one icon on each platform, as tabs (scripts/tabs.ts): React, shadcn/ui, HTML with
+// lottie-web, native mobile players and the static SVGs.
+import CodeBlock from './CodeBlock.astro';
+import {
+  htmlLottieExample,
+  type Icon,
+  mobileExamples,
+  reactExample,
+  shadcnCommand,
+  shadcnExample,
+  svgImgExample,
+} from '../lib/icons';
+
+interface Props {
+  icon: Icon;
+}
+const { icon } = Astro.props;
+
+type Block = { lang: string; code: string; codeId: string; label?: string };
+type Tab = { key: string; name: string; blocks: Block[]; note?: string };
+
+const expressions = icon.requiresFullPlayer;
+const tabs: Tab[] = [
+  {
+    key: 'react',
+    name: 'React',
+    blocks: [
+      { lang: 'bash', code: 'npm install react-useanimations', codeId: 'install' },
+      { lang: 'jsx', code: reactExample(icon.exportName, icon.name), codeId: 'react' },
+    ],
+  },
+  {
+    key: 'shadcn',
+    name: 'shadcn/ui',
+    blocks: [
+      { lang: 'bash', code: shadcnCommand(icon), codeId: 'shadcn-command' },
+      { lang: 'tsx', code: shadcnExample(icon.id, icon.component), codeId: 'shadcn' },
+    ],
+  },
+  {
+    key: 'html',
+    name: 'HTML + Lottie',
+    blocks: [{ lang: 'html', code: htmlLottieExample(icon), codeId: 'html-lottie' }],
+    note: expressions
+      ? `${icon.title} uses After Effects expressions: load the full lottie.min.js, not lottie_light.`
+      : `${icon.title} runs on the light build, lottie_light.min.js.`,
+  },
+  {
+    key: 'mobile',
+    name: 'Mobile',
+    blocks: mobileExamples(icon).map((example) => ({
+      lang: example.lang,
+      code: example.code,
+      codeId: `mobile-${example.lang}`,
+      label: example.name,
+    })),
+    note: expressions
+      ? `Native players may not support the After Effects expressions in ${icon.id}.json; check it on a device.`
+      : `Bundle ${icon.id}.json with the app to use it offline.`,
+  },
+];
+if (Object.keys(icon.svgs).length) {
+  tabs.push({
+    key: 'svg',
+    name: 'Static SVG',
+    blocks: [{ lang: 'html', code: svgImgExample(icon), codeId: 'svg-img' }],
+    note: 'Inside <img> the SVG draws black; inline it to follow the text color.',
+  });
+}
+---
+
+<div data-tabs class="min-w-0">
+  <div role="tablist" aria-label="Platform" class="no-scrollbar flex gap-1 overflow-x-auto rounded-full border border-line bg-surface-2 p-1">
+    {
+      tabs.map((tab, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`usage-tab-${tab.key}`}
+          aria-controls={`usage-panel-${tab.key}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          data-track="platform-tab"
+          data-track-tab={tab.key}
+          data-track-icon={icon.id}
+          class="shrink-0 rounded-full px-4 py-1.5 text-sm text-muted transition aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm"
+        >
+          {tab.name}
+        </button>
+      ))
+    }
+  </div>
+  {
+    tabs.map((tab, i) => (
+      <div role="tabpanel" id={`usage-panel-${tab.key}`} aria-labelledby={`usage-tab-${tab.key}`} hidden={i !== 0} class="mt-4">
+        {tab.blocks.map((block) => (
+          <CodeBlock class="mt-3" lang={block.lang} code={block.code} label={block.label} track={{ icon: icon.id, code: block.codeId }} />
+        ))}
+        {tab.note && <p class="mt-3 text-sm text-muted">{tab.note}</p>}
+      </div>
+    ))
+  }
+</div>

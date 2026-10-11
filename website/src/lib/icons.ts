@@ -176,6 +176,8 @@ export const urls = (icon: Icon) => ({
   zip: `${SITE}/icons/${icon.id}.zip`,
   svg: Object.keys(icon.svgs).map((state) => `${SITE}/icons/${icon.id}/${state}.svg`),
   registry: `${SITE}/r/${icon.id}.json`,
+  markdown: `${SITE}/icons/${icon.id}.md`,
+  og: `${SITE}/og/icons/${icon.id}.png`,
 });
 
 export const shadcnCommand = (icon: Icon) => `npx shadcn@latest add ${urls(icon).registry}`;
@@ -197,6 +199,70 @@ const SNIPPETS: Record<Interaction, string> = {
 
 export const lottieSnippet = (icon: Icon) =>
   SNIPPETS[icon.interaction].replace('{lottie}', urls(icon).lottie);
+
+/** The lottie-web version the HTML example loads from a CDN. */
+export const LOTTIE_WEB_VERSION = '5.13.0';
+
+/** A complete HTML page fragment: a container, lottie-web from a CDN and the interaction code. */
+export const htmlLottieExample = (icon: Icon) => {
+  // The light build has no expression support; icons with expressions need the full player.
+  const build = icon.requiresFullPlayer ? 'lottie.min.js' : 'lottie_light.min.js';
+  return `<div id="${icon.id}-icon" style="width: 48px; height: 48px"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@${LOTTIE_WEB_VERSION}/build/player/${build}"></script>
+<script>
+  const el = document.getElementById('${icon.id}-icon');
+  ${lottieSnippet(icon).replaceAll('\n', '\n  ')}
+</script>`;
+};
+
+/** Minimal native examples that load the Lottie JSON from its URL. */
+export const mobileExamples = (icon: Icon) => {
+  const url = urls(icon).lottie;
+  const loop = icon.interaction === 'loop';
+  return [
+    {
+      name: 'React Native',
+      lang: 'tsx',
+      code: `import LottieView from 'lottie-react-native';
+
+<LottieView source={{ uri: '${url}' }} autoPlay${loop ? ' loop' : ' loop={false}'} style={{ width: 48, height: 48 }} />`,
+    },
+    {
+      name: 'iOS (SwiftUI)',
+      lang: 'swift',
+      code: `import Lottie
+
+LottieView {
+  await LottieAnimation.loadedFrom(url: URL(string: "${url}")!)
+}
+.playing(loopMode: ${loop ? '.loop' : '.playOnce'})
+.frame(width: 48, height: 48)`,
+    },
+    {
+      name: 'Android (Compose)',
+      lang: 'kotlin',
+      code: `val composition by rememberLottieComposition(LottieCompositionSpec.Url("${url}"))
+LottieAnimation(composition, iterations = ${loop ? 'LottieConstants.IterateForever' : '1'}, modifier = Modifier.size(48.dp))`,
+    },
+    {
+      name: 'Flutter',
+      lang: 'dart',
+      code: `import 'package:lottie/lottie.dart';
+
+Lottie.network('${url}', width: 48, height: 48, repeat: ${loop})`,
+    },
+  ];
+};
+
+/** <img> tags for the static SVGs. */
+export const svgImgExample = (icon: Icon) =>
+  Object.keys(icon.svgs)
+    .map(
+      (state) =>
+        `<img src="${SITE}/icons/${icon.id}/${state}.svg" alt="${icon.title}" width="24" height="24" />`
+    )
+    .join('\n');
 
 /** Keywords plus everything else a search should match. */
 export const searchText = (icon: Icon) =>

@@ -16,11 +16,31 @@ interface Props {
   /** Extra <link>/<meta> tags. */
   head?: { rel: string; href: string; type?: string; title?: string }[];
   noindex?: boolean;
+  /** Social card, a path or URL of a 1200 × 630 image; the site-wide card by default. */
+  image?: string;
+  imageAlt?: string;
+  /** og:type, e.g. 'article'. */
+  type?: string;
+  /** Path of the page's Markdown version, e.g. /icons/heart.md. */
+  markdown?: string;
 }
 
-const { title, description, path, lang = 'en', alternates, jsonLd, head = [], noindex } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  lang = 'en',
+  alternates,
+  jsonLd,
+  head = [],
+  noindex,
+  image: imagePath = '/og.png',
+  imageAlt = 'useAnimations: free animated icons for React, shadcn/ui, Lottie and SVG',
+  type = 'website',
+  markdown,
+} = Astro.props;
 const canonical = path && new URL(path, SITE).href;
-const image = `${SITE}/og.png`;
+const image = new URL(imagePath, SITE).href;
 ---
 
 <!doctype html>
@@ -38,8 +58,9 @@ const image = `${SITE}/og.png`;
           <link rel="alternate" hreflang={hreflang} href={new URL(href, SITE).href} />
         ))
     }
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} title={`${title} (Markdown)`} />}
     {head.map((link) => <link {...link} />)}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content="useAnimations" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -47,11 +68,13 @@ const image = `${SITE}/og.png`;
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@useAnimations" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
