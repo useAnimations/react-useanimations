@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
 
 permissions:
@@ -68,9 +68,9 @@ jobs:
           retention-days: 7
 
   website:
-    # react.useanimations.com is deployed from master after the tests pass.
+    # react.useanimations.com is deployed from main after the tests pass.
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: website
@@ -96,7 +96,7 @@ jobs:
 
   publish:
     needs: [release_info, test]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.release_info.outputs.release == 'true'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release_info.outputs.release == 'true'
     runs-on: ubuntu-latest
     environment:
       name: npm
