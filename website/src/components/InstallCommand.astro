@@ -15,9 +15,9 @@ const { command = 'npm i react-useanimations', class: className } = Astro.props;
     'group inline-flex items-center gap-3 rounded-full border border-line-strong bg-surface/70 py-2.5 pr-3 pl-5 font-mono text-sm text-fg backdrop-blur transition hover:border-accent',
     className,
   ]}
-  aria-label={`Copy: ${command}`}
 >
-  <span class="text-subtle select-none">$</span>
+  <!-- No aria-label: the name is the visible text ('npm i react-useanimations Copy'). -->
+  <span class="text-subtle select-none" aria-hidden="true">$</span>
   <span>{command}</span>
   <span
     data-copy-label

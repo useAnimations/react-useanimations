@@ -15,8 +15,9 @@ export default defineConfig({
   build: { format: 'file' },
   integrations: [react()],
   markdown: {
+    // The same themes as lib/highlight.ts.
     shikiConfig: {
-      themes: { light: 'github-light', dark: 'github-dark-dimmed' },
+      themes: { light: 'github-light-high-contrast', dark: 'github-dark-dimmed' },
       defaultColor: false,
     },
   },

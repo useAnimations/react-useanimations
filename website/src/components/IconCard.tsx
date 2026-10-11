@@ -18,27 +18,18 @@ const SIZE = 'var(--icon-size, 40px)';
 export const openIcon = (id: string) =>
   !window.dispatchEvent(new CustomEvent('ua:open-icon', { detail: id, cancelable: true }));
 
+// The card's styles live in global.css (.icon-card): the home page renders 300 of them, and
+// utility class lists repeated 300 times weighed more than the icons.
 const Frame = ({
   children,
   icon,
   ...props
 }: HTMLAttributes<HTMLDivElement> & { icon: CardIcon }) => (
-  <div
-    className="icon-card group relative flex aspect-[1/1.08] cursor-pointer flex-col rounded-2xl border border-line bg-surface transition duration-200 hover:border-line-strong hover:shadow-[0_18px_40px_-24px_var(--glow)]"
-    {...props}
-  >
-    <span className="pointer-events-none absolute top-2.5 right-2.5 rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-medium text-subtle opacity-0 transition-opacity group-hover:opacity-100">
-      {HINT[icon.interaction]}
-    </span>
-    <div className="flex flex-1 items-center justify-center text-[var(--icon-color,var(--fg))]">
-      {children}
-    </div>
+  <div className="icon-card bg-surface" {...props}>
+    <span className="icon-card-hint">{HINT[icon.interaction]}</span>
+    <div className="icon-card-art">{children}</div>
     {/* The icon page, or the details dialog once it's ready; the whole card opens it (scripts/browser.ts). */}
-    <a
-      href={`/icons/${icon.id}`}
-      data-details
-      className="truncate rounded-b-2xl px-3 pb-3 text-center text-[13px] text-muted transition-colors group-hover:text-fg"
-    >
+    <a href={`/icons/${icon.id}`} data-details className="icon-card-title">
       {icon.title}
     </a>
   </div>
@@ -63,13 +54,7 @@ export default function IconCard({
         <span
           aria-hidden="true"
           data-useanimations=""
-          style={{
-            display: 'inline-block',
-            flexShrink: 0,
-            overflow: 'hidden',
-            width: SIZE,
-            height: SIZE,
-          }}
+          className="icon-card-frame"
           dangerouslySetInnerHTML={{ __html: firstFrame ?? '' }}
         />
       </Frame>

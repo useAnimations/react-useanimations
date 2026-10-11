@@ -9,6 +9,14 @@ import InteractionDemo from '../components/InteractionDemo';
 import Layout from '../layouts/Layout.astro';
 import { highlight } from '../lib/highlight';
 import {
+  categoryLinks,
+  HOME_DESCRIPTION,
+  HOME_FAQ,
+  HOME_TITLE,
+  HUBS,
+  interactionLinks,
+} from '../lib/home';
+import {
   CATEGORIES,
   filesExample,
   icons,
@@ -17,8 +25,11 @@ import {
   searchText,
   shadcnExample,
   SITE,
+  VERSION,
 } from '../lib/icons';
-import { GITHUB } from '../lib/site';
+import { faqNode, ORGANIZATION_ID, organizationNode, WEBSITE_ID, websiteNode } from '../lib/seo';
+import { GITHUB, NPM } from '../lib/site';
+import { CATEGORY_META } from '../lib/taxonomy';
 
 // HERO FIELD: icons whose animation starts and ends at rest, taken from every category in turn.
 const replayable = new Set(['hover-replay', 'click-replay', 'loop', 'hover-loop']);
@@ -42,7 +53,7 @@ const demos = [
   { name: 'archive', interaction: 'hover' as const, title: 'Hover', description: 'Plays forward on enter and back on leave.' },
   { name: 'github', interaction: 'hover-loop' as const, title: 'Hover loop', description: 'Loops while hovered and finishes its cycle on leave.' },
   { name: 'trendingUp', interaction: 'hover-replay' as const, title: 'Hover replay', description: 'Plays once from the start on every enter.' },
-].map((demo) => ({ ...demo, lottie: byName(demo.name).lottie }));
+].map((demo) => ({ ...demo, id: byName(demo.name).id }));
 
 // DIALOG: metadata of every icon and the code blocks, highlighted once with placeholders.
 const index: DialogIcon[] = icons.map((icon) => ({
@@ -115,33 +126,68 @@ icon.react.import; // "import menu from 'react-useanimations/lib/menu';"`,
 const colorRow = ['heart', 'star', 'bookmark', 'notification', 'settings', 'zap'].map(byName);
 const colorful = ['#e5484d', '#f59e0b', '#12a594', '#4b5cff', '#a24bff', 'var(--fg)'];
 
+const categories = categoryLinks();
+const interactions = interactionLinks();
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebSite', name: 'useAnimations', url: `${SITE}/` },
+    websiteNode(),
+    organizationNode(),
     {
-      '@type': 'SoftwareApplication',
+      '@type': 'WebPage',
+      '@id': `${SITE}/#webpage`,
+      url: `${SITE}/`,
+      name: HOME_TITLE,
+      description: HOME_DESCRIPTION,
+      inLanguage: 'en',
+      isPartOf: { '@id': WEBSITE_ID },
+      about: { '@id': `${SITE}/#software` },
+      primaryImageOfPage: `${SITE}/og.png`,
+    },
+    {
+      '@type': ['SoftwareApplication', 'SoftwareSourceCode'],
+      '@id': `${SITE}/#software`,
       name: 'react-useanimations',
+      description: `React component and ${icons.length} animated icons (Lottie) with hover, click and loop interactions built in. No dependencies.`,
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Web',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      softwareVersion: VERSION,
+      version: VERSION,
+      downloadUrl: NPM,
+      installUrl: NPM,
+      codeRepository: GITHUB,
+      programmingLanguage: ['TypeScript', 'JavaScript'],
+      runtimePlatform: 'React',
       license: 'https://opensource.org/license/mit/',
-      downloadUrl: `${SITE}/icons.json`,
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      author: { '@id': ORGANIZATION_ID },
+      publisher: { '@id': ORGANIZATION_ID },
     },
     {
-      '@type': 'Organization',
-      name: 'useAnimations',
-      url: `${SITE}/`,
-      logo: `${SITE}/apple-touch-icon.png`,
-      sameAs: ['https://twitter.com/useAnimations', 'https://www.instagram.com/getuseanimations/', GITHUB],
+      '@type': 'Dataset',
+      '@id': `${SITE}/#catalog`,
+      name: 'useAnimations icon catalog',
+      description: `Every one of the ${icons.length} useAnimations icons with id, title, category, keywords, interaction, Lottie JSON, SVG and ZIP URLs, React import and shadcn command.`,
+      url: `${SITE}/icons.json`,
+      license: 'https://opensource.org/license/mit/',
+      isAccessibleForFree: true,
+      creator: { '@id': ORGANIZATION_ID },
+      keywords: ['animated icons', 'micro animations', 'Lottie', 'SVG', 'React', 'shadcn/ui'],
+      distribution: [
+        { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: `${SITE}/icons.json` },
+        { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: `${SITE}/r/registry.json` },
+      ],
     },
+    { ...faqNode(HOME_FAQ), '@id': `${SITE}/#faq` },
   ],
 };
 ---
 
 <Layout
-  title="useAnimations — Free animated icons for React"
-  description={`${icons.length} free animated icons with hover, click and loop interactions built in. A tiny React component with no dependencies and a shadcn registry. MIT licensed.`}
+  title={HOME_TITLE}
+  description={HOME_DESCRIPTION}
   path="/"
   alternates={{ en: '/', 'zh-Hans': '/zh', 'x-default': '/' }}
   head={[
@@ -167,12 +213,15 @@ const jsonLd = {
         {icons.length} icons · zero dependencies · MIT
         <span class="transition-transform group-hover:translate-x-0.5">→</span>
       </a>
-      <h1 class="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-balance sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]">
+      <p class="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-balance sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]">
         Icons that <span class="text-gradient">come alive.</span>
+      </p>
+      <h1 class="mx-auto mt-6 max-w-3xl text-xl font-semibold tracking-tight text-balance sm:text-2xl">
+        Free animated icons for React, shadcn/ui and Lottie
       </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted sm:text-xl">
-        {icons.length} hand-crafted animated icons with hover, click and loop interactions built in. Free, for
-        React.
+      <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
+        {icons.length} hand-crafted micro animations with hover, click and loop micro-interactions built in. Use them
+        as a React component, add them with shadcn, or download SVG and Lottie JSON. MIT licensed.
       </p>
       <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a
@@ -342,9 +391,17 @@ const jsonLd = {
             data-section
             id={category === 'Alerts' ? 'alerts' : undefined}
             aria-label={category}
-            class="mt-8 first:mt-4"
+            class="icon-section mt-8 first:mt-4"
           >
-            <h3 class="mb-4 text-sm font-medium text-muted">{category}</h3>
+            <h3 class="mb-4 text-sm font-medium text-muted">
+              {CATEGORY_META[category].indexable ? (
+                <a href={`/categories/${CATEGORY_META[category].slug}`} class="transition-colors hover:text-fg">
+                  {category}
+                </a>
+              ) : (
+                category
+              )}
+            </h3>
             <ul class="grid grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))] gap-3">
               {icons
                 .filter((icon) => icon.category === category)
@@ -447,9 +504,9 @@ const jsonLd = {
         <ColorRow
           client:visible
           icons={colorRow.map((icon, i) => ({
+            id: icon.id,
             title: icon.title,
             color: colorful[i],
-            lottie: icon.lottie,
             interaction: icon.interaction,
           }))}
         />
@@ -481,6 +538,87 @@ const jsonLd = {
           >, <a class="underline underline-offset-4" href="/llms.txt">llms.txt</a> and Markdown docs.
         </p>
       </article>
+    </div>
+  </section>
+
+  <!-- BROWSE -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="browse-title">
+    <h2 id="browse-title" class="max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+      Find the right micro animation.
+    </h2>
+    <div class="mt-12 grid gap-10 lg:grid-cols-[2fr_1fr]">
+      <nav aria-labelledby="browse-categories">
+        <h3 id="browse-categories" class="text-lg font-semibold tracking-tight">Browse by category</h3>
+        <ul class="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2 md:grid-cols-3">
+          {
+            categories.map((link) => (
+              <li>
+                <a href={link.href} class="group flex items-baseline justify-between gap-3 py-1 text-muted hover:text-fg">
+                  <span>{link.title}</span>
+                  <span class="text-xs text-subtle tabular-nums">{link.count}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="grid gap-10">
+        <nav aria-labelledby="browse-interactions">
+          <h3 id="browse-interactions" class="text-lg font-semibold tracking-tight">Browse by interaction</h3>
+          <ul class="mt-4 grid gap-y-2">
+            {
+              interactions.map((link) => (
+                <li>
+                  <a href={link.href} class="flex items-baseline justify-between gap-3 py-1 text-muted hover:text-fg">
+                    <span>{link.title}</span>
+                    <span class="text-xs text-subtle tabular-nums">{link.count}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <nav aria-labelledby="browse-formats">
+          <h3 id="browse-formats" class="text-lg font-semibold tracking-tight">All icons and formats</h3>
+          <ul class="mt-4 grid gap-y-2">
+            {
+              HUBS.map((link) => (
+                <li>
+                  <a href={link.href} class="block py-1 text-muted hover:text-fg">{link.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mx-auto mt-32 max-w-3xl px-5 sm:px-8" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">Questions</h2>
+    <div class="mt-10 divide-y divide-line border-y border-line">
+      {
+        HOME_FAQ.map((item) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium [&::-webkit-details-marker]:hidden">
+              <h3>{item.question}</h3>
+              <span class="text-subtle transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 leading-relaxed text-muted">
+              {item.answer}
+              {item.link && (
+                <>
+                  {' '}
+                  <a href={item.link.href} class="text-fg underline underline-offset-4">
+                    {item.link.label} →
+                  </a>
+                </>
+              )}
+            </p>
+          </details>
+        ))
+      }
     </div>
   </section>
 
