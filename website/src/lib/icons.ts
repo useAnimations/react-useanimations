@@ -1,4 +1,5 @@
 // The icon set from ../icons, with everything the site derives from it at build time.
+import { Resvg } from '@resvg/resvg-js';
 import { parseHTML } from 'linkedom';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -42,6 +43,11 @@ export type Icon = CatalogEntry & {
   requiresFullPlayer: boolean;
   /** The first frame, drawn by the library's renderer, so the page shows icons before any script. */
   firstFrame: string;
+  /**
+   * A still for static tiles: the first frame, or for icons whose first frame draws nothing
+   * (loaders that start empty, checkmarks that draw in) the fullest of a few later frames.
+   */
+  preview: string;
 };
 
 /** The order of the sections on the site. */
@@ -126,18 +132,45 @@ const hasExpressions = (value: unknown): boolean =>
 
 const { document } = parseHTML('<!doctype html><html><body></body></html>');
 
-const firstFrame = (id: string, data: { fr: number; ip: number }) => {
+/** Frames of the animation at `progress` (0–1 each), drawn by the library's renderer. */
+const framesAt = (id: string, data: { fr: number; ip: number; op: number }, progress: number[]) => {
   const previous = (globalThis as { document?: unknown }).document;
   (globalThis as { document?: unknown }).document = document;
   try {
     const { svg, render } = createRenderer(data as never, { frameRate: data.fr, warn: () => {} });
-    render(data.ip);
-    // Element ids must stay unique next to the live players on the same page, and the same between
-    // builds: the renderer's prefix is random ('__ua<random>_').
-    return compactSvg(svg.outerHTML.replace(/__ua[a-z0-9]*_/g, `__uas_${id}_`));
+    return progress.map((p) => {
+      render(data.ip + (data.op - 1 - data.ip) * p);
+      // Element ids must stay unique next to the live players on the same page, and the same
+      // between builds: the renderer's prefix is random ('__ua<random>_').
+      return compactSvg(svg.outerHTML.replace(/__ua[a-z0-9]*_/g, `__uas_${id}_`));
+    });
   } finally {
     (globalThis as { document?: unknown }).document = previous;
   }
+};
+
+/** How many pixels a drawing paints at 48 px (trimmed or transparent frames paint none). */
+const painted = (svg: string) => {
+  const markup = svg
+    .replace(/^(<svg[^>]*?)\s*\/>$/, '$1></svg>')
+    .replace(/^<svg(?![^>]*xmlns=)/, '<svg xmlns="http://www.w3.org/2000/svg"');
+  const { pixels } = new Resvg(markup, {
+    fitTo: { mode: 'width', value: 48 },
+    font: { loadSystemFonts: false },
+  }).render();
+  let count = 0;
+  for (let i = 3; i < pixels.length; i += 4) if (pixels[i] > 0) count += 1;
+  return count;
+};
+
+const LATER = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+
+const stills = (id: string, data: { fr: number; ip: number; op: number }) => {
+  const [first] = framesAt(id, data, [0]);
+  if (painted(first) > 20) return { firstFrame: first, preview: first };
+  const later = framesAt(id, data, LATER).map((svg) => ({ svg, count: painted(svg) }));
+  const fullest = later.reduce((best, frame) => (frame.count > best.count ? frame : best));
+  return { firstFrame: first, preview: fullest.count > 20 ? fullest.svg : first };
 };
 
 const load = (): Icon[] => {
@@ -160,7 +193,7 @@ const load = (): Icon[] => {
         fps: data.fr,
         durationMs: Math.round(((data.op - data.ip) / data.fr) * 1000),
         requiresFullPlayer: hasExpressions(data.layers),
-        firstFrame: firstFrame(entry.id, data),
+        ...stills(entry.id, data),
       };
     });
 };

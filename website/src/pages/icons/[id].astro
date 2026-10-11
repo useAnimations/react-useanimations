@@ -169,7 +169,7 @@ const jsonLd = {
       <div class="min-w-0">
         <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{icon.title}</h1>
         <p class="mt-2 text-lg text-subtle">Animated {icon.title.toLowerCase()} icon</p>
-        <p class="mt-4 max-w-xl text-lg text-muted">{iconIntro(icon)}</p>
+        <p class="mt-4 max-w-xl text-lg text-muted">{iconIntro(icon, { aka: false })}</p>
         {
           aka.length > 0 && (
             <div class="mt-6 flex flex-wrap items-center gap-2 text-sm">
@@ -272,7 +272,7 @@ const jsonLd = {
                   href={`/icons/${other.id}`}
                   class="flex items-center gap-4 rounded-2xl border border-line bg-surface p-4 transition hover:border-line-strong"
                 >
-                  <span data-useanimations="" class="block size-10 shrink-0 text-fg" set:html={other.firstFrame} />
+                  <span data-useanimations="" class="block size-10 shrink-0 text-fg" set:html={other.preview} />
                   <span>
                     <span class="block text-sm font-medium text-fg">{other.title}</span>
                     <span class="mt-0.5 block text-sm text-muted">{variantNote(icon, other)}</span>
@@ -320,7 +320,7 @@ const jsonLd = {
                   href={`/icons/${other.id}`}
                   class="flex aspect-[1/1.08] flex-col items-center justify-center gap-3 rounded-2xl border border-line bg-surface text-[13px] text-muted transition hover:border-line-strong hover:text-fg"
                 >
-                  <span data-useanimations="" class="block size-10 text-fg" set:html={other.firstFrame} />
+                  <span data-useanimations="" class="block size-10 text-fg" set:html={other.preview} />
                   {other.title}
                 </a>
               </li>

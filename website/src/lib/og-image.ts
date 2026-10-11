@@ -6,8 +6,6 @@ import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { inflateSync } from 'node:zlib';
-import { parseHTML } from 'linkedom';
-import { createRenderer } from '../../../src/player/render';
 import { type Icon, INTERACTIONS, SITE } from './icons';
 
 export const OG_WIDTH = 1200;
@@ -92,22 +90,6 @@ const escape = (text: string) =>
 const LOGO_MARK =
   '<path fill="url(#accent)" fill-opacity=".55" d="M11.29 33.89c.28 0 1.3.18 1.3-1.1V14.96a3 3 0 0 0-3-3H3a3 3 0 0 0-3 3v7.97c0 6.05 5.05 10.96 11.29 10.96"/><path fill="url(#accent)" d="M32.61.01c.43 0 2.02-.27 2.02 1.71V31a3 3 0 0 1-3 3H18.11a3 3 0 0 1-3-3V17c0-9.38 7.84-16.99 17.5-16.99"/>';
 
-const { document } = parseHTML('<!doctype html><html><body></body></html>');
-
-/** The icon at `progress` (0–1) of its animation, drawn by the library's renderer. */
-const frameAt = (icon: Icon, progress: number) => {
-  const data = JSON.parse(icon.lottie) as { fr: number; ip: number; op: number };
-  const previous = (globalThis as { document?: unknown }).document;
-  (globalThis as { document?: unknown }).document = document;
-  try {
-    const { svg, render } = createRenderer(data as never, { frameRate: data.fr, warn: () => {} });
-    render(data.ip + (data.op - 1 - data.ip) * progress);
-    return svg.outerHTML.replace(/__ua[a-z0-9]*_/g, `__og_${icon.id}_`);
-  } finally {
-    (globalThis as { document?: unknown }).document = previous;
-  }
-};
-
 const recolor = (svg: string) =>
   svg
     .replace(/(stroke|fill)="rgb\(255,\s*255,\s*255\)"/g, `$1="${SURFACE}"`)
@@ -118,10 +100,13 @@ const recolor = (svg: string) =>
 const place = (svg: string, x: number, y: number, size: number) => {
   const viewBox = /viewBox="([^"]+)"/.exec(svg)?.[1];
   if (!viewBox) return undefined;
-  return svg.replace(
-    /^<svg[^>]*>/,
-    `<svg xmlns="http://www.w3.org/2000/svg" x="${x}" y="${y}" width="${size}" height="${size}" viewBox="${viewBox}" preserveAspectRatio="xMidYMid meet" fill="none">`
-  );
+  // compactSvg serializes a frame that draws nothing as a self-closing <svg/>.
+  return svg
+    .replace(/^(<svg[^>]*?)\s*\/>$/, '$1></svg>')
+    .replace(
+      /^<svg[^>]*>/,
+      `<svg xmlns="http://www.w3.org/2000/svg" x="${x}" y="${y}" width="${size}" height="${size}" viewBox="${viewBox}" preserveAspectRatio="xMidYMid meet" fill="none">`
+    );
 };
 
 /** True when the drawing paints at least a few pixels (trimmed or transparent frames don't). */
@@ -136,18 +121,12 @@ const paints = (svg: string) => {
 };
 
 /**
- * The icon in the accent color: the first frame, as on the page before any script; for frames that
- * draw nothing (loaders that start empty) a later frame, then a static SVG, then the logo mark.
+ * The icon in the accent color: its still (lib/icons.ts), as on the page before any script, then a
+ * static SVG, then the logo mark.
  */
 const drawing = (icon: Icon, x: number, y: number, size: number) => {
-  const candidates = [
-    () => icon.firstFrame,
-    () => frameAt(icon, 0.5),
-    () => frameAt(icon, 0.25),
-    ...Object.values(icon.svgs).map((svg) => () => svg),
-  ];
-  for (const candidate of candidates) {
-    const svg = recolor(candidate());
+  for (const candidate of [icon.preview, ...Object.values(icon.svgs)]) {
+    const svg = recolor(candidate);
     const preview = place(svg, 0, 0, 48);
     if (preview && paints(preview)) return place(svg, x, y, size)!;
   }

@@ -36,16 +36,16 @@ const Frame = ({
 );
 
 /**
- * One icon of the browser. Without `animationData` it shows the prerendered first frame; with it,
+ * One icon of the browser. Without `animationData` it shows the prerendered still; with it,
  * the live icon, which plays when the card is hovered. A click on the card opens the details.
  */
 export default function IconCard({
   icon,
-  firstFrame,
+  still,
   animationData,
 }: {
   icon: CardIcon;
-  firstFrame?: string;
+  still?: string;
   animationData?: object;
 }) {
   if (!animationData) {
@@ -55,7 +55,7 @@ export default function IconCard({
           aria-hidden="true"
           data-useanimations=""
           className="icon-card-frame"
-          dangerouslySetInnerHTML={{ __html: firstFrame ?? '' }}
+          dangerouslySetInnerHTML={{ __html: still ?? '' }}
         />
       </Frame>
     );

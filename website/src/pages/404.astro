@@ -7,7 +7,7 @@ const icon = icons.find((item) => item.name === 'alertTriangle')!;
 
 <Layout title="Page not found — useAnimations" description="This page doesn't exist." noindex>
   <section class="mx-auto max-w-xl px-5 py-32 text-center">
-    <span data-useanimations="" class="mx-auto block size-14 text-accent" set:html={icon.firstFrame} />
+    <span data-useanimations="" class="mx-auto block size-14 text-accent" set:html={icon.preview} />
     <h1 class="mt-8 text-4xl font-semibold tracking-tight">Page not found</h1>
     <p class="mt-4 text-muted">The page you're looking for doesn't exist or has moved.</p>
     <div class="mt-8 flex justify-center gap-3">

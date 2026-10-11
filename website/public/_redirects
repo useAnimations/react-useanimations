@@ -6,6 +6,9 @@
 /licencing-and-terms.html     /licencing-and-terms  301!
 /zh.html                      /zh                   301!
 
+# The all-icons index: icons/ is also the folder of the icon files, so serve icons.html explicitly.
+/icons                        /icons.html           200!
+
 # Other spellings of pages.
 /docs                         /documentation        301!
 /license                      /licencing-and-terms  301!

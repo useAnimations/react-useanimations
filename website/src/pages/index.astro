@@ -33,11 +33,11 @@ import { CATEGORY_META } from '../lib/taxonomy';
 
 // HERO FIELD: icons whose animation starts and ends at rest, taken from every category in turn.
 const replayable = new Set(['hover-replay', 'click-replay', 'loop', 'hover-loop']);
-// Some icons start from an empty frame; the field shows only icons that are visible at rest.
-const drawn = (svg: string) => /\sd="(?!M0 0")[^"]+"/.test(svg);
+// Some icons start from an empty frame (their still is a later frame); the field shows only icons
+// that are visible at rest, as its live players start on the first frame.
 const pools = CATEGORIES.map((category) =>
   icons.filter(
-    (icon) => icon.category === category && replayable.has(icon.interaction) && drawn(icon.firstFrame)
+    (icon) => icon.category === category && replayable.has(icon.interaction) && icon.preview === icon.firstFrame
   )
 );
 const field: typeof icons = [];
@@ -415,10 +415,11 @@ const jsonLd = {
                     data-category={icon.category}
                     data-interaction={icon.interaction}
                     data-keywords={searchText(icon)}
+                    data-blank-start={icon.preview === icon.firstFrame ? undefined : ''}
                   >
                     <IconCard
                       icon={{ id: icon.id, title: icon.title, interaction: icon.interaction }}
-                      firstFrame={icon.firstFrame}
+                      still={icon.preview}
                     />
                   </li>
                 ))}

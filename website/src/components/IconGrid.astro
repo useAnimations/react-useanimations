@@ -6,7 +6,7 @@ interface Props {
   class?: string;
 }
 
-// Static cards: a link to the icon page with its first frame, so every icon is crawlable without
+// Static cards: a link to the icon page with its still (lib/icons.ts), so every icon is crawlable without
 // scripts. Same markup as the related icons on icon pages.
 const { icons, class: className } = Astro.props;
 ---
@@ -19,7 +19,7 @@ const { icons, class: className } = Astro.props;
           href={`/icons/${icon.id}`}
           class="flex aspect-[1/1.08] flex-col items-center justify-center gap-3 rounded-2xl border border-line bg-surface px-2 text-center text-[13px] text-muted transition hover:border-line-strong hover:text-fg"
         >
-          <span data-useanimations="" class="block size-10 text-fg" set:html={icon.firstFrame} />
+          <span data-useanimations="" class="block size-10 text-fg" set:html={icon.preview} />
           {icon.title}
         </a>
       </li>

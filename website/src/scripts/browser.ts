@@ -137,6 +137,9 @@ if (browser) {
         if (!entry.isIntersecting) continue;
         const card = entry.target as HTMLElement;
         observer.unobserve(card);
+        // Loops that start on an empty frame keep their still while they can't play.
+        if ('blankStart' in card.dataset && matchMedia('(prefers-reduced-motion: reduce)').matches)
+          continue;
         const icon: CardIcon = {
           id: card.dataset.id!,
           title: card.dataset.title!,

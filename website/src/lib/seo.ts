@@ -1,16 +1,7 @@
 // Per-icon search copy (titles, descriptions, intros, FAQs), related icons and shared JSON-LD
 // nodes. Everything is derived from catalog data, and the template for an icon is picked by a
 // stable hash of its id, so pages differ from each other and stay the same between builds.
-import {
-  CATEGORIES,
-  type Icon,
-  icons,
-  INTERACTIONS,
-  libImport,
-  shadcnCommand,
-  SITE,
-  urls,
-} from './icons';
+import { CATEGORIES, type Icon, icons, INTERACTIONS, SITE } from './icons';
 import { GITHUB, NPM } from './site';
 import { CATEGORY_META, INTERACTION_META } from './taxonomy';
 
@@ -168,11 +159,12 @@ export const variantFamily = (icon: Icon): Icon[] =>
 
 // Words that tie icons together: meaningful keywords plus title words, weighted by rarity (IDF)
 // so 'arrow' or 'file' counts for less than 'password'.
+// Synonyms count too, so 'heart' (like, favorite) meets 'thumb up' (like) and 'star' (favorite).
 const terms = new Map(
   icons.map((icon) => [
     icon.id,
     new Set(
-      [...meaningfulKeywords(icon), ...words(icon.title)].filter(
+      [...meaningfulKeywords(icon), ...words(icon.title), ...synonyms(icon)].filter(
         (t) => !isNoise(t) && !categoryNames.has(t)
       )
     ),
@@ -184,7 +176,11 @@ for (const set of terms.values()) {
 }
 const idf = (term: string) => Math.log(icons.length / (documentFrequency.get(term) ?? 1));
 
-/** Up to n related icons: the variant family, then the most shared terms, then the category. */
+/**
+ * Up to n related icons: the variant family, then the most shared terms, then other icons of the
+ * category with the same interaction, in an order of their own per icon (not the site order, which
+ * would give every icon of a category the same fallback list).
+ */
 export const related = (icon: Icon, n = 12): Icon[] => {
   const mine = terms.get(icon.id) ?? new Set<string>();
   const scored = icons
@@ -201,7 +197,14 @@ export const related = (icon: Icon, n = 12): Icon[] => {
         Number(b.other.category === icon.category) - Number(a.other.category === icon.category)
     )
     .map(({ other }) => other);
-  const sameCategory = icons.filter((other) => other.category === icon.category);
+  const shuffle = (other: Icon) => hash(icon.id + other.id);
+  const sameCategory = icons
+    .filter((other) => other.category === icon.category)
+    .toSorted(
+      (a, b) =>
+        Number(b.interaction === icon.interaction) - Number(a.interaction === icon.interaction) ||
+        shuffle(a) - shuffle(b)
+    );
   const result = new Set<Icon>();
   for (const other of [...variantFamily(icon), ...scored, ...sameCategory]) {
     if (result.size >= n) break;
@@ -348,8 +351,11 @@ const bestUseCase = (icon: Icon): string | undefined => {
   );
 };
 
-/** Two or three sentences for the top of an icon page, specific to the icon. */
-export const iconIntro = (icon: Icon): string => {
+/**
+ * Two or three sentences for the top of an icon page, specific to the icon. `aka: false` leaves out
+ * the other names, for pages that list them anyway.
+ */
+export const iconIntro = (icon: Icon, { aka: withAka = true } = {}): string => {
   const t = icon.title;
   const plays = PLAYS[icon.interaction];
   const time = seconds(icon.durationMs);
@@ -371,38 +377,137 @@ export const iconIntro = (icon: Icon): string => {
   const second = s.length
     ? `Its static SVGs cover the ${list(s)} states, so the resting icon still shows which one is active.`
     : INTERACTION_META[icon.interaction].example;
-  const aka = synonyms(icon).slice(0, 4);
+  const aka = withAka ? synonyms(icon).slice(0, 4) : [];
   return [first, second, aka.length ? `Also known as ${list(aka)}.` : ''].filter(Boolean).join(' ');
 };
 
 export type Faq = { question: string; answer: string }[];
 
-/** Four questions and answers built from the icon's real data. */
+// The interaction a user may want instead, for the "can it play on…" question.
+const ALTERNATIVE: Partial<Record<Icon['interaction'], [Icon['interaction'], string]>> = {
+  loop: ['hover-loop', 'loop only while hovered'],
+  'click-replay': ['hover-replay', 'play on hover'],
+  hover: ['click-replay', 'play on click'],
+  'hover-replay': ['click-replay', 'play on click'],
+  'hover-loop': ['loop', 'loop all the time'],
+};
+
+/** How the interaction behaves at its edges: what the page's facts and code don't say. */
+const behaviourFaq = (icon: Icon): Faq[number] => {
+  const t = icon.title;
+  const time = seconds(icon.durationMs);
+  const touch = pick(
+    icon,
+    [
+      'Keyboard focus plays it as well; a tap on a touch screen does not.',
+      'Taps on touch screens are ignored, but keyboard focus plays it.',
+    ],
+    'touch'
+  );
+  switch (icon.interaction) {
+    case 'click-toggle': {
+      const s = states(icon);
+      return {
+        question: s.length
+          ? `Can my app decide whether ${t} shows ${s[0]} or ${s[1]}?`
+          : pick(icon, [
+              `How do I keep the ${t} icon in sync with my own state?`,
+              `Can ${t} be a controlled toggle?`,
+            ]),
+        answer: `Make it controlled: pass active and flip it in onClick, e.g. active={on} onClick={() => setOn(!on)}. true plays to the last frame and false back to the first; an icon that mounts with active already true starts there without animating, and with reduced motion it jumps instead of playing.`,
+      };
+    }
+    case 'click-replay':
+      return {
+        question: pick(icon, [
+          `What happens if ${t} is clicked again before it finishes?`,
+          `Do fast clicks on ${t} queue up?`,
+        ]),
+        answer: `No queue: every click restarts the ${time} run from the first frame. With reduced motion preferred, clicks still reach your onClick but the icon stays still.`,
+      };
+    case 'hover':
+      return {
+        question: pick(icon, [
+          `What does ${t} do when the pointer leaves halfway?`,
+          `Does ${t} finish its animation after mouse leave?`,
+        ]),
+        answer: `It reverses from the frame it reached back to the start, so a quick pass of the pointer gives a short nudge rather than the full ${time}. ${touch}`,
+      };
+    case 'hover-replay':
+      return {
+        question: pick(icon, [
+          `Does ${t} restart when the pointer comes back mid-animation?`,
+          `Why doesn't ${t} restart on every mouse enter?`,
+        ]),
+        answer: `A run that has started plays its ${time} to the end, so moving in and out quickly doesn't make it stutter; the next enter after that plays it again. ${touch}`,
+      };
+    case 'hover-loop':
+      return {
+        question: pick(icon, [
+          `Does ${t} stop as soon as the pointer leaves?`,
+          `Where does ${t} stop after hover?`,
+        ]),
+        answer: `It finishes the cycle it is in (at most ${time}) and then rests on its first frame, so it never freezes mid-motion. ${touch}`,
+      };
+  }
+  // loop
+  const blank = icon.preview !== icon.firstFrame;
+  return {
+    question: pick(icon, [`Does the ${t} animation ever stop?`, `Can I pause the ${t} loop?`]),
+    answer: `It pauses by itself while scrolled out of view and stays on its first frame when reduced motion is preferred or autoplay={false} is set${
+      blank
+        ? '. That first frame is empty for this icon, so keep a text label such as "Loading…" next to it'
+        : ''
+    }. To show it only while something is pending, render it conditionally.`,
+  };
+};
+
+/** Labels and roles, which differ between buttons, decorations and loaders. */
+const accessibilityFaq = (icon: Icon): Faq[number] => {
+  const t = icon.title;
+  if (icon.interaction.startsWith('click')) {
+    const pressed = icon.interaction === 'click-toggle' ? ' aria-pressed={on}' : '';
+    return {
+      question: pick(icon, [
+        `How do I make ${t} an accessible button?`,
+        `Should the ${t} icon be a <button>?`,
+      ]),
+      answer: `Put its events on a real button with the render prop: render={(events, icon) => <button aria-label="${t}"${pressed} {...events}><span {...icon} /></button>}. The animation itself stays aria-hidden${pressed ? ', and aria-pressed tells screen readers which state is on' : ''}.`,
+    };
+  }
+  if (icon.interaction === 'loop' && icon.category === 'Loading') {
+    return {
+      question: `How do screen readers announce the ${t} loader?`,
+      answer: `They don't unless you pass aria-label="Loading…", which gives it role="img". Often better: keep it hidden and set aria-busy="true" on the region that is loading.`,
+    };
+  }
+  return {
+    question: pick(icon, [`Will screen readers read the ${t} icon?`, `Is ${t} decorative?`]),
+    answer: `By default it is aria-hidden. Pass aria-label="${t}" to announce it as an image, or leave it hidden when the link or button it sits in has its own text.`,
+  };
+};
+
+/** Two or three questions picked by the icon's interaction, category, states and drawing. */
 export const iconFaq = (icon: Icon): Faq => {
-  const interaction = INTERACTIONS[icon.interaction];
-  const u = urls(icon);
-  const kb = (Buffer.byteLength(icon.lottie) / 1024).toFixed(1);
-  const svgs = u.svg.length
-    ? ` and ${u.svg.length === 1 ? 'a static SVG' : `${u.svg.length} static SVGs (${list(Object.keys(icon.svgs))})`}`
-    : '';
-  return [
-    {
-      question: `What triggers the ${icon.title} animation?`,
-      answer: `${interaction.label}: ${lowerFirst(interaction.description)} One cycle takes ${seconds(icon.durationMs)} at ${Number(icon.fps.toFixed(2))} fps.`,
-    },
-    {
-      question: `Which files and sizes does the ${icon.title} icon come in?`,
-      answer: `A Lottie JSON animation (${kb} kB, ${icon.width} × ${icon.height} px artboard)${svgs}, also bundled as a ZIP at ${u.zip}. It scales to any size; 24 or 32 px suits most interfaces.`,
-    },
-    {
-      question: `How do I use the ${icon.title} icon in React?`,
-      answer: `Install react-useanimations, add ${libImport(icon).replace(/;$/, '')} and render <UseAnimations animation={${icon.exportName}} size={32} />. The icon follows the text color and respects prefers-reduced-motion.`,
-    },
-    {
-      question: `Can I add it with shadcn, and do I need lottie-web?`,
-      answer: `Run ${shadcnCommand(icon)} to add the ${icon.component} component. React needs no extra player; outside React, ${icon.requiresFullPlayer ? "this icon needs lottie-web's full build because it uses expressions" : "lottie-web's light build is enough"}.`,
-    },
-  ];
+  const faq = [behaviourFaq(icon), accessibilityFaq(icon)];
+  const twoTone = icon.lottie.includes('"ty":"fl"') && icon.lottie.includes('"ty":"st"');
+  const alternative = ALTERNATIVE[icon.interaction];
+  if (twoTone) {
+    faq.push({
+      question: pick(icon, [
+        `Can ${icon.title} use two colors?`,
+        `Can I color the fill of ${icon.title} separately?`,
+      ]),
+      answer: `Yes: strokeColor sets the outlines and fillColor the filled parts, e.g. strokeColor="#e5484d" fillColor="#ffd1d1"; both follow the text color by default.`,
+    });
+  } else if (alternative) {
+    const [interaction, phrase] = alternative;
+    faq.push({
+      question: `Can ${icon.title} ${phrase} instead?`,
+      answer: `Yes: pass interaction="${interaction}". It then ${lowerFirst(INTERACTIONS[interaction].description)}`,
+    });
+  }
+  return faq;
 };
 
 /** One sentence on how `other` differs from `icon`: interaction, duration and states. */
