@@ -160,7 +160,9 @@ export const staleFiles = (catalog: CatalogEntry[]): string[] => [
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const added = scaffold(readCatalog());
   for (const icon of added) {
-    console.log(`  added ${icon.name} to icons/catalog.json (category ${icon.category}); refine it`);
+    console.log(
+      `  added ${icon.name} to icons/catalog.json (category ${icon.category}); refine it`
+    );
   }
   const catalog = [...readCatalog(), ...added].toSorted((a, b) => a.name.localeCompare(b.name));
   validate(catalog);
