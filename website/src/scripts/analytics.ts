@@ -2,7 +2,7 @@
 // "download" with { format: 'svg' } when it (or anything inside it) is clicked; other links send
 // "link" with their label and href. Not data-umami-event: Umami turns tracked links into a
 // redirect, which breaks `download` links and the links that open the icon dialog.
-const track = (name: string, data: Record<string, string>) => {
+export const track = (name: string, data: Record<string, string>) => {
   for (const tracker of new Set([window.umamiCloud, window.umami])) tracker?.track(name, data);
 };
 

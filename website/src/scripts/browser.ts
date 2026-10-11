@@ -3,6 +3,7 @@ import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import IconCard, { type CardIcon, openIcon } from '../components/IconCard';
 import { loadIconData } from '../lib/icon-data';
+import { track } from './analytics';
 
 const browser = document.querySelector<HTMLElement>('[data-browser]');
 if (browser) {
@@ -26,10 +27,11 @@ if (browser) {
   search.value = params.get('q') ?? '';
   interactionSelect.value = params.get('interaction') ?? '';
 
+  let shown = 0;
   const update = () => {
     const words = search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
     const interaction = interactionSelect.value;
-    let shown = 0;
+    shown = 0;
     for (const card of cards) {
       const match =
         (!category || card.dataset.category === category) &&
@@ -78,13 +80,21 @@ if (browser) {
     });
   };
 
+  // A search is tracked once typing pauses, with its result count: searches that find nothing
+  // show which icons people miss.
+  let searchTimer: ReturnType<typeof setTimeout> | undefined;
   search.addEventListener('input', () => {
     update();
     reveal(false);
+    clearTimeout(searchTimer);
+    const query = search.value.trim().toLowerCase();
+    if (query)
+      searchTimer = setTimeout(() => track('search', { query, results: String(shown) }), 1000);
   });
   interactionSelect.addEventListener('change', () => {
     update();
     reveal(true);
+    track('interaction', { interaction: interactionSelect.value || 'all' });
   });
   for (const button of categoryButtons) {
     button.addEventListener('click', () => {
@@ -114,6 +124,7 @@ if (browser) {
   for (const swatch of swatches)
     swatch.addEventListener('click', () => setColor(swatch.dataset.color!));
   colorInput.addEventListener('input', () => setColor(colorInput.value));
+  colorInput.addEventListener('change', () => track('color', { color: 'custom' }));
   sizeInput.addEventListener('input', () =>
     grid.style.setProperty('--icon-size', `${sizeInput.value}px`)
   );

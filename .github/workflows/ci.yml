@@ -94,6 +94,53 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
 
+  preview:
+    # Every PR from this repository gets its own preview at pr-<number>--<site>.netlify.app.
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    # The link shows up in the PR as "View deployment".
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.url }}
+    permissions:
+      contents: read
+      pull-requests: write
+    concurrency:
+      group: website-preview-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run website:build
+      # Keep previews out of search engines.
+      - run: |
+          printf '\n/*\n  X-Robots-Tag: noindex\n' >> website/dist/_headers
+      - name: Deploy preview to Netlify
+        id: deploy
+        run: |
+          url=$(npx --yes netlify-cli@27 deploy --no-build --dir website/dist --site "$NETLIFY_SITE_ID" --alias "pr-$PR" --message "PR #$PR $GITHUB_SHA" --json | jq -r '.deploy_url')
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+        env:
+          PR: ${{ github.event.pull_request.number }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+      # One comment per PR, updated on every push.
+      - name: Comment preview URL
+        run: |
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "### 🔎 Website preview
+          **$URL**
+
+          Updated for commit $SHA."
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          URL: ${{ steps.deploy.outputs.url }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+
   publish:
     needs: [release_info, test]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release_info.outputs.release == 'true'
