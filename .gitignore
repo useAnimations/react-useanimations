@@ -14,3 +14,4 @@ dist
 # Website build output
 website/dist
 website/.astro
+website/.netlify
