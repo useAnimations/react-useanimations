@@ -34,7 +34,6 @@
     "test": "vp test run",
     "test:watch": "vp test",
     "icons": "node scripts/icons.ts",
-    "sync-icons": "node scripts/sync-icons.ts",
     "pack": "node scripts/pack.ts",
     "verify": "npm run check && npm test && npm run build && npm run pack",
     "website:dev": "npm run dev -w website",

@@ -1,6 +1,7 @@
 ---
 // The hero: a field of icons. A wave runs across it when it appears, icons play where the pointer
 // passes, and a random icon plays now and then. With reduced motion the field stays still.
+// Vertical swipes scroll the page (touch-action: pan-y); sideways swipes play the icons they cross.
 import type { Icon } from '../lib/icons';
 
 interface Props {
@@ -12,7 +13,7 @@ const { icons } = Astro.props;
 <div
   data-icon-field
   aria-hidden="true"
-  class="icon-field relative grid touch-none grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-2 p-3 sm:gap-3 sm:p-4"
+  class="icon-field relative grid touch-pan-y grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-2 p-3 sm:gap-3 sm:p-4"
 >
   {
     icons.map((icon) => (

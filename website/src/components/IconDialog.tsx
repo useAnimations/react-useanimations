@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import UseAnimations, { type Interaction } from 'react-useanimations';
 import { loadIconData } from '../lib/icon-data';
+import { tabFromKey } from '../lib/tabs';
 import { openIcon } from './IconCard';
 
 export type DialogIcon = {
@@ -76,7 +77,7 @@ export default function IconDialog({ templates }: { templates: Templates }) {
       document.getElementById('icon-index')?.textContent ?? '[]'
     ) as DialogIcon[];
     const next = index.find((item) => item.id === id);
-    if (!next) return;
+    if (!next) return false;
     setIcon(next);
     setData(undefined);
     void loadIconData(id).then(setData);
@@ -84,10 +85,14 @@ export default function IconDialog({ templates }: { templates: Templates }) {
     const url = new URL(location.href);
     url.searchParams.set('icon', id);
     history.replaceState(history.state, '', url);
+    return true;
   }, []);
 
   useEffect(() => {
-    const onOpen = (event: Event) => open((event as CustomEvent<string>).detail);
+    // Cancelling the event tells openIcon() that the dialog took it.
+    const onOpen = (event: Event) => {
+      if (open((event as CustomEvent<string>).detail)) event.preventDefault();
+    };
     window.addEventListener('ua:open-icon', onOpen);
     // A shared link (?icon=<id>) opens the icon.
     const initial = new URLSearchParams(location.search).get('icon');
@@ -185,20 +190,34 @@ export default function IconDialog({ templates }: { templates: Templates }) {
               aria-label="Code"
               className="mt-6 inline-flex rounded-full border border-line bg-surface-2 p-1"
             >
-              {TABS.map((name) => (
+              {TABS.map((name, i) => (
                 <button
                   key={name}
                   type="button"
                   role="tab"
+                  id={`icon-tab-${name}`}
                   aria-selected={tab === name}
+                  aria-controls="icon-tabpanel"
+                  tabIndex={tab === name ? 0 : -1}
                   onClick={() => setTab(name)}
+                  onKeyDown={(event) => {
+                    const next = tabFromKey(event.key, i, TABS.length);
+                    if (next === undefined) return;
+                    setTab(TABS[next]);
+                    (event.currentTarget.parentElement!.children[next] as HTMLElement).focus();
+                  }}
                   className="rounded-full px-3.5 py-1.5 text-sm text-muted transition aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm"
                 >
                   {name}
                 </button>
               ))}
             </div>
-            <div className="mt-4 space-y-3" role="tabpanel" aria-label={tab}>
+            <div
+              className="mt-4 space-y-3"
+              role="tabpanel"
+              id="icon-tabpanel"
+              aria-labelledby={`icon-tab-${tab}`}
+            >
               {tab === 'React' && <Code html={fill(templates.react, icon)} />}
               {tab === 'shadcn' && (
                 <>

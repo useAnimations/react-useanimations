@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import type React from 'react';
+// A namespace import: the emitted declarations then work without `esModuleInterop` or
+// `allowSyntheticDefaultImports` in your tsconfig.
+import type * as React from 'react';
 
 import { hoverEnd, hoverStart, isHover, replay, toggle } from './interactions';
 import { loadAnimation, type Player } from './player';
@@ -26,7 +28,7 @@ type OwnProps = {
   animation: Animation;
   /** Overrides the icon's default interaction, e.g. `'hover'` for an icon that normally plays on click. */
   interaction?: Interaction;
-  /** For `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox). Can be controlled. */
+  /** For `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox). Controlled: set it in `onClick`. */
   active?: boolean;
   /** @deprecated Use `active`. */
   reverse?: boolean;
@@ -53,6 +55,23 @@ export type UseAnimationsProps = OwnProps &
 
 export type { Animation, Interaction };
 export type { AnimationKey } from './icons';
+
+// v2 props removed in v3: typed only here, so they stay out of UseAnimationsProps, and dropped so
+// they don't end up as attributes of the wrapper.
+type RemovedProps = { pathCss?: unknown; options?: unknown };
+const REMOVED: Record<keyof RemovedProps, string> = {
+  pathCss:
+    'style the paths with CSS instead, e.g. `className="icon"` and `.icon path { stroke-width: 3px }`',
+  options: 'use the `loop`, `autoplay` and `speed` props instead',
+};
+const warnedRemoved = new Set<string>();
+const warnRemoved = (prop: keyof RemovedProps) => {
+  if (warnedRemoved.has(prop)) return;
+  warnedRemoved.add(prop);
+  console.warn(
+    `react-useanimations: the \`${prop}\` prop was removed in v3 and is ignored; ${REMOVED[prop]}.`
+  );
+};
 
 const missingAnimation = (): never => {
   throw new Error(
@@ -89,8 +108,10 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
     onPointerEnter,
     onFocus,
     onBlur,
+    pathCss,
+    options,
     ...other
-  } = props;
+  } = props as UseAnimationsProps & RemovedProps;
   const { animationData, interaction: defaultInteraction } = animation?.animationData
     ? animation
     : missingAnimation();
@@ -116,10 +137,18 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
     latest.current = { speed, active };
   });
 
+  // Says once that a removed v2 prop is ignored, instead of ignoring it silently.
+  const hasPathCss = pathCss !== undefined;
+  const hasOptions = options !== undefined;
+  useEffect(() => {
+    if (hasPathCss) warnRemoved('pathCss');
+    if (hasOptions) warnRemoved('options');
+  }, [hasPathCss, hasOptions]);
+
   // LOAD THE ANIMATION; the cleanup destroys exactly the instance this effect created
   useEffect(() => {
     if (!container) return undefined;
-    injectStyles(container.ownerDocument);
+    injectStyles(container);
     const created = loadAnimation({
       container,
       animationData,
@@ -183,7 +212,9 @@ const UseAnimations = (props: UseAnimationsProps): React.ReactElement => {
       onClick?.(event);
       const current = player.current;
       if (!current || event.defaultPrevented) return;
-      if (interaction === 'click-toggle') {
+      // A controlled `active` animates through the effect above once the parent updates it;
+      // with the deprecated `reverse`, clicks toggle the icon too, as in v2.
+      if (interaction === 'click-toggle' && activeProp === undefined) {
         atEnd.current = !atEnd.current;
         toggle(current, atEnd.current, reducedMotion);
       } else if (interaction === 'click-replay' && !reducedMotion) {

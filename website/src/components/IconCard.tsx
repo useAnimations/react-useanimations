@@ -14,8 +14,9 @@ const HINT: Record<Interaction, string> = {
 
 const SIZE = 'var(--icon-size, 40px)';
 
+/** Asks the icon dialog to show an icon; false while the dialog isn't ready (it cancels the event). */
 export const openIcon = (id: string) =>
-  window.dispatchEvent(new CustomEvent('ua:open-icon', { detail: id }));
+  !window.dispatchEvent(new CustomEvent('ua:open-icon', { detail: id, cancelable: true }));
 
 const Frame = ({
   children,
@@ -40,14 +41,14 @@ const Frame = ({
       >
         {children}
       </div>
-      <button
-        type="button"
+      {/* The icon page, or the details dialog once it's ready (scripts/browser.ts). */}
+      <a
+        href={`/icons/${icon.id}`}
         data-details
-        onClick={() => openIcon(icon.id)}
         className="truncate rounded-b-2xl px-3 pb-3 text-center text-[13px] text-muted transition-colors hover:text-fg"
       >
         {icon.title}
-      </button>
+      </a>
     </div>
   );
 };
@@ -93,8 +94,7 @@ export default function IconCard({
           {...eventProps}
           onClick={(event) => {
             // The title opens the details; the rest of the card plays the icon.
-            if ((event.target as Element).closest('[data-details]')) event.preventDefault();
-            onClick(event);
+            if (!(event.target as Element).closest('[data-details]')) onClick(event);
           }}
           onKeyDown={(event) => {
             const stage = (event.target as Element).closest('[data-stage]');

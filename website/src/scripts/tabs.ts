@@ -1,4 +1,6 @@
 // Tabs: [data-tabs] holding role="tab" buttons and role="tabpanel" panels, with arrow-key support.
+import { tabFromKey } from '../lib/tabs';
+
 for (const group of document.querySelectorAll<HTMLElement>('[data-tabs]')) {
   const tabs = [...group.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
   const select = (tab: HTMLButtonElement) => {
@@ -14,11 +16,10 @@ for (const group of document.querySelectorAll<HTMLElement>('[data-tabs]')) {
     tab.tabIndex = i === 0 ? 0 : -1;
     tab.addEventListener('click', () => select(tab));
     tab.addEventListener('keydown', (event) => {
-      const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
-      if (!step) return;
-      const next = tabs[(i + step + tabs.length) % tabs.length];
-      select(next);
-      next.focus();
+      const next = tabFromKey(event.key, i, tabs.length);
+      if (next === undefined) return;
+      select(tabs[next]);
+      tabs[next].focus();
     });
   });
 }

@@ -51,7 +51,7 @@ When the user prefers reduced motion, icons stay still: loops show their first f
 | `strokeColor` | `'currentColor'` | Color of the strokes. By default the icon follows the text color.                                                |
 | `fillColor`   | `strokeColor`    | Color of filled parts, e.g. a liked heart.                                                                       |
 | `interaction` | per icon         | `'loop'`, `'click-toggle'`, `'click-replay'`, `'hover'`, `'hover-loop'` or `'hover-replay'`.                     |
-| `active`      | `false`          | For `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox). Can be controlled.               |
+| `active`      | —                | For `click-toggle` icons: `true` shows the end state. Controlled: set it in `onClick`, clicks don't toggle it.   |
 | `autoplay`    | per icon         | `true` for `loop` icons, unless reduced motion is preferred.                                                     |
 | `loop`        | per icon         | `true` for `loop` and `hover-loop` icons.                                                                        |
 | `speed`       | `1`              | Playback speed.                                                                                                  |
@@ -115,6 +115,8 @@ Icons are line icons drawn on a 24 or 32 px artboard and stay sharp at any size:
 
 The strokes follow `currentColor`, so icons pick up the text color, hover states and dark mode on their own. Change them with `strokeColor` and `fillColor`, with CSS `color`, or style the paths: the built-in rule has zero specificity, so your CSS always wins.
 
+Some icons cut a gap into themselves (the slash in `visibility`, `microphone`, `video`, `volume` and `notification`, the check in `download`, the ring around `notification3`'s badge). The gap takes the page background: white on light pages and dark on pages with `color-scheme: dark`. On other backgrounds, set it with the `--ua-knockout` CSS variable, e.g. `body { --ua-knockout: #0f172a; }`.
+
 ```jsx
 // Tailwind: color and stroke width
 <UseAnimations animation={github} className="text-indigo-500 [&_path]:stroke-[3]" />
@@ -160,7 +162,7 @@ import animationData from './my-animation.json';
 
 Your animation must be a Lottie JSON file, the format the icons use. The player supports what the icons need: shape layers, precompositions, null layers and parenting, paths, rectangles, ellipses, strokes, fills, trim paths, masks, keyframes with easing, holds and motion paths, and the `loopOut()` and `wiggle()` expressions. Anything else, such as gradients, text or image layers, effects and mattes, is not drawn; the console warns about unsupported layers, shapes and expressions.
 
-<div id="direct-urls"></div><div id="download"></div><div id="html"></div><div id="interactions-web"></div><div id="interactions"></div><div id="vue"></div><div id="without-react"></div><div id="ios"></div><div id="android"></div>
+<div id="direct-urls"></div><div id="download"></div><div id="html"></div><div id="interactions-web"></div><div id="vue"></div><div id="without-react"></div><div id="ios"></div><div id="android"></div>
 
 ## Files & icons.json
 
@@ -175,6 +177,8 @@ Every icon can also be downloaded, from its page or from stable, CORS-enabled UR
 | Catalog of every icon      | `https://useanimations.com/icons.json`             |
 
 [icons.json](/icons.json) lists every icon with its id, title, category, search keywords, interaction, file URLs, size and duration, its `react-useanimations` import and the shadcn command. The npm package ships the same data: `react-useanimations/catalog.json` (metadata), `react-useanimations/icons` (the animations) and `react-useanimations/svg.json` (the static SVGs).
+
+<div id="performance"></div><div id="accessibility"></div>
 
 ## Performance & accessibility
 
@@ -204,7 +208,7 @@ npm uninstall lottie-web
 
 ### 2. Replace `reverse` with `active`
 
-`active` is fully controlled: changing it from `true` to `false` animates back. `reverse` still works but is deprecated.
+`active` is fully controlled: the icon animates when `active` changes, and a click alone doesn't toggle it, so update it in `onClick`. `reverse` still works as in v2 (it sets the starting state and clicks toggle the icon) but is deprecated. Both apply only to `click-toggle` icons: the four arrow circles now replay on click (see [step 6](#6-check-the-icons-whose-interaction-changed)).
 
 ```diff
 - <UseAnimations animation={checkBox} reverse={checked} onClick={toggle} />
@@ -224,6 +228,8 @@ v2 icons were black unless you set `strokeColor`. v3 icons follow the text color
 - **`wrapperStyle`** is deprecated: use `style`.
 - **`pathCss`** was removed: style the paths with a class.
 - **`options`** (lottie-web settings) was removed with lottie-web. Use the `loop`, `autoplay` and `speed` props; other lottie-web options have no equivalent.
+
+Passing `pathCss` or `options` anyway logs a warning once; they are ignored.
 
 ```diff
 - <UseAnimations animation={github} wrapperStyle={{ margin: 8 }} pathCss="stroke-width: 3px;" options={{ loop: true }} />
@@ -255,19 +261,30 @@ Icons are now hidden from screen readers (`aria-hidden`) unless you pass `aria-l
 
 Interactions now match useanimations.com. If an icon should behave as in v2, pass its old interaction:
 
-| Icons                                                                                              | v2             | v3             |
-| -------------------------------------------------------------------------------------------------- | -------------- | -------------- |
-| `arrowDownCircle`, `arrowLeftCircle`, `arrowRightCircle`, `arrowUpCircle`                          | `click-toggle` | `click-replay` |
-| `calendar`, `folder`, `home`, `instagram`, `userMinus`, `userPlus`, `userX`, `youtube`, `youtube2` | `hover-loop`   | `hover`        |
-| `copy`, `edit`, `mail`                                                                             | `click-replay` | `hover`        |
-| `dribbble`                                                                                         | `hover`        | `hover-loop`   |
-| `zoomIn`, `zoomOut`                                                                                | `loop`         | `hover`        |
+| Icons                                                                                              | v2               | v3             |
+| -------------------------------------------------------------------------------------------------- | ---------------- | -------------- |
+| `arrowDownCircle`, `arrowLeftCircle`, `arrowRightCircle`, `arrowUpCircle`                          | `click-toggle`   | `click-replay` |
+| `calendar`, `folder`, `home`, `instagram`, `userMinus`, `userPlus`, `userX`, `youtube`, `youtube2` | `hover-replay`\* | `hover`        |
+| `behance`, `codepen`, `facebook`, `github`, `linkedin`, `pocket`, `twitter`                        | `hover-replay`\* | `hover-loop`   |
+| `copy`, `edit`, `mail`                                                                             | `click-replay`   | `hover`        |
+| `dribbble`                                                                                         | `hover`          | `hover-loop`   |
+| `zoomIn`, `zoomOut`                                                                                | `loop`           | `hover`        |
+
+\* v2 played these once on mouse enter and jumped back to the start on mouse leave; `hover-replay` is the closest.
 
 ```jsx
 <UseAnimations animation={zoomIn} interaction="loop" />
 ```
 
-### 7. Update type imports
+### 7. Update imports
+
+Import icons only as `react-useanimations/lib/<name>` or from `react-useanimations/icons`. Internal file paths of v2 such as `react-useanimations/lib/github/index` or `react-useanimations/lib/github/github.json` no longer resolve; the Lottie JSON is the icon's `animationData`:
+
+```diff
+- import githubJson from 'react-useanimations/lib/github/github.json';
++ import github from 'react-useanimations/lib/github';
++ const githubJson = github.animationData;
+```
 
 The `react-useanimations/utils` paths were removed. Import the types from the package:
 
@@ -281,8 +298,6 @@ The `react-useanimations/utils` paths were removed. Import the types from the pa
 ### What else is new
 
 219 more icons (298 in total), several icons at once from `react-useanimations/icons`, reduced-motion support, hover on keyboard focus, no stuck hover animations on touch screens, server rendering without workarounds, and a [shadcn registry](#shadcnui).
-
-<div id="license"></div>
 
 ## License
 

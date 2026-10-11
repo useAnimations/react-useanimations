@@ -1,7 +1,7 @@
 // The icon browser on the home page: search, filters, customization, and live icons.
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
-import IconCard, { type CardIcon } from '../components/IconCard';
+import IconCard, { type CardIcon, openIcon } from '../components/IconCard';
 import { loadIconData } from '../lib/icon-data';
 
 const browser = document.querySelector<HTMLElement>('[data-browser]');
@@ -16,6 +16,7 @@ if (browser) {
   const count = browser.querySelector<HTMLElement>('[data-count]')!;
   const empty = browser.querySelector<HTMLElement>('[data-empty]')!;
   const grid = browser.querySelector<HTMLElement>('[data-grid]')!;
+  const filters = browser.querySelector<HTMLElement>('[data-filters]')!;
   const sizeInput = browser.querySelector<HTMLInputElement>('[data-size]')!;
   const swatches = [...browser.querySelectorAll<HTMLButtonElement>('[data-color]')];
   const colorInput = browser.querySelector<HTMLInputElement>('[data-color-input]')!;
@@ -62,12 +63,34 @@ if (browser) {
     );
   };
 
-  search.addEventListener('input', update);
-  interactionSelect.addEventListener('change', update);
+  // After a change made while scrolled down the grid, the results would start above the sticky
+  // filters (or above the viewport, once the shorter grid ends); bring their top (the count) back
+  // into view just below where the filters stick. While typing, the jump is instant: a smooth
+  // scroll restarted on every key never settles.
+  const reveal = (smooth: boolean) => {
+    const below = parseFloat(getComputedStyle(filters).top) + filters.offsetHeight + 8;
+    const top = count.getBoundingClientRect().top;
+    if (top >= below) return;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({
+      top: scrollY + top - below,
+      behavior: smooth && !reducedMotion ? 'smooth' : 'instant',
+    });
+  };
+
+  search.addEventListener('input', () => {
+    update();
+    reveal(false);
+  });
+  interactionSelect.addEventListener('change', () => {
+    update();
+    reveal(true);
+  });
   for (const button of categoryButtons) {
     button.addEventListener('click', () => {
       category = button.dataset.categoryFilter!;
       update();
+      reveal(true);
     });
   }
   // "/" focuses the search, like on most sites with one.
@@ -94,6 +117,23 @@ if (browser) {
   sizeInput.addEventListener('input', () =>
     grid.style.setProperty('--icon-size', `${sizeInput.value}px`)
   );
+
+  // DETAILS: an icon's title links to its page; once the dialog is ready it opens the details there
+  // instead, also on cards whose live component hasn't loaded yet.
+  grid.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-details]');
+    if (
+      !link ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    )
+      return;
+    const id = link.closest<HTMLElement>('[data-card]')?.dataset.id;
+    if (id && openIcon(id)) event.preventDefault();
+  });
 
   // LIVE ICONS: each card swaps its prerendered frame for the component once it's near the viewport.
   const observer = new IntersectionObserver(

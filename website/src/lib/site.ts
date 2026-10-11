@@ -1,6 +1,17 @@
 export const GITHUB = 'https://github.com/useAnimations/react-useanimations';
 export const NPM = 'https://www.npmjs.com/package/react-useanimations';
 
+/** The site's URL unless SITE_URL sets another one. */
+export const DEFAULT_SITE = 'https://useanimations.com';
+
+/**
+ * The documentation writes its file and registry URLs for useanimations.com; a build for another
+ * SITE_URL points them at itself. Only URLs with a path change: a bare https://useanimations.com
+ * (e.g. the attribution link) stays the brand's homepage.
+ */
+export const withSite = (text: string, site: string) =>
+  text.replaceAll(`${DEFAULT_SITE}/`, `${site.replace(/\/$/, '')}/`);
+
 export const NAV = [
   { label: 'Icons', href: '/#icons' },
   { label: 'Documentation', href: '/documentation' },

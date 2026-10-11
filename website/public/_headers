@@ -18,8 +18,17 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=3600
 
+# The icon files are cached for an hour; the icon pages (/icons/<id>) keep Netlify's HTML caching.
 /icons/*
   Access-Control-Allow-Origin: *
+
+/icons/*.json
+  Cache-Control: public, max-age=3600
+
+/icons/*.zip
+  Cache-Control: public, max-age=3600
+
+/icons/*/*.svg
   Cache-Control: public, max-age=3600
 
 /r/*

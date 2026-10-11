@@ -14,7 +14,7 @@ import UseAnimations, {
 } from "react-useanimations"
 
 // Animated icons from https://useanimations.com (MIT).
-// Docs: https://useanimations.com/documentation#shadcn
+// Docs: ${SITE}/documentation#shadcn
 
 export type { Interaction }
 

@@ -85,6 +85,27 @@
 :where([data-useanimations] path[fill='rgb(0,0,0)']) {
   fill: var(--ua-fill, var(--ua-stroke, currentColor));
 }
+:where([data-useanimations] path[stroke='rgb(255,255,255)']) {
+  stroke: var(--ua-knockout, Canvas);
+}
+:where([data-useanimations] path[fill='rgb(255,255,255)']) {
+  fill: var(--ua-knockout, Canvas);
+}
+
+/* Knockouts (the white strokes and fills that cut a gap into an icon, e.g. bell-off) take the color of what
+   the icon sits on: the page, a card or a preview tile, in either theme. */
+:root {
+  --ua-knockout: var(--bg);
+}
+.bg-surface {
+  --ua-knockout: var(--surface);
+}
+.bg-surface-2 {
+  --ua-knockout: var(--surface-2);
+}
+.icon-field {
+  --ua-knockout: color-mix(in oklab, var(--surface) 60%, var(--bg));
+}
 
 @utility text-gradient {
   background: linear-gradient(100deg, var(--accent), var(--accent-2));

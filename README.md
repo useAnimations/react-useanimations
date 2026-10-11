@@ -55,7 +55,7 @@ These props are available:
 | strokeColor | `'currentColor'` | color of the icon's strokes; by default the icon follows the text color                                           |
 | fillColor   |  `strokeColor`   | color of the icon's filled parts (e.g. a liked heart)                                                             |
 | interaction |    per icon\*    | `'loop'`, `'click-toggle'`, `'click-replay'`, `'hover'`, `'hover-loop'` or `'hover-replay'`                       |
-| active      |     `false`      | for `click-toggle` icons: `true` shows the end state (e.g. a checked checkbox); can be controlled                 |
+| active      |        /         | for `click-toggle` icons: `true` shows the end state; controlled, so set it in `onClick` (clicks don't toggle it) |
 | autoplay    |    per icon\*    | `true` for looping icons like loaders, unless reduced motion is preferred                                         |
 | loop        |    per icon\*    | `true` for `loop` and `hover-loop` icons                                                                          |
 | speed       |       `1`        | playback speed (1 is normal speed)                                                                                |
@@ -91,6 +91,8 @@ Icons follow the text color by default, so `className="text-blue-600"` or `style
   stroke-width: 3;
 }
 ```
+
+Some icons cut a gap into themselves (the slash in `visibility`, `microphone`, `video`, `volume` and `notification`, the check in `download`, the ring around `notification3`'s badge). The gap takes the page background: white on light pages and dark on pages with `color-scheme: dark`. On other backgrounds, set it with the `--ua-knockout` CSS variable, e.g. `body { --ua-knockout: #0f172a; }`.
 
 #### Accessibility
 
@@ -131,7 +133,7 @@ import animationData from './my-animation.json';
 <UseAnimations animation={{ animationData, interaction: 'hover' }} />;
 ```
 
-The player supports what icon animations use: shape layers, precompositions, null layers and parenting, paths, rectangles, ellipses, strokes, fills, trim paths, masks, keyframes with easing, holds and motion paths, and the `loopOut()` and `wiggle()` expressions. Gradients, solid, text and image layers, effects, mattes and other expressions are not rendered; the console warns about them once per animation.
+The player supports what icon animations use: shape layers, precompositions, null layers and parenting, paths, rectangles, ellipses, strokes, fills, trim paths, masks, keyframes with easing, holds and motion paths, and the `loopOut()` and `wiggle()` expressions. Gradients, solid, text and image layers, effects, mattes and other expressions are not rendered; the console warns about them once per animation. If the player can't draw an animation, that animation stops and the error is logged once; other icons keep playing.
 
 #### Wrapping the animation in another element
 
@@ -152,11 +154,11 @@ export const LikeButton = () => (
 );
 ```
 
-`eventProps` holds the `onClick`, `onMouseEnter` and `onMouseLeave` handlers for your interactive element (e.g. a button) and `animationProps` holds the animation itself, which you spread on a `<span>` inside it.
+`eventProps` holds the `onClick`, `onMouseEnter`, `onMouseLeave`, `onPointerEnter`, `onFocus` and `onBlur` handlers for your interactive element (e.g. a button) and `animationProps` holds the animation itself, which you spread on a `<span>` inside it.
 
 #### Next.js and other SSR frameworks
 
-The component is marked `'use client'` and renders the animation only in the browser, so it can be rendered from server components without `dynamic(..., { ssr: false })`.
+The component is marked `'use client'` and renders the animation only in the browser, so it can be rendered from server components without `dynamic(..., { ssr: false })`. Functions such as `onClick` or `render` can't be passed from a server component: render the icon inside a client component for those. Icons inside a shadow root are styled there too.
 
 ### Available animations
 
@@ -167,7 +169,7 @@ The component is marked `'use client'` and renders the animation only in the bro
 
 Import each one from `react-useanimations/lib/<name>` or `react-useanimations/icons`. `delete` and `package` are reserved words in JavaScript: import them under another name, e.g. `import deleteIcon from 'react-useanimations/lib/delete';`, or as `deleteIcon` and `packageIcon` from `react-useanimations/icons`.
 
-To find an icon by what it shows, search `react-useanimations/catalog.json`: every icon has its title, category, keywords (e.g. `visibility` matches `eye`, `notification` matches `bell`), default interaction, import line and a preview image. Editors show the same details when you hover an icon import.
+To find an icon by what it shows, search `react-useanimations/catalog.json`: every icon has its title, category, keywords (e.g. `visibility` matches `eye`, `notification` matches `bell`), default interaction, import line and a preview image (except `calendar`, `loading`, `loading2`, `loading3`, `zoomIn` and `zoomOut`, which have no static SVG). Editors show the same details when you hover an icon import.
 
 #### The icon set outside React
 
@@ -175,7 +177,7 @@ The package contains the whole icon set, and [useanimations.com](https://useanim
 
 - `react-useanimations/catalog.json`: metadata of every icon (`name`, website `id`, `title`, `category`, `keywords`, `interaction`, `export`, `import`, static `svg` states, `preview`)
 - `react-useanimations/icons`: the Lottie animation of every icon, as `{ animationData, interaction }`
-- `react-useanimations/svg.json`: static SVGs of every icon's states, e.g. `svg.visibility.eye`
+- `react-useanimations/svg.json`: static SVGs of the icons' states, e.g. `svg.visibility.eye` (all icons except the six listed above)
 
 ```javascript
 import { writeFileSync } from 'node:fs';
@@ -193,11 +195,12 @@ for (const icon of catalog) {
 Imports and the component stay the same, and all 79 v2 icons are still there. The full guide, with before/after code, is at [react.useanimations.com/documentation#upgrading-from-v2](https://react.useanimations.com/documentation#upgrading-from-v2). In short:
 
 - Requires React 18 or newer; lottie-web is no longer a dependency, so remove it unless something else uses it.
-- `reverse` is now `active`, fully controlled (`reverse` still works but is deprecated).
+- `reverse` is now `active`, fully controlled: update it in `onClick`, a click alone doesn't toggle the icon (`reverse` still works as in v2 but is deprecated).
+- Import icons only as `react-useanimations/lib/<name>` (or from `react-useanimations/icons`): internal paths such as `lib/github/index` or `lib/github/github.json` no longer resolve; the Lottie JSON is the icon's `animationData`.
 - Icons follow the text color (`currentColor`); set `strokeColor="#000"` to keep them black.
-- `wrapperStyle` is deprecated (use `style`); `pathCss` and `options` were removed (use CSS, and the `loop`, `autoplay` and `speed` props).
+- `wrapperStyle` is deprecated (use `style`); `pathCss` and `options` were removed (use CSS, and the `loop`, `autoplay` and `speed` props; passing them logs a warning once).
 - The wrapper is an inline-block `<span>` instead of a `<div>`, hidden from screen readers unless you pass `aria-label`; spread `animationProps` on a `<span>` in the `render` prop.
-- 19 icons now play the interaction they have on useanimations.com (e.g. `zoomIn` plays on hover instead of looping); pass `interaction` to keep the old behavior.
+- 26 icons now play the interaction they have on useanimations.com (e.g. `zoomIn` plays on hover instead of looping, `github` loops on hover instead of playing once, the arrow circles replay on click instead of toggling); pass `interaction` to keep the old behavior.
 - Types come from `react-useanimations` (`Animation`, `AnimationKey`, `Interaction`, `UseAnimationsProps`); the `react-useanimations/utils` paths were removed.
 - New: 219 more icons (298 in total), `react-useanimations/icons`, reduced-motion support and server rendering without workarounds.
 

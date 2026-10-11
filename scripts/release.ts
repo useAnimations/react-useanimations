@@ -45,28 +45,35 @@ const registry = (await response.json()) as {
   'dist-tags': Record<string, string>;
 };
 const published = Object.hasOwn(registry.versions, pkg.version);
+// CI tags the version when it creates the GitHub release, after publishing.
+const tagged = git('tag', '--list', gitTag).trim() !== '';
 
 if (published) {
   if (changed && pullRequest) {
     throw new Error(`${pkg.name}@${pkg.version} is already published on npm.`);
   }
-  console.log(`${pkg.name}@${pkg.version} is already published; skipping release.`);
+  console.log(
+    tagged
+      ? `${pkg.name}@${pkg.version} is already published; skipping release.`
+      : `${pkg.name}@${pkg.version} is already published; creating the missing GitHub release.`
+  );
 } else {
   if (!semver.gt(pkg.version, registry['dist-tags'].latest)) {
     throw new Error(
       'The current package version is not published and is not newer than the version currently tagged latest on npm.'
     );
   }
-  // CI creates the tag after publishing, so an existing tag means it points at different sources.
-  if (git('tag', '--list', gitTag).trim()) {
+  // An existing tag without a published version points at different sources.
+  if (tagged) {
     throw new Error(
       `Git tag ${gitTag} already exists, but ${pkg.name}@${pkg.version} is not published.`
     );
   }
 }
 
-// Also retry a version whose first publish failed, even when the source version did not change.
-const release = !published;
+// Also retry a version whose first publish or GitHub release failed, even when the source version
+// did not change: the publish job skips versions already on npm.
+const release = !published || !tagged;
 const outputs = `release=${release}\nname=${pkg.name}\nversion=${pkg.version}\ntag=${tag}\n`;
 if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, outputs);
 console.log(

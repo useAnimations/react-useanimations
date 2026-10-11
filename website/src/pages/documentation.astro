@@ -1,7 +1,11 @@
 ---
-import { Content, getHeadings } from '../content/documentation.md';
+import { compiledContent, getHeadings } from '../content/documentation.md';
 import Layout from '../layouts/Layout.astro';
 import { icons, SITE } from '../lib/icons';
+import { withSite } from '../lib/site';
+
+// The documentation's useanimations.com file and registry URLs point at this site (SITE_URL).
+const content = withSite(await compiledContent(), SITE);
 
 const toc = getHeadings().filter((heading) => heading.depth === 2);
 const faq = [
@@ -69,7 +73,7 @@ const jsonLd = {
     </aside>
     <article class="prose min-w-0 pb-10">
       <p class="mb-2 text-sm font-medium text-accent">Documentation</p>
-      <Content />
+      <Fragment set:html={content} />
     </article>
   </div>
 </Layout>

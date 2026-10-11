@@ -5,7 +5,7 @@ import { icons } from '../lib/icons';
 const icon = icons.find((item) => item.name === 'alertTriangle')!;
 ---
 
-<Layout title="Page not found — useAnimations" description="This page doesn't exist." path="/404" noindex>
+<Layout title="Page not found — useAnimations" description="This page doesn't exist." noindex>
   <section class="mx-auto max-w-xl px-5 py-32 text-center">
     <span data-useanimations="" class="mx-auto block size-14 text-accent" set:html={icon.firstFrame} />
     <h1 class="mt-8 text-4xl font-semibold tracking-tight">Page not found</h1>

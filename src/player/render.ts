@@ -24,8 +24,15 @@ import { ellipse, pathString, rectangle, trim } from './shapes';
 
 const SVG = 'http://www.w3.org/2000/svg';
 
+// Ids of clip paths and masks. The random prefix keeps them unique when two copies of the player run
+// on one page (the ESM and CommonJS builds, or two versions). The SVG is only created in the
+// browser, after hydration, so the ids never appear in server-rendered HTML.
+let prefix: string | undefined;
 let uid = 0;
-const newId = () => `__ua_${(uid += 1)}`;
+const newId = () => {
+  prefix ??= `__ua${Math.random().toString(36).slice(2, 8)}_`;
+  return `${prefix}${(uid += 1)}`;
+};
 
 const create = <K extends keyof SVGElementTagNameMap>(
   name: K,

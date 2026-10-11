@@ -13,20 +13,35 @@ export type PlayerOptions = {
   autoplay?: boolean;
 };
 
-// One requestAnimationFrame loop drives every playing animation.
+// One requestAnimationFrame loop drives every playing animation. Without requestAnimationFrame
+// (e.g. a test DOM such as bare jsdom), animations stay on their current frame.
 const playing = new Set<Player>();
 let frameRequest = 0;
 let lastTime: number | undefined;
 
+const schedule = () => {
+  if (frameRequest || !playing.size || typeof requestAnimationFrame !== 'function') return;
+  frameRequest = requestAnimationFrame(tick);
+};
+
 // Times come from requestAnimationFrame only: its timestamp is when the frame started, which can be
 // earlier than a performance.now() taken in the event handler that started the animation.
 const tick = (now: number) => {
+  // Cleared first, so play() can always start the loop again.
+  frameRequest = 0;
   const elapsed = lastTime === undefined ? 0 : Math.max(0, now - lastTime);
   lastTime = now;
   // A copy: advancing can start or stop other animations.
-  for (const player of Array.from(playing)) player.advance(elapsed);
-  frameRequest = playing.size ? requestAnimationFrame(tick) : 0;
-  if (!frameRequest) lastTime = undefined;
+  for (const player of Array.from(playing)) {
+    try {
+      player.advance(elapsed);
+    } catch (error) {
+      // A broken animation stops on its own instead of freezing every other one.
+      player.fail(error);
+    }
+  }
+  if (playing.size) schedule();
+  else lastTime = undefined;
 };
 
 const warned = new WeakMap<object, Set<string>>();
@@ -50,6 +65,7 @@ export class Player {
   private speed = 1;
   private playCount = 0;
   private completedLoop = false;
+  private failed = false;
   private readonly renderer: Renderer;
   private readonly listeners: Record<string, Set<() => void>> = {};
 
@@ -69,10 +85,10 @@ export class Player {
   }
 
   play(): void {
-    if (!this.isPaused) return;
+    if (!this.isPaused || this.failed) return;
     this.isPaused = false;
     playing.add(this);
-    if (!frameRequest) frameRequest = requestAnimationFrame(tick);
+    schedule();
   }
 
   pause(): void {
@@ -124,6 +140,14 @@ export class Player {
     for (const name of Object.keys(this.listeners)) this.listeners[name].clear();
   }
 
+  /** Stops this animation for good after an error, and reports the error once. */
+  fail(error: unknown): void {
+    this.pause();
+    if (this.failed) return;
+    this.failed = true;
+    console.error('react-useanimations: an animation stopped after an error.', error);
+  }
+
   /** Moves the animation forward by `elapsed` milliseconds, like lottie-web's advanceTime. */
   advance(elapsed: number): void {
     if (this.isPaused || elapsed <= 0) return;
@@ -159,9 +183,16 @@ export class Player {
     this.trigger('complete');
   }
 
+  // Rendering errors (e.g. a custom animation the player can't draw) stop only this animation,
+  // also when a frame is shown from an effect or an event handler.
   private setFrame(frame: number) {
     this.frame = frame;
-    this.renderer.render(this.firstFrame + frame);
+    if (this.failed) return;
+    try {
+      this.renderer.render(this.firstFrame + frame);
+    } catch (error) {
+      this.fail(error);
+    }
   }
 
   private trigger(name: PlayerEvent) {
