@@ -103,6 +103,8 @@ const jsonLd = {
     const button = document.createElement('button');
     button.type = 'button';
     button.dataset.copyFrom = '[data-code]';
+    button.dataset.track = 'copy';
+    button.dataset.trackCode = pre.dataset.language ?? 'docs';
     button.className =
       'absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100';
     button.innerHTML = '<span data-copy-label>Copy</span>';

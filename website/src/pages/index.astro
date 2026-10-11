@@ -351,6 +351,8 @@ const jsonLd = {
                 .map((icon) => (
                   <li
                     data-card
+                    data-track="icon-open"
+                    data-track-icon={icon.id}
                     data-id={icon.id}
                     data-title={icon.title}
                     data-category={icon.category}
@@ -404,6 +406,8 @@ const jsonLd = {
                 id={`tab-${platform.name}`}
                 aria-controls={`panel-${platform.name}`}
                 aria-selected={i === 0 ? 'true' : 'false'}
+                data-track="platform-tab"
+                data-track-tab={platform.name.toLowerCase()}
                 class="shrink-0 rounded-full px-4 py-1.5 text-sm text-muted transition aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm"
               >
                 {platform.name}
@@ -420,7 +424,7 @@ const jsonLd = {
               hidden={i !== 0}
               class="mt-4"
             >
-              <CodeBlock code={platform.code} lang={platform.lang} />
+              <CodeBlock code={platform.code} lang={platform.lang} track={{ code: platform.name.toLowerCase() }} />
             </div>
           ))
         }
