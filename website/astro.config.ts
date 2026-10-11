@@ -9,7 +9,10 @@ export default defineConfig({
   // The site's own URL: canonical links, sitemap and the file URLs in icons.json and the registry.
   site: process.env.SITE_URL ?? 'https://useanimations.com',
   output: 'static',
-  trailingSlash: 'ignore',
+  // Pages are written as documentation.html, so hosts serve /documentation without a trailing slash,
+  // matching the canonical URLs and the previous site.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   integrations: [react()],
   markdown: {
     shikiConfig: {
