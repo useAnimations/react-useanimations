@@ -1,0 +1,68 @@
+---
+// The language menu in the header: the same page in each built language, or that language's home
+// page where the page exists only in English (icon pages). Plain links in a <details>, so it works
+// without JavaScript and crawlers see every language version.
+import { BUILT, type Locale, localize, t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** hreflang -> path of this page in each language. */
+  alternates?: Record<string, string>;
+}
+
+const { locale, alternates } = Astro.props;
+const label = t(locale).common.footer.languages;
+const languages = BUILT.map((l) => ({ locale: l, href: alternates?.[l.hreflang] ?? localize('/', l) }));
+const short = (l: Locale) => l.hreflang.split('-')[0].toUpperCase();
+---
+
+{
+  languages.length > 1 && (
+    <details class="language-switcher relative">
+      <summary
+        class="flex h-9 cursor-pointer list-none items-center gap-1.5 rounded-full px-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-fg [&::-webkit-details-marker]:hidden"
+        aria-label={`${label}: ${locale.name}`}
+      >
+        <svg viewBox="0 0 24 24" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+        </svg>
+        <span class="font-mono text-xs">{short(locale)}</span>
+      </summary>
+      <ul class="absolute right-0 z-50 mt-2 max-h-[70vh] w-52 overflow-y-auto rounded-2xl border border-line bg-bg p-1.5 shadow-xl">
+        {languages.map(({ locale: l, href }) => (
+          <li>
+            <a
+              href={href}
+              hreflang={l.hreflang}
+              lang={l.hreflang}
+              aria-current={l === locale ? 'true' : undefined}
+              data-track="language-switch"
+              data-track-lang={l.hreflang}
+              class="flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-fg aria-[current=true]:bg-surface-2 aria-[current=true]:font-medium aria-[current=true]:text-fg"
+            >
+              {l.name}
+              <span class="font-mono text-[11px] text-subtle">{short(l)}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  )
+}
+
+<script>
+  // Close the menu on a click outside it or on Escape.
+  document.addEventListener('click', (event) => {
+    for (const menu of document.querySelectorAll<HTMLDetailsElement>('.language-switcher[open]')) {
+      if (!menu.contains(event.target as Node)) menu.open = false;
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    for (const menu of document.querySelectorAll<HTMLDetailsElement>('.language-switcher[open]')) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+</script>

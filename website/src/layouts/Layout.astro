@@ -135,7 +135,7 @@ const image = new URL(imagePath, SITE).href;
       class="sr-only z-50 rounded-lg bg-fg px-4 py-2 text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >{t(locale).common.skipToContent}</a
     >
-    <Header locale={locale} />
+    <Header locale={locale} alternates={alternates} />
     <main id="main">
       <slot />
     </main>

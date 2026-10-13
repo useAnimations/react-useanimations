@@ -3,14 +3,17 @@ import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle';
 import NavIcon from './NavIcon';
 import MobileMenu from './MobileMenu';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import { EN, type Locale, localize, t } from '../i18n';
 import { GITHUB, nav } from '../lib/site';
 
 interface Props {
   locale?: Locale;
+  /** hreflang -> path of this page in each language, for the language menu. */
+  alternates?: Record<string, string>;
 }
 
-const { locale = EN } = Astro.props;
+const { locale = EN, alternates } = Astro.props;
 const m = t(locale).common;
 const islands = t(locale).islands;
 const items = nav(locale);
@@ -37,6 +40,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       }
     </nav>
     <div class="ml-auto flex items-center gap-1.5">
+      <LanguageSwitcher locale={locale} alternates={alternates} />
       <NavIcon client:idle href={GITHUB} label="GitHub" />
       <ThemeToggle client:idle strings={islands.themeToggle} />
       <a
