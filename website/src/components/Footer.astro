@@ -1,18 +1,28 @@
 ---
 import Logo from './Logo.astro';
-import { FOOTER } from '../lib/site';
+import { BUILT, EN, type Locale, localize, t } from '../i18n';
+import { footer } from '../lib/site';
+
+interface Props {
+  locale?: Locale;
+  /** hreflang -> path of the page in each language; pages without them link to each home page. */
+  alternates?: Record<string, string>;
+}
+
+const { locale = EN, alternates } = Astro.props;
+const m = t(locale).common.footer;
+const columns = footer(locale);
+const languages = BUILT.map((l) => ({ locale: l, href: alternates?.[l.hreflang] ?? localize('/', l) }));
 ---
 
 <footer class="mt-32 border-t border-line">
   <div class="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
     <div class="max-w-xs">
-      <a href="/" aria-label="useAnimations home"><Logo /></a>
-      <p class="mt-4 text-sm leading-relaxed text-muted">
-        Free animated icons with interactions built in. MIT licensed, made for React.
-      </p>
+      <a href={localize('/', locale)} aria-label={t(locale).common.homeLabel}><Logo /></a>
+      <p class="mt-4 text-sm leading-relaxed text-muted">{m.tagline}</p>
     </div>
     {
-      FOOTER.map((column) => (
+      columns.map((column) => (
         <div>
           <h2 class="text-sm font-medium text-fg">{column.title}</h2>
           <ul class="mt-4 space-y-2.5">
@@ -27,9 +37,31 @@ import { FOOTER } from '../lib/site';
         </div>
       ))
     }
+    {
+      languages.length > 1 && (
+        <nav aria-labelledby="footer-languages">
+          <h2 id="footer-languages" class="text-sm font-medium text-fg">{m.languages}</h2>
+          <ul class="mt-4 space-y-2.5">
+            {languages.map(({ locale: l, href }) => (
+              <li>
+                <a
+                  href={href}
+                  hreflang={l.hreflang}
+                  lang={l.hreflang}
+                  aria-current={l === locale ? 'true' : undefined}
+                  class="text-sm text-muted transition-colors hover:text-fg aria-[current=true]:text-fg"
+                >
+                  {l.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
   </div>
   <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-6 text-xs text-subtle sm:px-8">
-    <span>© {new Date().getFullYear()} useAnimations · MIT License</span>
-    <span>Site built with Astro</span>
+    <span>© {new Date().getFullYear()} useAnimations · {m.mitLicense}</span>
+    <span>{m.builtWith}</span>
   </div>
 </footer>

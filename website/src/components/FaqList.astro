@@ -4,13 +4,15 @@ import type { Faq } from '../lib/seo';
 interface Props {
   faq: Faq;
   class?: string;
+  /** Heading, in the page's language. */
+  title?: string;
 }
 
-const { faq, class: className } = Astro.props;
+const { faq, class: className, title = 'FAQ' } = Astro.props;
 ---
 
 <section class:list={['max-w-3xl', className]} aria-labelledby="faq-title">
-  <h2 id="faq-title" class="text-2xl font-semibold tracking-tight">FAQ</h2>
+  <h2 id="faq-title" class="text-2xl font-semibold tracking-tight">{title}</h2>
   <div class="mt-5 divide-y divide-line rounded-3xl border border-line">
     {
       faq.map(({ question, answer }) => (

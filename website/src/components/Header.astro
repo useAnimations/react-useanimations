@@ -3,20 +3,32 @@ import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle';
 import NavIcon from './NavIcon';
 import MobileMenu from './MobileMenu';
-import { GITHUB, NAV } from '../lib/site';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { EN, type Locale, localize, t } from '../i18n';
+import { GITHUB, nav } from '../lib/site';
 
+interface Props {
+  locale?: Locale;
+  /** hreflang -> path of this page in each language, for the language menu. */
+  alternates?: Record<string, string>;
+}
+
+const { locale = EN, alternates } = Astro.props;
+const m = t(locale).common;
+const islands = t(locale).islands;
+const items = nav(locale);
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header class="sticky top-0 z-40 border-b border-line bg-bg/75 backdrop-blur-xl supports-[backdrop-filter]:bg-bg/60">
   <div class="mx-auto flex h-16 max-w-7xl items-center gap-6 px-5 sm:px-8">
-    <a href="/" class="shrink-0 rounded-lg" aria-label="useAnimations home">
+    <a href={localize('/', locale)} class="shrink-0 rounded-lg" aria-label={m.homeLabel}>
       <Logo />
     </a>
     <span class="hidden rounded-full border border-line px-2 py-0.5 font-mono text-[11px] text-muted sm:inline">v3</span>
-    <nav aria-label="Main" class="ml-4 hidden items-center gap-1 md:flex">
+    <nav aria-label={m.mainNav} class="ml-4 hidden items-center gap-1 md:flex">
       {
-        NAV.map((item) => (
+        items.map((item) => (
           <a
             href={item.href}
             aria-current={path === item.href ? 'page' : undefined}
@@ -28,14 +40,15 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       }
     </nav>
     <div class="ml-auto flex items-center gap-1.5">
+      <LanguageSwitcher locale={locale} alternates={alternates} />
       <NavIcon client:idle href={GITHUB} label="GitHub" />
-      <ThemeToggle client:idle />
+      <ThemeToggle client:idle strings={islands.themeToggle} />
       <a
-        href="/#icons"
+        href={localize('/#icons', locale)}
         class="ml-1.5 hidden rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition hover:opacity-85 sm:inline-flex"
-        >Browse icons</a
+        >{m.browseIcons}</a
       >
-      <MobileMenu client:idle items={NAV} />
+      <MobileMenu client:idle items={items} strings={islands.mobileMenu} />
     </div>
   </div>
 </header>

@@ -1,9 +1,13 @@
 ---
+import { EN, type Locale, t } from '../i18n';
+
 interface Props {
   command?: string;
   class?: string;
+  /** Language of the button text. */
+  locale?: Locale;
 }
-const { command = 'npm i react-useanimations', class: className } = Astro.props;
+const { command = 'npm i react-useanimations', class: className, locale = EN } = Astro.props;
 ---
 
 <button
@@ -22,6 +26,6 @@ const { command = 'npm i react-useanimations', class: className } = Astro.props;
   <span
     data-copy-label
     class="rounded-full bg-surface-2 px-2.5 py-1 font-sans text-xs text-muted transition group-hover:text-fg"
-    >Copy</span
+    >{t(locale).common.copy}</span
   >
 </button>

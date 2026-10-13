@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import UseAnimations, { type Interaction } from 'react-useanimations';
+import { islands } from '../i18n/messages/en/islands';
 import { loadIconData } from '../lib/icon-data';
 
 type Props = {
@@ -9,12 +10,21 @@ type Props = {
   title: string;
   description: string;
   hint: string;
+  /** The card's text in the page's language: t(locale).islands.interactionDemo. */
+  strings?: typeof islands.interactionDemo;
 };
 
 const SIZE = 56;
 
 /** A card that plays its icon's interaction when the card itself is hovered, clicked or focused. */
-export default function InteractionDemo({ id, interaction, title, description, hint }: Props) {
+export default function InteractionDemo({
+  id,
+  interaction,
+  title,
+  description,
+  hint,
+  strings = islands.interactionDemo,
+}: Props) {
   const clickable = interaction.startsWith('click');
   const [animationData, setAnimationData] = useState<object>();
   useEffect(() => {
@@ -37,11 +47,7 @@ export default function InteractionDemo({ id, interaction, title, description, h
       <span className="mt-2 text-lg font-semibold tracking-tight text-fg">{title}</span>
       <span className="mt-1.5 text-sm leading-relaxed text-muted">{description}</span>
       <span className="mt-auto pt-5 text-xs font-medium text-subtle">
-        {clickable
-          ? 'Click the card'
-          : interaction === 'loop'
-            ? 'Plays on its own'
-            : 'Hover the card'}
+        {clickable ? strings.click : interaction === 'loop' ? strings.loop : strings.hover}
       </span>
     </button>
   );

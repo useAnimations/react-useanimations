@@ -1,0 +1,46 @@
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: 'İçeriğe geç',
+  ogImageAlt: 'useAnimations: React, shadcn/ui, Lottie ve SVG için ücretsiz animasyonlu ikonlar',
+  homeLabel: 'useAnimations ana sayfa',
+  mainNav: 'Ana menü',
+  browseIcons: 'İkonlara göz at',
+  nav: {
+    icons: 'İkonlar',
+    categories: 'Kategoriler',
+    documentation: 'Dokümantasyon',
+    shadcn: 'shadcn',
+    lottie: 'Lottie ikonları',
+    license: 'Lisans',
+  },
+  footer: {
+    tagline:
+      'Etkileşimleri hazır gelen ücretsiz animasyonlu ikonlar. MIT lisanslı, React için yapıldı.',
+    product: 'Ürün',
+    developers: 'Geliştiriciler',
+    follow: 'Takip edin',
+    languages: 'Diller',
+    allIcons: 'Tüm ikonlar',
+    categories: 'Kategoriler',
+    interactions: 'Etkileşimler',
+    lottieIcons: 'Lottie ikonları',
+    shadcnIcons: 'shadcn/ui ikonları',
+    documentation: 'Dokümantasyon',
+    licencing: 'Lisans ve koşullar',
+    shadcnRegistry: 'shadcn registry',
+    mitLicense: 'MIT lisansı',
+    builtWith: 'Site Astro ile yapıldı',
+  },
+  breadcrumb: 'Sayfa yolu',
+  crumbs: { icons: 'İkonlar', categories: 'Kategoriler', interactions: 'Etkileşimler' },
+  faq: 'Sık sorulan sorular',
+  copy: 'Kopyala',
+  copied: 'Kopyalandı',
+  pressCtrlC: 'Ctrl+C tuşlarına basın',
+  languageBanner: {
+    text: 'Bu sayfanın Türkçe sürümü de var.',
+    action: 'Türkçeye geç',
+    dismiss: 'Kapat',
+  },
+};

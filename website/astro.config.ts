@@ -1,3 +1,4 @@
+import { satteri } from '@astrojs/markdown-satteri';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
@@ -9,12 +10,16 @@ export default defineConfig({
   // The site's own URL: canonical links, sitemap and the file URLs in icons.json and the registry.
   site: process.env.SITE_URL ?? 'https://useanimations.com',
   output: 'static',
+  // A separate output folder, e.g. for builds running side by side: ASTRO_OUT_DIR=/tmp/dist-a
+  ...(process.env.ASTRO_OUT_DIR ? { outDir: process.env.ASTRO_OUT_DIR } : {}),
   // Pages are written as documentation.html, so hosts serve /documentation without a trailing slash,
   // matching the canonical URLs and the previous site.
   trailingSlash: 'never',
   build: { format: 'file' },
   integrations: [react()],
   markdown: {
+    // `## Überschrift {#english-id}`: translated documentation keeps the English heading ids.
+    processor: satteri({ features: { headingAttributes: true } }),
     // The same themes as lib/highlight.ts.
     shikiConfig: {
       themes: { light: 'github-light-high-contrast', dark: 'github-dark-dimmed' },

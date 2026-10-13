@@ -1,0 +1,311 @@
+---
+// The Lottie hub (/lottie-icons) in any language: the files and code for each Lottie player.
+// The code examples stay English.
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import FaqList from '../components/FaqList.astro';
+import IconGrid from '../components/IconGrid.astro';
+import { alternatesOf, type Locale, localize, t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import {
+  breadcrumbNode,
+  categories,
+  categoryPath,
+  expressionIcons,
+  itemListNode,
+  localDescription,
+  localTitle,
+  pickIcons,
+} from '../lib/hubs';
+import { iconById, icons, lottieSnippet, SITE } from '../lib/icons';
+import { faqNode, websiteNode, WEBSITE_ID } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = t(locale);
+const p = m.pages.lottie;
+const href = (path: string) => localize(path, locale);
+const path = '/lottie-icons';
+
+const popular = pickIcons([
+  'menu', 'refresh', 'notification', 'heart', 'visibility', 'trash', 'settings', 'search-to-x',
+  'play-pause', 'volume', 'download', 'check-box', 'toggle', 'scroll-down', 'arrow-right', 'bookmark',
+  'star', 'send', 'github', 'sun', 'infinity', 'alert-triangle', 'microphone', 'shopping-cart',
+]);
+const expressions = expressionIcons();
+const sizes = icons.map((icon) => Buffer.byteLength(icon.lottie)).toSorted((a, b) => a - b);
+const kb = (bytes: number) => Math.round(bytes / 1024);
+const median = kb(sizes[Math.floor(sizes.length / 2)]);
+const loop = `${SITE}/icons/loading.json`;
+const menu = iconById.get('menu')!;
+
+const players: { id: keyof typeof p.players; blocks: { lang: string; label?: string; code: string }[] }[] = [
+  {
+    id: 'web',
+    blocks: [
+      {
+        lang: 'html',
+        code: `<div id="icon" style="width: 48px; height: 48px"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.13.0/build/player/lottie.min.js"></script>
+<script>
+  lottie.loadAnimation({
+    container: document.getElementById('icon'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '${loop}',
+  });
+</script>`,
+      },
+      {
+        lang: 'css',
+        label: p.players.web.cssLabel,
+        code: `#icon path[stroke^='rgb']:not([stroke='rgb(255,255,255)']) { stroke: currentColor; }
+#icon path[fill='rgb(0,0,0)'] { fill: currentColor; }`,
+      },
+    ],
+  },
+  {
+    id: 'web-interactions',
+    blocks: [
+      {
+        lang: 'js',
+        code: `import lottie from 'lottie-web'; // npm install lottie-web
+
+const el = document.querySelector('#menu-button');
+${lottieSnippet(menu)}`,
+      },
+    ],
+  },
+  {
+    id: 'dotlottie',
+    blocks: [
+      {
+        lang: 'html',
+        code: `<script type="module" src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@0.10.0/dist/dotlottie-wc.js"></script>
+
+<dotlottie-wc src="${loop}" autoplay loop style="width: 48px; height: 48px"></dotlottie-wc>`,
+      },
+      {
+        lang: 'js',
+        label: p.players.dotlottie.jsLabel,
+        code: `import { DotLottie } from '@lottiefiles/dotlottie-web';
+
+new DotLottie({
+  canvas: document.querySelector('#icon-canvas'),
+  src: '${loop}',
+  autoplay: true,
+  loop: true,
+});`,
+      },
+    ],
+  },
+  {
+    id: 'react',
+    blocks: [
+      {
+        lang: 'jsx',
+        code: `// npm install react-useanimations
+import UseAnimations from 'react-useanimations';
+import loading from 'react-useanimations/lib/loading';
+
+<UseAnimations animation={loading} size={48} />`,
+      },
+    ],
+  },
+  {
+    id: 'react-native',
+    blocks: [
+      {
+        lang: 'jsx',
+        code: `// npm install lottie-react-native
+import LottieView from 'lottie-react-native';
+
+<LottieView
+  source={{ uri: '${loop}' }} // or require('./loading.json')
+  autoPlay
+  loop
+  style={{ width: 48, height: 48 }}
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'ios',
+    blocks: [
+      {
+        lang: 'swift',
+        code: `import Lottie
+import SwiftUI
+
+struct LoadingIcon: View {
+  var body: some View {
+    // Bundled file: LottieView(animation: .named("loading"))
+    LottieView {
+      await LottieAnimation.loadedFrom(url: URL(string: "${loop}")!)
+    }
+    .looping()
+    .frame(width: 48, height: 48)
+  }
+}`,
+      },
+    ],
+  },
+  {
+    id: 'android',
+    blocks: [
+      {
+        lang: 'kotlin',
+        code: `// build.gradle.kts: implementation("com.airbnb.android:lottie-compose:6.7.1")
+@Composable
+fun LoadingIcon() {
+  val composition by rememberLottieComposition(
+    LottieCompositionSpec.Url("${loop}")
+  )
+  LottieAnimation(
+    composition = composition,
+    iterations = LottieConstants.IterateForever,
+    modifier = Modifier.size(48.dp),
+  )
+}`,
+      },
+    ],
+  },
+  {
+    id: 'flutter',
+    blocks: [
+      {
+        lang: 'dart',
+        code: `// pubspec.yaml: lottie: ^3.6.1
+import 'package:lottie/lottie.dart';
+
+Lottie.network(
+  '${loop}',
+  width: 48,
+  height: 48,
+) // or Lottie.asset('assets/loading.json')`,
+      },
+    ],
+  },
+];
+
+const faq = p.faq({
+  count: icons.length,
+  minSize: kb(sizes[0]),
+  maxSize: kb(sizes.at(-1)!),
+  medianSize: median,
+  expressions: expressions.map((icon) => icon.title),
+});
+
+const title = localTitle(locale, p.titles(icons.length));
+const description = localDescription(locale, p.descriptions(icons.length));
+const crumbs = [
+  { name: m.common.crumbs.icons, path: href('/icons') },
+  { name: p.crumb, path: href(path) },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE}${href(path)}`,
+      url: `${SITE}${href(path)}`,
+      name: p.title,
+      description,
+      inLanguage: locale.hreflang,
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: itemListNode(popular, p.popular),
+    },
+    // The Dataset is described once, on the English page.
+    ...(locale.prefix ? [] : [{
+      '@type': 'Dataset',
+      name: p.datasetName,
+      description: p.datasetDescription(icons.length),
+      url: `${SITE}${href(path)}`,
+      license: 'https://opensource.org/license/mit/',
+      creator: { '@type': 'Organization', name: 'useAnimations', url: `${SITE}/` },
+      distribution: [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: `${SITE}/icons.json` }],
+    }]),
+    breadcrumbNode(crumbs),
+    faqNode(faq),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={title} description={description} path={href(path)} locale={locale} alternates={alternatesOf(path)} jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} label={m.common.breadcrumb} />
+
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{p.badge(icons.length)}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{p.title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">{p.intro}</p>
+    </header>
+
+    <section class="mt-12" aria-labelledby="popular-title">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="popular-title" class="text-lg font-semibold">{p.popular}</h2>
+        <a href={href('/icons')} class="text-sm text-muted hover:text-fg">{p.allIcons(icons.length)}</a>
+      </div>
+      <IconGrid class="mt-4" icons={popular} locale={locale} />
+    </section>
+
+    <div class="mt-16 max-w-3xl">
+      <section aria-labelledby="files-title">
+        <h2 id="files-title" class="text-2xl font-semibold tracking-tight">{p.filesTitle}</h2>
+        <p class="mt-3 leading-relaxed text-muted" set:html={p.filesIntroHtml} />
+        <CodeBlock
+          class="mt-4"
+          lang="bash"
+          code={`${SITE}/icons/<id>.json          # ${p.files.json}
+${SITE}/icons/<id>.zip           # ${p.files.zip}
+${SITE}/icons/<id>/<state>.svg   # ${p.files.svg}
+${SITE}/icons.json               # ${p.files.catalog}`}
+          track={{ code: 'files' }}
+          locale={locale}
+        />
+        <p class="mt-4 leading-relaxed text-muted" set:html={p.catalogHtml('/icons.json', median)} />
+      </section>
+
+      {
+        players.map((player) => (
+          <section id={player.id} class="mt-14 scroll-mt-24" aria-labelledby={`${player.id}-title`}>
+            <h2 id={`${player.id}-title`} class="text-2xl font-semibold tracking-tight">{p.players[player.id].title}</h2>
+            <p class="mt-3 leading-relaxed text-muted">{p.players[player.id].text}</p>
+            {player.blocks.map((block) => (
+              <CodeBlock class="mt-4" lang={block.lang} label={block.label} code={block.code} track={{ code: `lottie-${player.id}` }} locale={locale} />
+            ))}
+          </section>
+        ))
+      }
+
+      <section id="expressions" class="mt-14 scroll-mt-24" aria-labelledby="expressions-title">
+        <h2 id="expressions-title" class="text-2xl font-semibold tracking-tight">{p.expressionsTitle}</h2>
+        <p class="mt-3 leading-relaxed text-muted" set:html={p.expressionsHtml(expressions.length)} />
+        <IconGrid class="mt-4" icons={expressions} locale={locale} />
+      </section>
+    </div>
+
+    <FaqList class="mt-16" faq={faq} title={m.common.faq} />
+
+    <nav aria-labelledby="more-title" class="mt-16 border-t border-line pt-8">
+      <h2 id="more-title" class="text-lg font-semibold">{p.byCategory}</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          categories().map(({ meta, icons: group }) => (
+            <li>
+              <a href={href(categoryPath(meta))} class="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition hover:border-line-strong hover:text-fg">
+                {m.taxonomy.categories[meta.name].name} <span class="ml-1.5 text-subtle">{group.length}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</Layout>

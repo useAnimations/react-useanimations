@@ -2,6 +2,7 @@ import { useSyncExternalStore } from 'react';
 import UseAnimations from 'react-useanimations';
 import moon from '../../../icons/moon.json';
 import sun from '../../../icons/sun.json';
+import { islands } from '../i18n/messages/en/islands';
 
 const isDark = () => document.documentElement.classList.contains('dark');
 
@@ -13,7 +14,12 @@ const subscribe = (onChange: () => void) => {
 };
 
 /** Switches between light and dark; the choice is saved, otherwise the system theme applies. */
-export default function ThemeToggle() {
+export default function ThemeToggle({
+  strings = islands.themeToggle,
+}: {
+  /** The button's text in the page's language: t(locale).islands.themeToggle. */
+  strings?: typeof islands.themeToggle;
+}) {
   const dark = useSyncExternalStore(subscribe, isDark, () => false);
 
   const toggle = () => {
@@ -31,7 +37,7 @@ export default function ThemeToggle() {
       render={(eventProps, animationProps) => (
         <button
           type="button"
-          aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
+          aria-label={dark ? strings.toLight : strings.toDark}
           className="inline-flex size-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-fg"
           {...eventProps}
         >

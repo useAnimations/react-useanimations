@@ -1,0 +1,54 @@
+---
+// The licence page (/licencing-and-terms) in any language; src/pages routes render it.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { alternatesOf, type Locale, localize, t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../lib/icons';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = t(locale).licence;
+const path = '/licencing-and-terms';
+const href = (p: string) => localize(p, locale);
+const mit = 'https://opensource.org/license/mit/';
+// The legal text stays English in every language.
+const license = readFileSync(join(import.meta.env.REPO_DIR, 'LICENSE'), 'utf8');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebPage', name: m.name, url: `${SITE}${href(path)}`, inLanguage: locale.hreflang, license: mit },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'useAnimations', item: `${SITE}${href('/')}` },
+        { '@type': 'ListItem', position: 2, name: m.name, item: `${SITE}${href(path)}` },
+      ],
+    },
+  ],
+};
+const markdown = locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown', href: '/licencing-and-terms.md', title: 'Licencing & Terms (Markdown)' }];
+---
+
+<Layout title={m.title} description={m.description} path={href(path)} locale={locale} alternates={alternatesOf(path)} jsonLd={jsonLd} head={markdown}>
+  <article class="prose mx-auto max-w-3xl px-5 pt-16 sm:px-8">
+    <p class="mb-2 text-sm font-medium text-accent">{m.name}</p>
+    <h1>{m.heading}</h1>
+    <p class="text-lg" set:html={m.introHtml(mit)} />
+    <h2>{m.canDo}</h2>
+    <ul>
+      {m.canDoItemsHtml.map((item) => <li set:html={item} />)}
+    </ul>
+    <h2>{m.attribution}</h2>
+    <p>{m.attributionText}</p>
+    <pre><code>{m.credit('<a href="https://useanimations.com">useAnimations</a>')}</code></pre>
+    <h2>{m.noWarranty}</h2>
+    <p>{m.noWarrantyText}</p>
+    <h2>{m.licenseText}</h2>
+    {locale.prefix && <p>{m.bindingNote}</p>}
+    <pre class="whitespace-pre-wrap" lang={locale.prefix ? 'en' : undefined}><code>{license}</code></pre>
+  </article>
+</Layout>

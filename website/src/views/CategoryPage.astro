@@ -1,0 +1,140 @@
+---
+// A category page (/categories/<slug>) in any language; src/pages routes render it.
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import FaqList from '../components/FaqList.astro';
+import IconGrid from '../components/IconGrid.astro';
+import { alternatesOf, type Locale, localize, t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import {
+  breadcrumbNode,
+  categories,
+  categoryFaq,
+  categoryPath,
+  categoryText,
+  collectionPageNode,
+  interactionPath,
+} from '../lib/hubs';
+import { reactExample, shadcnCommand, shadcnExample } from '../lib/icons';
+import { faqNode, websiteNode } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+  /** Category name as in catalog.json. */
+  name: string;
+}
+
+const { locale, name } = Astro.props;
+const m = t(locale);
+const h = m.hubs.category;
+const all = categories();
+const { meta, icons } = all.find((category) => category.meta.name === name)!;
+const copy = m.taxonomy.categories[meta.name];
+const text = categoryText(meta, locale);
+const path = categoryPath(meta);
+const href = (p: string) => localize(p, locale);
+const faq = categoryFaq(meta, locale);
+const crumbs = [
+  { name: m.common.crumbs.icons, path: href('/icons') },
+  { name: m.common.crumbs.categories, path: href('/categories') },
+  { name: copy.name, path: href(path) },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    collectionPageNode(href(path), copy.title, text.description, icons, locale),
+    breadcrumbNode(crumbs),
+    faqNode(faq),
+    websiteNode(),
+  ],
+};
+const markdown = locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown', href: `${path}.md`, title: `${meta.title} (Markdown)` }];
+---
+
+<Layout
+  title={text.title}
+  description={text.description}
+  path={href(path)}
+  locale={locale}
+  alternates={meta.indexable ? alternatesOf(path) : undefined}
+  jsonLd={jsonLd}
+  noindex={!meta.indexable}
+  head={markdown}
+>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} label={m.common.breadcrumb} />
+
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{h.badge(icons.length)}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{copy.title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">{copy.intro}</p>
+      <p class="mt-4 leading-relaxed text-muted">{text.summary}</p>
+    </header>
+
+    <section class="mt-12" aria-labelledby="icons-title">
+      <h2 id="icons-title" class="text-lg font-semibold">{h.allIcons(copy.name)}</h2>
+      <IconGrid class="mt-4" icons={icons} locale={locale} />
+    </section>
+
+    <div class="mt-16 grid gap-12 lg:grid-cols-2">
+      <section aria-labelledby="uses-title">
+        <h2 id="uses-title" class="text-2xl font-semibold tracking-tight">{h.whereToUse}</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-muted marker:text-subtle">
+          {copy.useCases.map((useCase) => <li>{useCase}</li>)}
+        </ul>
+      </section>
+
+      <section aria-labelledby="by-interaction-title">
+        <h2 id="by-interaction-title" class="text-2xl font-semibold tracking-tight">{h.byInteraction}</h2>
+        <ul class="mt-4 space-y-4">
+          {
+            text.byInteraction.map(({ interaction, icons: group }) => (
+              <li>
+                <a href={href(interactionPath(interaction))} class="font-medium text-fg underline-offset-4 hover:underline">
+                  {m.taxonomy.interactions[interaction].title}
+                </a>
+                <span class="text-subtle"> · {group.length}</span>
+                <p class="mt-1 text-sm leading-relaxed text-muted">
+                  {m.taxonomy.interactions[interaction].description}{locale.space}<span lang={locale.prefix ? 'en' : undefined}>{group.map((icon) => icon.title).join(', ')}</span>.
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+
+    <section class="mt-16 max-w-3xl" aria-labelledby="code-title">
+      <h2 id="code-title" class="text-2xl font-semibold tracking-tight">{h.addOne}</h2>
+      <p class="mt-3 leading-relaxed text-muted" set:html={h.addOneHtml(m.taxonomy.interactions[text.example.interaction].label, text.example.name)} />
+      <CodeBlock class="mt-4" lang="bash" code="npm install react-useanimations" track={{ code: 'install' }} locale={locale} />
+      <CodeBlock class="mt-3" lang="jsx" code={reactExample(text.example.exportName, text.example.name)} track={{ icon: text.example.id, code: 'react' }} locale={locale} />
+      <p class="mt-6 leading-relaxed text-muted" set:html={h.shadcnHtml(href('/shadcn-animated-icons'))} />
+      <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(text.example)} track={{ icon: text.example.id, code: 'shadcn-command' }} locale={locale} />
+      <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(text.example.id, text.example.component)} track={{ icon: text.example.id, code: 'shadcn' }} locale={locale} />
+      <p class="mt-6 leading-relaxed text-muted" set:html={h.noReactHtml(href('/lottie-icons'))} />
+    </section>
+
+    <FaqList class="mt-16" faq={faq} title={m.common.faq} />
+
+    <nav aria-labelledby="more-title" class="mt-16 border-t border-line pt-8">
+      <h2 id="more-title" class="text-lg font-semibold">{h.more}</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          all
+            .filter((other) => other.meta.name !== meta.name)
+            .map((other) => (
+              <li>
+                <a href={href(categoryPath(other.meta))} class="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition hover:border-line-strong hover:text-fg">
+                  {m.taxonomy.categories[other.meta.name].name} <span class="ml-1.5 text-subtle">{other.icons.length}</span>
+                </a>
+              </li>
+            ))
+        }
+        <li>
+          <a href={href('/icons')} class="inline-flex rounded-full bg-fg px-3.5 py-1.5 text-sm font-medium text-bg hover:opacity-85">{h.allIconsButton}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</Layout>

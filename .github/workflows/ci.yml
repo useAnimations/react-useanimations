@@ -133,7 +133,10 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # Previews build every language, including those not live yet (website/src/i18n/locales.ts).
       - run: npm run website:build
+        env:
+          I18N_PREVIEW: '1'
       # Keep previews out of search engines.
       - run: |
           printf '\n/*\n  X-Robots-Tag: noindex\n' >> website/dist/_headers
