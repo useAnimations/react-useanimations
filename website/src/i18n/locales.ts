@@ -1,7 +1,7 @@
 // The languages of the site. English lives at the root; every other language has a path prefix
 // and translates the home page, the documentation, the licence page and the collection hubs. Icon
 // pages stay English. A language is built only when it's live, so an unfinished translation never
-// reaches a sitemap, an hreflang link or Google; I18N_PREVIEW=1 builds them all (PR previews).
+// reaches a sitemap, an hreflang link or Google; I18N_PREVIEW previews them (see BUILT).
 
 export type LocaleCode =
   | 'en'
@@ -72,10 +72,13 @@ export const LOCALES: Locale[] = [
   locale('ru', 'ru', 'Русский', 'ru_RU', 3, false),
 ];
 
-const preview = process.env.I18N_PREVIEW === '1';
+// I18N_PREVIEW=1 builds every language, I18N_PREVIEW=de,cs the live ones plus those.
+const preview = (process.env.I18N_PREVIEW ?? '').split(',').filter(Boolean);
 
-/** Languages that are built: the live ones, or all of them for a preview. */
-export const BUILT = LOCALES.filter((l) => l.live || preview);
+/** Languages that are built: the live ones plus any previewed. */
+export const BUILT = LOCALES.filter(
+  (l) => l.live || preview.includes('1') || preview.includes(l.code)
+);
 /** Built languages other than English: the [locale] routes. */
 export const TRANSLATED = BUILT.filter((l) => l.code !== 'en');
 
