@@ -1,0 +1,685 @@
+---
+// The home page (/) in any language; src/pages routes render it.
+import type { Interaction } from 'react-useanimations';
+import CodeBlock from '../components/CodeBlock.astro';
+import ColorRow from '../components/ColorRow';
+import IconCard from '../components/IconCard';
+import IconDialog, { type DialogIcon, type Templates } from '../components/IconDialog';
+import IconField from '../components/IconField.astro';
+import InstallCommand from '../components/InstallCommand.astro';
+import InteractionDemo from '../components/InteractionDemo';
+import { alternatesOf, EN, type Locale, localize, t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import { highlight } from '../lib/highlight';
+import { categoryLinks, FAQ_LINKS, homeFaq, hubLinks, interactionLinks } from '../lib/home';
+import {
+  CATEGORIES,
+  filesExample,
+  type Icon,
+  icons,
+  INTERACTIONS,
+  reactExample,
+  searchText,
+  shadcnExample,
+  SITE,
+  VERSION,
+} from '../lib/icons';
+import { faqNode, ORGANIZATION_ID, organizationNode, WEBSITE_ID, websiteNode } from '../lib/seo';
+import { GITHUB, NPM } from '../lib/site';
+import { CATEGORY_META } from '../lib/taxonomy';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = t(locale);
+const h = m.home;
+const b = h.browser;
+const e = h.everywhere;
+const f = h.features;
+const href = (p: string) => localize(p, locale);
+const description = h.description(icons.length);
+const faq = homeFaq(
+  locale,
+  Object.fromEntries(Object.entries(FAQ_LINKS).map(([key, path]) => [key, href(path)])) as typeof FAQ_LINKS
+);
+
+// "<n> icons" in the language's plural form; the browser script picks from the same forms.
+const countText = (n: number) =>
+  (b.count[new Intl.PluralRules(locale.hreflang).select(n)] ?? b.count.other).replace('{n}', String(n));
+// Search matches the English keywords, plus the category's name in the page's language.
+const keywords = (icon: Icon) =>
+  locale.prefix
+    ? `${searchText(icon)} ${m.taxonomy.categories[icon.category].name.toLowerCase()}`
+    : searchText(icon);
+
+// HERO FIELD: icons whose animation starts and ends at rest, taken from every category in turn.
+const replayable = new Set(['hover-replay', 'click-replay', 'loop', 'hover-loop']);
+// Some icons start from an empty frame (their still is a later frame); the field shows only icons
+// that are visible at rest, as its live players start on the first frame.
+const pools = CATEGORIES.map((category) =>
+  icons.filter(
+    (icon) => icon.category === category && replayable.has(icon.interaction) && icon.preview === icon.firstFrame
+  )
+);
+const field: typeof icons = [];
+for (let round = 0; field.length < 72; round += 1) {
+  for (const pool of pools) if (pool[round] && field.length < 72) field.push(pool[round]);
+}
+
+const byName = (name: string) => icons.find((icon) => icon.name === name)!;
+const demos = (
+  [
+    ['infinity', 'loop'],
+    ['menu', 'click-toggle'],
+    ['download', 'click-replay'],
+    ['archive', 'hover'],
+    ['github', 'hover-loop'],
+    ['trendingUp', 'hover-replay'],
+  ] as [string, Interaction][]
+).map(([name, interaction]) => ({
+  name,
+  interaction,
+  title: m.taxonomy.interactions[interaction].label,
+  description: h.interactions.demos[interaction],
+  id: byName(name).id,
+}));
+
+// DIALOG: metadata of every icon and the code blocks, highlighted once with placeholders.
+const index: DialogIcon[] = icons.map((icon) => ({
+  id: icon.id,
+  name: icon.name,
+  exportName: icon.exportName,
+  component: icon.component,
+  title: icon.title,
+  category: icon.category,
+  interaction: icon.interaction,
+  svg: Object.keys(icon.svgs),
+  durationMs: icon.durationMs,
+}));
+const templates: Templates = {
+  react: await highlight(reactExample('__EXPORT__', '__NAME__'), 'jsx'),
+  shadcnCommand: await highlight(`npx shadcn@latest add ${SITE}/r/__ID__.json`, 'bash'),
+  shadcn: await highlight(shadcnExample('__ID__', '__COMPONENT__'), 'tsx'),
+  files: await highlight(filesExample('__ID__'), 'bash'),
+};
+
+const COLORS = [
+  { key: 'text', value: '' },
+  { key: 'indigo', value: '#4b5cff' },
+  { key: 'red', value: '#e5484d' },
+  { key: 'amber', value: '#f59e0b' },
+  { key: 'teal', value: '#12a594' },
+  { key: 'violet', value: '#a24bff' },
+] as const;
+
+const platforms = [
+  {
+    id: 'React',
+    name: e.tabs.react,
+    lang: 'jsx',
+    code: `import UseAnimations from 'react-useanimations';
+import menu from 'react-useanimations/lib/menu';
+
+export function MenuButton({ open, onToggle }) {
+  return (
+    <UseAnimations
+      animation={menu}
+      active={open}
+      onClick={onToggle}
+      size={28}
+    />
+  );
+}`,
+  },
+  {
+    id: 'shadcn',
+    name: e.tabs.shadcn,
+    lang: 'bash',
+    code: `npx shadcn@latest add ${SITE}/r/menu.json
+# ${e.codeText.afterAdding}: <AnimatedMenu size={24} />`,
+  },
+  {
+    id: 'Files',
+    name: e.tabs.files,
+    lang: 'bash',
+    code: `# ${e.codeText.files}
+${SITE}/icons/menu/menu.svg
+${filesExample('menu')}`,
+  },
+  {
+    id: 'Agents',
+    name: e.tabs.agents,
+    lang: 'js',
+    code: `const { icons } = await fetch('${SITE}/icons.json').then((r) => r.json());
+const icon = icons.find((i) => i.keywords.includes('hamburger'));
+icon.react.import; // "import menu from 'react-useanimations/lib/menu';"`,
+  },
+];
+
+const colorRow = ['heart', 'star', 'bookmark', 'notification', 'settings', 'zap'].map(byName);
+const colorful = ['#e5484d', '#f59e0b', '#12a594', '#4b5cff', '#a24bff', 'var(--fg)'];
+
+const categories = categoryLinks();
+const interactions = interactionLinks();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    websiteNode(),
+    organizationNode(),
+    {
+      '@type': 'WebPage',
+      '@id': `${new URL(href('/'), SITE).href}#webpage`,
+      url: new URL(href('/'), SITE).href,
+      name: h.title,
+      description,
+      inLanguage: locale.hreflang,
+      isPartOf: { '@id': WEBSITE_ID },
+      about: { '@id': `${SITE}/#software` },
+      primaryImageOfPage: `${SITE}/og.png`,
+    },
+    // The package and the catalog are described once, on the English page; translations point to them.
+    ...(locale.prefix ? [] : [{
+      '@type': ['SoftwareApplication', 'SoftwareSourceCode'],
+      '@id': `${SITE}/#software`,
+      name: 'react-useanimations',
+      description: h.schema.software(icons.length),
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web',
+      softwareVersion: VERSION,
+      version: VERSION,
+      downloadUrl: NPM,
+      installUrl: NPM,
+      codeRepository: GITHUB,
+      programmingLanguage: ['TypeScript', 'JavaScript'],
+      runtimePlatform: 'React',
+      license: 'https://opensource.org/license/mit/',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      author: { '@id': ORGANIZATION_ID },
+      publisher: { '@id': ORGANIZATION_ID },
+    },
+    {
+      '@type': 'Dataset',
+      '@id': `${SITE}/#catalog`,
+      name: h.schema.catalogName,
+      description: h.schema.catalog(icons.length),
+      url: `${SITE}/icons.json`,
+      license: 'https://opensource.org/license/mit/',
+      isAccessibleForFree: true,
+      creator: { '@id': ORGANIZATION_ID },
+      keywords: ['animated icons', 'micro animations', 'Lottie', 'SVG', 'React', 'shadcn/ui'],
+      distribution: [
+        { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: `${SITE}/icons.json` },
+        { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: `${SITE}/r/registry.json` },
+      ],
+    }]),
+    { ...faqNode(faq), '@id': `${new URL(href('/'), SITE).href}#faq` },
+  ],
+};---
+
+
+<Layout
+  title={h.title}
+  description={description}
+  path={href('/')}
+  locale={locale}
+  alternates={alternatesOf('/')}
+  head={[
+    { rel: 'license', href: href('/licencing-and-terms') },
+    ...(locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown', href: '/index.md', title: 'Homepage (Markdown)' }]),
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)] opacity-60"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-5 pt-20 pb-10 text-center sm:px-8 sm:pt-28">
+      <a
+        href={href('/documentation#upgrading-from-v2')}
+        class="group mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 py-1 pr-3 pl-1 text-xs text-muted backdrop-blur transition hover:text-fg"
+      >
+        <span class="rounded-full bg-accent px-2 py-0.5 font-medium text-accent-fg">v3</span>
+        {h.hero.badge(icons.length)}
+        <span class="transition-transform group-hover:translate-x-0.5">→</span>
+      </a>
+      <p class="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-balance sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]">
+        {h.hero.headline.start}<span class="text-gradient">{h.hero.headline.accent}</span>{h.hero.headline.end}
+      </p>
+      <h1 class="mx-auto mt-6 max-w-3xl text-xl font-semibold tracking-tight text-balance sm:text-2xl">
+        {h.hero.h1}
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
+        {h.hero.intro(icons.length)}
+      </p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href="#icons"
+          class="inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg shadow-[0_10px_30px_-12px_var(--glow)] transition hover:opacity-90"
+          >{h.hero.browse}</a
+        >
+        <InstallCommand locale={locale} />
+      </div>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-3 pb-6 sm:px-8">
+      <div
+        class="field-stage relative h-[300px] overflow-hidden rounded-[2rem] border border-line bg-surface/60 shadow-[0_40px_120px_-60px_var(--glow)] backdrop-blur sm:h-[400px]"
+      >
+        <IconField icons={field} />
+        <div
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg/90 to-transparent"
+          aria-hidden="true"
+        >
+        </div>
+      </div>
+      <p class="mt-4 text-center text-xs text-subtle">{h.hero.fieldHint}</p>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="mx-auto mt-10 max-w-6xl px-5 sm:px-8" aria-label={h.numbers.label}>
+    <dl class="grid grid-cols-2 overflow-hidden rounded-3xl border border-line sm:grid-cols-4">
+      {
+        [
+          [String(icons.length), h.numbers.icons],
+          ['6', h.numbers.interactions],
+          ['8 kB', h.numbers.size],
+          ['0', h.numbers.dependencies],
+        ].map(([value, label]) => (
+          <div class="border-line p-6 text-center not-last:border-r max-sm:nth-[2]:border-r-0 max-sm:nth-[-n+2]:border-b">
+            <dt class="sr-only">{label}</dt>
+            <dd class="text-3xl font-semibold tracking-tight sm:text-4xl">{value}</dd>
+            <dd class="mt-1 text-sm text-muted">{label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <!-- INTERACTIONS -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="interactions-title">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium text-accent">{h.interactions.eyebrow}</p>
+      <h2 id="interactions-title" class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+        {h.interactions.title}
+      </h2>
+      <p class="mt-4 text-lg text-muted">
+        {h.interactions.intro}
+      </p>
+    </div>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {demos.map((demo) => <InteractionDemo client:visible {...demo} hint={demo.description} strings={m.islands.interactionDemo} />)}
+    </div>
+  </section>
+
+  <!-- ICON BROWSER -->
+  <section id="icons" class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="icons-title" data-browser data-card-strings={JSON.stringify(m.islands.iconCard)}>
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="text-sm font-medium text-accent">{h.browser.eyebrow}</p>
+        <h2 id="icons-title" class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          {b.title(icons.length)}
+        </h2>
+        <p class="mt-4 text-lg text-muted">
+          {b.intro}
+        </p>
+      </div>
+    </div>
+
+    <div
+      data-filters
+      class="sticky top-16 z-30 -mx-5 mt-10 border-b border-line bg-bg/85 px-5 py-4 backdrop-blur-xl sm:-mx-8 sm:px-8"
+    >
+      <div class="flex flex-wrap items-center gap-3">
+        <label class="relative min-w-[16rem] flex-1">
+          <span class="sr-only">{b.search}</span>
+          <svg
+            viewBox="0 0 24 24"
+            class="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-subtle"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg
+          >
+          <input
+            data-search
+            type="search"
+            placeholder={b.searchPlaceholder(icons.length)}
+            autocomplete="off"
+            class="w-full rounded-full border border-line-strong bg-surface py-2.5 pr-10 pl-10 text-sm text-fg placeholder:text-subtle focus:border-accent focus:outline-none"
+          />
+          <kbd
+            class="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 rounded-md border border-line px-1.5 font-mono text-[11px] text-subtle sm:block"
+            >/</kbd
+          >
+        </label>
+        <label class="relative">
+          <span class="sr-only">{b.interaction}</span>
+          <select
+            data-interaction-filter
+            class="appearance-none rounded-full border border-line-strong bg-surface py-2.5 pr-9 pl-4 text-sm text-fg focus:border-accent focus:outline-none"
+          >
+            <option value="">{b.allInteractions}</option>
+            {(Object.keys(INTERACTIONS) as Interaction[]).map((value) => <option value={value}>{m.taxonomy.interactions[value].label}</option>)}
+          </select>
+          <svg
+            viewBox="0 0 24 24"
+            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-subtle"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg
+          >
+        </label>
+        <div class="flex items-center gap-1.5" role="group" aria-label={b.color}>
+          {
+            COLORS.map((color) => (
+              <button
+                type="button"
+                data-color={color.value}
+                data-track="color"
+                data-track-color={t(EN).home.browser.colors[color.key]}
+                aria-label={b.colors[color.key]}
+                aria-pressed={color.value === '' ? 'true' : 'false'}
+                class="size-6 rounded-full border border-line-strong ring-offset-2 ring-offset-bg aria-pressed:ring-2 aria-pressed:ring-accent"
+                style={{ background: color.value || 'var(--fg)' }}
+              />
+            ))
+          }
+          <label class="relative size-6 cursor-pointer overflow-hidden rounded-full border border-line-strong bg-[conic-gradient(#e5484d,#f59e0b,#12a594,#4b5cff,#a24bff,#e5484d)]">
+            <span class="sr-only">{b.customColor}</span>
+            <input data-color-input type="color" class="absolute inset-0 cursor-pointer opacity-0" />
+          </label>
+        </div>
+        <label class="flex items-center gap-2 text-xs text-muted">
+          {b.size}
+          <input data-size type="range" min="24" max="64" value="40" class="w-24 accent-[var(--accent)]" />
+        </label>
+      </div>
+      <div class="no-scrollbar mt-4 flex gap-2 overflow-x-auto sm:flex-wrap sm:overflow-visible" role="group" aria-label={b.category}>
+        {
+          ['', ...CATEGORIES].map((category) => (
+            <button
+              type="button"
+              data-category-filter={category}
+              data-track="category"
+              data-track-category={category || 'All'}
+              aria-pressed={category === '' ? 'true' : 'false'}
+              class="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm whitespace-nowrap text-muted transition hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
+            >
+              {category ? m.taxonomy.categories[category].name : b.all}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="mt-6 text-sm text-subtle" aria-live="polite" data-count data-count-forms={JSON.stringify(b.count)}>
+      {countText(icons.length)}
+    </p>
+    <div data-grid class="mt-2">
+      {
+        CATEGORIES.map((category) => (
+          <section
+            data-section
+            id={category === 'Alerts' ? 'alerts' : undefined}
+            aria-label={m.taxonomy.categories[category].name}
+            class="icon-section mt-8 first:mt-4"
+          >
+            <h3 class="mb-4 text-sm font-medium text-muted">
+              {CATEGORY_META[category].indexable ? (
+                <a href={href(`/categories/${CATEGORY_META[category].slug}`)} class="transition-colors hover:text-fg">
+                  {m.taxonomy.categories[category].name}
+                </a>
+              ) : (
+                m.taxonomy.categories[category].name
+              )}
+            </h3>
+            <ul class="grid grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))] gap-3">
+              {icons
+                .filter((icon) => icon.category === category)
+                .map((icon) => (
+                  <li
+                    data-card
+                    data-track="icon-open"
+                    data-track-icon={icon.id}
+                    data-id={icon.id}
+                    data-title={icon.title}
+                    data-category={icon.category}
+                    data-interaction={icon.interaction}
+                    data-keywords={keywords(icon)}
+                    data-blank-start={icon.preview === icon.firstFrame ? undefined : ''}
+                  >
+                    <IconCard
+                      icon={{ id: icon.id, title: icon.title, interaction: icon.interaction }}
+                      still={icon.preview}
+                      strings={m.islands.iconCard}
+                    />
+                  </li>
+                ))}
+            </ul>
+          </section>
+        ))
+      }
+      <div data-empty hidden class="rounded-3xl border border-dashed border-line-strong px-6 py-16 text-center">
+        <p class="text-lg font-medium">{b.noMatch}</p>
+        <p class="mt-2 text-sm text-muted" set:html={b.noMatchHintHtml(`${GITHUB}/issues`)} />
+      </div>
+    </div>
+  </section>
+
+  <!-- EVERYWHERE -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="everywhere-title">
+    <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.3fr]">
+      <div class="lg:sticky lg:top-28">
+        <p class="text-sm font-medium text-accent">{e.eyebrow}</p>
+        <h2 id="everywhere-title" class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+          {e.title}
+        </h2>
+        <p class="mt-4 text-lg text-muted">
+          {e.intro}
+        </p>
+        <a
+          href={href('/documentation')}
+          class="mt-8 inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm font-medium transition hover:bg-surface-2"
+          >{e.docs}</a
+        >
+      </div>
+      <div data-tabs class="min-w-0">
+        <div role="tablist" aria-label={e.tablist} class="no-scrollbar flex gap-1 overflow-x-auto rounded-full border border-line bg-surface-2 p-1">
+          {
+            platforms.map((platform, i) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${platform.id}`}
+                aria-controls={`panel-${platform.id}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                data-track="platform-tab"
+                data-track-tab={platform.id.toLowerCase()}
+                class="shrink-0 rounded-full px-4 py-1.5 text-sm text-muted transition aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm"
+              >
+                {platform.name}
+              </button>
+            ))
+          }
+        </div>
+        {
+          platforms.map((platform, i) => (
+            <div
+              role="tabpanel"
+              id={`panel-${platform.id}`}
+              aria-labelledby={`tab-${platform.id}`}
+              hidden={i !== 0}
+              class="mt-4"
+            >
+              <CodeBlock code={platform.code} lang={platform.lang} track={{ code: platform.id.toLowerCase() }} locale={locale} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="features-title">
+    <h2 id="features-title" class="max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+      {f.title}
+    </h2>
+    <div class="mt-12 grid gap-4 md:grid-cols-6">
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-4">
+        <h3 class="text-lg font-semibold tracking-tight">{f.colors}</h3>
+        <p class="mt-2 max-w-md text-muted" set:html={f.colorsHtml} />
+        <ColorRow
+          client:visible
+          icons={colorRow.map((icon, i) => ({
+            id: icon.id,
+            title: icon.title,
+            color: colorful[i],
+            interaction: icon.interaction,
+          }))}
+        />
+      </article>
+      <article class="flex flex-col justify-between rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">{f.tiny}</h3>
+        <p class="mt-10 text-6xl font-semibold tracking-tight">8<span class="text-3xl text-muted"> kB</span></p>
+        <p class="mt-2 text-muted">{f.tinyText}</p>
+      </article>
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">{f.accessible}</h3>
+        <p class="mt-2 text-muted">
+          {f.accessibleText}
+        </p>
+      </article>
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">{f.ssr}</h3>
+        <p class="mt-2 text-muted">
+          {f.ssrText}
+        </p>
+      </article>
+      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="text-lg font-semibold tracking-tight">{f.agents}</h3>
+        <p class="mt-2 text-muted" set:html={f.agentsHtml('/icons.json', '/llms.txt')} />
+      </article>
+    </div>
+  </section>
+
+  <!-- BROWSE -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8" aria-labelledby="browse-title">
+    <h2 id="browse-title" class="max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+      {h.browse.title}
+    </h2>
+    <div class="mt-12 grid gap-10 lg:grid-cols-[2fr_1fr]">
+      <nav aria-labelledby="browse-categories">
+        <h3 id="browse-categories" class="text-lg font-semibold tracking-tight">{h.browse.byCategory}</h3>
+        <ul class="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2 md:grid-cols-3">
+          {
+            categories.map((link) => (
+              <li>
+                <a href={href(link.href)} class="group flex items-baseline justify-between gap-3 py-1 text-muted hover:text-fg">
+                  <span>{m.taxonomy.categories[link.name].title}</span>
+                  <span class="text-xs text-subtle tabular-nums">{link.count}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="grid gap-10">
+        <nav aria-labelledby="browse-interactions">
+          <h3 id="browse-interactions" class="text-lg font-semibold tracking-tight">{h.browse.byInteraction}</h3>
+          <ul class="mt-4 grid gap-y-2">
+            {
+              interactions.map((link) => (
+                <li>
+                  <a href={href(link.href)} class="flex items-baseline justify-between gap-3 py-1 text-muted hover:text-fg">
+                    <span>{m.taxonomy.interactions[link.interaction].title}</span>
+                    <span class="text-xs text-subtle tabular-nums">{link.count}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <nav aria-labelledby="browse-formats">
+          <h3 id="browse-formats" class="text-lg font-semibold tracking-tight">{h.browse.formats}</h3>
+          <ul class="mt-4 grid gap-y-2">
+            {
+              hubLinks(locale).map((link) => (
+                <li>
+                  <a href={href(link.href)} class="block py-1 text-muted hover:text-fg">{link.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mx-auto mt-32 max-w-3xl px-5 sm:px-8" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{h.faqTitle}</h2>
+    <div class="mt-10 divide-y divide-line border-y border-line">
+      {
+        faq.map((item) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium [&::-webkit-details-marker]:hidden">
+              <h3>{item.question}</h3>
+              <span class="text-subtle transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 leading-relaxed text-muted">
+              {item.answer}
+              {item.link && (
+                <>
+                  {' '}
+                  <a href={item.link.href} class="text-fg underline underline-offset-4">
+                    {item.link.label} →
+                  </a>
+                </>
+              )}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto mt-32 max-w-7xl px-5 sm:px-8">
+    <div class="cta relative overflow-hidden rounded-[2.5rem] border border-line px-6 py-20 text-center sm:px-16">
+      <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <h2 class="relative text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+        {h.cta.title.start}<span class="text-gradient">{h.cta.title.accent}</span>{h.cta.title.end}
+      </h2>
+      <p class="relative mx-auto mt-4 max-w-xl text-lg text-muted">{h.cta.text}</p>
+      <div class="relative mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <InstallCommand locale={locale} />
+        <a href={href('/documentation')} class="rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg hover:opacity-90"
+          >{h.cta.start}</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <script type="application/json" id="icon-index" set:html={JSON.stringify(index)} />
+  <IconDialog
+    client:idle
+    templates={templates}
+    strings={m.islands.iconDialog}
+    categories={locale.prefix ? Object.fromEntries(Object.entries(m.taxonomy.categories).map(([name, text]) => [name, text.name])) : undefined}
+  />
+</Layout>
+
+<script>
+  import '../scripts/browser';
+  import '../scripts/tabs';
+</script>

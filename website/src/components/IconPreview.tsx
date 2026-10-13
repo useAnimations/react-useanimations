@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import UseAnimations, { type Interaction } from 'react-useanimations';
+import { islands } from '../i18n/messages/en/islands';
 
 const COLORS = ['', '#4b5cff', '#e5484d', '#f59e0b', '#12a594', '#a24bff'];
-const HINTS: Record<Interaction, string> = {
-  loop: 'Plays on its own',
-  'click-toggle': 'Click to toggle',
-  'click-replay': 'Click to replay',
-  hover: 'Hover to play, leave to reverse',
-  'hover-loop': 'Hover to loop',
-  'hover-replay': 'Hover to play',
-};
+// Icon pages are English-only; the dialog's strings say how to play the icon.
+const { hints, colors, color: colorLabel, textColor } = islands.iconDialog;
 
 /** `lottie` is the Lottie JSON as a string. */
 type Props = { lottie: string; interaction: Interaction; title: string };
@@ -38,15 +33,15 @@ export default function IconPreview({ lottie, interaction, title }: Props) {
           )}
         />
         <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-surface px-3 py-1 text-xs whitespace-nowrap text-muted shadow-sm">
-          {HINTS[interaction]}
+          {hints[interaction]}
         </span>
       </div>
-      <div className="mt-4 flex items-center gap-2" role="group" aria-label="Preview color">
+      <div className="mt-4 flex items-center gap-2" role="group" aria-label={colors}>
         {COLORS.map((value) => (
           <button
             key={value || 'default'}
             type="button"
-            aria-label={value ? `Color ${value}` : 'Text color'}
+            aria-label={value ? colorLabel.replace('{color}', value) : textColor}
             aria-pressed={color === value}
             onClick={() => setColor(value)}
             className="size-7 rounded-full border border-line-strong ring-offset-2 ring-offset-bg aria-pressed:ring-2 aria-pressed:ring-accent"

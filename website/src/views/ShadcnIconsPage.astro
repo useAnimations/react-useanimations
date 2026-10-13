@@ -1,0 +1,155 @@
+---
+// The shadcn/ui hub (/shadcn-animated-icons) in any language. The code examples stay English.
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import FaqList from '../components/FaqList.astro';
+import IconGrid from '../components/IconGrid.astro';
+import { alternatesOf, type Locale, localize, t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import {
+  breadcrumbNode,
+  categories,
+  categoryPath,
+  itemListNode,
+  localDescription,
+  localTitle,
+  pickIcons,
+} from '../lib/hubs';
+import { iconById, icons, shadcnCommand, shadcnExample, SITE, VERSION } from '../lib/icons';
+import { faqNode, websiteNode, WEBSITE_ID } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = t(locale);
+const p = m.pages.shadcn;
+const href = (path: string) => localize(path, locale);
+const path = '/shadcn-animated-icons';
+
+const popular = pickIcons([
+  'menu', 'check-box', 'toggle', 'visibility', 'heart', 'bookmark', 'star', 'trash',
+  'copy', 'download', 'search-to-x', 'settings', 'notification', 'refresh', 'send', 'sun',
+  'play-pause', 'volume', 'shopping-cart', 'alert-circle', 'arrow-right', 'external-link', 'github', 'plus-to-x',
+]);
+const menu = iconById.get('menu')!;
+const checkmark = iconById.get('checkmark')!;
+
+const componentsJson = `{
+  "registries": {
+    "@useanimations": "${SITE}/r/{name}.json"
+  }
+}`;
+const toggleExample = `"use client"
+
+import { useState } from "react"
+import { AnimatedMenu } from "@/components/animations/menu"
+import { Button } from "@/components/ui/button"
+
+export function MenuToggle() {
+  const [open, setOpen] = useState(false)
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      aria-label={open ? ${JSON.stringify(p.codeText.closeMenu)} : ${JSON.stringify(p.codeText.openMenu)}}
+      aria-expanded={open}
+      onClick={() => setOpen(!open)}
+    >
+      <AnimatedMenu size={20} active={open} />
+    </Button>
+  )
+}`;
+
+const faq = p.faq({ count: icons.length, version: VERSION });
+
+const title = localTitle(locale, p.titles(icons.length));
+const description = localDescription(locale, p.descriptions(icons.length));
+const crumbs = [
+  { name: m.common.crumbs.icons, path: href('/icons') },
+  { name: p.crumb, path: href(path) },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE}${href(path)}`,
+      url: `${SITE}${href(path)}`,
+      name: p.title,
+      description,
+      inLanguage: locale.hreflang,
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: itemListNode(popular, p.popularList),
+    },
+    breadcrumbNode(crumbs),
+    faqNode(faq),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={title} description={description} path={href(path)} locale={locale} alternates={alternatesOf(path)} jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <Breadcrumbs crumbs={crumbs} label={m.common.breadcrumb} />
+
+    <header class="mt-8 max-w-3xl">
+      <p class="text-sm font-medium text-accent">{p.badge(icons.length)}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{p.title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted">{p.intro}</p>
+    </header>
+
+    <div class="mt-12 max-w-3xl">
+      <section aria-labelledby="add-title">
+        <h2 id="add-title" class="text-2xl font-semibold tracking-tight">{p.addTitle}</h2>
+        <p class="mt-3 leading-relaxed text-muted">{p.addIntro}</p>
+        <CodeBlock class="mt-4" lang="bash" code={shadcnCommand(checkmark)} track={{ icon: checkmark.id, code: 'shadcn-command' }} locale={locale} />
+        <CodeBlock class="mt-3" lang="tsx" code={shadcnExample(checkmark.id, checkmark.component)} track={{ icon: checkmark.id, code: 'shadcn' }} locale={locale} />
+        <p class="mt-4 leading-relaxed text-muted" set:html={p.namingHtml} />
+      </section>
+
+      <section class="mt-14" aria-labelledby="namespace-title">
+        <h2 id="namespace-title" class="text-2xl font-semibold tracking-tight">{p.namespaceTitle}</h2>
+        <p class="mt-3 leading-relaxed text-muted" set:html={p.namespaceHtml} />
+        <CodeBlock class="mt-4" lang="json" code={componentsJson} track={{ code: 'components-json' }} locale={locale} />
+        <CodeBlock class="mt-3" lang="bash" code="npx shadcn@latest add @useanimations/menu @useanimations/heart @useanimations/loading" track={{ code: 'shadcn-namespace' }} locale={locale} />
+        <p class="mt-4 leading-relaxed text-muted" set:html={p.registryHtml('/r/registry.json')} />
+      </section>
+
+      <section class="mt-14" aria-labelledby="usage-title">
+        <h2 id="usage-title" class="text-2xl font-semibold tracking-tight">{p.usageTitle}</h2>
+        <p class="mt-3 leading-relaxed text-muted" set:html={p.usageHtml} />
+        <CodeBlock class="mt-3" lang="bash" code={shadcnCommand(menu)} track={{ icon: menu.id, code: 'shadcn-command' }} locale={locale} />
+        <CodeBlock class="mt-3" lang="tsx" code={toggleExample} track={{ icon: menu.id, code: 'shadcn' }} locale={locale} />
+        <p class="mt-4 leading-relaxed text-muted" set:html={p.colorHtml(href('/documentation#shadcn'))} />
+      </section>
+    </div>
+
+    <section class="mt-16" aria-labelledby="popular-title">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="popular-title" class="text-lg font-semibold">{p.popular}</h2>
+        <a href={href('/icons')} class="text-sm text-muted hover:text-fg">{p.allIcons(icons.length)}</a>
+      </div>
+      <p class="mt-2 text-sm text-muted">{p.popularNote}</p>
+      <IconGrid class="mt-4" icons={popular} locale={locale} />
+    </section>
+
+    <FaqList class="mt-16" faq={faq} title={m.common.faq} />
+
+    <nav aria-labelledby="more-title" class="mt-16 border-t border-line pt-8">
+      <h2 id="more-title" class="text-lg font-semibold">{p.byCategory}</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {
+          categories().map(({ meta, icons: group }) => (
+            <li>
+              <a href={href(categoryPath(meta))} class="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition hover:border-line-strong hover:text-fg">
+                {m.taxonomy.categories[meta.name].name} <span class="ml-1.5 text-subtle">{group.length}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</Layout>

@@ -1,6 +1,7 @@
 import { text } from '../lib/http';
 import { seoLint } from '../lib/seo';
-import { hubEntries, iconEntries, pageEntries, sitemapIndex } from '../lib/sitemap';
+import { TRANSLATED } from '../i18n';
+import { hubEntries, iconEntries, localeEntries, pageEntries, sitemapIndex } from '../lib/sitemap';
 
 // Duplicate or over-long icon titles and descriptions, logged once per build.
 const issues = seoLint();
@@ -16,6 +17,7 @@ export const GET = () =>
       { path: '/sitemap-pages.xml', entries: pageEntries() },
       { path: '/sitemap-hubs.xml', entries: hubEntries() },
       { path: '/sitemap-icons.xml', entries: iconEntries() },
+      ...TRANSLATED.map((l) => ({ path: `/sitemap-${l.code}.xml`, entries: localeEntries(l) })),
     ]),
     'application/xml'
   );

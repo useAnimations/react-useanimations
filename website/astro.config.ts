@@ -1,3 +1,4 @@
+import { satteri } from '@astrojs/markdown-satteri';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
@@ -17,6 +18,8 @@ export default defineConfig({
   build: { format: 'file' },
   integrations: [react()],
   markdown: {
+    // `## Überschrift {#english-id}`: translated documentation keeps the English heading ids.
+    processor: satteri({ features: { headingAttributes: true } }),
     // The same themes as lib/highlight.ts.
     shikiConfig: {
       themes: { light: 'github-light-high-contrast', dark: 'github-dark-dimmed' },

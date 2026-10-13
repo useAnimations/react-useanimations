@@ -1,0 +1,92 @@
+---
+// The index of every icon page (/icons) in any language, grouped like the home page; plain links, no scripts.
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import IconGrid from '../components/IconGrid.astro';
+import { alternatesOf, type Locale, localize, t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import {
+  breadcrumbNode,
+  categories,
+  categoryPath,
+  collectionPageNode,
+  interactionPath,
+  interactions,
+  localDescription,
+  localTitle,
+} from '../lib/hubs';
+import { icons } from '../lib/icons';
+import { websiteNode } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = t(locale);
+const p = m.pages.icons;
+const href = (path: string) => localize(path, locale);
+const path = '/icons';
+const groups = categories();
+const title = localTitle(locale, p.titles(icons.length));
+const description = localDescription(locale, p.descriptions(icons.length, groups.length));
+const crumbs = [{ name: m.common.crumbs.icons, path: href(path) }];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    collectionPageNode(href(path), p.title, description, icons, locale),
+    breadcrumbNode(crumbs),
+    websiteNode(),
+  ],
+};
+---
+
+<Layout title={title} description={description} path={href(path)} locale={locale} alternates={alternatesOf(path)} jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-5 pt-10 sm:px-8">
+    <header class="max-w-3xl">
+      <Breadcrumbs crumbs={crumbs} label={m.common.breadcrumb} />
+      <p class="mt-8 text-sm font-medium text-accent">{p.badge(icons.length)}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{p.title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted" set:html={p.introHtml(href('/#icons'))} />
+    </header>
+
+    <nav aria-label={p.categoriesNav} class="mt-10 flex flex-wrap gap-2">
+      {
+        groups.map(({ meta, icons: group }) => (
+          <a href={`#${meta.slug}`} class="inline-flex rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition hover:border-line-strong hover:text-fg">
+            {m.taxonomy.categories[meta.name].name} <span class="ml-1.5 text-subtle">{group.length}</span>
+          </a>
+        ))
+      }
+    </nav>
+    <p class="mt-4 text-sm text-muted">
+      {p.byInteraction}{' '}
+      {
+        interactions().map(({ interaction, icons: group }, index) => (
+          <>
+            {index > 0 && ' · '}
+            <a href={href(interactionPath(interaction))} class="text-fg underline-offset-4 hover:underline">
+              {m.taxonomy.interactions[interaction].label}
+            </a>{' '}
+            <span class="text-subtle">({group.length})</span>
+          </>
+        ))
+      }
+    </p>
+
+    {
+      groups.map(({ meta, icons: group }) => (
+        <section id={meta.slug} class="mt-14 scroll-mt-24" aria-labelledby={`${meta.slug}-title`}>
+          <div class="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 id={`${meta.slug}-title`} class="text-2xl font-semibold tracking-tight">
+              <a href={href(categoryPath(meta))} class="hover:underline hover:underline-offset-4">{m.taxonomy.categories[meta.name].name}</a>
+            </h2>
+            <a href={href(categoryPath(meta))} class="text-sm text-muted hover:text-fg">
+              {p.categoryLink(group.length, m.taxonomy.categories[meta.name].name)}
+            </a>
+          </div>
+          <IconGrid class="mt-4" icons={group} locale={locale} />
+        </section>
+      ))
+    }
+  </div>
+</Layout>

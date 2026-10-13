@@ -3,6 +3,7 @@
 // stable hash of its id, so pages differ from each other and stay the same between builds.
 import { CATEGORIES, type Icon, icons, INTERACTIONS, SITE } from './icons';
 import { GITHUB, NPM } from './site';
+import { BUILT } from '../i18n/locales';
 import { CATEGORY_META, INTERACTION_META } from './taxonomy';
 
 export const TITLE_SUFFIX = ' — useAnimations';
@@ -558,7 +559,7 @@ export const websiteNode = () => ({
   '@id': WEBSITE_ID,
   name: 'useAnimations',
   url: `${SITE}/`,
-  inLanguage: 'en',
+  inLanguage: BUILT.length > 1 ? BUILT.map((l) => l.hreflang) : 'en',
   publisher: { '@id': ORGANIZATION_ID },
 });
 

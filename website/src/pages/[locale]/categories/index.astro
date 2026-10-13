@@ -1,0 +1,12 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { type Locale, TRANSLATED } from '../../../i18n';
+import CategoryIndexPage from '../../../views/CategoryIndexPage.astro';
+
+export const getStaticPaths = (() =>
+  TRANSLATED.map((locale) => ({ params: { locale: locale.code }, props: { locale } }))) satisfies GetStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<CategoryIndexPage locale={locale} />

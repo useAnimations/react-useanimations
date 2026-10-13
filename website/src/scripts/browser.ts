@@ -1,7 +1,7 @@
 // The icon browser on the home page: search, filters, customization, and live icons.
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
-import IconCard, { type CardIcon, openIcon } from '../components/IconCard';
+import IconCard, { type CardIcon, type CardStrings, openIcon } from '../components/IconCard';
 import { loadIconData } from '../lib/icon-data';
 import { track } from './analytics';
 
@@ -21,6 +21,12 @@ if (browser) {
   const sizeInput = browser.querySelector<HTMLInputElement>('[data-size]')!;
   const swatches = [...browser.querySelectorAll<HTMLButtonElement>('[data-color]')];
   const colorInput = browser.querySelector<HTMLInputElement>('[data-color-input]')!;
+  const cardStrings = JSON.parse(browser.dataset.cardStrings!) as CardStrings;
+  // "<n> icons" in the page's language: plural forms with {n}, rendered by the page.
+  const countForms = JSON.parse(count.dataset.countForms!) as Record<string, string>;
+  const plurals = new Intl.PluralRules(document.documentElement.lang);
+  const countText = (n: number) =>
+    (countForms[plurals.select(n)] ?? countForms.other).replace('{n}', String(n));
 
   const params = new URLSearchParams(location.search);
   let category = params.get('category') ?? '';
@@ -46,7 +52,7 @@ if (browser) {
     for (const button of categoryButtons) {
       button.setAttribute('aria-pressed', String(button.dataset.categoryFilter === category));
     }
-    count.textContent = `${shown} ${shown === 1 ? 'icon' : 'icons'}`;
+    count.textContent = countText(shown);
     empty.hidden = shown > 0;
     const next = new URLSearchParams(location.search);
     for (const [key, value] of [
@@ -157,7 +163,9 @@ if (browser) {
           interaction: card.dataset.interaction as CardIcon['interaction'],
         };
         void loadIconData(icon.id).then((data) => {
-          createRoot(card).render(createElement(IconCard, { icon, animationData: data }));
+          createRoot(card).render(
+            createElement(IconCard, { icon, animationData: data, strings: cardStrings })
+          );
         });
       }
     },

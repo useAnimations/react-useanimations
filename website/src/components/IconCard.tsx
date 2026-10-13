@@ -1,16 +1,11 @@
 import type { HTMLAttributes } from 'react';
 import UseAnimations, { type Interaction } from 'react-useanimations';
+import { islands } from '../i18n/messages/en/islands';
 
 export type CardIcon = { id: string; title: string; interaction: Interaction };
 
-const HINT: Record<Interaction, string> = {
-  loop: 'Loop',
-  'click-toggle': 'Click',
-  'click-replay': 'Click',
-  hover: 'Hover',
-  'hover-loop': 'Hover',
-  'hover-replay': 'Hover',
-};
+/** The card's text in the page's language: t(locale).islands.iconCard. */
+export type CardStrings = typeof islands.iconCard;
 
 const SIZE = 'var(--icon-size, 40px)';
 
@@ -23,10 +18,11 @@ export const openIcon = (id: string) =>
 const Frame = ({
   children,
   icon,
+  strings,
   ...props
-}: HTMLAttributes<HTMLDivElement> & { icon: CardIcon }) => (
+}: HTMLAttributes<HTMLDivElement> & { icon: CardIcon; strings: CardStrings }) => (
   <div className="icon-card bg-surface" {...props}>
-    <span className="icon-card-hint">{HINT[icon.interaction]}</span>
+    <span className="icon-card-hint">{strings.hints[icon.interaction]}</span>
     <div className="icon-card-art">{children}</div>
     {/* The icon page, or the details dialog once it's ready; the whole card opens it (scripts/browser.ts). */}
     <a href={`/icons/${icon.id}`} data-details className="icon-card-title">
@@ -43,14 +39,16 @@ export default function IconCard({
   icon,
   still,
   animationData,
+  strings = islands.iconCard,
 }: {
   icon: CardIcon;
   still?: string;
   animationData?: object;
+  strings?: CardStrings;
 }) {
   if (!animationData) {
     return (
-      <Frame icon={icon}>
+      <Frame icon={icon} strings={strings}>
         <span
           aria-hidden="true"
           data-useanimations=""
@@ -66,7 +64,7 @@ export default function IconCard({
       size={SIZE}
       // Clicks open the details, so click icons don't play on the card; hover icons still do.
       render={({ onClick: _onClick, ...eventProps }, animationProps) => (
-        <Frame icon={icon} {...eventProps}>
+        <Frame icon={icon} strings={strings} {...eventProps}>
           <span {...animationProps} />
         </Frame>
       )}

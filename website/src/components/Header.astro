@@ -12,6 +12,7 @@ interface Props {
 
 const { locale = EN } = Astro.props;
 const m = t(locale).common;
+const islands = t(locale).islands;
 const items = nav(locale);
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
@@ -37,13 +38,13 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     </nav>
     <div class="ml-auto flex items-center gap-1.5">
       <NavIcon client:idle href={GITHUB} label="GitHub" />
-      <ThemeToggle client:idle />
+      <ThemeToggle client:idle strings={islands.themeToggle} />
       <a
         href={localize('/#icons', locale)}
         class="ml-1.5 hidden rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition hover:opacity-85 sm:inline-flex"
         >{m.browseIcons}</a
       >
-      <MobileMenu client:idle items={items} />
+      <MobileMenu client:idle items={items} strings={islands.mobileMenu} />
     </div>
   </div>
 </header>

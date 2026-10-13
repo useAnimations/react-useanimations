@@ -1,5 +1,8 @@
-// The sitemaps: an index (sitemap.xml) of three sitemaps for the pages, the collection hubs and the
-// icon pages. Dates come from Git (lib/git.ts) and are left out when unknown, never the build time.
+// The sitemaps: an index (sitemap.xml) of sitemaps for the pages, the collection hubs, the icon
+// pages and one per translated language. Translated pages list every language version as
+// xhtml:link alternates. Dates come from Git (lib/git.ts) and are left out when unknown, never the
+// build time.
+import { alternatesOf, type Locale, localize } from '../i18n';
 import { lastModifiedOf } from './git';
 import { icons, SITE, urls } from './icons';
 import { CATEGORY_META, INTERACTION_META } from './taxonomy';
@@ -24,38 +27,70 @@ const pageFiles = (path: string) => [
   `${PAGES}${path}.md.ts`,
 ];
 
-const LANGUAGES = { en: '/', 'zh-Hans': '/zh', 'x-default': '/' };
+const VIEWS = 'website/src/views';
+const MESSAGES = 'website/src/i18n/messages';
 
-export const pageEntries = (): Entry[] => [
-  {
-    path: '/',
-    sources: [`${PAGES}/index.astro`, 'website/src/lib/home.ts', CATALOG],
-    alternates: LANGUAGES,
-  },
-  { path: '/zh', sources: [`${PAGES}/zh.astro`, CATALOG], alternates: LANGUAGES },
-  {
-    path: '/documentation',
-    sources: [`${PAGES}/documentation.astro`, 'website/src/content/documentation.md'],
-  },
-  { path: '/licencing-and-terms', sources: [`${PAGES}/licencing-and-terms.astro`, 'LICENSE'] },
-];
+/** The English pages; all of them are translated. */
+export const pageEntries = (): Entry[] =>
+  [
+    {
+      path: '/',
+      sources: [
+        `${PAGES}/index.astro`,
+        `${VIEWS}/HomePage.astro`,
+        'website/src/lib/home.ts',
+        `${MESSAGES}/en/`,
+        CATALOG,
+      ],
+    },
+    {
+      path: '/documentation',
+      sources: [
+        `${PAGES}/documentation.astro`,
+        `${VIEWS}/DocumentationPage.astro`,
+        'website/src/content/documentation.md',
+      ],
+    },
+    {
+      path: '/licencing-and-terms',
+      sources: [`${PAGES}/licencing-and-terms.astro`, `${VIEWS}/LicencePage.astro`, 'LICENSE'],
+    },
+  ].map((entry) => ({ ...entry, alternates: alternatesOf(entry.path) }));
 
-/** Collection pages; categories that aren't indexable (e.g. Other) stay out. */
-export const hubEntries = (): Entry[] => [
-  ...['/icons', '/categories', '/interactions', '/lottie-icons', '/shadcn-animated-icons'].map(
-    (path) => ({ path, sources: [...pageFiles(path), CATALOG] })
-  ),
-  ...Object.values(CATEGORY_META)
-    .filter((meta) => meta.indexable)
-    .map((meta) => ({
-      path: `/categories/${meta.slug}`,
-      sources: [`${PAGES}/categories/`, TAXONOMY, CATALOG],
+/** Collection pages, all translated; categories that aren't indexable (e.g. Other) stay out. */
+export const hubEntries = (): Entry[] =>
+  [
+    ...['/icons', '/categories', '/interactions', '/lottie-icons', '/shadcn-animated-icons'].map(
+      (path) => ({ path, sources: [...pageFiles(path), `${VIEWS}/`, CATALOG] })
+    ),
+    ...Object.values(CATEGORY_META)
+      .filter((meta) => meta.indexable)
+      .map((meta) => ({
+        path: `/categories/${meta.slug}`,
+        sources: [`${PAGES}/categories/`, `${VIEWS}/CategoryPage.astro`, TAXONOMY, CATALOG],
+      })),
+    ...Object.values(INTERACTION_META).map((meta) => ({
+      path: `/interactions/${meta.slug}`,
+      sources: [`${PAGES}/interactions/`, `${VIEWS}/InteractionPage.astro`, TAXONOMY, CATALOG],
     })),
-  ...Object.values(INTERACTION_META).map((meta) => ({
-    path: `/interactions/${meta.slug}`,
-    sources: [`${PAGES}/interactions/`, TAXONOMY, CATALOG],
-  })),
-];
+  ].map((entry) => ({ ...entry, alternates: alternatesOf(entry.path) }));
+
+/**
+ * The pages and hubs in a translated language, dated by the English sources (layout and data) and
+ * the language's own messages and documentation.
+ */
+export const localeEntries = (l: Locale): Entry[] =>
+  [...pageEntries(), ...hubEntries()].map((entry) => ({
+    ...entry,
+    path: localize(entry.path, l),
+    sources: [
+      ...entry.sources,
+      `${MESSAGES}/${l.code}/`,
+      ...(entry.path === '/documentation'
+        ? [`website/src/content/documentation.${l.code}.md`]
+        : []),
+    ],
+  }));
 
 /** Icon pages, with their static SVGs and social card as images. */
 export const iconEntries = (): Entry[] =>
