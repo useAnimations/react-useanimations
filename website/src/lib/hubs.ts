@@ -8,7 +8,6 @@ import { type Faq, MAX_DESCRIPTION, MAX_TITLE, TITLE_SUFFIX, WEBSITE_ID } from '
 import {
   CATEGORY_META,
   type CategoryMeta,
-  INTERACTION_META,
   iconsByCategory,
   iconsByInteraction,
   REDUCED_MOTION,
@@ -31,7 +30,8 @@ export const localTitle = (l: Locale, stems: string[]) =>
   fit([...stems.map((stem) => stem + t(l).hubs.titleSuffix), ...stems], l.maxTitle);
 
 /** hubDescription in a language. */
-export const localDescription = (l: Locale, candidates: string[]) => fit(candidates, l.maxDescription);
+export const localDescription = (l: Locale, candidates: string[]) =>
+  fit(candidates, l.maxDescription);
 
 export const list = (items: string[]) =>
   items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;

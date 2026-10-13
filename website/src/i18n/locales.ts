@@ -110,7 +110,4 @@ export const unlocalize = (path: string): { locale: Locale; path: string } => {
  * Pages that exist only in English have no alternates.
  */
 export const alternatesOf = (path: string): Record<string, string> =>
-  Object.fromEntries([
-    ...BUILT.map((l) => [l.hreflang, localize(path, l)]),
-    ['x-default', path],
-  ]);
+  Object.fromEntries([...BUILT.map((l) => [l.hreflang, localize(path, l)]), ['x-default', path]]);

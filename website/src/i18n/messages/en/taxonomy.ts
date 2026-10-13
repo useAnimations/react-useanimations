@@ -2,12 +2,7 @@
 // lib/icons.ts (icon pages and Markdown use it too); other languages translate this shape.
 import type { Interaction } from 'react-useanimations';
 import { INTERACTIONS } from '../../../lib/icons';
-import {
-  CATEGORY_COPY,
-  INTERACTION_COPY,
-  PLAY,
-  REDUCED_MOTION,
-} from '../../../lib/taxonomy';
+import { CATEGORY_COPY, INTERACTION_COPY, PLAY, REDUCED_MOTION } from '../../../lib/taxonomy';
 
 export type CategoryText = {
   /** Display name, e.g. 'Maps & location'. */
