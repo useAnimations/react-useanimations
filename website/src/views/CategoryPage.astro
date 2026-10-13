@@ -95,7 +95,7 @@ const markdown = locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown'
                 </a>
                 <span class="text-subtle"> · {group.length}</span>
                 <p class="mt-1 text-sm leading-relaxed text-muted">
-                  {m.taxonomy.interactions[interaction].description} <span lang={locale.prefix ? 'en' : undefined}>{group.map((icon) => icon.title).join(', ')}</span>.
+                  {m.taxonomy.interactions[interaction].description}{locale.space}<span lang={locale.prefix ? 'en' : undefined}>{group.map((icon) => icon.title).join(', ')}</span>.
                 </p>
               </li>
             ))

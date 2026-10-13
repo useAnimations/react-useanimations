@@ -31,6 +31,8 @@ export type Locale = {
   /** Search result limits: CJK characters are wider, so fewer of them fit. */
   maxTitle: number;
   maxDescription: number;
+  /** Space between sentences: none in Chinese and Japanese. */
+  space: string;
   /** Rollout wave (see the GSC monitor); live languages are built and indexed. */
   wave: number;
   live: boolean;
@@ -52,6 +54,7 @@ const locale = (
   ogLocale,
   maxTitle: cjk ? 32 : 60,
   maxDescription: cjk ? 80 : 155,
+  space: cjk && code !== 'ko' ? '' : ' ',
   wave,
   live,
 });

@@ -1,0 +1,46 @@
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: 'Перейти к содержимому',
+  ogImageAlt: 'useAnimations: бесплатные анимированные иконки для React, shadcn/ui, Lottie и SVG',
+  homeLabel: 'Главная страница useAnimations',
+  mainNav: 'Основная навигация',
+  browseIcons: 'Смотреть иконки',
+  nav: {
+    icons: 'Иконки',
+    categories: 'Категории',
+    documentation: 'Документация',
+    shadcn: 'shadcn',
+    lottie: 'Lottie-иконки',
+    license: 'Лицензия',
+  },
+  footer: {
+    tagline:
+      'Бесплатные анимированные иконки со встроенными взаимодействиями. Лицензия MIT, сделаны для React.',
+    product: 'Продукт',
+    developers: 'Разработчикам',
+    follow: 'Мы в сети',
+    languages: 'Языки',
+    allIcons: 'Все иконки',
+    categories: 'Категории',
+    interactions: 'Взаимодействия',
+    lottieIcons: 'Lottie-иконки',
+    shadcnIcons: 'Иконки для shadcn/ui',
+    documentation: 'Документация',
+    licencing: 'Лицензия и условия',
+    shadcnRegistry: 'Реестр shadcn',
+    mitLicense: 'Лицензия MIT',
+    builtWith: 'Сайт сделан на Astro',
+  },
+  breadcrumb: 'Навигационная цепочка',
+  crumbs: { icons: 'Иконки', categories: 'Категории', interactions: 'Взаимодействия' },
+  faq: 'Частые вопросы',
+  copy: 'Копировать',
+  copied: 'Скопировано',
+  pressCtrlC: 'Нажмите Ctrl+C',
+  languageBanner: {
+    text: 'Эта страница есть и на русском языке.',
+    action: 'Открыть на русском',
+    dismiss: 'Закрыть',
+  },
+};

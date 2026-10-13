@@ -1,0 +1,46 @@
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: 'Zum Inhalt springen',
+  ogImageAlt: 'useAnimations: kostenlose animierte Icons für React, shadcn/ui, Lottie und SVG',
+  homeLabel: 'useAnimations Startseite',
+  mainNav: 'Hauptnavigation',
+  browseIcons: 'Icons ansehen',
+  nav: {
+    icons: 'Icons',
+    categories: 'Kategorien',
+    documentation: 'Dokumentation',
+    shadcn: 'shadcn',
+    lottie: 'Lottie-Icons',
+    license: 'Lizenz',
+  },
+  footer: {
+    tagline:
+      'Kostenlose animierte Icons mit eingebauten Interaktionen. MIT-lizenziert, gemacht für React.',
+    product: 'Produkt',
+    developers: 'Entwickler',
+    follow: 'Folgen',
+    languages: 'Sprachen',
+    allIcons: 'Alle Icons',
+    categories: 'Kategorien',
+    interactions: 'Interaktionen',
+    lottieIcons: 'Lottie-Icons',
+    shadcnIcons: 'shadcn/ui-Icons',
+    documentation: 'Dokumentation',
+    licencing: 'Lizenz & Nutzungsbedingungen',
+    shadcnRegistry: 'shadcn-Registry',
+    mitLicense: 'MIT-Lizenz',
+    builtWith: 'Website erstellt mit Astro',
+  },
+  breadcrumb: 'Brotkrumennavigation',
+  crumbs: { icons: 'Icons', categories: 'Kategorien', interactions: 'Interaktionen' },
+  faq: 'Häufige Fragen',
+  copy: 'Kopieren',
+  copied: 'Kopiert',
+  pressCtrlC: 'Strg+C drücken',
+  languageBanner: {
+    text: 'Diese Seite gibt es auch auf Deutsch.',
+    action: 'Auf Deutsch lesen',
+    dismiss: 'Schließen',
+  },
+};

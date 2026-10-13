@@ -1,0 +1,46 @@
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: 'Přejít na obsah',
+  ogImageAlt: 'useAnimations: animované ikony zdarma pro React, shadcn/ui, Lottie a SVG',
+  homeLabel: 'useAnimations – úvodní stránka',
+  mainNav: 'Hlavní navigace',
+  browseIcons: 'Procházet ikony',
+  nav: {
+    icons: 'Ikony',
+    categories: 'Kategorie',
+    documentation: 'Dokumentace',
+    shadcn: 'shadcn',
+    lottie: 'Lottie ikony',
+    license: 'Licence',
+  },
+  footer: {
+    tagline:
+      'Animované ikony zdarma s vestavěnými interakcemi. Pod licencí MIT, vytvořené pro React.',
+    product: 'Produkt',
+    developers: 'Pro vývojáře',
+    follow: 'Sledujte nás',
+    languages: 'Jazyky',
+    allIcons: 'Všechny ikony',
+    categories: 'Kategorie',
+    interactions: 'Interakce',
+    lottieIcons: 'Lottie ikony',
+    shadcnIcons: 'Ikony pro shadcn/ui',
+    documentation: 'Dokumentace',
+    licencing: 'Licence a podmínky',
+    shadcnRegistry: 'Registr shadcn',
+    mitLicense: 'Licence MIT',
+    builtWith: 'Web postavený na Astru',
+  },
+  breadcrumb: 'Drobečková navigace',
+  crumbs: { icons: 'Ikony', categories: 'Kategorie', interactions: 'Interakce' },
+  faq: 'Časté dotazy',
+  copy: 'Kopírovat',
+  copied: 'Zkopírováno',
+  pressCtrlC: 'Stiskněte Ctrl+C',
+  languageBanner: {
+    text: 'Tato stránka je dostupná i v češtině.',
+    action: 'Přepnout do češtiny',
+    dismiss: 'Zavřít',
+  },
+};

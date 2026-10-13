@@ -1,0 +1,46 @@
+// 每个页面共用的文字：布局、页眉、页脚、面包屑导航、常见问题和复制按钮。
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: '跳到主要内容',
+  ogImageAlt: 'useAnimations：适用于 React、shadcn/ui、Lottie 和 SVG 的免费动态图标',
+  homeLabel: 'useAnimations 首页',
+  mainNav: '主导航',
+  browseIcons: '浏览图标',
+  nav: {
+    icons: '图标',
+    categories: '类别',
+    documentation: '文档',
+    shadcn: 'shadcn',
+    lottie: 'Lottie 图标',
+    license: '许可证',
+  },
+  footer: {
+    tagline: '内置交互的免费动态图标，采用 MIT 许可证，专为 React 打造。',
+    product: '产品',
+    developers: '开发者',
+    follow: '关注',
+    languages: '语言',
+    allIcons: '全部图标',
+    categories: '类别',
+    interactions: '交互方式',
+    lottieIcons: 'Lottie 图标',
+    shadcnIcons: 'shadcn/ui 图标',
+    documentation: '文档',
+    licencing: '许可与条款',
+    shadcnRegistry: 'shadcn 注册表',
+    mitLicense: 'MIT 许可证',
+    builtWith: '本站使用 Astro 构建',
+  },
+  breadcrumb: '面包屑导航',
+  crumbs: { icons: '图标', categories: '类别', interactions: '交互方式' },
+  faq: '常见问题',
+  copy: '复制',
+  copied: '已复制',
+  pressCtrlC: '请按 Ctrl+C 复制',
+  languageBanner: {
+    text: '此页面也提供简体中文版本。',
+    action: '切换到简体中文',
+    dismiss: '关闭',
+  },
+};

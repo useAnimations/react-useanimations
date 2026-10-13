@@ -1,0 +1,46 @@
+// Văn bản dùng chung cho mọi trang: layout, header, footer, breadcrumb, FAQ và nút sao chép.
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: 'Chuyển đến nội dung chính',
+  ogImageAlt: 'useAnimations: icon động miễn phí cho React, shadcn/ui, Lottie và SVG',
+  homeLabel: 'Trang chủ useAnimations',
+  mainNav: 'Điều hướng chính',
+  browseIcons: 'Xem icon',
+  nav: {
+    icons: 'Icon',
+    categories: 'Danh mục',
+    documentation: 'Tài liệu',
+    shadcn: 'shadcn',
+    lottie: 'Icon Lottie',
+    license: 'Giấy phép',
+  },
+  footer: {
+    tagline: 'Icon động miễn phí, có sẵn tương tác. Giấy phép MIT, làm cho React.',
+    product: 'Sản phẩm',
+    developers: 'Lập trình viên',
+    follow: 'Theo dõi',
+    languages: 'Ngôn ngữ',
+    allIcons: 'Tất cả icon',
+    categories: 'Danh mục',
+    interactions: 'Tương tác',
+    lottieIcons: 'Icon Lottie',
+    shadcnIcons: 'Icon cho shadcn/ui',
+    documentation: 'Tài liệu',
+    licencing: 'Giấy phép & Điều khoản',
+    shadcnRegistry: 'shadcn registry',
+    mitLicense: 'Giấy phép MIT',
+    builtWith: 'Trang web xây dựng bằng Astro',
+  },
+  breadcrumb: 'Đường dẫn',
+  crumbs: { icons: 'Icon', categories: 'Danh mục', interactions: 'Tương tác' },
+  faq: 'Câu hỏi thường gặp',
+  copy: 'Sao chép',
+  copied: 'Đã sao chép',
+  pressCtrlC: 'Nhấn Ctrl+C',
+  languageBanner: {
+    text: 'Trang này cũng có bản tiếng Việt.',
+    action: 'Chuyển sang tiếng Việt',
+    dismiss: 'Đóng',
+  },
+};

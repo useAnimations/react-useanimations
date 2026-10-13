@@ -1,0 +1,46 @@
+// 모든 페이지에 공통으로 쓰이는 텍스트: 레이아웃, 헤더, 푸터, 이동 경로, FAQ, 복사 버튼.
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: '본문으로 건너뛰기',
+  ogImageAlt: 'useAnimations: React, shadcn/ui, Lottie, SVG용 무료 애니메이션 아이콘',
+  homeLabel: 'useAnimations 홈',
+  mainNav: '주 메뉴',
+  browseIcons: '아이콘 둘러보기',
+  nav: {
+    icons: '아이콘',
+    categories: '카테고리',
+    documentation: '문서',
+    shadcn: 'shadcn',
+    lottie: 'Lottie 아이콘',
+    license: '라이선스',
+  },
+  footer: {
+    tagline: '인터랙션이 내장된 무료 애니메이션 아이콘. React용으로 만들었고 MIT 라이선스입니다.',
+    product: '제품',
+    developers: '개발자',
+    follow: '팔로우',
+    languages: '언어',
+    allIcons: '전체 아이콘',
+    categories: '카테고리',
+    interactions: '인터랙션',
+    lottieIcons: 'Lottie 아이콘',
+    shadcnIcons: 'shadcn/ui 아이콘',
+    documentation: '문서',
+    licencing: '라이선스 및 이용 약관',
+    shadcnRegistry: 'shadcn 레지스트리',
+    mitLicense: 'MIT 라이선스',
+    builtWith: 'Astro로 만든 사이트',
+  },
+  breadcrumb: '이동 경로',
+  crumbs: { icons: '아이콘', categories: '카테고리', interactions: '인터랙션' },
+  faq: '자주 묻는 질문',
+  copy: '복사',
+  copied: '복사됨',
+  pressCtrlC: 'Ctrl+C를 누르세요',
+  languageBanner: {
+    text: '이 페이지는 한국어로도 볼 수 있습니다.',
+    action: '한국어로 보기',
+    dismiss: '닫기',
+  },
+};

@@ -1,0 +1,46 @@
+import type { Messages } from '../en';
+
+export const common: Messages['common'] = {
+  skipToContent: 'Aller au contenu',
+  ogImageAlt: 'useAnimations : icônes animées gratuites pour React, shadcn/ui, Lottie et SVG',
+  homeLabel: 'Accueil useAnimations',
+  mainNav: 'Navigation principale',
+  browseIcons: 'Parcourir les icônes',
+  nav: {
+    icons: 'Icônes',
+    categories: 'Catégories',
+    documentation: 'Documentation',
+    shadcn: 'shadcn',
+    lottie: 'Icônes Lottie',
+    license: 'Licence',
+  },
+  footer: {
+    tagline:
+      'Des icônes animées gratuites, interactions incluses. Sous licence MIT, conçues pour React.',
+    product: 'Produit',
+    developers: 'Développeurs',
+    follow: 'Suivre',
+    languages: 'Langues',
+    allIcons: 'Toutes les icônes',
+    categories: 'Catégories',
+    interactions: 'Interactions',
+    lottieIcons: 'Icônes Lottie',
+    shadcnIcons: 'Icônes shadcn/ui',
+    documentation: 'Documentation',
+    licencing: 'Licence et conditions',
+    shadcnRegistry: 'Registre shadcn',
+    mitLicense: 'Licence MIT',
+    builtWith: 'Site réalisé avec Astro',
+  },
+  breadcrumb: 'Fil d’Ariane',
+  crumbs: { icons: 'Icônes', categories: 'Catégories', interactions: 'Interactions' },
+  faq: 'Questions fréquentes',
+  copy: 'Copier',
+  copied: 'Copié',
+  pressCtrlC: 'Appuyez sur Ctrl+C',
+  languageBanner: {
+    text: 'Cette page existe aussi en français.',
+    action: 'Passer en français',
+    dismiss: 'Fermer',
+  },
+};
