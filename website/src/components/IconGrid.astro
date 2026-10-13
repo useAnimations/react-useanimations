@@ -1,14 +1,18 @@
 ---
+import { EN, type Locale } from '../i18n';
 import type { Icon } from '../lib/icons';
 
 interface Props {
   icons: Icon[];
   class?: string;
+  /** Language of the page; icon pages and titles are English, so other languages mark them. */
+  locale?: Locale;
 }
 
 // Static cards: a link to the icon page with its still (lib/icons.ts), so every icon is crawlable without
 // scripts. Same markup as the related icons on icon pages.
-const { icons, class: className } = Astro.props;
+const { icons, class: className, locale = EN } = Astro.props;
+const lang = locale === EN ? undefined : 'en';
 ---
 
 <ul class:list={['grid grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))] gap-3', className]}>
@@ -17,10 +21,11 @@ const { icons, class: className } = Astro.props;
       <li>
         <a
           href={`/icons/${icon.id}`}
+          hreflang={lang}
           class="flex aspect-[1/1.08] flex-col items-center justify-center gap-3 rounded-2xl border border-line bg-surface px-2 text-center text-[13px] text-muted transition hover:border-line-strong hover:text-fg"
         >
           <span data-useanimations="" class="block size-10 text-fg" set:html={icon.preview} />
-          {icon.title}
+          {lang ? <span lang={lang}>{icon.title}</span> : icon.title}
         </a>
       </li>
     ))

@@ -9,6 +9,8 @@ export default defineConfig({
   // The site's own URL: canonical links, sitemap and the file URLs in icons.json and the registry.
   site: process.env.SITE_URL ?? 'https://useanimations.com',
   output: 'static',
+  // A separate output folder, e.g. for builds running side by side: ASTRO_OUT_DIR=/tmp/dist-a
+  ...(process.env.ASTRO_OUT_DIR ? { outDir: process.env.ASTRO_OUT_DIR } : {}),
   // Pages are written as documentation.html, so hosts serve /documentation without a trailing slash,
   // matching the canonical URLs and the previous site.
   trailingSlash: 'never',

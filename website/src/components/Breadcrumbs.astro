@@ -4,12 +4,14 @@ import type { Crumb } from '../lib/hubs';
 interface Props {
   /** Every level, the current page last. */
   crumbs: Crumb[];
+  /** Accessible name of the trail, in the page's language. */
+  label?: string;
 }
 
-const { crumbs } = Astro.props;
+const { crumbs, label = 'Breadcrumb' } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="text-sm text-muted">
+<nav aria-label={label} class="text-sm text-muted">
   {
     crumbs.map((crumb, index) =>
       index < crumbs.length - 1 ? (

@@ -1,0 +1,71 @@
+---
+// Offers the page in the visitor's language when their browser prefers one we have. It never
+// redirects (Google asks sites not to, and it would hide the other versions from crawlers and
+// people); it only suggests, in that language, and remembers a dismissal.
+import { BUILT, type Locale, t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** hreflang -> path of this page in each language. */
+  alternates: Record<string, string>;
+}
+
+const { locale, alternates } = Astro.props;
+const offers = BUILT.filter((l) => l !== locale && alternates[l.hreflang]).map((l) => ({
+  lang: l.hreflang,
+  href: alternates[l.hreflang],
+  ...t(l).common.languageBanner,
+}));
+---
+
+<div
+  id="language-banner"
+  hidden
+  class="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-xl flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-line bg-surface/95 px-4 py-3 text-sm shadow-xl backdrop-blur sm:inset-x-auto sm:right-5 sm:bottom-5"
+>
+  <p data-text class="min-w-0 flex-1 text-fg"></p>
+  <a data-action class="rounded-full bg-fg px-3.5 py-1.5 font-medium text-bg hover:opacity-85" data-track="language-banner"></a>
+  <button data-dismiss type="button" class="rounded-full px-2 py-1 text-muted hover:text-fg">
+    <span aria-hidden="true">×</span><span data-dismiss-label class="sr-only"></span>
+  </button>
+  <script type="application/json" data-offers set:html={JSON.stringify(offers)} />
+</div>
+
+<script>
+  type Offer = { lang: string; href: string; text: string; action: string; dismiss: string };
+
+  const KEY = 'language-banner-dismissed';
+  const banner = document.getElementById('language-banner');
+  const offers: Offer[] = JSON.parse(banner?.querySelector('[data-offers]')?.textContent ?? '[]');
+
+  /** The offer for a browser language: 'pt' or 'pt-PT' -> pt-BR, 'zh-CN' -> zh-Hans (not zh-TW/HK). */
+  const match = (wanted: string): Offer | undefined => {
+    const w = wanted.toLowerCase();
+    if (/^zh-(tw|hk|mo|hant)/.test(w)) return undefined;
+    return (
+      offers.find((offer) => offer.lang.toLowerCase() === w) ??
+      offers.find((offer) => offer.lang.toLowerCase().split('-')[0] === w.split('-')[0])
+    );
+  };
+
+  const pageLang = document.documentElement.lang.toLowerCase().split('-')[0];
+  // Only the first preferred language: someone who reads this page's language first is home.
+  const first = navigator.languages?.[0] ?? navigator.language ?? '';
+  const offer = first.toLowerCase().split('-')[0] === pageLang ? undefined : match(first);
+
+  if (banner && offer && localStorage.getItem(KEY) !== '1') {
+    banner.lang = offer.lang;
+    banner.querySelector('[data-text]')!.textContent = offer.text;
+    const action = banner.querySelector<HTMLAnchorElement>('[data-action]')!;
+    action.textContent = offer.action;
+    action.href = offer.href;
+    action.hreflang = offer.lang;
+    action.dataset.trackLang = offer.lang;
+    banner.querySelector('[data-dismiss-label]')!.textContent = offer.dismiss;
+    banner.querySelector('[data-dismiss]')!.addEventListener('click', () => {
+      localStorage.setItem(KEY, '1');
+      banner.hidden = true;
+    });
+    banner.hidden = false;
+  }
+</script>

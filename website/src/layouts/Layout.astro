@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import LanguageBanner from '../components/LanguageBanner.astro';
+import { EN, LOCALES, type Locale, t } from '../i18n';
 import { SITE } from '../lib/icons';
 
 interface Props {
@@ -9,8 +11,9 @@ interface Props {
   description: string;
   /** Path of the canonical URL, e.g. /documentation; pages without one (the 404 page) omit it. */
   path?: string;
-  lang?: string;
-  /** hreflang alternates, e.g. { en: '/', 'zh-Hans': '/zh' }. */
+  /** The page's language; English by default. */
+  locale?: Locale;
+  /** hreflang alternates of a translated page, from alternatesOf(path). */
   alternates?: Record<string, string>;
   jsonLd?: object;
   /** Extra <link>/<meta> tags. */
@@ -29,13 +32,13 @@ const {
   title,
   description,
   path,
-  lang = 'en',
+  locale = EN,
   alternates,
   jsonLd,
   head = [],
   noindex,
   image: imagePath = '/og.png',
-  imageAlt = 'useAnimations: free animated icons for React, shadcn/ui, Lottie and SVG',
+  imageAlt = t(locale).common.ogImageAlt,
   type = 'website',
   markdown,
 } = Astro.props;
@@ -44,7 +47,7 @@ const image = new URL(imagePath, SITE).href;
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={locale.hreflang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -62,6 +65,13 @@ const image = new URL(imagePath, SITE).href;
     {head.map((link) => <link {...link} />)}
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="useAnimations" />
+    <meta property="og:locale" content={locale.ogLocale} />
+    {
+      alternates &&
+        LOCALES.filter((l) => l !== locale && alternates[l.hreflang]).map((l) => (
+          <meta property="og:locale:alternate" content={l.ogLocale} />
+        ))
+    }
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
@@ -115,17 +125,22 @@ const image = new URL(imagePath, SITE).href;
       }
     </script>
   </head>
-  <body class="min-h-screen bg-bg text-fg">
+  <body
+    class="min-h-screen bg-bg text-fg"
+    data-copied-text={t(locale).common.copied}
+    data-copy-failed-text={t(locale).common.pressCtrlC}
+  >
     <a
       href="#main"
       class="sr-only z-50 rounded-lg bg-fg px-4 py-2 text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-      >Skip to content</a
+      >{t(locale).common.skipToContent}</a
     >
-    <Header />
+    <Header locale={locale} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} alternates={alternates} />
+    {alternates && <LanguageBanner locale={locale} alternates={alternates} />}
     <script>
       import '../scripts/analytics';
       import '../scripts/copy';

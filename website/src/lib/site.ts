@@ -1,3 +1,5 @@
+import { type Locale, localize, t } from '../i18n';
+
 export const GITHUB = 'https://github.com/useAnimations/react-useanimations';
 export const NPM = 'https://www.npmjs.com/package/react-useanimations';
 
@@ -12,45 +14,52 @@ export const DEFAULT_SITE = 'https://useanimations.com';
 export const withSite = (text: string, site: string) =>
   text.replaceAll(`${DEFAULT_SITE}/`, `${site.replace(/\/$/, '')}/`);
 
-export const NAV = [
-  { label: 'Icons', href: '/#icons' },
-  { label: 'Categories', href: '/categories' },
-  { label: 'Documentation', href: '/documentation' },
-  { label: 'shadcn', href: '/shadcn-animated-icons' },
-  { label: 'Lottie icons', href: '/lottie-icons' },
-  { label: 'License', href: '/licencing-and-terms' },
-];
+/** The main navigation in a language. */
+export const nav = (l: Locale) => {
+  const m = t(l).common.nav;
+  return [
+    { label: m.icons, href: localize('/#icons', l) },
+    { label: m.categories, href: localize('/categories', l) },
+    { label: m.documentation, href: localize('/documentation', l) },
+    { label: m.shadcn, href: localize('/shadcn-animated-icons', l) },
+    { label: m.lottie, href: localize('/lottie-icons', l) },
+    { label: m.license, href: localize('/licencing-and-terms', l) },
+  ];
+};
 
-export const FOOTER = [
-  {
-    title: 'Product',
-    links: [
-      { label: 'All icons', href: '/icons' },
-      { label: 'Categories', href: '/categories' },
-      { label: 'Interactions', href: '/interactions' },
-      { label: 'Lottie icons', href: '/lottie-icons' },
-      { label: 'shadcn/ui icons', href: '/shadcn-animated-icons' },
-      { label: 'Documentation', href: '/documentation' },
-      { label: 'Licencing & Terms', href: '/licencing-and-terms' },
-      { label: '中文', href: '/zh' },
-    ],
-  },
-  {
-    title: 'Developers',
-    links: [
-      { label: 'react-useanimations', href: NPM },
-      { label: 'GitHub', href: GITHUB },
-      { label: 'shadcn registry', href: '/r/registry.json' },
-      { label: 'icons.json', href: '/icons.json' },
-      { label: 'llms.txt', href: '/llms.txt' },
-    ],
-  },
-  {
-    title: 'Follow',
-    links: [
-      { label: 'X (Twitter)', href: 'https://twitter.com/useAnimations/' },
-      { label: 'Instagram', href: 'https://www.instagram.com/getuseanimations/' },
-      { label: 'Facebook', href: 'https://www.facebook.com/useanimations/' },
-    ],
-  },
-];
+/** The footer's link columns in a language. */
+export const footer = (l: Locale) => {
+  const m = t(l).common.footer;
+  return [
+    {
+      title: m.product,
+      links: [
+        { label: m.allIcons, href: localize('/icons', l) },
+        { label: m.categories, href: localize('/categories', l) },
+        { label: m.interactions, href: localize('/interactions', l) },
+        { label: m.lottieIcons, href: localize('/lottie-icons', l) },
+        { label: m.shadcnIcons, href: localize('/shadcn-animated-icons', l) },
+        { label: m.documentation, href: localize('/documentation', l) },
+        { label: m.licencing, href: localize('/licencing-and-terms', l) },
+      ],
+    },
+    {
+      title: m.developers,
+      links: [
+        { label: 'react-useanimations', href: NPM },
+        { label: 'GitHub', href: GITHUB },
+        { label: m.shadcnRegistry, href: '/r/registry.json' },
+        { label: 'icons.json', href: '/icons.json' },
+        { label: 'llms.txt', href: '/llms.txt' },
+      ],
+    },
+    {
+      title: m.follow,
+      links: [
+        { label: 'X (Twitter)', href: 'https://twitter.com/useAnimations/' },
+        { label: 'Instagram', href: 'https://www.instagram.com/getuseanimations/' },
+        { label: 'Facebook', href: 'https://www.facebook.com/useanimations/' },
+      ],
+    },
+  ];
+};

@@ -37,9 +37,9 @@ export const categorySlug = (name: string) =>
 /** Interactions are already URL-safe ('click-toggle'), so the slug is the key itself. */
 export const interactionSlug = (interaction: Interaction) => interaction;
 
-type Copy = Pick<CollectionMeta, 'title' | 'intro' | 'useCases'>;
+export type Copy = Pick<CollectionMeta, 'title' | 'intro' | 'useCases'>;
 
-const CATEGORY_COPY: Record<string, Copy> = {
+export const CATEGORY_COPY: Record<string, Copy> = {
   Alerts: {
     title: 'Animated alert icons',
     intro:
@@ -295,7 +295,7 @@ export const CATEGORY_META: Record<string, CategoryMeta> = Object.fromEntries(
   })
 );
 
-const INTERACTION_COPY: Record<Interaction, Copy & { example: string }> = {
+export const INTERACTION_COPY: Record<Interaction, Copy & { example: string }> = {
   loop: {
     title: 'Looping animated icons',
     intro:
@@ -402,3 +402,25 @@ const byInteraction = Map.groupBy(icons, (icon) => icon.interaction);
 /** The icons with an interaction, in site order. */
 export const iconsByInteraction = (interaction: Interaction): Icon[] =>
   byInteraction.get(interaction) ?? [];
+
+// How a group of icons plays, as a plural verb phrase: "<n> icons <phrase>".
+export const PLAY: Record<Interaction, string> = {
+  loop: 'loop continuously',
+  'click-toggle': 'toggle between two states on click',
+  'click-replay': 'replay on every click',
+  hover: 'play on hover and reverse on mouse leave',
+  'hover-replay': 'play once on hover',
+  'hover-loop': 'loop while hovered',
+};
+
+/** What each interaction does when the user prefers reduced motion (src/index.tsx). */
+export const REDUCED_MOTION: Record<Interaction, string> = {
+  loop: 'With reduced motion preferred, the icon does not autoplay and stays on its static first frame.',
+  'click-toggle':
+    'With reduced motion preferred, a click switches to the other state immediately, without the animation in between.',
+  'click-replay':
+    'With reduced motion preferred, clicks still reach your handler but the animation does not play.',
+  hover: 'With reduced motion preferred, hovering does not play the animation.',
+  'hover-replay': 'With reduced motion preferred, hovering does not play the animation.',
+  'hover-loop': 'With reduced motion preferred, the icon stays static while hovered.',
+};
