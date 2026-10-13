@@ -140,7 +140,8 @@ const image = new URL(imagePath, SITE).href;
       <slot />
     </main>
     <Footer locale={locale} alternates={alternates} />
-    {alternates && <LanguageBanner locale={locale} alternates={alternates} />}
+    {/* Suggested only on English pages: a visitor on a translated page chose its language. */}
+    {alternates && !locale.prefix && <LanguageBanner locale={locale} alternates={alternates} />}
     <script>
       import '../scripts/analytics';
       import '../scripts/copy';

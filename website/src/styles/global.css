@@ -441,3 +441,9 @@
     animation: none;
   }
 }
+
+/* Korean breaks lines between words, not inside them. */
+:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
