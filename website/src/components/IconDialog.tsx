@@ -3,6 +3,7 @@ import UseAnimations, { type Interaction } from 'react-useanimations';
 import { islands } from '../i18n/messages/en/islands';
 import { loadIconData } from '../lib/icon-data';
 import { tabFromKey } from '../lib/tabs';
+import ControlIcon from './ControlIcon';
 import { openIcon } from './IconCard';
 
 export type DialogIcon = {
@@ -59,8 +60,9 @@ function Code({
         data-track="copy"
         data-track-icon={icon}
         data-track-code={code}
-        className="absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent"
+        className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent"
       >
+        <ControlIcon icon="copy" copied="checkmark" size={14} />
         <span data-copy-label>{label}</span>
       </button>
     </div>
@@ -200,16 +202,8 @@ export default function IconDialog({
                 aria-label={s.close}
                 className="rounded-full p-2 text-muted hover:bg-surface-2 hover:text-fg"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="size-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                >
-                  <path d="M6 6l12 12M18 6L6 18" />
-                </svg>
+                {/* A plus that turns into an X each time the dialog opens. */}
+                <ControlIcon icon="plusToX" on="screen" size={24} />
               </button>
             </div>
             <div
@@ -289,8 +283,9 @@ export default function IconDialog({
                 data-track="download"
                 data-track-icon={icon.id}
                 data-track-format="zip"
-                className="rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
+                className="inline-flex items-center gap-1.5 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg hover:opacity-85"
               >
+                <ControlIcon icon="download" size={14} />
                 ZIP
               </a>
               <a
@@ -299,8 +294,9 @@ export default function IconDialog({
                 data-track="download"
                 data-track-icon={icon.id}
                 data-track-format="json"
-                className="rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-surface-2"
+                className="inline-flex items-center gap-1.5 rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-surface-2"
               >
+                <ControlIcon icon="download" size={14} />
                 Lottie JSON
               </a>
               {icon.svg.map((state) => (
@@ -312,8 +308,9 @@ export default function IconDialog({
                   data-track-icon={icon.id}
                   data-track-format="svg"
                   data-track-file={`${state}.svg`}
-                  className="rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-surface-2"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-surface-2"
                 >
+                  <ControlIcon icon="download" size={14} />
                   {icon.svg.length > 1 ? `${state}.svg` : 'SVG'}
                 </a>
               ))}
@@ -321,9 +318,10 @@ export default function IconDialog({
                 href={`/icons/${icon.id}`}
                 data-track="icon-page"
                 data-track-icon={icon.id}
-                className="ml-auto self-center text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
+                className="ml-auto inline-flex items-center gap-1 self-center text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
               >
                 {s.iconPage}
+                <ControlIcon icon="arrowRight" size={14} />
               </a>
             </div>
           </div>

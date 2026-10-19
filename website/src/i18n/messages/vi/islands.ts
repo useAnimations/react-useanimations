@@ -34,7 +34,7 @@ export const islands: Messages['islands'] = {
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Tệp' },
     copy: 'Sao chép',
     download: 'Tải xuống',
-    iconPage: 'Trang icon →',
+    iconPage: 'Trang icon',
   },
   interactionDemo: {
     click: 'Click vào thẻ',

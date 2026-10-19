@@ -1,0 +1,25 @@
+---
+import type { Icon } from '../lib/icons';
+
+interface Props {
+  icon: Icon;
+  class?: string;
+}
+
+// An icon's still (lib/icons.ts) inside a link; it plays once the link is hovered or focused
+// (scripts/hover-icons.ts).
+const { icon, class: className } = Astro.props;
+---
+
+<span
+  data-useanimations=""
+  data-hover-icon={icon.id}
+  data-interaction={icon.interaction}
+  data-blank-start={icon.preview === icon.firstFrame ? undefined : ''}
+  class:list={['block', className]}
+  set:html={icon.preview}
+/>
+
+<script>
+  import '../scripts/hover-icons';
+</script>

@@ -26,7 +26,7 @@ export const pages: Messages['pages'] = {
       `Setteki her ikon, kategorilere göre gruplanmış hâlde. Canlı önizleme, React ve shadcn/ui kodu ile Lottie JSON, SVG ve ZIP indirmeleri için bir ikonu açın. Anahtar kelimeyle aramak ve animasyonları yerinde denemek için ${link(browser, 'ikon tarayıcısını')} kullanın.`,
     categoriesNav: 'Kategoriler',
     byInteraction: 'Etkileşime göre:',
-    categoryLink: (count: number, name: string) => `${name} kategorisindeki ${icons(count)} →`,
+    categoryLink: (count: number, name: string) => `${name} kategorisindeki ${icons(count)}`,
   },
 
   categories: {
@@ -102,7 +102,7 @@ export const pages: Messages['pages'] = {
     intro:
       'Her useAnimations ikonu standart bir Lottie JSON animasyonudur, yani her Lottie oynatıcısı onu oynatabilir: web’de lottie-web, ayrıca lottie-ios, lottie-android, Flutter ve React Native. Dosyalar MIT lisansıyla ücretsizdir, kayıt gerektirmez ve CORS açık, kalıcı URL’lerden sunulur; doğrudan yükleyebilir ya da projenize indirebilirsiniz.',
     popular: 'Popüler Lottie ikonları',
-    allIcons: (count: number) => `${count} ikonun tamamı →`,
+    allIcons: (count: number) => `${count} ikonun tamamı`,
     filesTitle: 'Dosyalar ve URL’ler',
     filesIntroHtml: `Her ikonun ${code('/icons/&lt;id&gt;')} adresinde önizleme ve indirmeler içeren bir sayfası vardır (ikon sayfaları İngilizcedir). Dosyaların kendisi:`,
     files: {
@@ -212,7 +212,7 @@ export const pages: Messages['pages'] = {
       `İkonlar metin rengini izler; ${code('text-primary')} ya da ${code('text-muted-foreground')} onları yeniden renklendirir ve karanlık mod için ek bir şey gerekmez. Diğer prop’lar ve kalıplar ${link(docs, 'dokümantasyonda')}.`,
     codeText: { closeMenu: 'Menüyü kapat', openMenu: 'Menüyü aç' },
     popular: 'shadcn/ui için popüler ikonlar',
-    allIcons: (count: number) => `${count} ikonun tamamı →`,
+    allIcons: (count: number) => `${count} ikonun tamamı`,
     popularNote: 'Her ikon sayfası kendi shadcn komutunu gösterir.',
     faq: (f: { count: number; version: string }): Faq => [
       {

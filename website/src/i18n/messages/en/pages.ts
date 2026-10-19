@@ -32,7 +32,7 @@ export const pages = {
     /** Before the list of interaction links. */
     byInteraction: 'By interaction:',
     /** Link from a category section to its page; `name` is the category name, e.g. 'Navigation'. */
-    categoryLink: (count: number, name: string) => `${count} ${name.toLowerCase()} icons →`,
+    categoryLink: (count: number, name: string) => `${count} ${name.toLowerCase()} icons`,
   },
 
   /** /categories: the list of categories. */
@@ -121,7 +121,7 @@ export const pages = {
     intro:
       'Every useAnimations icon is a standard Lottie JSON animation, so any Lottie player can play it: lottie-web on the web, lottie-ios, lottie-android, Flutter and React Native. The files are free under the MIT license, with no sign-up, and served from stable URLs with CORS enabled, so you can load them directly or download them into your project.',
     popular: 'Popular Lottie icons',
-    allIcons: (count: number) => `All ${count} icons →`,
+    allIcons: (count: number) => `All ${count} icons`,
     filesTitle: 'Files and URLs',
     filesIntroHtml: `Each icon has a page at ${code('/icons/&lt;id&gt;')} with a preview and downloads. The files themselves:`,
     /** Comments after each URL in the list of files. */
@@ -246,7 +246,7 @@ export const pages = {
     /** aria-label values inside the Button example code. */
     codeText: { closeMenu: 'Close menu', openMenu: 'Open menu' },
     popular: 'Popular icons for shadcn/ui',
-    allIcons: (count: number) => `All ${count} icons →`,
+    allIcons: (count: number) => `All ${count} icons`,
     popularNote: 'Every icon page shows its shadcn command.',
     /** `version` is the react-useanimations version range, e.g. 3.1.0. */
     faq: (f: { count: number; version: string }): Faq => [

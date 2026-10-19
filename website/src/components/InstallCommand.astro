@@ -25,7 +25,7 @@ const { command = 'npm i react-useanimations', class: className, locale = EN } =
   <span class="text-subtle select-none" aria-hidden="true">$</span>
   <span>{command}</span>
   <span class="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-2.5 py-1 font-sans text-xs text-muted transition group-hover:text-fg">
-    <ControlIcon client:idle icon="copy" size={14} />
+    <ControlIcon client:idle icon="copy" copied="checkmark" size={14} />
     <span data-copy-label>{t(locale).common.copy}</span>
   </span>
 </button>

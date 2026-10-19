@@ -20,7 +20,7 @@ export const pages: Messages['pages'] = {
       `整套图标按类别排列。打开任意图标，可以查看实时预览、React 和 shadcn/ui 代码，并下载 Lottie JSON、SVG 和 ZIP。如果想按关键词搜索并直接试玩动画，请使用${link(browser, '图标浏览器')}。`,
     categoriesNav: '类别',
     byInteraction: '按交互方式：',
-    categoryLink: (count: number, name: string) => `${count} 个${name}图标 →`,
+    categoryLink: (count: number, name: string) => `${count} 个${name}图标`,
   },
 
   categories: {
@@ -89,7 +89,7 @@ export const pages: Messages['pages'] = {
     intro:
       '每个 useAnimations 图标都是标准的 Lottie JSON 动画，任何 Lottie 播放器都能播放：网页上的 lottie-web，以及 lottie-ios、lottie-android、Flutter 和 React Native。这些文件依据 MIT 许可证免费提供，无需注册，托管在固定网址上并已开启 CORS，既可以直接加载，也可以下载到项目中。',
     popular: '热门 Lottie 图标',
-    allIcons: (count: number) => `全部 ${count} 个图标 →`,
+    allIcons: (count: number) => `全部 ${count} 个图标`,
     filesTitle: '文件与网址',
     filesIntroHtml: `每个图标在 ${code('/icons/&lt;id&gt;')} 都有一个页面，提供预览和下载。文件本身的地址如下：`,
     files: {
@@ -197,7 +197,7 @@ export const pages: Messages['pages'] = {
       `图标跟随文字颜色，因此 ${code('text-primary')} 或 ${code('text-muted-foreground')} 就能给它们改色，深色模式也无需额外处理。更多属性和用法请参阅${link(docs, '文档')}。`,
     codeText: { closeMenu: '关闭菜单', openMenu: '打开菜单' },
     popular: '热门 shadcn/ui 图标',
-    allIcons: (count: number) => `全部 ${count} 个图标 →`,
+    allIcons: (count: number) => `全部 ${count} 个图标`,
     popularNote: '每个图标页面都提供对应的 shadcn 命令。',
     faq: (f: { count: number; version: string }): Faq => [
       {

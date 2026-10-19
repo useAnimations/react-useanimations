@@ -25,7 +25,7 @@ export const pages: Messages['pages'] = {
       `Toàn bộ bộ icon, nhóm theo danh mục. Mở một icon để xem trước trực tiếp, lấy code React và shadcn/ui, và tải về Lottie JSON, SVG hoặc ZIP. Để tìm theo từ khóa và thử hiệu ứng ngay tại chỗ, hãy dùng ${link(browser, 'trình duyệt icon')}.`,
     categoriesNav: 'Danh mục',
     byInteraction: 'Theo tương tác:',
-    categoryLink: (count: number, name: string) => `${count} icon ${name.toLowerCase()} →`,
+    categoryLink: (count: number, name: string) => `${count} icon ${name.toLowerCase()}`,
   },
 
   categories: {
@@ -96,7 +96,7 @@ export const pages: Messages['pages'] = {
     intro:
       'Mỗi icon của useAnimations là một animation Lottie JSON chuẩn, nên mọi Lottie player đều phát được: lottie-web trên web, lottie-ios, lottie-android, Flutter và React Native. Các tệp miễn phí theo giấy phép MIT, không cần đăng ký, được phục vụ từ URL cố định có bật CORS, nên bạn có thể dùng thẳng từ URL hoặc tải về đưa vào dự án.',
     popular: 'Icon Lottie phổ biến',
-    allIcons: (count: number) => `Tất cả ${count} icon →`,
+    allIcons: (count: number) => `Tất cả ${count} icon`,
     filesTitle: 'Tệp và URL',
     filesIntroHtml: `Mỗi icon có một trang tại ${code('/icons/&lt;id&gt;')} với bản xem trước và các tệp tải về. Bản thân các tệp:`,
     files: {
@@ -206,7 +206,7 @@ export const pages: Messages['pages'] = {
       `Icon tự theo màu chữ, nên ${code('text-primary')} hay ${code('text-muted-foreground')} là đổi được màu, và dark mode không cần thêm gì. Các prop và cách dùng khác có trong ${link(docs, 'tài liệu')}.`,
     codeText: { closeMenu: 'Đóng menu', openMenu: 'Mở menu' },
     popular: 'Icon phổ biến cho shadcn/ui',
-    allIcons: (count: number) => `Tất cả ${count} icon →`,
+    allIcons: (count: number) => `Tất cả ${count} icon`,
     popularNote: 'Trang của mỗi icon đều có lệnh shadcn tương ứng.',
     faq: (f: { count: number; version: string }): Faq => [
       {

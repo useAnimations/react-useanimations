@@ -1,6 +1,7 @@
 ---
 // The list of categories (/categories) in any language; src/pages routes render it.
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import IconStill from '../components/IconStill.astro';
 import { alternatesOf, type Locale, localize, t } from '../i18n';
 import Layout from '../layouts/Layout.astro';
 import { breadcrumbNode, categories, categoryPath, localDescription, localTitle } from '../lib/hubs';
@@ -70,7 +71,7 @@ const jsonLd = {
             >
               <span class="flex gap-2 text-fg" aria-hidden="true">
                 {group.slice(0, 5).map((icon) => (
-                  <span data-useanimations="" class="block size-8" set:html={icon.preview} />
+                  <IconStill icon={icon} class="size-8" />
                 ))}
               </span>
               <span class="mt-5 flex items-baseline justify-between gap-3">

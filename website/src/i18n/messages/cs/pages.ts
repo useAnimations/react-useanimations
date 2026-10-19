@@ -36,7 +36,7 @@ export const pages: Messages['pages'] = {
       `Všechny ikony sady rozdělené podle kategorií. Po otevření ikony uvidíte živý náhled, kód pro React a shadcn/ui a soubory Lottie JSON, SVG a ZIP ke stažení (stránky ikon jsou v angličtině). Pokud chcete hledat podle klíčových slov a vyzkoušet animace přímo na místě, použijte ${link(browser, 'prohlížeč ikon')}.`,
     categoriesNav: 'Kategorie',
     byInteraction: 'Podle interakce:',
-    categoryLink: (count: number, name: string) => `${icons(count)} v kategorii ${name} →`,
+    categoryLink: (count: number, name: string) => `${icons(count)} v kategorii ${name}`,
   },
 
   categories: {
@@ -113,7 +113,7 @@ export const pages: Messages['pages'] = {
       'Každá ikona useAnimations je standardní Lottie JSON animace, takže ji přehraje jakýkoli Lottie přehrávač: lottie-web na webu, lottie-ios, lottie-android, Flutter i React Native. Soubory jsou zdarma pod licencí MIT, bez registrace, a jsou dostupné na stálých URL s povoleným CORS, takže je můžete načítat přímo nebo si je stáhnout do projektu.',
     popular: 'Oblíbené Lottie ikony',
     allIcons: (count: number) =>
-      `${form(count, { one: 'Jediná', few: 'Všechny', other: 'Všech' })} ${icons(count)} →`,
+      `${form(count, { one: 'Jediná', few: 'Všechny', other: 'Všech' })} ${icons(count)}`,
     filesTitle: 'Soubory a URL',
     filesIntroHtml: `Každá ikona má na adrese ${code('/icons/&lt;id&gt;')} stránku s náhledem a soubory ke stažení (v angličtině). Samotné soubory:`,
     files: {
@@ -225,7 +225,7 @@ export const pages: Messages['pages'] = {
     codeText: { closeMenu: 'Zavřít menu', openMenu: 'Otevřít menu' },
     popular: 'Oblíbené ikony pro shadcn/ui',
     allIcons: (count: number) =>
-      `${form(count, { one: 'Jediná', few: 'Všechny', other: 'Všech' })} ${icons(count)} →`,
+      `${form(count, { one: 'Jediná', few: 'Všechny', other: 'Všech' })} ${icons(count)}`,
     popularNote:
       'Na stránce každé ikony najdete její příkaz pro shadcn (stránky ikon jsou v angličtině).',
     faq: (f: { count: number; version: string }): Faq => [

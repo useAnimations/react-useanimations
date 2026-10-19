@@ -1,10 +1,11 @@
 // Copy buttons: <button data-copy="text"> or <button data-copy-from="#selector">. The feedback
 // text comes from <body data-copied-text data-copy-failed-text> (Layout.astro), in the page's language.
-const label = (button: HTMLElement, text: string) => {
+// A successful copy also sets `data-copied` for a moment (accent color, copy icon to checkmark).
+const label = (button: HTMLElement, text: string, copied: boolean) => {
   const target = button.querySelector('[data-copy-label]') ?? button;
   const previous = target.textContent;
   target.textContent = text;
-  button.dataset.copied = '';
+  if (copied) button.dataset.copied = '';
   setTimeout(() => {
     target.textContent = previous;
     delete button.dataset.copied;
@@ -20,8 +21,8 @@ document.addEventListener('click', async (event) => {
   const text = button.dataset.copy ?? source?.textContent ?? '';
   try {
     await navigator.clipboard.writeText(text.trim());
-    label(button, document.body.dataset.copiedText ?? 'Copied');
+    label(button, document.body.dataset.copiedText ?? 'Copied', true);
   } catch {
-    label(button, document.body.dataset.copyFailedText ?? 'Press Ctrl+C');
+    label(button, document.body.dataset.copyFailedText ?? 'Press Ctrl+C', false);
   }
 });

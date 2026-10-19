@@ -24,7 +24,7 @@ export const pages: Messages['pages'] = {
       `Alle Icons der Sammlung, nach Kategorie gruppiert. Jedes Icon führt zu einer Seite mit Live-Vorschau, dem Code für React und shadcn/ui sowie den Downloads als Lottie JSON, SVG und ZIP (die Icon-Seiten sind nur auf Englisch verfügbar). Um nach Stichworten zu suchen und die Animationen direkt auszuprobieren, nutzen Sie den ${link(browser, 'Icon-Browser')}.`,
     categoriesNav: 'Kategorien',
     byInteraction: 'Nach Interaktion:',
-    categoryLink: (count: number, name: string) => `${name}: ${iconCount(count)} →`,
+    categoryLink: (count: number, name: string) => `${name}: ${iconCount(count)}`,
   },
 
   categories: {
@@ -103,7 +103,7 @@ export const pages: Messages['pages'] = {
     intro:
       'Jedes useAnimations-Icon ist eine Standard-Lottie-JSON-Animation und läuft damit in jedem Lottie-Player: lottie-web im Web, lottie-ios, lottie-android, Flutter und React Native. Die Dateien sind unter der MIT-Lizenz kostenlos, ohne Registrierung, und liegen unter stabilen URLs mit aktiviertem CORS. Sie können sie also direkt laden oder in Ihr Projekt herunterladen.',
     popular: 'Beliebte Lottie-Icons',
-    allIcons: (count: number) => `Alle ${count} Icons →`,
+    allIcons: (count: number) => `Alle ${count} Icons`,
     filesTitle: 'Dateien und URLs',
     filesIntroHtml: `Jedes Icon hat eine Seite unter ${code('/icons/&lt;id&gt;')} mit Vorschau und Downloads (nur auf Englisch). Die Dateien selbst:`,
     files: {
@@ -214,7 +214,7 @@ export const pages: Messages['pages'] = {
       `Icons übernehmen die Textfarbe: ${code('text-primary')} oder ${code('text-muted-foreground')} färben sie um, und Dark Mode braucht nichts Zusätzliches. Weitere Props und Muster finden Sie in der ${link(docs, 'Dokumentation')}.`,
     codeText: { closeMenu: 'Menü schließen', openMenu: 'Menü öffnen' },
     popular: 'Beliebte Icons für shadcn/ui',
-    allIcons: (count: number) => `Alle ${count} Icons →`,
+    allIcons: (count: number) => `Alle ${count} Icons`,
     popularNote:
       'Jede Icon-Seite zeigt ihren shadcn-Befehl (die Icon-Seiten sind nur auf Englisch verfügbar).',
     faq: (f: { count: number; version: string }): Faq => [

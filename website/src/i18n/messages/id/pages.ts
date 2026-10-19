@@ -23,7 +23,7 @@ export const pages: Messages['pages'] = {
       `Semua ikon dalam koleksi, dikelompokkan per kategori. Buka salah satunya untuk melihat pratinjau langsung, kode React dan shadcn/ui, serta unduhan Lottie JSON, SVG, dan ZIP (halaman ikon tersedia dalam bahasa Inggris). Untuk mencari berdasarkan kata kunci dan mencoba animasinya langsung, pakai ${link(browser, 'penjelajah ikon')}.`,
     categoriesNav: 'Kategori',
     byInteraction: 'Berdasarkan interaksi:',
-    categoryLink: (count: number, name: string) => `${count} ikon ${name.toLowerCase()} →`,
+    categoryLink: (count: number, name: string) => `${count} ikon ${name.toLowerCase()}`,
   },
 
   categories: {
@@ -96,7 +96,7 @@ export const pages: Messages['pages'] = {
     intro:
       'Setiap ikon useAnimations adalah animasi Lottie JSON standar, jadi bisa diputar oleh Lottie player mana pun: lottie-web di web, lottie-ios, lottie-android, Flutter, dan React Native. File-nya gratis di bawah lisensi MIT, tanpa perlu mendaftar, dan disajikan dari URL tetap dengan CORS aktif, sehingga bisa Anda muat langsung atau unduh ke dalam proyek.',
     popular: 'Ikon Lottie populer',
-    allIcons: (count: number) => `Semua ${count} ikon →`,
+    allIcons: (count: number) => `Semua ${count} ikon`,
     filesTitle: 'File dan URL',
     filesIntroHtml: `Setiap ikon punya halaman di ${code('/icons/&lt;id&gt;')} (dalam bahasa Inggris) dengan pratinjau dan unduhan. File-nya sendiri:`,
     files: {
@@ -207,7 +207,7 @@ export const pages: Messages['pages'] = {
       `Ikon mengikuti warna teks, jadi ${code('text-primary')} atau ${code('text-muted-foreground')} langsung mengubah warnanya, dan dark mode tidak butuh pengaturan tambahan. Props dan pola lainnya ada di ${link(docs, 'dokumentasi')}.`,
     codeText: { closeMenu: 'Tutup menu', openMenu: 'Buka menu' },
     popular: 'Ikon populer untuk shadcn/ui',
-    allIcons: (count: number) => `Semua ${count} ikon →`,
+    allIcons: (count: number) => `Semua ${count} ikon`,
     popularNote: 'Setiap halaman ikon (dalam bahasa Inggris) menampilkan perintah shadcn-nya.',
     faq: (f: { count: number; version: string }): Faq => [
       {

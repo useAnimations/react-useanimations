@@ -639,7 +639,8 @@ const jsonLd = {
                 <>
                   {' '}
                   <a href={item.link.href} class="text-fg underline underline-offset-4">
-                    {item.link.label} →
+                    {item.link.label}
+                    <ControlIcon client:idle icon="arrowRight" size={14} className="ml-0.5 align-[-2px]" />
                   </a>
                 </>
               )}

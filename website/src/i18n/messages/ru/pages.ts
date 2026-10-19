@@ -58,7 +58,7 @@ export const pages: Messages['pages'] = {
       `Все иконки набора, сгруппированные по категориям. Откройте любую, чтобы увидеть живое превью, код для React и shadcn/ui и скачать Lottie JSON, SVG или ZIP. Чтобы искать по ключевым словам и пробовать анимации прямо на месте, используйте ${link(browser, 'поиск по иконкам')}.`,
     categoriesNav: 'Категории',
     byInteraction: 'По взаимодействию:',
-    categoryLink: (count: number, name: string) => `${icons(count)} в категории «${name}» →`,
+    categoryLink: (count: number, name: string) => `${icons(count)} в категории «${name}»`,
   },
 
   categories: {
@@ -140,7 +140,7 @@ export const pages: Messages['pages'] = {
     intro:
       'Каждая иконка useAnimations — это стандартная анимация Lottie JSON, поэтому её воспроизводит любой Lottie-плеер: lottie-web в браузере, lottie-ios, lottie-android, Flutter и React Native. Файлы бесплатны по лицензии MIT, без регистрации, и отдаются по постоянным URL с включённым CORS, так что их можно загружать напрямую или скачать в свой проект.',
     popular: 'Популярные Lottie-иконки',
-    allIcons: (count: number) => `Все ${icons(count)} →`,
+    allIcons: (count: number) => `Все ${icons(count)}`,
     filesTitle: 'Файлы и URL',
     filesIntroHtml: `У каждой иконки есть страница ${code('/icons/&lt;id&gt;')} с превью и файлами для скачивания (на английском). Сами файлы:`,
     files: {
@@ -251,7 +251,7 @@ export const pages: Messages['pages'] = {
       `Иконки берут цвет текста, поэтому их перекрашивают ${code('text-primary')} или ${code('text-muted-foreground')}, а для тёмной темы ничего дополнительно делать не нужно. Остальные пропсы и приёмы — в ${link(docs, 'документации')}.`,
     codeText: { closeMenu: 'Закрыть меню', openMenu: 'Открыть меню' },
     popular: 'Популярные иконки для shadcn/ui',
-    allIcons: (count: number) => `Все ${icons(count)} →`,
+    allIcons: (count: number) => `Все ${icons(count)}`,
     popularNote: 'Команда shadcn есть на странице каждой иконки.',
     faq: (f: { count: number; version: string }): Faq => [
       {

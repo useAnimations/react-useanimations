@@ -1,6 +1,8 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import ControlIcon from '../../components/ControlIcon';
 import IconPreview from '../../components/IconPreview';
+import IconStill from '../../components/IconStill.astro';
 import IconUsageTabs from '../../components/IconUsageTabs.astro';
 import Layout from '../../layouts/Layout.astro';
 import { lastModifiedOf } from '../../lib/git';
@@ -144,8 +146,8 @@ const jsonLd = {
     <nav aria-label="Breadcrumb" class="text-sm text-muted">
       <ol class="flex flex-wrap items-center">
         <li><a href="/icons" class="hover:text-fg">Icons</a></li>
-        <li><span class="mx-1.5 text-subtle" aria-hidden="true">›</span><a href={categoryHref} class="hover:text-fg">{icon.category}</a></li>
-        <li><span class="mx-1.5 text-subtle" aria-hidden="true">›</span><span class="text-fg" aria-current="page">{icon.title}</span></li>
+        <li class="flex items-center" data-icon-trigger><ControlIcon client:idle icon="chevronRight" size={14} className="mx-1 text-subtle" /><a href={categoryHref} class="hover:text-fg">{icon.category}</a></li>
+        <li class="flex items-center"><ControlIcon client:idle icon="chevronRight" size={14} className="mx-1 text-subtle" /><span class="text-fg" aria-current="page">{icon.title}</span></li>
       </ol>
     </nav>
 
@@ -197,7 +199,8 @@ const jsonLd = {
             data-track="download"
             data-track-icon={icon.id}
             data-track-format="zip"
-            class="rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg hover:opacity-85">Download ZIP</a
+            class="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg hover:opacity-85"
+            ><ControlIcon client:idle icon="download" />Download ZIP</a
           >
           <a
             href={`/icons/${icon.id}.json`}
@@ -205,7 +208,8 @@ const jsonLd = {
             data-track="download"
             data-track-icon={icon.id}
             data-track-format="json"
-            class="rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2">Lottie JSON</a
+            class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
+            ><ControlIcon client:idle icon="download" />Lottie JSON</a
           >
           {
             states.map((state) => (
@@ -216,8 +220,9 @@ const jsonLd = {
                 data-track-icon={icon.id}
                 data-track-format="svg"
                 data-track-file={`${state}.svg`}
-                class="rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
+                class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
               >
+                <ControlIcon client:idle icon="download" />
                 {states.length > 1 ? `${state}.svg` : 'SVG'}
               </a>
             ))
@@ -272,7 +277,7 @@ const jsonLd = {
                   href={`/icons/${other.id}`}
                   class="flex items-center gap-4 rounded-2xl border border-line bg-surface p-4 transition hover:border-line-strong"
                 >
-                  <span data-useanimations="" class="block size-10 shrink-0 text-fg" set:html={other.preview} />
+                  <IconStill icon={other} class="size-10 shrink-0 text-fg" />
                   <span>
                     <span class="block text-sm font-medium text-fg">{other.title}</span>
                     <span class="mt-0.5 block text-sm text-muted">{variantNote(icon, other)}</span>
@@ -291,11 +296,11 @@ const jsonLd = {
         {
           faq.map(({ question, answer }) => (
             <details class="group py-4">
-              <summary class="cursor-pointer list-none font-medium text-fg marker:hidden">
-                <span class="mr-2 inline-block text-subtle transition group-open:rotate-90">›</span>
+              <summary class="flex cursor-pointer list-none items-center gap-2 font-medium text-fg [&::-webkit-details-marker]:hidden">
+                <ControlIcon client:idle icon="plusToX" on="open" className="shrink-0 text-subtle" />
                 {question}
               </summary>
-              <p class="mt-2 pl-5 text-sm text-muted">{answer}</p>
+              <p class="mt-2 pl-6 text-sm text-muted">{answer}</p>
             </details>
           ))
         }
@@ -309,8 +314,9 @@ const jsonLd = {
             <h2 id="related-title" class="text-lg font-semibold">
               Related icons
             </h2>
-            <a href={categoryHref} class="text-sm text-muted hover:text-fg">
-              All {icon.category.toLowerCase()} icons →
+            <a href={categoryHref} class="inline-flex items-center gap-1 text-sm text-muted hover:text-fg">
+              All {icon.category.toLowerCase()} icons
+              <ControlIcon client:idle icon="arrowRight" size={14} />
             </a>
           </div>
           <ul class="mt-4 grid grid-cols-[repeat(auto-fill,minmax(7.5rem,1fr))] gap-3">
@@ -320,7 +326,7 @@ const jsonLd = {
                   href={`/icons/${other.id}`}
                   class="flex aspect-[1/1.08] flex-col items-center justify-center gap-3 rounded-2xl border border-line bg-surface text-[13px] text-muted transition hover:border-line-strong hover:text-fg"
                 >
-                  <span data-useanimations="" class="block size-10 text-fg" set:html={other.preview} />
+                  <IconStill icon={other} class="size-10 text-fg" />
                   {other.title}
                 </a>
               </li>
@@ -331,8 +337,24 @@ const jsonLd = {
     }
 
     <nav aria-label="Other icons" class="mt-16 flex justify-between gap-4 border-t border-line pt-6 text-sm">
-      {previous ? <a href={`/icons/${previous.id}`} class="text-muted hover:text-fg">← {previous.title}</a> : <span />}
-      {next && <a href={`/icons/${next.id}`} class="text-muted hover:text-fg">{next.title} →</a>}
+      {
+        previous ? (
+          <a href={`/icons/${previous.id}`} class="inline-flex items-center gap-1 text-muted hover:text-fg">
+            <ControlIcon client:idle icon="arrowLeft" size={14} />
+            {previous.title}
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next && (
+          <a href={`/icons/${next.id}`} class="inline-flex items-center gap-1 text-muted hover:text-fg">
+            {next.title}
+            <ControlIcon client:idle icon="arrowRight" size={14} />
+          </a>
+        )
+      }
     </nav>
   </div>
 </Layout>

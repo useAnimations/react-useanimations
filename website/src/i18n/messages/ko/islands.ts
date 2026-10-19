@@ -34,7 +34,7 @@ export const islands: Messages['islands'] = {
     tabs: { react: 'React', shadcn: 'shadcn', files: '파일' },
     copy: '복사',
     download: '다운로드',
-    iconPage: '아이콘 페이지 →',
+    iconPage: '아이콘 페이지',
   },
   interactionDemo: {
     click: '카드를 클릭해 보세요',
