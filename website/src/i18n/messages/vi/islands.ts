@@ -45,6 +45,9 @@ export const islands: Messages['islands'] = {
     menu: 'Menu',
     nav: 'Điều hướng chính',
   },
+  search: {
+    clear: 'Xóa tìm kiếm',
+  },
   themeToggle: {
     toLight: 'Chuyển sang giao diện sáng',
     toDark: 'Chuyển sang giao diện tối',

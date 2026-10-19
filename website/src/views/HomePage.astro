@@ -3,11 +3,13 @@
 import type { Interaction } from 'react-useanimations';
 import CodeBlock from '../components/CodeBlock.astro';
 import ColorRow from '../components/ColorRow';
+import HoverIcon from '../components/HoverIcon';
 import IconCard from '../components/IconCard';
 import IconDialog, { type DialogIcon, type Templates } from '../components/IconDialog';
 import IconField from '../components/IconField.astro';
 import InstallCommand from '../components/InstallCommand.astro';
 import InteractionDemo from '../components/InteractionDemo';
+import SearchIcon from '../components/SearchIcon';
 import { alternatesOf, EN, type Locale, localize, t } from '../i18n';
 import Layout from '../layouts/Layout.astro';
 import { highlight } from '../lib/highlight';
@@ -244,11 +246,11 @@ const jsonLd = {
     <div class="relative mx-auto max-w-7xl px-5 pt-20 pb-10 text-center sm:px-8 sm:pt-28">
       <a
         href={href('/documentation#upgrading-from-v2')}
-        class="group mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 py-1 pr-3 pl-1 text-xs text-muted backdrop-blur transition hover:text-fg"
+        class="mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 py-1 pr-3 pl-1 text-xs text-muted backdrop-blur transition hover:text-fg"
       >
         <span class="rounded-full bg-accent px-2 py-0.5 font-medium text-accent-fg">v3</span>
         {h.hero.badge(icons.length)}
-        <span class="transition-transform group-hover:translate-x-0.5">→</span>
+        <HoverIcon client:idle icon="arrowRight" size={14} />
       </a>
       <p class="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-balance sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]">
         {h.hero.headline.start}<span class="text-gradient">{h.hero.headline.accent}</span>{h.hero.headline.end}
@@ -340,15 +342,7 @@ const jsonLd = {
       <div class="flex flex-wrap items-center gap-3">
         <label class="relative min-w-[16rem] flex-1">
           <span class="sr-only">{b.search}</span>
-          <svg
-            viewBox="0 0 24 24"
-            class="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-subtle"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg
-          >
+          <SearchIcon client:idle strings={m.islands.search} />
           <input
             data-search
             type="search"
@@ -370,14 +364,7 @@ const jsonLd = {
             <option value="">{b.allInteractions}</option>
             {(Object.keys(INTERACTIONS) as Interaction[]).map((value) => <option value={value}>{m.taxonomy.interactions[value].label}</option>)}
           </select>
-          <svg
-            viewBox="0 0 24 24"
-            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-subtle"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg
-          >
+          <HoverIcon client:idle icon="chevronDown" className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-subtle" />
         </label>
         <div class="flex items-center gap-1.5" role="group" aria-label={b.color}>
           {

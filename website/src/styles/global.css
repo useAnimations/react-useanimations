@@ -351,6 +351,11 @@
   }
 }
 
+/* The search field clears with its own animated X (components/SearchIcon.tsx), not the browser's. */
+[data-search]::-webkit-search-cancel-button {
+  appearance: none;
+}
+
 /* ICON BROWSER: one card per icon (components/IconCard.tsx). Plain classes instead of utility lists,
    which repeated 300 times on the home page. */
 .icon-card {

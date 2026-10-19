@@ -44,6 +44,9 @@ export const islands: Messages['islands'] = {
     menu: 'Menu',
     nav: 'Utama',
   },
+  search: {
+    clear: 'Hapus pencarian',
+  },
   themeToggle: {
     toLight: 'Beralih ke tema terang',
     toDark: 'Beralih ke tema gelap',

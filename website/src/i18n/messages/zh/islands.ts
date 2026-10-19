@@ -45,6 +45,9 @@ export const islands: Messages['islands'] = {
     menu: '菜单',
     nav: '主导航',
   },
+  search: {
+    clear: '清除搜索',
+  },
   themeToggle: {
     toLight: '切换到浅色主题',
     toDark: '切换到深色主题',

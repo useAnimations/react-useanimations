@@ -44,6 +44,9 @@ export const islands: Messages['islands'] = {
     menu: 'Menu',
     nav: 'Principal',
   },
+  search: {
+    clear: 'Limpar a pesquisa',
+  },
   themeToggle: {
     toLight: 'Mudar para o tema claro',
     toDark: 'Mudar para o tema escuro',
