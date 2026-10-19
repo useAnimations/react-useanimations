@@ -1,5 +1,6 @@
 ---
 // The index of every icon page (/icons) in any language, grouped like the home page; plain links, no scripts.
+import ControlIcon from '../components/ControlIcon';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import IconGrid from '../components/IconGrid.astro';
 import { alternatesOf, type Locale, localize, t } from '../i18n';
@@ -80,8 +81,9 @@ const jsonLd = {
             <h2 id={`${meta.slug}-title`} class="text-2xl font-semibold tracking-tight">
               <a href={href(categoryPath(meta))} class="hover:underline hover:underline-offset-4">{m.taxonomy.categories[meta.name].name}</a>
             </h2>
-            <a href={href(categoryPath(meta))} class="text-sm text-muted hover:text-fg">
+            <a href={href(categoryPath(meta))} class="inline-flex items-center gap-1 text-sm text-muted hover:text-fg">
               {p.categoryLink(group.length, m.taxonomy.categories[meta.name].name)}
+              <ControlIcon client:idle icon="arrowRight" size={14} />
             </a>
           </div>
           <IconGrid class="mt-4" icons={group} locale={locale} />

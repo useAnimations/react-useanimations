@@ -1,5 +1,6 @@
 ---
 // The shadcn/ui hub (/shadcn-animated-icons) in any language. The code examples stay English.
+import ControlIcon from '../components/ControlIcon';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CodeBlock from '../components/CodeBlock.astro';
 import FaqList from '../components/FaqList.astro';
@@ -129,7 +130,7 @@ const jsonLd = {
     <section class="mt-16" aria-labelledby="popular-title">
       <div class="flex flex-wrap items-baseline justify-between gap-3">
         <h2 id="popular-title" class="text-lg font-semibold">{p.popular}</h2>
-        <a href={href('/icons')} class="text-sm text-muted hover:text-fg">{p.allIcons(icons.length)}</a>
+        <a href={href('/icons')} class="inline-flex items-center gap-1 text-sm text-muted hover:text-fg">{p.allIcons(icons.length)}<ControlIcon client:idle icon="arrowRight" size={14} /></a>
       </div>
       <p class="mt-2 text-sm text-muted">{p.popularNote}</p>
       <IconGrid class="mt-4" icons={popular} locale={locale} />

@@ -1,5 +1,6 @@
 ---
 import { EN, type Locale } from '../i18n';
+import IconStill from './IconStill.astro';
 import type { Icon } from '../lib/icons';
 
 interface Props {
@@ -24,7 +25,7 @@ const lang = locale === EN ? undefined : 'en';
           hreflang={lang}
           class="flex aspect-[1/1.08] flex-col items-center justify-center gap-3 rounded-2xl border border-line bg-surface px-2 text-center text-[13px] text-muted transition hover:border-line-strong hover:text-fg"
         >
-          <span data-useanimations="" class="block size-10 text-fg" set:html={icon.preview} />
+          <IconStill icon={icon} class="size-10 text-fg" />
           {lang ? <span lang={lang}>{icon.title}</span> : icon.title}
         </a>
       </li>

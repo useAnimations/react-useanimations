@@ -29,7 +29,7 @@ export const pages: Messages['pages'] = {
     categoriesNav: 'Categorías',
     byInteraction: 'Por interacción:',
     categoryLink: (count: number, name: string) =>
-      name === 'Otros' ? `${icons(count)} más →` : `${icons(count)} de ${name.toLowerCase()} →`,
+      name === 'Otros' ? `${icons(count)} más` : `${icons(count)} de ${name.toLowerCase()}`,
   },
 
   categories: {
@@ -106,7 +106,7 @@ export const pages: Messages['pages'] = {
     intro:
       'Cada icono de useAnimations es una animación Lottie JSON estándar, así que cualquier reproductor de Lottie puede reproducirla: lottie-web en la web, lottie-ios, lottie-android, Flutter y React Native. Los archivos son gratis con la licencia MIT, sin registro, y se sirven desde URL estables con CORS habilitado, así que puedes cargarlos directamente o descargarlos en tu proyecto.',
     popular: 'Iconos Lottie populares',
-    allIcons: (count: number) => `Los ${count} iconos →`,
+    allIcons: (count: number) => `Los ${count} iconos`,
     filesTitle: 'Archivos y URL',
     filesIntroHtml: `Cada icono tiene una página en ${code('/icons/&lt;id&gt;')} (en inglés) con vista previa y descargas. Los archivos en sí:`,
     files: {
@@ -217,7 +217,7 @@ export const pages: Messages['pages'] = {
       `Los iconos siguen el color del texto, así que ${code('text-primary')} o ${code('text-muted-foreground')} les cambian el color y el modo oscuro no necesita nada más. Encontrarás más props y patrones en la ${link(docs, 'documentación')}.`,
     codeText: { closeMenu: 'Cerrar menú', openMenu: 'Abrir menú' },
     popular: 'Iconos populares para shadcn/ui',
-    allIcons: (count: number) => `Los ${count} iconos →`,
+    allIcons: (count: number) => `Los ${count} iconos`,
     popularNote: 'La página de cada icono (en inglés) muestra su comando de shadcn.',
     faq: (f: { count: number; version: string }): Faq => [
       {

@@ -25,7 +25,7 @@ export const pages: Messages['pages'] = {
     categoriesNav: 'カテゴリ',
     byInteraction: 'インタラクション別：',
     categoryLink: (count: number, name: string) =>
-      `${/[A-Za-z0-9]$/.test(name) ? `${name} ` : name}のアイコン ${count} 個 →`,
+      `${/[A-Za-z0-9]$/.test(name) ? `${name} ` : name}のアイコン ${count} 個`,
   },
 
   categories: {
@@ -104,7 +104,7 @@ export const pages: Messages['pages'] = {
     intro:
       'useAnimations のアイコンはすべて標準的な Lottie JSON アニメーションなので、Web の lottie-web をはじめ、lottie-ios、lottie-android、Flutter、React Native など、どの Lottie プレーヤーでも再生できます。ファイルは MIT ライセンスで無料、登録も不要です。CORS を有効にした固定の URL から配信しているので、直接読み込むことも、プロジェクトにダウンロードして使うこともできます。',
     popular: '人気の Lottie アイコン',
-    allIcons: (count: number) => `全 ${count} 個のアイコン →`,
+    allIcons: (count: number) => `全 ${count} 個のアイコン`,
     filesTitle: 'ファイルと URL',
     filesIntroHtml: `各アイコンには、プレビューとダウンロードを載せた ${code('/icons/&lt;id&gt;')} のページがあります。ファイル本体は次のとおりです：`,
     files: {
@@ -215,7 +215,7 @@ export const pages: Messages['pages'] = {
       `アイコンはテキストの色に追従するので、${code('text-primary')} や ${code('text-muted-foreground')} で色が変わり、ダークモードにも追加の対応は要りません。そのほかの props や使い方は${link(docs, 'ドキュメント')}を参照してください。`,
     codeText: { closeMenu: 'メニューを閉じる', openMenu: 'メニューを開く' },
     popular: '人気の shadcn/ui 用アイコン',
-    allIcons: (count: number) => `全 ${count} 個のアイコン →`,
+    allIcons: (count: number) => `全 ${count} 個のアイコン`,
     popularNote: 'shadcn のコマンドは各アイコンのページに載っています。',
     faq: (f: { count: number; version: string }): Faq => [
       {

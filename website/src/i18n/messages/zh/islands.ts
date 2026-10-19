@@ -34,7 +34,7 @@ export const islands: Messages['islands'] = {
     tabs: { react: 'React', shadcn: 'shadcn', files: '文件' },
     copy: '复制',
     download: '下载',
-    iconPage: '图标页面 →',
+    iconPage: '图标页面',
   },
   interactionDemo: {
     click: '点击卡片',

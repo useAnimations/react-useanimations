@@ -3,6 +3,7 @@
 // page where the page exists only in English (icon pages). Plain links in a <details>, so it works
 // without JavaScript and crawlers see every language version.
 import { BUILT, type Locale, localize, t } from '../i18n';
+import ControlIcon from './ControlIcon';
 
 interface Props {
   locale: Locale;
@@ -28,6 +29,7 @@ const flagClass = 'h-[15px] w-5 shrink-0 rounded-[3px] object-cover ring-1 ring-
       >
         <img src={flag(locale)} alt="" width="20" height="15" class={flagClass} />
         <span class="font-mono text-xs">{short(locale)}</span>
+        <ControlIcon client:idle icon="chevronDown" on="open" size={14} className="-ml-1 text-subtle" />
       </summary>
       <ul class="absolute right-0 z-50 mt-2 max-h-[70vh] w-60 overflow-y-auto rounded-2xl border border-line bg-bg p-1.5 shadow-xl">
         {languages.map(({ locale: l, href }) => (

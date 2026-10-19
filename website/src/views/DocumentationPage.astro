@@ -1,6 +1,7 @@
 ---
 // The documentation (/documentation) in any language; src/pages routes render it.
 import { alternatesOf, type Locale, localize, t } from '../i18n';
+import ControlIcon from '../components/ControlIcon';
 import Layout from '../layouts/Layout.astro';
 import { lastModifiedOf } from '../lib/git';
 import { icons, SITE } from '../lib/icons';
@@ -56,7 +57,11 @@ const markdown = locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown'
   <div class="mx-auto grid max-w-7xl gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-[14rem_minmax(0,1fr)] xl:grid-cols-[14rem_minmax(0,46rem)_1fr]">
     <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
       <details class="group rounded-2xl border border-line p-4 lg:border-0 lg:p-0" open>
-        <summary class="cursor-pointer text-sm font-medium text-fg lg:pointer-events-none lg:list-none">{m.docs.onThisPage}</summary>
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between text-sm font-medium text-fg lg:pointer-events-none [&::-webkit-details-marker]:hidden"
+        >
+          {m.docs.onThisPage}<ControlIcon client:idle icon="chevronDown" on="open" className="text-subtle lg:hidden" />
+        </summary>
         <nav aria-label={m.docs.onThisPage} class="mt-3">
           <ul class="space-y-0.5 border-l border-line">
             {
@@ -85,6 +90,10 @@ const markdown = locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown'
 </Layout>
 
 <script>
+  import { createElement } from 'react';
+  import { createRoot } from 'react-dom/client';
+  import ControlIcon from '../components/ControlIcon';
+
   // Highlights the section being read in the table of contents.
   const links = new Map(
     [...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')].map((link) => [link.dataset.toc!, link])
@@ -112,11 +121,14 @@ const markdown = locale.prefix ? [] : [{ rel: 'alternate', type: 'text/markdown'
     button.dataset.track = 'copy';
     button.dataset.trackCode = pre.dataset.language ?? 'docs';
     button.className =
-      'absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100';
+      'absolute top-2 right-2 inline-flex items-center gap-1 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent';
+    const icon = document.createElement('span');
+    icon.className = 'contents';
+    createRoot(icon).render(createElement(ControlIcon, { icon: 'copy', copied: 'checkmark', size: 14 }));
     const label = document.createElement('span');
     label.dataset.copyLabel = '';
     label.textContent = pre.closest<HTMLElement>('[data-copy-text]')?.dataset.copyText ?? 'Copy';
-    button.append(label);
+    button.append(icon, label);
     wrapper.append(button);
   }
 </script>

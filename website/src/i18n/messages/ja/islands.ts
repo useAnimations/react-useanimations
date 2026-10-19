@@ -33,7 +33,7 @@ export const islands: Messages['islands'] = {
     tabs: { react: 'React', shadcn: 'shadcn', files: 'ファイル' },
     copy: 'コピー',
     download: 'ダウンロード',
-    iconPage: 'アイコンのページ →',
+    iconPage: 'アイコンのページ',
   },
   interactionDemo: {
     click: 'カードをクリック',

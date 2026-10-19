@@ -24,7 +24,7 @@ export const pages: Messages['pages'] = {
       `세트의 모든 아이콘을 카테고리별로 모았습니다. 아이콘을 열면 실시간 미리보기, React·shadcn/ui 코드, Lottie JSON·SVG·ZIP 다운로드가 있습니다(아이콘 페이지는 영어로 제공됩니다). 키워드로 검색하고 애니메이션을 바로 재생해 보려면 ${link(browser, '아이콘 브라우저')}를 이용하세요.`,
     categoriesNav: '카테고리',
     byInteraction: '인터랙션별:',
-    categoryLink: (count: number, name: string) => `${name} 아이콘 ${count}개 →`,
+    categoryLink: (count: number, name: string) => `${name} 아이콘 ${count}개`,
   },
 
   categories: {
@@ -100,7 +100,7 @@ export const pages: Messages['pages'] = {
     intro:
       'useAnimations의 모든 아이콘은 표준 Lottie JSON 애니메이션이라서 웹의 lottie-web, lottie-ios, lottie-android, Flutter, React Native 등 어떤 Lottie 플레이어로도 재생할 수 있습니다. 파일은 MIT 라이선스로 무료이고 가입도 필요 없습니다. CORS가 허용된 고정 URL로 제공되므로 직접 불러오거나 프로젝트에 내려받아 쓰면 됩니다.',
     popular: '인기 Lottie 아이콘',
-    allIcons: (count: number) => `아이콘 ${count}개 전체 →`,
+    allIcons: (count: number) => `아이콘 ${count}개 전체`,
     filesTitle: '파일과 URL',
     filesIntroHtml: `각 아이콘에는 미리보기와 다운로드가 있는 ${code('/icons/&lt;id&gt;')} 페이지가 있습니다. 파일은 다음과 같습니다.`,
     files: {
@@ -212,7 +212,7 @@ export const pages: Messages['pages'] = {
       `아이콘은 텍스트 색상을 따라가므로 ${code('text-primary')}나 ${code('text-muted-foreground')}로 색을 바꿀 수 있고, 다크 모드에도 따로 할 일이 없습니다. 다른 props와 패턴은 ${link(docs, '문서')}에 있습니다.`,
     codeText: { closeMenu: '메뉴 닫기', openMenu: '메뉴 열기' },
     popular: 'shadcn/ui 인기 아이콘',
-    allIcons: (count: number) => `아이콘 ${count}개 전체 →`,
+    allIcons: (count: number) => `아이콘 ${count}개 전체`,
     popularNote: '각 아이콘 페이지에 shadcn 명령이 나와 있습니다.',
     faq: (f: { count: number; version: string }): Faq => [
       {

@@ -3,6 +3,7 @@
 // redirects (Google asks sites not to, and it would hide the other versions from crawlers and
 // people); it only suggests, in that language, and remembers a dismissal.
 import { BUILT, type Locale, t } from '../i18n';
+import ControlIcon from './ControlIcon';
 
 interface Props {
   locale: Locale;
@@ -25,8 +26,9 @@ const offers = BUILT.filter((l) => l !== locale && alternates[l.hreflang]).map((
 >
   <p data-text class="min-w-0 flex-1 text-fg"></p>
   <a data-action class="rounded-full bg-fg px-3.5 py-1.5 font-medium text-bg hover:opacity-85" data-track="language-banner"></a>
-  <button data-dismiss type="button" class="rounded-full px-2 py-1 text-muted hover:text-fg">
-    <span aria-hidden="true">×</span><span data-dismiss-label class="sr-only"></span>
+  <button data-dismiss type="button" class="inline-flex rounded-full p-1.5 text-muted hover:text-fg">
+    <!-- A plus that turns into an X when the banner shows. -->
+    <ControlIcon client:idle icon="plusToX" on="screen" /><span data-dismiss-label class="sr-only"></span>
   </button>
   <script type="application/json" data-offers set:html={JSON.stringify(offers)} />
 </div>

@@ -42,7 +42,7 @@ export const islands = {
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Files' },
     copy: 'Copy',
     download: 'Download',
-    iconPage: 'Icon page →',
+    iconPage: 'Icon page',
   },
   /** The interaction demo cards (home page and interaction pages): what to do with the card. */
   interactionDemo: {

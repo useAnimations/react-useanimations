@@ -1,4 +1,5 @@
 ---
+import ControlIcon from './ControlIcon';
 import Logo from './Logo.astro';
 import { BUILT, EN, type Locale, localize, t } from '../i18n';
 import { footer } from '../lib/site';
@@ -28,8 +29,9 @@ const languages = BUILT.map((l) => ({ locale: l, href: alternates?.[l.hreflang] 
           <ul class="mt-4 space-y-2.5">
             {column.links.map((link) => (
               <li>
-                <a href={link.href} class="text-sm text-muted transition-colors hover:text-fg">
+                <a href={link.href} class="inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-fg">
                   {link.label}
+                  {link.href.startsWith('https:') && <ControlIcon client:idle icon="externalLink" size={12} className="text-subtle" />}
                 </a>
               </li>
             ))}
