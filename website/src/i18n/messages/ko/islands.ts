@@ -45,6 +45,9 @@ export const islands: Messages['islands'] = {
     menu: '메뉴',
     nav: '주 메뉴',
   },
+  search: {
+    clear: '검색어 지우기',
+  },
   themeToggle: {
     toLight: '라이트 테마로 전환',
     toDark: '다크 테마로 전환',

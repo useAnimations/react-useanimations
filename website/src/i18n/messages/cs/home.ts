@@ -91,7 +91,7 @@ export const home: Messages['home'] = {
     title: 'Nainstalovat, importovat, hotovo.',
     intro:
       'React komponenta bez závislostí, registr shadcn, soubory ke stažení se stálými URL a katalog, který přečtou i AI agenti.',
-    docs: 'Přečíst dokumentaci →',
+    docs: 'Přečíst dokumentaci',
     tablist: 'Platforma',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Soubory', agents: 'Agenti' },
     codeText: {

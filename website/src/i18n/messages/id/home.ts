@@ -77,7 +77,7 @@ export const home: Messages['home'] = {
     title: 'Instal, import, selesai.',
     intro:
       'Komponen React tanpa dependensi, registry shadcn, file yang bisa diunduh dengan URL tetap, dan katalog yang bisa dibaca agen AI.',
-    docs: 'Baca dokumentasi →',
+    docs: 'Baca dokumentasi',
     tablist: 'Platform',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'File', agents: 'Agen AI' },
     codeText: {

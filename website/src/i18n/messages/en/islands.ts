@@ -55,6 +55,10 @@ export const islands = {
     menu: 'Menu',
     nav: 'Main',
   },
+  /** The search field of the icon browser: its X clears the search. */
+  search: {
+    clear: 'Clear search',
+  },
   themeToggle: {
     toLight: 'Switch to light theme',
     toDark: 'Switch to dark theme',

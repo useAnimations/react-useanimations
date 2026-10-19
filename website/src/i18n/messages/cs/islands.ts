@@ -44,6 +44,9 @@ export const islands: Messages['islands'] = {
     menu: 'Menu',
     nav: 'Hlavní navigace',
   },
+  search: {
+    clear: 'Vymazat hledání',
+  },
   themeToggle: {
     toLight: 'Přepnout na světlý motiv',
     toDark: 'Přepnout na tmavý motiv',

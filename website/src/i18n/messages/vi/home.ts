@@ -77,7 +77,7 @@ export const home: Messages['home'] = {
     title: 'Cài, import, xong.',
     intro:
       'Một React component không có dependency, một shadcn registry, các tệp tải về với URL cố định, và một catalog mà AI agent đọc được.',
-    docs: 'Đọc tài liệu →',
+    docs: 'Đọc tài liệu',
     tablist: 'Nền tảng',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Tệp', agents: 'Agent' },
     codeText: {

@@ -81,7 +81,7 @@ export const home: Messages['home'] = {
     title: 'Установили, импортировали, готово.',
     intro:
       'React-компонент без зависимостей, shadcn-реестр, файлы для скачивания по постоянным URL и каталог, который умеют читать ИИ-агенты.',
-    docs: 'Читать документацию →',
+    docs: 'Читать документацию',
     tablist: 'Платформа',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Файлы', agents: 'Агенты' },
     codeText: {

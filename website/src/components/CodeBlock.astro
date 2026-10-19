@@ -1,6 +1,7 @@
 ---
 import { EN, type Locale, t } from '../i18n';
 import { highlight } from '../lib/highlight';
+import ControlIcon from './ControlIcon';
 
 interface Props {
   code: string;
@@ -25,7 +26,7 @@ const html = await highlight(code, lang);
     data-copy-from="[data-code]"
     data-track="copy"
     {...trackData}
-    class="absolute top-2 right-2 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent"
-    ><span data-copy-label>{t(locale).common.copy}</span></button
+    class="absolute top-2 right-2 inline-flex items-center gap-1 rounded-lg border border-line bg-surface px-2 py-1 text-xs text-muted opacity-0 transition group-hover/code:opacity-100 focus:opacity-100 data-[copied]:text-accent"
+    ><ControlIcon client:idle icon="copy" size={14} /><span data-copy-label>{t(locale).common.copy}</span></button
   >
 </div>

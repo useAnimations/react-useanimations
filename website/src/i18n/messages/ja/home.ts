@@ -77,7 +77,7 @@ export const home: Messages['home'] = {
     title: 'インストールして、インポートするだけ。',
     intro:
       '依存関係のない React コンポーネント、shadcn レジストリ、URL が固定されたダウンロード用ファイル、そして AI エージェントが読めるカタログを用意しています。',
-    docs: 'ドキュメントを読む →',
+    docs: 'ドキュメントを読む',
     tablist: 'プラットフォーム',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'ファイル', agents: 'エージェント' },
     codeText: {
