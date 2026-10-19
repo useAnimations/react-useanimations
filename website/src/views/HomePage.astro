@@ -3,7 +3,7 @@
 import type { Interaction } from 'react-useanimations';
 import CodeBlock from '../components/CodeBlock.astro';
 import ColorRow from '../components/ColorRow';
-import HoverIcon from '../components/HoverIcon';
+import ControlIcon from '../components/ControlIcon';
 import IconCard from '../components/IconCard';
 import IconDialog, { type DialogIcon, type Templates } from '../components/IconDialog';
 import IconField from '../components/IconField.astro';
@@ -250,7 +250,7 @@ const jsonLd = {
       >
         <span class="rounded-full bg-accent px-2 py-0.5 font-medium text-accent-fg">v3</span>
         {h.hero.badge(icons.length)}
-        <HoverIcon client:idle icon="arrowRight" size={14} />
+        <ControlIcon client:idle icon="arrowRight" size={14} />
       </a>
       <p class="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-balance sm:text-7xl lg:text-[5.5rem] lg:leading-[0.95]">
         {h.hero.headline.start}<span class="text-gradient">{h.hero.headline.accent}</span>{h.hero.headline.end}
@@ -364,7 +364,7 @@ const jsonLd = {
             <option value="">{b.allInteractions}</option>
             {(Object.keys(INTERACTIONS) as Interaction[]).map((value) => <option value={value}>{m.taxonomy.interactions[value].label}</option>)}
           </select>
-          <HoverIcon client:idle icon="chevronDown" className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-subtle" />
+          <ControlIcon client:idle icon="chevronDown" className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-subtle" />
         </label>
         <div class="flex items-center gap-1.5" role="group" aria-label={b.color}>
           {
@@ -477,7 +477,7 @@ const jsonLd = {
         <a
           href={href('/documentation')}
           class="mt-8 inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm font-medium transition hover:bg-surface-2"
-          >{e.docs}</a
+          >{e.docs}<ControlIcon client:idle icon="arrowRight" /></a
         >
       </div>
       <div data-tabs class="min-w-0">
@@ -522,8 +522,10 @@ const jsonLd = {
       {f.title}
     </h2>
     <div class="mt-12 grid gap-4 md:grid-cols-6">
-      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-4">
-        <h3 class="text-lg font-semibold tracking-tight">{f.colors}</h3>
+      <article data-icon-trigger class="rounded-3xl border border-line bg-surface p-7 md:col-span-4">
+        <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+          <ControlIcon client:idle icon="droplet" size={20} className="text-accent" />{f.colors}
+        </h3>
         <p class="mt-2 max-w-md text-muted" set:html={f.colorsHtml} />
         <ColorRow
           client:visible
@@ -535,25 +537,33 @@ const jsonLd = {
           }))}
         />
       </article>
-      <article class="flex flex-col justify-between rounded-3xl border border-line bg-surface p-7 md:col-span-2">
-        <h3 class="text-lg font-semibold tracking-tight">{f.tiny}</h3>
+      <article data-icon-trigger class="flex flex-col justify-between rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+          <ControlIcon client:idle icon="package" size={20} className="text-accent" />{f.tiny}
+        </h3>
         <p class="mt-10 text-6xl font-semibold tracking-tight">8<span class="text-3xl text-muted"> kB</span></p>
         <p class="mt-2 text-muted">{f.tinyText}</p>
       </article>
-      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
-        <h3 class="text-lg font-semibold tracking-tight">{f.accessible}</h3>
+      <article data-icon-trigger class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+          <ControlIcon client:idle icon="users" size={20} className="text-accent" />{f.accessible}
+        </h3>
         <p class="mt-2 text-muted">
           {f.accessibleText}
         </p>
       </article>
-      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
-        <h3 class="text-lg font-semibold tracking-tight">{f.ssr}</h3>
+      <article data-icon-trigger class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+          <ControlIcon client:idle icon="server" size={20} className="text-accent" />{f.ssr}
+        </h3>
         <p class="mt-2 text-muted">
           {f.ssrText}
         </p>
       </article>
-      <article class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
-        <h3 class="text-lg font-semibold tracking-tight">{f.agents}</h3>
+      <article data-icon-trigger class="rounded-3xl border border-line bg-surface p-7 md:col-span-2">
+        <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+          <ControlIcon client:idle icon="cpu" size={20} className="text-accent" />{f.agents}
+        </h3>
         <p class="mt-2 text-muted" set:html={f.agentsHtml('/icons.json', '/llms.txt')} />
       </article>
     </div>
@@ -621,7 +631,7 @@ const jsonLd = {
           <details class="group py-5">
             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium [&::-webkit-details-marker]:hidden">
               <h3>{item.question}</h3>
-              <span class="text-subtle transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              <ControlIcon client:idle icon="plusToX" on="open" size={20} className="text-subtle" />
             </summary>
             <p class="mt-3 leading-relaxed text-muted">
               {item.answer}
@@ -650,8 +660,10 @@ const jsonLd = {
       <p class="relative mx-auto mt-4 max-w-xl text-lg text-muted">{h.cta.text}</p>
       <div class="relative mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <InstallCommand locale={locale} />
-        <a href={href('/documentation')} class="rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg hover:opacity-90"
-          >{h.cta.start}</a
+        <a
+          href={href('/documentation')}
+          class="inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg hover:opacity-90"
+          >{h.cta.start}<ControlIcon client:idle icon="arrowRight" /></a
         >
       </div>
     </div>

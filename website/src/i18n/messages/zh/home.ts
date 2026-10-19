@@ -75,7 +75,7 @@ export const home: Messages['home'] = {
     title: '安装、导入，就这么简单。',
     intro:
       '零依赖的 React 组件、shadcn 注册表、带固定网址的可下载文件，以及 AI 智能体可以读取的图标目录。',
-    docs: '阅读文档 →',
+    docs: '阅读文档',
     tablist: '平台',
     tabs: { react: 'React', shadcn: 'shadcn', files: '文件', agents: '智能体' },
     codeText: {

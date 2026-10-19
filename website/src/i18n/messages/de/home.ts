@@ -77,7 +77,7 @@ export const home: Messages['home'] = {
     title: 'Installieren, importieren, fertig.',
     intro:
       'Eine React-Komponente ohne Abhängigkeiten, eine shadcn-Registry, Dateien zum Herunterladen unter stabilen URLs und ein Katalog, den KI-Agenten lesen können.',
-    docs: 'Zur Dokumentation →',
+    docs: 'Zur Dokumentation',
     tablist: 'Plattform',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Dateien', agents: 'Agenten' },
     codeText: {

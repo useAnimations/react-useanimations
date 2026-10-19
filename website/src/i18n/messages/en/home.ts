@@ -121,7 +121,7 @@ export const home = {
     title: 'Install, import, done.',
     intro:
       'A React component with no dependencies, a shadcn registry, downloadable files with stable URLs, and a catalog that AI agents can read.',
-    docs: 'Read the documentation →',
+    docs: 'Read the documentation',
     /** Accessible name of the tab list (screen readers only). */
     tablist: 'Platform',
     /** Tab names; React and shadcn are names and stay as they are. */

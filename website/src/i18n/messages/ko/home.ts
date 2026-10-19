@@ -81,7 +81,7 @@ export const home: Messages['home'] = {
     title: '설치하고, 가져오면 끝.',
     intro:
       '의존성 없는 React 컴포넌트, shadcn 레지스트리, 고정 URL로 내려받는 파일, 그리고 AI 에이전트가 읽을 수 있는 카탈로그를 제공합니다.',
-    docs: '문서 읽기 →',
+    docs: '문서 읽기',
     tablist: '플랫폼',
     tabs: { react: 'React', shadcn: 'shadcn', files: '파일', agents: '에이전트' },
     codeText: {

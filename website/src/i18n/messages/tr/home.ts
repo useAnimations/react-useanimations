@@ -77,7 +77,7 @@ export const home: Messages['home'] = {
     title: 'Kur, import et, bitti.',
     intro:
       'Bağımlılığı olmayan bir React bileşeni, bir shadcn registry, kalıcı URL’lerden indirilebilen dosyalar ve yapay zekâ ajanlarının okuyabildiği bir katalog.',
-    docs: 'Dokümantasyonu okuyun →',
+    docs: 'Dokümantasyonu okuyun',
     tablist: 'Platform',
     tabs: { react: 'React', shadcn: 'shadcn', files: 'Dosyalar', agents: 'Ajanlar' },
     codeText: {
